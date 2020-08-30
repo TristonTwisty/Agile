@@ -50,6 +50,8 @@ public class HoverboardMovement : MonoBehaviour
     [Tooltip("Is the ship on the ground?")]
     bool Grounded;
 
+
+
     private void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
