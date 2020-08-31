@@ -13,8 +13,13 @@ public class RailGrinding : MonoBehaviour
     [Tooltip("How the board follows the rail path")][SerializeField] private PathType Rail = PathType.CatmullRom;
     [Tooltip("Put in the rail waypoints to create rail path")][SerializeField] private Vector3[] PathValue = new Vector3[3];
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.CompareTag("Hoverboard"))
+        {
+            RailParticle.Play();
+        }
+
         if (other.gameObject.CompareTag("Hoverboard"))
         {
             if (Input.GetKeyDown("e"))
@@ -22,14 +27,6 @@ public class RailGrinding : MonoBehaviour
                 Hoverboard.GetComponent<HoverboardInput>().enabled = false;
                 Hoverboard.transform.DOPath(PathValue, Speed, Rail);
             }
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Hoverboard"))
-        {
-            RailParticle.Play();
         }
     }
 
