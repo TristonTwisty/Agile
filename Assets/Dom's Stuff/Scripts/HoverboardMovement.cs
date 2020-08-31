@@ -154,4 +154,12 @@ public class HoverboardMovement : MonoBehaviour
     {
         return rigidbody.velocity.magnitude / MaxSpeed;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("Rail End"))
+        {
+            this.GetComponent<HoverboardInput>().enabled = true;
+        }
+    }
 }
