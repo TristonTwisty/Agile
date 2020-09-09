@@ -6,6 +6,7 @@ using DG.Tweening;
 public class RingToss : MonoBehaviour
 {
     [Header("Behavior")]
+    public float Damage;
     [SerializeField] private GameObject Ring;
     [SerializeField] private Transform Player;
     [Tooltip("The particle system for when the ring is returning to the player")][SerializeField] private ParticleSystem RingDisperse;
@@ -61,31 +62,16 @@ public class RingToss : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        //When the ring reaches the end of it's arc
         if (other.gameObject.CompareTag("ArcEnd"))
         {
-            // Ring completes it's tween
-            Ring.transform.DOComplete();
-            // Ring's particle system is unparented and plays at ArcEnd
-            RingDisperse.transform.parent = null;
-            RingDisperse.Play();
-            // Ring disapears
-            Ring.GetComponent<MeshRenderer>().enabled = false;
+            ReturnRing();
+        }
 
-            // Waypoints are parented and moved to WaypointBases so they follow the player again
-            RingWaypointOne.transform.parent = WaypointBaseOne.transform;
-            RingWaypointOne.transform.localPosition = Vector3.zero;
-
-            RingWaypointTwo.transform.parent = WaypointBaseTwo.transform;
-            RingWaypointTwo.transform.localPosition = Vector3.zero;
-
-            RingWaypointThree.transform.parent = WaypointBaseThree.transform;
-            RingWaypointThree.transform.localPosition = Vector3.zero;
-
-            StraightWaypoint.transform.parent = StraightBase.transform;
-            StraightWaypoint.transform.localPosition = Vector3.zero;
-
-            // Ring waits a couple seconds before returning to player
-            StartCoroutine(RingRespawn());
+        //If ring hits an Enemy
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            DoDamage();
         }
 
         if (other.gameObject.CompareTag("Player"))
@@ -93,6 +79,38 @@ public class RingToss : MonoBehaviour
             Ring.GetComponent<MeshRenderer>().enabled = true;
             CanThrow = true;
         }
+    }
+
+    private void ReturnRing()
+    {
+        // Ring completes it's tween
+        Ring.transform.DOComplete();
+        // Ring's particle system is unparented and plays at ArcEnd
+        RingDisperse.transform.parent = null;
+        RingDisperse.Play();
+        // Ring disapears
+        Ring.GetComponent<MeshRenderer>().enabled = false;
+
+        // Waypoints are parented and moved to WaypointBases so they follow the player again
+        RingWaypointOne.transform.parent = WaypointBaseOne.transform;
+        RingWaypointOne.transform.localPosition = Vector3.zero;
+
+        RingWaypointTwo.transform.parent = WaypointBaseTwo.transform;
+        RingWaypointTwo.transform.localPosition = Vector3.zero;
+
+        RingWaypointThree.transform.parent = WaypointBaseThree.transform;
+        RingWaypointThree.transform.localPosition = Vector3.zero;
+
+        StraightWaypoint.transform.parent = StraightBase.transform;
+        StraightWaypoint.transform.localPosition = Vector3.zero;
+
+        // Ring waits a couple seconds before returning to player
+        StartCoroutine(RingRespawn());
+    }
+
+    private void DoDamage()
+    {
+
     }
 
     private void SetWaypoints()

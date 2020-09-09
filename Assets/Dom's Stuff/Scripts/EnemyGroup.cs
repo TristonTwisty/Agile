@@ -5,12 +5,13 @@ using UnityEngine;
 public class EnemyGroup : MonoBehaviour
 {
     public Transform Player;
-    public GameObject[] Enemies;
+    [Tooltip("All enemies triggered when stepping into this zone")] public GameObject[] Enemies;
 
     private void Awake()
     {
         foreach (GameObject enemy in Enemies)
         {
+            // Gives all enemies the player transform 
             enemy.GetComponent<EnemyMovement>().Target = Player;
         }
     }

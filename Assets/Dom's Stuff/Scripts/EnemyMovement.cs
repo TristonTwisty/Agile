@@ -7,7 +7,7 @@ using UnityEngine.AI;
 
 public class EnemyMovement : MonoBehaviour
 {
-    public Transform[] PatrolPoints;
+    [Tooltip("The areas the NPC will walk to")] public Transform[] PatrolPoints;
     private int DestinationPoint;
     private NavMeshAgent Agent;
 
@@ -17,6 +17,8 @@ public class EnemyMovement : MonoBehaviour
     private void Start()
     {
         Agent = GetComponent<NavMeshAgent>();
+
+        // Disabling auto braking stops AI from slowing down when it gets to a point
         Agent.autoBraking = false;
 
         DoPatrol();
