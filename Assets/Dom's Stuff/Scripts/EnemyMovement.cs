@@ -9,10 +9,15 @@ public class EnemyMovement : MonoBehaviour
 {
     [Tooltip("The areas the NPC will walk to")] public Transform[] PatrolPoints;
     private int DestinationPoint;
-    private NavMeshAgent Agent;
+    [HideInInspector] public NavMeshAgent Agent;
 
     [HideInInspector] public bool AttackPlayer = false;
     [HideInInspector] public Transform Target;
+
+    private void Awake()
+    {
+        Agent = GetComponent<NavMeshAgent>();
+    }
 
     private void Start()
     {

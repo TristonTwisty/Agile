@@ -42,22 +42,32 @@ public class RingToss : MonoBehaviour
         //Right Click to toss the ring at an arc
         if (Input.GetMouseButtonDown(1) && CanThrow == true)
         {
-            CanThrow = false;
-            // Waypoints are unparented from player so ring completes it's arc
-            RingWaypointOne.transform.parent = null;
-            RingWaypointTwo.transform.parent = null;
-            RingWaypointThree.transform.parent = null;
-            Ring.transform.DOPath(Waypoints, ThrowSpeed, Arc);
+            ArcShot();
         }
 
         // Left Click to toss ring forward
         if (Input.GetMouseButtonDown(0) && CanThrow == true)
         {
-            CanThrow = false;
-            // Waypoint is unparented from player so ring completes it's arc
-            StraightWaypoint.transform.parent = null;
-            Ring.transform.DOMove(StraightAway, ThrowSpeed);
+            StraightShot();
         }
+    }
+
+    private void ArcShot()
+    {
+        CanThrow = false;
+        // Waypoints are unparented from player so ring completes it's arc
+        RingWaypointOne.transform.parent = null;
+        RingWaypointTwo.transform.parent = null;
+        RingWaypointThree.transform.parent = null;
+        Ring.transform.DOPath(Waypoints, ThrowSpeed, Arc);
+    }
+
+    private void StraightShot()
+    {
+        CanThrow = false;
+        // Waypoint is unparented from player so ring completes it's arc
+        StraightWaypoint.transform.parent = null;
+        Ring.transform.DOMove(StraightAway, ThrowSpeed);
     }
 
     private void OnTriggerEnter(Collider other)
