@@ -7,7 +7,7 @@ public class RingToss : MonoBehaviour
 {
     [Header("Behavior")]
     public float Damage;
-    [SerializeField] private GameObject Ring;
+    private GameObject Ring;
     [SerializeField] private Transform Player;
     [Tooltip("The particle system for when the ring is returning to the player")][SerializeField] private ParticleSystem RingDisperse;
     private bool CanThrow = true;
@@ -33,6 +33,11 @@ public class RingToss : MonoBehaviour
     private Vector3[] Waypoints = new Vector3[3];
     [Tooltip("How fast the ring completes the arc")][SerializeField] private float ThrowSpeed = 5;
     [Tooltip("How fast the ring returns to player")] [SerializeField] private float ReturnSpeed = 1;
+
+    private void Start()
+    {
+        Ring = gameObject;
+    }
 
     private void Update()
     {
