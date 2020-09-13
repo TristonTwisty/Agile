@@ -11,25 +11,19 @@ public class RingToss : MonoBehaviour
     [SerializeField] private Transform Player;
     [Tooltip("The particle system for when the ring is returning to the player")][SerializeField] private ParticleSystem RingDisperse;
     private bool CanThrow = true;
+    private bool ReturnToPlayer = false;
 
     [Header("Arc Waypoints")]
-    [SerializeField] private GameObject RingWaypointOne;
-    [SerializeField] private GameObject RingWaypointTwo;
-    [SerializeField] private GameObject RingWaypointThree; //This waypoint should be tagged as "ArcEnd"
-    [SerializeField] private GameObject WaypointBaseOne;
-    [SerializeField] private GameObject WaypointBaseTwo;
-    [SerializeField] private GameObject WaypointBaseThree;
-    private Vector3 WaypointOne;
-    private Vector3 WaypointTwo;
-    private Vector3 WaypointThree;
+    [SerializeField] private Transform RingWaypointOne;
+    [SerializeField] private Transform RingWaypointTwo;
+    [SerializeField] private Transform RingWaypointThree;
 
     [Header("Straight Shot Waypoint")]
-    [SerializeField] private GameObject StraightWaypoint; // This waypoint should be tagged as "ArcEnd"
-    [SerializeField] private GameObject StraightBase;
+    [SerializeField] private Transform StraightWaypoint;
     private Vector3 StraightAway;
 
     [Header("Tweener")]
-    [Tooltip("The path type the disc will follow")][SerializeField] private PathType Arc = PathType.CatmullRom;
+    [Tooltip("The path type the disc will follow")][SerializeField] private PathType RingArc = PathType.CatmullRom;
     private Vector3[] Waypoints = new Vector3[3];
     [Tooltip("How fast the ring completes the arc")][SerializeField] private float ThrowSpeed = 5;
     [Tooltip("How fast the ring returns to player")] [SerializeField] private float ReturnSpeed = 1;
@@ -41,8 +35,7 @@ public class RingToss : MonoBehaviour
 
     private void Update()
     {
-
-        SetWaypoints();
+        SetWayPoints();
 
         //Right Click to toss the ring at an arc
         if (Input.GetMouseButtonDown(1) && CanThrow == true)
@@ -55,34 +48,30 @@ public class RingToss : MonoBehaviour
         {
             StraightShot();
         }
+
+        //Once the ring finishes it's arc the ring will return to player
+        if (ReturnToPlayer)
+        {
+            ReturnRing();
+        }
     }
 
     private void ArcShot()
     {
+        StartCoroutine(ReturnTimer());
         CanThrow = false;
-        // Waypoints are unparented from player so ring completes it's arc
-        RingWaypointOne.transform.parent = null;
-        RingWaypointTwo.transform.parent = null;
-        RingWaypointThree.transform.parent = null;
-        Ring.transform.DOPath(Waypoints, ThrowSpeed, Arc);
+        Ring.transform.DOPath(Waypoints, ThrowSpeed, RingArc);
     }
 
     private void StraightShot()
     {
+        StartCoroutine(ReturnTimer());
         CanThrow = false;
-        // Waypoint is unparented from player so ring completes it's arc
-        StraightWaypoint.transform.parent = null;
         Ring.transform.DOMove(StraightAway, ThrowSpeed);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        //When the ring reaches the end of it's arc
-        if (other.gameObject.CompareTag("ArcEnd"))
-        {
-            ReturnRing();
-        }
-
         //If ring hits an Enemy
         if (other.gameObject.CompareTag("Enemy"))
         {
@@ -96,61 +85,30 @@ public class RingToss : MonoBehaviour
         }
     }
 
-    private void ReturnRing()
-    {
-        // Ring completes it's tween
-        Ring.transform.DOComplete();
-        // Ring's particle system is unparented and plays at ArcEnd
-        RingDisperse.transform.parent = null;
-        RingDisperse.Play();
-        // Ring disapears
-        Ring.GetComponent<MeshRenderer>().enabled = false;
-
-        // Waypoints are parented and moved to WaypointBases so they follow the player again
-        RingWaypointOne.transform.parent = WaypointBaseOne.transform;
-        RingWaypointOne.transform.localPosition = Vector3.zero;
-
-        RingWaypointTwo.transform.parent = WaypointBaseTwo.transform;
-        RingWaypointTwo.transform.localPosition = Vector3.zero;
-
-        RingWaypointThree.transform.parent = WaypointBaseThree.transform;
-        RingWaypointThree.transform.localPosition = Vector3.zero;
-
-        StraightWaypoint.transform.parent = StraightBase.transform;
-        StraightWaypoint.transform.localPosition = Vector3.zero;
-
-        // Ring waits a couple seconds before returning to player
-        StartCoroutine(RingRespawn());
-    }
-
     private void DoDamage()
     {
 
     }
 
-    private void SetWaypoints()
+    private void ReturnRing()
     {
-        //Updates arc waypoints for arc attack
-        WaypointOne.Set(RingWaypointOne.transform.position.x, RingWaypointOne.transform.position.y, RingWaypointOne.transform.position.z);
-        WaypointTwo.Set(RingWaypointTwo.transform.position.x, RingWaypointTwo.transform.position.y, RingWaypointTwo.transform.position.z);
-        WaypointThree.Set(RingWaypointThree.transform.position.x, RingWaypointThree.transform.position.y, RingWaypointThree.transform.position.z);
-
-        Waypoints.SetValue(WaypointOne, 0);
-        Waypoints.SetValue(WaypointTwo, 1);
-        Waypoints.SetValue(WaypointThree, 2);
-
-        //Updates straight shot waypoint 
-        StraightAway.Set(StraightWaypoint.transform.position.x, StraightWaypoint.transform.position.y, StraightWaypoint.transform.position.z);
-
+        Ring.transform.position = Vector3.MoveTowards(transform.position, Player.position, ReturnSpeed);
     }
 
-    private IEnumerator RingRespawn()
+    private IEnumerator ReturnTimer()
     {
-        yield return new WaitForSeconds(ReturnSpeed);
-        // Ring returns to player
-        Ring.transform.localPosition = Vector3.zero;
-        // Ring's Particle system returned to ring
-        RingDisperse.transform.parent = Ring.transform;
-        RingDisperse.transform.localPosition = Vector3.zero;
+        yield return new WaitForSeconds(ThrowSpeed - ThrowSpeed);
+        ReturnToPlayer = true;
+    }
+
+    private void SetWayPoints()
+    {
+        //Updates waypoints for arc shot
+        Waypoints.SetValue(RingWaypointOne.position, 0);
+        Waypoints.SetValue(RingWaypointTwo.position, 1);
+        Waypoints.SetValue(RingWaypointThree.position, 2);
+
+        //Set Waypoint for straight shot
+        StraightAway = StraightWaypoint.position;
     }
 }

@@ -7,7 +7,6 @@ TagManager:
   - Floor
   - Hoverboard
   - Rail End
-  - ArcEnd
   - Enemy
   - Projectile
   layers:

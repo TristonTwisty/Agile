@@ -39,7 +39,6 @@ public class ParticleShield : MonoBehaviour
 
         if(Input.GetKeyUp(KeyCode.LeftControl))
         {
-            Debug.Log("Shield reset");
             ShieldPS.Stop();
             MeshRend.enabled = false;
             Collider.enabled = false;
