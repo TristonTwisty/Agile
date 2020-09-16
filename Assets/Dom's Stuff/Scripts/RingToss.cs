@@ -5,6 +5,7 @@ using DG.Tweening;
 
 public class RingToss : MonoBehaviour
 {
+    public WeaponObject RingObject;
     [Header("Behavior")]
     public float Damage;
     private GameObject Ring;
@@ -72,22 +73,11 @@ public class RingToss : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //If ring hits an Enemy
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            DoDamage();
-        }
-
         if (other.gameObject.CompareTag("Player"))
         {
             Ring.GetComponent<MeshRenderer>().enabled = true;
             CanThrow = true;
         }
-    }
-
-    private void DoDamage()
-    {
-
     }
 
     private void ReturnRing()
