@@ -3,48 +3,90 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(BoxCollider))]
+
 public class NewRingToss : MonoBehaviour
 {
-    [SerializeField] private float ThrowSpeed;
+    [SerializeField] private Transform Player;
+    [SerializeField] private float BounceAmount = 500;
     [SerializeField] private float ReturnSpeed;
-    //[SerializeField] private int ReflectionCount;
-    [Tooltip("How far the disc can go before automatically returning to player")][SerializeField] private float ReturnDistance;
-    private bool IsBoucning = false; //Marked true after first collision
-    private bool CanThrow = true; //Can player throw disc?
-    private bool Thrown = false; //Was the disc thrown?
-    private Vector3 NewVelocity; //The vector of the reflected object
+    [SerializeField] [Tooltip("How far the disc can travel before returning to player")] private float MaxDistance;
+
+    private Rigidbody RB;
+    private BoxCollider BC;
+    private Vector3 LastVelocity;
+    private bool Thrown = false;
+    private bool DoReturn = false;
+
+    private void Start()
+    {
+        RB = GetComponent<Rigidbody>();
+        BC =GetComponent<BoxCollider>();
+        BC.isTrigger = true;
+    }
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0) && CanThrow)
+        if (!Thrown && Input.GetMouseButtonDown(0))
         {
-            CanThrow = false;
-            Thrown = true;
+            ThrowDisc();
         }
         if (Thrown)
         {
-            DiscThrow();
+            if (Input.GetMouseButtonDown(1) || Vector3.Distance(transform.position, Player.position) > MaxDistance)
+            {
+                DoReturn = true;
+            }
         }
+        if (DoReturn)
+        {
+            ReturnDisc();
+        }
+
+        LastVelocity = RB.velocity;
     }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            GetComponent<BoxCollider>().isTrigger = false;
+            BC.isTrigger = false;
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            Thrown = false;
+            DoReturn = false;
+            RB.velocity = Vector3.zero;
+            RB.angularVelocity = Vector3.zero;
+            transform.position = Vector3.MoveTowards(transform.position, Player.position, 1);
+            transform.parent = Player;
+        }
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
-        NewVelocity = Vector3.Reflect(transform.position, collision.contacts[0].normal);
-        Bounce();
+        float Speed = LastVelocity.magnitude;
+        Vector3 Direction = Vector3.Reflect(LastVelocity.normalized, collision.contacts[0].normal);
+
+        RB.velocity = Direction * Mathf.Max(Speed, 0);
     }
-    private void DiscThrow()
+
+    private void ThrowDisc()
     {
-        transform.position = transform.position + Camera.main.transform.forward * ThrowSpeed * Time.deltaTime;
+        Thrown = true;
+        transform.parent = null;
+        RB.AddForce(Camera.main.transform.forward * BounceAmount, ForceMode.Force);
     }
-    private void Bounce()
+
+    private void ReturnDisc()
     {
-        //transform.Translate(NewVelocity * Time.deltaTime, Space.World);
-        transform.position = Vector3.MoveTowards(transform.position, NewVelocity, ThrowSpeed);
+        BC.isTrigger = true;
+        Vector3 Destination = Player.position - transform.position;
+        RB.velocity = Destination * ReturnSpeed;
     }
 }
