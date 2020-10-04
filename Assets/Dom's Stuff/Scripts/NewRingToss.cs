@@ -3,48 +3,125 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(BoxCollider))]
+
 public class NewRingToss : MonoBehaviour
 {
-    [SerializeField] private float ThrowSpeed;
-    [SerializeField] private float ReturnSpeed;
-    //[SerializeField] private int ReflectionCount;
-    [Tooltip("How far the disc can go before automatically returning to player")][SerializeField] private float ReturnDistance;
-    private bool IsBoucning = false; //Marked true after first collision
-    private bool CanThrow = true; //Can player throw disc?
-    private bool Thrown = false; //Was the disc thrown?
-    private Vector3 NewVelocity; //The vector of the reflected object
+    [Header("View")]
+    [SerializeField] [Tooltip("The object the ring follows")] private Transform RingHolster;
+    [SerializeField] [Tooltip("The trail renderer of the disc")] private TrailRenderer TR;
+
+    [Header("Mechanics")]
+    [SerializeField] [Tooltip("How fast the ring travels after being thrown")] private float ThrowSpeed = 500;
+    [SerializeField] [Tooltip("How how seconds it takes for ring to return to player")] private float ReturnSpeed;
+    [SerializeField] [Tooltip("How far the disc can travel before returning to player")] private float MaxDistance;
+
+    private Rigidbody RB;
+    private BoxCollider BC;
+    private Vector3 LastVelocity;
+    private bool Thrown = false; // Has the ring been thrown?
+    private bool DoReturn = false;
+
+    private void Start()
+    {
+        // Get ring's collider and rigidbody
+        // Set ring's collider to trigger
+        RB = GetComponent<Rigidbody>();
+        BC =GetComponent<BoxCollider>();
+        TR.enabled = false;
+        BC.isTrigger = true;
+    }
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0) && CanThrow)
+        if (!Thrown && Input.GetMouseButtonDown(0))
         {
-            CanThrow = false;
-            Thrown = true;
+            // If the ring was NOT thrown and player hits left mouse, throw ring
+            ThrowDisc();
+        }
+        if (!Thrown)
+        {
+            // If ring was not thrown, make the ring follow the ring holster
+            transform.position = Vector3.MoveTowards(transform.position, RingHolster.position, 1);
         }
         if (Thrown)
         {
-            DiscThrow();
+            // Check whether the ring was thrown
+            if (Input.GetMouseButtonDown(1) || Vector3.Distance(transform.position, RingHolster.position) > MaxDistance)
+            {
+                // If the ring is too far from the player, return the ring to the player
+                // If the player hits the right mouse, return the ring to the player
+                DoReturn = true;
+            }
         }
+        if (DoReturn)
+        {
+            ReturnDisc();
+        }
+
+        LastVelocity = RB.velocity;
     }
+
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (Thrown && other.gameObject.CompareTag("Player"))
         {
-            GetComponent<BoxCollider>().isTrigger = false;
+            // Change the ring's collider to collision when it leaves the player's collider
+            BC.isTrigger = false;
+
+            //Turn on trail renderer once the ring leaves the player
+            TR.enabled = true;
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (Thrown && other.gameObject.CompareTag("Player"))
+        {
+            // Trail renderer turns off once it hits the player
+            TR.enabled = false;
+
+            Thrown = false;
+            DoReturn = false;
+
+            // Stop all physics movement of the ring
+            RB.velocity = Vector3.zero;
+            RB.angularVelocity = Vector3.zero;
+
+            // Change ring's rotation to match holster
+            // Could also just freeze rigibody's rotation
+            transform.rotation = Quaternion.Euler(90, 0, 0);
+
+            transform.position = Vector3.MoveTowards(transform.position, RingHolster.position, 1);
+        }
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
-        NewVelocity = Vector3.Reflect(transform.position, collision.contacts[0].normal);
-        Bounce();
+        float Speed = LastVelocity.magnitude;
+        Vector3 Direction = Vector3.Reflect(LastVelocity.normalized, collision.contacts[0].normal);
+
+        RB.velocity = Direction * Mathf.Max(Speed, 0);
+
+        // If the ring hits the player, return ring to player
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            DoReturn = true;
+        }
     }
-    private void DiscThrow()
+
+    private void ThrowDisc()
     {
-        transform.position = transform.position + Camera.main.transform.forward * ThrowSpeed * Time.deltaTime;
+        Thrown = true;
+        RB.AddForce(Camera.main.transform.forward * ThrowSpeed, ForceMode.Force);
     }
-    private void Bounce()
+
+    private void ReturnDisc()
     {
-        //transform.Translate(NewVelocity * Time.deltaTime, Space.World);
-        transform.position = Vector3.MoveTowards(transform.position, NewVelocity, ThrowSpeed);
+        // Set ring back to trigger so it doesn't knock over player
+        BC.isTrigger = true;
+        Vector3 Destination = RingHolster.position - transform.position;
+        RB.velocity = Destination * ReturnSpeed;
     }
 }
