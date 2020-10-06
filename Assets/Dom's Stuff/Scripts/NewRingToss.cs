@@ -31,6 +31,9 @@ public class NewRingToss : MonoBehaviour
         BC =GetComponent<BoxCollider>();
         TR.enabled = false;
         BC.isTrigger = true;
+
+        // Move ring to player
+        transform.position = RingHolster.position;
     }
 
     private void Update()
@@ -91,7 +94,7 @@ public class NewRingToss : MonoBehaviour
 
             // Change ring's rotation to match holster
             // Could also just freeze rigibody's rotation
-            transform.rotation = Quaternion.Euler(90, 0, 0);
+            //transform.rotation = Quaternion.Euler(90, 0, 0);
 
             transform.position = Vector3.MoveTowards(transform.position, RingHolster.position, 1);
         }
