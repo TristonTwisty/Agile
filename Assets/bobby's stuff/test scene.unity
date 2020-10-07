@@ -3100,7 +3100,7 @@ MonoBehaviour:
       position:
         serializedVersion: 2
         x: 50
-        y: 100
+        y: 116
         width: 100
         height: 32
       isBreakpoint: 0
@@ -3171,8 +3171,8 @@ MonoBehaviour:
       colorIndex: 0
       position:
         serializedVersion: 2
-        x: 274
-        y: 107
+        x: 338
+        y: 101
         width: 100
         height: 32
       isBreakpoint: 0
@@ -3183,7 +3183,7 @@ MonoBehaviour:
           name: FINISHED
           isSystemEvent: 1
           isGlobal: 0
-        toState: State 1
+        toState: State 3
         linkStyle: 0
         linkConstraint: 0
         colorIndex: 0
@@ -3276,6 +3276,78 @@ MonoBehaviour:
         - realTime
         paramDataPos: 000000000000000000000000010000000200000000000000000000000000000004000000
         paramByteDataSize: 000000000000000000000000000000000000000004000000000000000000000001000000
+    - name: State 3
+      description: 
+      colorIndex: 0
+      position:
+        serializedVersion: 2
+        x: 205
+        y: 167
+        width: 100
+        height: 32
+      isBreakpoint: 0
+      isSequence: 0
+      hideUnused: 0
+      transitions:
+      - fsmEvent:
+          name: FINISHED
+          isSystemEvent: 1
+          isGlobal: 0
+        toState: State 1
+        linkStyle: 0
+        linkConstraint: 0
+        colorIndex: 0
+      actionData:
+        actionNames:
+        - HutongGames.PlayMaker.Actions.Wait
+        customNames:
+        - 
+        actionEnabled: 01
+        actionIsOpen: 01
+        actionStartIndex: 00000000
+        actionHashCodes: 48c01101
+        unityObjectParams: []
+        fsmGameObjectParams: []
+        fsmOwnerDefaultParams: []
+        animationCurveParams: []
+        functionCallParams: []
+        fsmTemplateControlParams: []
+        fsmEventTargetParams: []
+        fsmPropertyParams: []
+        layoutOptionParams: []
+        fsmStringParams: []
+        fsmObjectParams: []
+        fsmVarParams: []
+        fsmArrayParams: []
+        fsmEnumParams: []
+        fsmFloatParams:
+        - useVariable: 0
+          name: 
+          tooltip: 
+          showInInspector: 0
+          networkSync: 0
+          value: 3
+        fsmIntParams: []
+        fsmBoolParams: []
+        fsmVector2Params: []
+        fsmVector3Params: []
+        fsmColorParams: []
+        fsmRectParams: []
+        fsmQuaternionParams: []
+        stringParams:
+        - FINISHED
+        byteData: 00
+        arrayParamSizes: 
+        arrayParamTypes: []
+        customTypeSizes: 
+        customTypeNames: []
+        paramDataType: 0f0000001700000001000000
+        paramName:
+        - time
+        - finishEvent
+        - realTime
+        paramDataPos: 000000000000000000000000
+        paramByteDataSize: 000000000000000001000000
     events:
     - name: FINISHED
       isSystemEvent: 1
@@ -3362,9 +3434,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a79f7c4de57ce741b1b897ee21ec287, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Dashtime: 5
-  Dashspeed: 5
-  dashes: 0
 --- !u!1 &1389652727137966
 GameObject:
   m_ObjectHideFlags: 0
@@ -3563,7 +3632,7 @@ MonoBehaviour:
   _jumpPostGroundedToleranceTime: 0.15
   _maxMidAirJumps: 1
   _useRootMotion: 0
-  _rootMotionRotation: 0
+  _rootMotionRotation: 1
   _forwardSpeed: 5
   _backwardSpeed: 3
   _strafeSpeed: 4
