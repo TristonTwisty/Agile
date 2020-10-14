@@ -43,3 +43,13 @@ The following packages were added:
   com.unity.textmeshpro@2.1.1
   com.unity.timeline@1.2.15
   com.unity.ugui@1.0.0
+
+=== Wed Oct 14 11:30:20 2020
+
+Packages were changed.
+Update Mode: resetToDefaultDependencies
+
+The following packages were removed:
+  com.unity.postprocessing@2.3.0
+  com.unity.probuilder@4.2.3
+  com.unity.progrids@3.0.3-preview.6
