@@ -16,9 +16,5 @@ MonoBehaviour:
   playmakerVersion: 
   showWelcomeScreen: 1
   showUpgradeGuide: 0
-<<<<<<< HEAD:Assets/PlayMaker/Editor/Resources/EditorStartupPrefs.asset
-  lastAutoUpdateSignature: 2019.4.8f1__C:/Users/Bobby/Desktop/game2/Assets__0.0.0.0
-=======
-  lastAutoUpdateSignature: 2019.4.8f1__C:/Users/twist/Documents/Agile/Assets__0.0.0.0
->>>>>>> 9a0af1d19b853df147b7c8d63fe0929eecd3d80b:Assets/bobby's stuff/PlayMaker/Editor/Resources/EditorStartupPrefs.asset
+  lastAutoUpdateSignature: 
   useLegacyNetworking: 0
