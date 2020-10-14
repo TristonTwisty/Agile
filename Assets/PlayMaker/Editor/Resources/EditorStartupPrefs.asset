@@ -14,13 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   welcomeScreenVersion: '1.9.0 '
   playmakerVersion: 
-<<<<<<< HEAD
   showWelcomeScreen: 1
   showUpgradeGuide: 0
-  lastAutoUpdateSignature: 2019.4.8f1__C:/Users/Bobby/Desktop/game2/Assets__0.0.0.0
-=======
-  showWelcomeScreen: 0
-  showUpgradeGuide: 1
-  lastAutoUpdateSignature: 2019.4.8f1__C:/Users/Dman/Documents/Agile/Assets__0.0.0.0
->>>>>>> 77e634a9ef8eca4dbef4b57050bd0c599b47e12b
+  lastAutoUpdateSignature: 2019.4.8f1__C:/Users/twist/Documents/Agile/Assets__0.0.0.0
   useLegacyNetworking: 0
