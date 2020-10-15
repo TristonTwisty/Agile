@@ -7,7 +7,7 @@ TagManager:
   - Wall
   - Rail End
   - Hoverboard
-  - Projectile
+  - Particle Disc
   layers:
   - Default
   - TransparentFX
