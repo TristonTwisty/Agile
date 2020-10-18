@@ -12,7 +12,7 @@ public class RailGrinding : MonoBehaviour
 
     [Header("Tweener")]
     [Tooltip("How the board follows the rail path")][SerializeField] private PathType Rail = PathType.CatmullRom;
-    [Tooltip("Put in the rail waypoints to create rail path")][SerializeField] private Vector3[] PathValue = new Vector3[3];
+    [Tooltip("Put in the rail waypoints to create rail path")] [SerializeField] private Vector3[] PathValue;
 
     private void Update()
     {

@@ -7,8 +7,12 @@ TagManager:
   - Wall
   - Rail End
   - Hoverboard
+<<<<<<< HEAD
   - Projectile
   - Grappling Point
+=======
+  - Particle Disc
+>>>>>>> e21f5dbe07db0dabd69d45f8c1115f991b5283f1
   layers:
   - Default
   - TransparentFX

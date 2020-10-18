@@ -22,6 +22,7 @@ public class NewRingToss : MonoBehaviour
     private Vector3 LastVelocity;
     private bool Thrown = false; // Has the ring been thrown?
     private bool DoReturn = false;
+    [HideInInspector] public bool ThirdPerson;
 
     private void Start()
     {
@@ -31,6 +32,11 @@ public class NewRingToss : MonoBehaviour
         BC =GetComponent<BoxCollider>();
         TR.enabled = false;
         BC.isTrigger = true;
+
+        // Move ring to player
+        transform.position = RingHolster.position;
+
+        ThirdPerson = false;
     }
 
     private void Update()
@@ -38,7 +44,14 @@ public class NewRingToss : MonoBehaviour
         if (!Thrown && Input.GetMouseButtonDown(0))
         {
             // If the ring was NOT thrown and player hits left mouse, throw ring
-            ThrowDisc();
+            if (!ThirdPerson)
+            {
+                ThrowDisc();
+            }
+            else
+            {
+                StraightShot();
+            }
         }
         if (!Thrown)
         {
@@ -90,8 +103,7 @@ public class NewRingToss : MonoBehaviour
             RB.angularVelocity = Vector3.zero;
 
             // Change ring's rotation to match holster
-            // Could also just freeze rigibody's rotation
-            transform.rotation = Quaternion.Euler(90, 0, 0);
+            transform.rotation = Quaternion.Euler(90, 0, 180);
 
             transform.position = Vector3.MoveTowards(transform.position, RingHolster.position, 1);
         }
@@ -115,6 +127,12 @@ public class NewRingToss : MonoBehaviour
     {
         Thrown = true;
         RB.AddForce(Camera.main.transform.forward * ThrowSpeed, ForceMode.Force);
+    }
+
+    private void StraightShot()
+    {
+        Thrown = true;
+        RB.AddForce(transform.up * ThrowSpeed, ForceMode.Force);
     }
 
     private void ReturnDisc()
