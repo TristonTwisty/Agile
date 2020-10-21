@@ -138,6 +138,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Board
       objectReference: {fileID: 0}
+    - target: {fileID: 1460844681159780025, guid: 453f538ca28454b4e83a5e3ddff751d8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1460844681159780028, guid: 453f538ca28454b4e83a5e3ddff751d8,
         type: 3}
       propertyPath: Acceleration

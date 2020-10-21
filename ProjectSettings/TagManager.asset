@@ -4,8 +4,16 @@
 TagManager:
   serializedVersion: 2
   tags:
+<<<<<<< HEAD
   - Grappling Point
   - Floor
+=======
+  - Particle Disc
+  - Hoverboard
+  - Floor
+  - Slope
+  - Rail End
+>>>>>>> 019766fee2bb493a0cd4b490b46f1a59e36fb13a
   layers:
   - Default
   - TransparentFX
@@ -15,9 +23,15 @@ TagManager:
   - UI
   - 
   - 
+<<<<<<< HEAD
   - WallRun
   - 
   - Grappling
+=======
+  - Ground
+  - 
+  - 
+>>>>>>> 019766fee2bb493a0cd4b490b46f1a59e36fb13a
   - 
   - 
   - 
