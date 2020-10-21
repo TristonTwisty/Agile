@@ -238,6 +238,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1941879343550380, guid: 867b8d2eced67404186c5652491aa961, type: 3}
+      propertyPath: m_TagString
+      value: MainCamera
+      objectReference: {fileID: 0}
     - target: {fileID: 4477165101240748, guid: 867b8d2eced67404186c5652491aa961, type: 3}
       propertyPath: m_LocalPosition.x
       value: -23.91
@@ -392,7 +396,7 @@ Transform:
   m_LocalScale: {x: 9.567484, y: 5.7467513, z: 6.2247}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &703768749
 GameObject:
@@ -452,7 +456,7 @@ GameObject:
   - component: {fileID: 796206971}
   - component: {fileID: 796206970}
   - component: {fileID: 796206969}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: Grappling Point (1)
   m_TagString: Grappling Point
   m_Icon: {fileID: 0}
@@ -834,7 +838,7 @@ GameObject:
   - component: {fileID: 1570383615}
   - component: {fileID: 1570383614}
   - component: {fileID: 1570383613}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: Grappling Point
   m_TagString: Grappling Point
   m_Icon: {fileID: 0}
@@ -1023,11 +1027,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27f34c0a8c143be47904b85cb340e41f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grapplingLine: {fileID: 1075221972}
+  grapplingLine: {fileID: 1579895082}
   grapplingPoint: {x: 0, y: 0, z: 0}
   grapplingMask:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 1024
   gunTip: {fileID: 1075221968}
   camera: {fileID: 1291778500}
   player: {fileID: 1884322559}
@@ -1223,63 +1227,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1651611833}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1001 &1694583775
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1844213582924534, guid: b8f637dc62673e04881baeb8f5baa100, type: 3}
-      propertyPath: m_Name
-      value: ECM_CapsuleDummy
-      objectReference: {fileID: 0}
-    - target: {fileID: 4868824474846798, guid: b8f637dc62673e04881baeb8f5baa100, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -39.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 4868824474846798, guid: b8f637dc62673e04881baeb8f5baa100, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.56
-      objectReference: {fileID: 0}
-    - target: {fileID: 4868824474846798, guid: b8f637dc62673e04881baeb8f5baa100, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -7.13
-      objectReference: {fileID: 0}
-    - target: {fileID: 4868824474846798, guid: b8f637dc62673e04881baeb8f5baa100, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4868824474846798, guid: b8f637dc62673e04881baeb8f5baa100, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4868824474846798, guid: b8f637dc62673e04881baeb8f5baa100, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4868824474846798, guid: b8f637dc62673e04881baeb8f5baa100, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4868824474846798, guid: b8f637dc62673e04881baeb8f5baa100, type: 3}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4868824474846798, guid: b8f637dc62673e04881baeb8f5baa100, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4868824474846798, guid: b8f637dc62673e04881baeb8f5baa100, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4868824474846798, guid: b8f637dc62673e04881baeb8f5baa100, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: b8f637dc62673e04881baeb8f5baa100, type: 3}
 --- !u!1 &1719690615
 GameObject:
   m_ObjectHideFlags: 0
@@ -1292,7 +1239,7 @@ GameObject:
   - component: {fileID: 1719690619}
   - component: {fileID: 1719690618}
   - component: {fileID: 1719690617}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: Grappling Point (2)
   m_TagString: Grappling Point
   m_Icon: {fileID: 0}
@@ -1410,5 +1357,5 @@ Transform:
   - {fileID: 796206968}
   - {fileID: 1719690616}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

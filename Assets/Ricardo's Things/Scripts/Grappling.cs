@@ -78,7 +78,7 @@ public class Grappling : MonoBehaviour
     {
         if (!joint) return;
         grapplingLine.SetPosition(index: 0, gunTip.position);
-        grapplingLine.SetPosition(index: 0, grapplingPoint);
+        grapplingLine.SetPosition(index: 1, grapplingPoint);
     }
 
     void StopGrapple()
