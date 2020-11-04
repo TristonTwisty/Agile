@@ -16,5 +16,9 @@ MonoBehaviour:
   playmakerVersion: 
   showWelcomeScreen: 1
   showUpgradeGuide: 0
+<<<<<<< HEAD
   lastAutoUpdateSignature: 2019.4.8f1__C:/Users/Bobby/Desktop/game2/Assets__0.0.0.0
+=======
+  lastAutoUpdateSignature: 2019.4.8f1__C:/Users/Dman/Documents/Agile/Assets__0.0.0.0
+>>>>>>> 72210d9af8b2cc28370daee245bcd29362a2d470
   useLegacyNetworking: 0
