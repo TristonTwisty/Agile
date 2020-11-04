@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(EnemyMovement))]
-
 public class EnemyLogic : MonoBehaviour
 {
     public EnemyObject enemy;
