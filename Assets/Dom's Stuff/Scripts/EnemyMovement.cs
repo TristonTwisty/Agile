@@ -4,49 +4,34 @@ using UnityEngine;
 using UnityEngine.AI;
 public class EnemyMovement : MonoBehaviour
 {
-    [Tooltip("The areas the NPC will walk to")] public Transform[] PatrolPoints;
-    private int DestinationPoint;
+    [HideInInspector] public EnemyScripableObject EnemyOBJ = null;
     [HideInInspector] public NavMeshAgent Agent;
-
     [HideInInspector] public bool AttackPlayer = false;
     [HideInInspector] public Transform Target;
-
-    private void Awake()
-    {
-        Agent = GetComponent<NavMeshAgent>();
-    }
+    private float TargetDistance;
 
     private void Start()
     {
         Agent = GetComponent<NavMeshAgent>();
 
+        Agent.speed = EnemyOBJ.MovementSpeed;
+
         // Disabling auto braking stops AI from slowing down when it gets to a point
         Agent.autoBraking = false;
-
-        DoPatrol();
     }
 
     private void Update()
     {
-        if(!AttackPlayer)
+        TargetDistance = Vector3.Distance(Target.position, transform.position);
+        Agent.destination = Target.position;
+
+        if(TargetDistance <= EnemyOBJ.AttackRange)
         {
-            if(!Agent.pathPending && Agent.remainingDistance < .5f)
-            {
-                DoPatrol();
-            }
+            Agent.isStopped = true;
         }
         else
         {
-            Agent.destination = Target.position;
+            Agent.isStopped = false;
         }
-    }
-
-    private void DoPatrol()
-    {
-        if (PatrolPoints.Length == 0)
-            return;
-
-        Agent.destination = PatrolPoints[DestinationPoint].position;
-        DestinationPoint = (DestinationPoint + 1) % PatrolPoints.Length;
     }
 }

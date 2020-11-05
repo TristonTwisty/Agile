@@ -9,7 +9,7 @@ namespace Dom.EnemyCreator
 {
     public static class EnemyCreator
     {
-        [MenuItem("GameObject/Dom/Enemy", false, 0)]
+        [MenuItem("GameObject/Enemy Creator/Enemy", false, 0)]
         public static void CreatorCharacter()
         {
             // Create character with required comonents
@@ -17,8 +17,9 @@ namespace Dom.EnemyCreator
             Capsule.name = "Enemy";
             Capsule.AddComponent(typeof(Rigidbody));
             Capsule.AddComponent(typeof(NavMeshAgent));
-            Capsule.AddComponent(typeof(EnemyMovement));
             Capsule.AddComponent(typeof(EnemyLogic));
+            Capsule.AddComponent(typeof(EnemyMovement));
+            Capsule.AddComponent(typeof(EnemyAttack));
 
             var MR = Capsule.GetComponent<MeshRenderer>();
             MR.material = AssetDatabase.LoadAssetAtPath<Material>("Assets/Dom's Stuff/Materials/Enemy.mat");
