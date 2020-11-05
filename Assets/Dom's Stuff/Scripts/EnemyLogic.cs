@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class EnemyLogic : MonoBehaviour
 {
-    public EnemyObject enemy;
+    public EnemyScripableObject EnemyOBJ;
     private EnemyMovement movement;
 
     private void Start()
     {
         movement = GetComponent<EnemyMovement>();
-        movement.Agent.speed = enemy.Speed;
+        movement.Agent.speed = EnemyOBJ.MovementSpeed;
     }
 }
