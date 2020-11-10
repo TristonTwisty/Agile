@@ -1,23 +1,42 @@
-﻿using UnityEditor;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
+using UnityEngine.AI;
+using HutongGames.PlayMaker.Actions;
 
-public class EnemyCreator : EditorWindow
+namespace Dom.EnemyCreator
 {
-    EnemyObject Enemy;
-
-    [MenuItem("Window/ Enemy Creator")]
-
-    public static void ShowWindow()
+    public static class EnemyCreator
     {
-        EditorWindow.GetWindow<EnemyCreator>("Enemy Creator");
-    }
+        [MenuItem("GameObject/Enemy Creator/Enemy", false, 0)]
+        public static void CreatorCharacter()
+        {
+            // Create character with required comonents
+            GameObject Capsule = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+            Capsule.name = "Enemy";
+            Capsule.AddComponent(typeof(Rigidbody));
+            Capsule.AddComponent(typeof(NavMeshAgent));
+            Capsule.AddComponent(typeof(EnemyLogic));
+            Capsule.AddComponent(typeof(EnemyMovement));
+            Capsule.AddComponent(typeof(EnemyAttack));
 
-    private void OnGUI()
-    {
+            var MR = Capsule.GetComponent<MeshRenderer>();
+            MR.material = AssetDatabase.LoadAssetAtPath<Material>("Assets/Dom's Stuff/Materials/Enemy.mat");
 
-    }
-    static void CreatePrefab()
-    {
+            // Initialize rigibody
+            var RB = Capsule.GetComponent<Rigidbody>();
 
+            RB.angularDrag = 0f;
+            RB.useGravity = true;
+            RB.isKinematic = false;
+            RB.interpolation = RigidbodyInterpolation.Interpolate;
+            RB.freezeRotation = false;
+
+            // Focus the newly created character
+
+            Selection.activeGameObject = Capsule;
+            SceneView.FrameLastActiveSceneView();
+        }
     }
 }

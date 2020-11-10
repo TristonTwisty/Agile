@@ -9,10 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81d7081f53e438542a47e27d89074408, type: 3}
-  m_Name: ParticleDisc
+  m_Script: {fileID: 11500000, guid: d5f17dedf49e7f743bb1b4a1d4e141ff, type: 3}
+  m_Name: Dummy
   m_EditorClassIdentifier: 
-  WeaponName: Partical Disc
-  Description: 
-  AttackSpeed: 0
-  Damage: 0
+  EnemyName: Walker
+  Description: Crawly Boi
+  Health: 20
+  MovementSpeed: 5
+  AttackRate: 10
+  AttackRange: 10
+  DamageDealt: 10
+  DamageResistance: 0
+  FocusTime: 5

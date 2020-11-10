@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(EnemyMovement))]
-
 public class EnemyLogic : MonoBehaviour
 {
-    public EnemyObject enemy;
-    private EnemyMovement movement;
+    [SerializeField] private EnemyScripableObject EnemyObject;
+    [SerializeField] private ProjectileScriptableObjects ProjectileObject;
+    [SerializeField] private Transform Player;
 
-    private void Start()
+    private void Awake()
     {
-        movement = GetComponent<EnemyMovement>();
-        movement.Agent.speed = enemy.Speed;
+        GetComponent<EnemyMovement>().EnemyOBJ = EnemyObject;
+        GetComponent<EnemyMovement>().Target = Player;
+        GetComponent<EnemyAttack>().Target = Player;
+        GetComponent<EnemyAttack>().EnemyOBJ = EnemyObject;
+        GetComponent<EnemyAttack>().ProjectileObj = ProjectileObject;
     }
 }

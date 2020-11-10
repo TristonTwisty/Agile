@@ -5,19 +5,19 @@ using UnityEngine;
 public class CollectPowerup : MonoBehaviour
 {
     [SerializeField] private GameObject ParticleDisc = null;
-    [SerializeField] private bool CollectDisc;
+    [SerializeField] private bool CollectDisc = false;
 
     [SerializeField] private GameObject ParticleShield = null;
-    [SerializeField] private bool CollectShield;
+    [SerializeField] private bool CollectShield = false;
 
     [SerializeField] private GameObject DashBelt = null;
-    [SerializeField] private bool CollectBelt;
+    [SerializeField] private bool CollectBelt = false;
 
     //[SerializeField] private GameObject Hoverboard = null;
     //[SerializeField] private bool CollectBoard;
 
     [SerializeField] private GameObject MagneticBoots = null;
-    [SerializeField] private bool CollectBoots;
+    [SerializeField] private bool CollectBoots = false;
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))

@@ -43,8 +43,8 @@ public class HoverboardMovement : MonoBehaviour
     public float FallGravity = 80f;
 
     [Tooltip("Board's rigibody")]
-    Rigidbody rigidbody;
-    HoverboardInput Input;
+    private Rigidbody rigidbody;
+    private HoverboardInput Input;
     [Tooltip("The air resistasnce when moving forward")]
     float drag;
     [Tooltip("Is the ship on the ground?")]
