@@ -1,25 +1,25 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
 using UnityEngine.AI;
-using HutongGames.PlayMaker.Actions;
 
 namespace Dom.EnemyCreator
 {
     public static class EnemyCreator
     {
-        [MenuItem("GameObject/Enemy Creator/Enemy", false, 0)]
+        [MenuItem("GameObject/Enemy Creator/RangedEnemy", false, 0)]
         public static void CreatorCharacter()
         {
             // Create character with required comonents
             GameObject Capsule = GameObject.CreatePrimitive(PrimitiveType.Capsule);
-            Capsule.name = "Enemy";
+            Capsule.name = "Ranged Enemy";
             Capsule.AddComponent(typeof(Rigidbody));
             Capsule.AddComponent(typeof(NavMeshAgent));
-            Capsule.AddComponent(typeof(EnemyLogic));
-            Capsule.AddComponent(typeof(EnemyMovement));
-            Capsule.AddComponent(typeof(EnemyAttack));
+            Capsule.AddComponent(typeof(EnemyBehavior));
+            Capsule.AddComponent(typeof(Animator));
+            Capsule.GetComponent<EnemyBehavior>().EnemyType = EnemyBehavior.AttackType.RangeHumanoid;
+            GameObject Barrel = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            Barrel.name = "Fire Point";
+            Barrel.transform.parent = Capsule.transform;
 
             var MR = Capsule.GetComponent<MeshRenderer>();
             MR.material = AssetDatabase.LoadAssetAtPath<Material>("Assets/Dom's Stuff/Materials/Enemy.mat");
