@@ -9,13 +9,13 @@ using UnityEngine;
 public class NewRingToss : MonoBehaviour
 {
     [Header("View")]
-    [SerializeField] [Tooltip("The object the ring follows")] private Transform RingHolster;
-    [SerializeField] [Tooltip("The trail renderer of the disc")] private TrailRenderer TR;
+    [SerializeField] [Tooltip("The object the ring follows")] private Transform RingHolster = null;
+    [SerializeField] [Tooltip("The trail renderer of the disc")] private TrailRenderer TR = null;
 
     [Header("Mechanics")]
     [SerializeField] [Tooltip("How fast the ring travels after being thrown")] private float ThrowSpeed = 500;
-    [SerializeField] [Tooltip("How how seconds it takes for ring to return to player")] private float ReturnSpeed;
-    [SerializeField] [Tooltip("How far the disc can travel before returning to player")] private float MaxDistance;
+    [SerializeField] [Tooltip("How how seconds it takes for ring to return to player")] private float ReturnSpeed = 0f;
+    [SerializeField] [Tooltip("How far the disc can travel before returning to player")] private float MaxDistance = 0f;
 
     private Rigidbody RB;
     private BoxCollider BC;

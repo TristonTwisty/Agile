@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81d7081f53e438542a47e27d89074408, type: 3}
-  m_Name: ParticleDisc
+  m_Script: {fileID: 11500000, guid: 10b2bc14d1a8dff46a7401f3a60dba9e, type: 3}
+  m_Name: Blaster
   m_EditorClassIdentifier: 
-  WeaponName: Partical Disc
-  Description: 
-  AttackSpeed: 0
-  Damage: 0
+  Projectile: {fileID: 7150047210969756194, guid: 5f48a5aee67032e4885c2773384d64dd,
+    type: 3}
+  DamageDealt: 10
+  ProjectileSpeed: 5
