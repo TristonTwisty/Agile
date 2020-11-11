@@ -448,7 +448,7 @@ GameObject:
   - component: {fileID: 556320884}
   - component: {fileID: 556320887}
   - component: {fileID: 556320886}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GunPickupPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -626,7 +626,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1141073716}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Sheild Pos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -656,7 +656,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1176232907}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Camera_Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -853,7 +853,7 @@ GameObject:
   - component: {fileID: 1400360271}
   - component: {fileID: 1400360270}
   - component: {fileID: 1400360269}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Camera
   m_TagString: PlayerCamera
   m_Icon: {fileID: 0}
@@ -949,7 +949,7 @@ GameObject:
   - component: {fileID: 1481872769}
   - component: {fileID: 1481872768}
   - component: {fileID: 1481872767}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ECM_FirstPerson
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1203,7 +1203,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1808467889}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Ring Holster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1462,6 +1462,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Sheild Item
+      objectReference: {fileID: 0}
+    - target: {fileID: 3425523116231074372, guid: 6b6729954c6a07f408800042b6a49b86,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3425523116231074372, guid: 6b6729954c6a07f408800042b6a49b86,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 3425523116231074375, guid: 6b6729954c6a07f408800042b6a49b86,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4537564173341762462, guid: 6b6729954c6a07f408800042b6a49b86,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4537564174305494984, guid: 6b6729954c6a07f408800042b6a49b86,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b6729954c6a07f408800042b6a49b86, type: 3}
