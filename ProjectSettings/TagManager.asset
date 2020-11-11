@@ -3,9 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
+<<<<<<< HEAD
+  tags: []
+=======
   tags:
   - Kill
   - Projectile
+>>>>>>> 5016689ae2f06308a78590b527ff45393f043ffd
   layers:
   - Default
   - TransparentFX
