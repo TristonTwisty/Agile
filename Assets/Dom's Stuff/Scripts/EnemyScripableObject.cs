@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.UIElements;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Enemy SO", menuName = "Enemy Statistics")]
 public class EnemyScripableObject : ScriptableObject
@@ -13,6 +10,5 @@ public class EnemyScripableObject : ScriptableObject
     public float AttackRate;
     public float AttackRange;
     public float DamageDealt;
-    public float DamageResistance;
-    public float FocusTime;
+    public ProjectileScriptableObjects ProjectileOBJ;
 }
