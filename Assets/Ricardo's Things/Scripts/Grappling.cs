@@ -11,7 +11,8 @@ public class Grappling : MonoBehaviour
     public Transform gunTip, camera, player;
     public float maxDistance = 100f;
     public SpringJoint joint;
-  
+    public Inventory script;
+
 
 
 
@@ -23,6 +24,10 @@ public class Grappling : MonoBehaviour
     void Start()
     {
         grapplingLine = GetComponent<LineRenderer>();
+        script = GameObject.FindGameObjectWithTag("Inventory").GetComponent<Inventory>();
+
+        camera = script.PlayerCamera.transform;
+        player = script.Player.transform;
     }
 
     // Update is called once per frame
@@ -49,12 +54,13 @@ public class Grappling : MonoBehaviour
     void StartGrapple()
     {
         RaycastHit hit;
-        if(Physics.Raycast(origin: camera.position, direction:camera.forward, out hit, maxDistance))
+        if(Physics.Raycast(origin: camera.position, direction:camera.forward, out hit, maxDistance, grapplingMask))
         {
             grapplingPoint = hit.point;
             joint = player.gameObject.AddComponent<SpringJoint>();
             joint.autoConfigureConnectedAnchor = false;
             joint.connectedAnchor = grapplingPoint;
+
 
             float distanceFromPoint = Vector3.Distance(a: player.transform.position, b: grapplingPoint);
 
@@ -69,6 +75,10 @@ public class Grappling : MonoBehaviour
 
             grapplingLine.positionCount = 2;
             
+        }
+        else
+        {
+            Debug.Log("not on grapplingMask layer");
         }
         
     }
