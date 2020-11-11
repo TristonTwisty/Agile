@@ -9,12 +9,14 @@ public class Inventory : MonoBehaviour
     public Rigidbody RbPlayer;
     public GameObject PlayerCamera;
     public GameObject GunPos;
+    public GameObject SheildPos;
     public string LastHeld;
 
     [Header("Items")]
     public GameObject Board;
     public GameObject Disk;
     public GameObject Whip;
+    public GameObject Sheild;
     private GameObject Iteminventory;
 
     [Header("Board Settings")]
@@ -49,6 +51,7 @@ public class Inventory : MonoBehaviour
         PlayerCamera = GameObject.FindGameObjectWithTag("PlayerCamera");
         Iteminventory = GameObject.FindGameObjectWithTag("Inventory");
         GunPos = GameObject.Find("GunPickupPos");
+        SheildPos = GameObject.Find("Sheild Pos");
 
 
         //finding all Board things needed to manage
@@ -230,5 +233,13 @@ public class Inventory : MonoBehaviour
         }
 
         LastHeld = "Whip";
+    }
+
+    public void PickupShield()
+    {
+        Sheild.gameObject.SetActive(true);
+        Sheild.transform.parent = null;
+        Sheild.transform.parent = PlayerCamera.transform;
+        Sheild.transform.position = SheildPos.transform.position;
     }
 }

@@ -4,17 +4,13 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Particle Disc
-  - Grappling Point
-  - Floor
-  - Hoverboard
-  - Rail End
-  - WallRun
-  - Projectile
+  - Inventory
   - PlayerCamera
+  - Particle Disc
+  - Hoverboard
   - Board Camera
   - Whip
-  - Inventory
+  - Sheild
   layers:
   - Default
   - TransparentFX
@@ -24,13 +20,8 @@ TagManager:
   - UI
   - 
   - 
-<<<<<<< HEAD
-  - WallRun
   - grapplingMask
-=======
-  - Level
   - 
->>>>>>> ee5a94b5b19f323a32b2f30d5f06519a96a050b1
   - 
   - 
   - 
