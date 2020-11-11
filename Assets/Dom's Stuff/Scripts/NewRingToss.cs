@@ -22,6 +22,7 @@ public class NewRingToss : MonoBehaviour
     private Vector3 LastVelocity;
     private bool Thrown = false; // Has the ring been thrown?
     private bool DoReturn = false;
+    private GameObject PlayerCamera;
     [HideInInspector] public bool ThirdPerson;
 
     private void Start()
@@ -32,6 +33,7 @@ public class NewRingToss : MonoBehaviour
         BC =GetComponent<BoxCollider>();
         TR.enabled = false;
         BC.isTrigger = true;
+        PlayerCamera = GameObject.FindGameObjectWithTag("PlayerCamera");
 
         // Move ring to player
         transform.position = RingHolster.position;
@@ -126,7 +128,7 @@ public class NewRingToss : MonoBehaviour
     private void ThrowDisc()
     {
         Thrown = true;
-        RB.AddForce(Camera.main.transform.forward * ThrowSpeed, ForceMode.Force);
+        RB.AddForce(PlayerCamera.transform.forward * ThrowSpeed, ForceMode.Force);
     }
 
     private void StraightShot()

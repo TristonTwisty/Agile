@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GetOnBoard : MonoBehaviour
+public class Pickup : MonoBehaviour
 {
-
     public Inventory script;
+    public string FunctionToCall;
+    public string Debug;
 
     private void Start()
     {
@@ -16,8 +17,8 @@ public class GetOnBoard : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            Debug.Log("Sending information to inventory");
-            script.OnTriggerEnterBoardFunction();
+            print(Debug);
+            script.Invoke(FunctionToCall, 0f);
         }
 
     }

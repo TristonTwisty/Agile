@@ -148,6 +148,12 @@ MonoBehaviour:
   maxWallRunCameraTilt: 1
   wallRunCameraTilt: 1
   orientation: {fileID: 759739796}
+--- !u!4 &165126048 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4477165101240748, guid: 867b8d2eced67404186c5652491aa961,
+    type: 3}
+  m_PrefabInstance: {fileID: 1888045227}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &481501475
 GameObject:
   m_ObjectHideFlags: 0
@@ -663,8 +669,54 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114272575589405250, guid: 867b8d2eced67404186c5652491aa961,
+        type: 3}
+      propertyPath: rb
+      value: 
+      objectReference: {fileID: 1888045228}
+    - target: {fileID: 114272575589405250, guid: 867b8d2eced67404186c5652491aa961,
+        type: 3}
+      propertyPath: whatiswalls.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 114272575589405250, guid: 867b8d2eced67404186c5652491aa961,
+        type: 3}
+      propertyPath: wallRunForce
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114272575589405250, guid: 867b8d2eced67404186c5652491aa961,
+        type: 3}
+      propertyPath: maxWallrunTime
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114272575589405250, guid: 867b8d2eced67404186c5652491aa961,
+        type: 3}
+      propertyPath: maxWallSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114272575589405250, guid: 867b8d2eced67404186c5652491aa961,
+        type: 3}
+      propertyPath: maxWallRunCameraTilt
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114272575589405250, guid: 867b8d2eced67404186c5652491aa961,
+        type: 3}
+      propertyPath: wallRunCameraTilt
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114272575589405250, guid: 867b8d2eced67404186c5652491aa961,
+        type: 3}
+      propertyPath: Orientation
+      value: 
+      objectReference: {fileID: 165126048}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 867b8d2eced67404186c5652491aa961, type: 3}
+--- !u!54 &1888045228 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 54284279332862592, guid: 867b8d2eced67404186c5652491aa961,
+    type: 3}
+  m_PrefabInstance: {fileID: 1888045227}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2122361458
 GameObject:
   m_ObjectHideFlags: 0
