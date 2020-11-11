@@ -4,44 +4,53 @@ using UnityEngine;
 
 public class CollectPowerup : MonoBehaviour
 {
-    [SerializeField] private GameObject ParticleDisc = null;
-    [SerializeField] private bool CollectDisc = false;
+    public enum Powerup { DashBelt, Shield, ParticleDisc, MagneticBoots };
+    public Powerup GetPowerup;
 
-    [SerializeField] private GameObject ParticleShield = null;
-    [SerializeField] private bool CollectShield = false;
+    private GameObject Player = null;
 
-    [SerializeField] private GameObject DashBelt = null;
-    [SerializeField] private bool CollectBelt = false;
-
-    //[SerializeField] private GameObject Hoverboard = null;
-    //[SerializeField] private bool CollectBoard;
-
-    [SerializeField] private GameObject MagneticBoots = null;
-    [SerializeField] private bool CollectBoots = false;
-    private void OnTriggerEnter(Collider other)
+    private IEnumerator OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            if (CollectShield)
+            Player = other.gameObject;
+            switch (GetPowerup)
             {
-                ParticleShield.SetActive(true);
-                Destroy(gameObject);
-            }
-            if (CollectBelt)
-            {
-                DashBelt.SetActive(true);
-                Destroy(gameObject);
-            }
-            if (CollectDisc)
-            {
-                ParticleDisc.SetActive(true);
-                Destroy(gameObject);
-            }
-            if (CollectBoots)
-            {
-                MagneticBoots.SetActive(true);
-                Destroy(gameObject);
+                case Powerup.Shield:
+                    GetShield();
+                    break;
+                case Powerup.ParticleDisc:
+                    GetDisc();
+                    break;
+                case Powerup.MagneticBoots:
+                    GetBoots();
+                    break;
+                case Powerup.DashBelt:
+                    GetBelt();
+                    break;
             }
         }
+        yield return null;
+    }
+
+    private void GetShield()
+    {
+        Player.GetComponent<ParticleShield>().enabled = true;
+    }
+
+    private void GetDisc()
+    {
+        Player.GetComponent<NewRingToss>().enabled = true;
+    }
+
+    private void GetBoots()
+    {
+
+    }
+
+    private void GetBelt()
+    {
+
     }
 }
+

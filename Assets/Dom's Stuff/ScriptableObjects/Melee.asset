@@ -10,14 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d5f17dedf49e7f743bb1b4a1d4e141ff, type: 3}
-  m_Name: Dummy
+  m_Name: Melee
   m_EditorClassIdentifier: 
-  EnemyName: Walker
-  Description: Crawly Boi
-  Health: 20
-  MovementSpeed: 5
-  AttackRate: 10
-  AttackRange: 10
-  DamageDealt: 10
-  DamageResistance: 0
-  FocusTime: 5
+  EnemyName: 
+  Description: 
+  Health: 0
+  MovementSpeed: 0
+  AttackRate: 0
+  AttackRange: 1
+  DamageDealt: 0
+  ProjectileOBJ: {fileID: 0}

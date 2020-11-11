@@ -7,6 +7,6 @@ using UnityEngine;
 public class ProjectileScriptableObjects : ScriptableObject
 {
     public GameObject Projectile;
-    public float DamageDealt;
+    public float DamageDealt = 10;
     public float ProjectileSpeed;
 }

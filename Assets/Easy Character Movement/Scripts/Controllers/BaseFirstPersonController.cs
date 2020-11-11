@@ -35,7 +35,6 @@ namespace ECM.Controllers
         #endregion
 
         #region PROPERTIES
-
         /// <summary>
         /// Cached camera pivot transform.
         /// </summary>
@@ -285,7 +284,6 @@ namespace ECM.Controllers
         public virtual void LateUpdate()
         {
             // Perform camera's (view) animation
-
             AnimateView();
         }
 

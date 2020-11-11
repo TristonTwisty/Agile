@@ -1,19 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
     public ProjectileScriptableObjects ProjectileOBJ;
-    private Rigidbody RB = null;
-    private void Start()
+
+    private void Update()
     {
-        RB = GetComponent<Rigidbody>();
-        RB.AddForce(transform.forward * ProjectileOBJ.ProjectileSpeed);
+        float Distance = ProjectileOBJ.ProjectileSpeed * Time.deltaTime;
+        transform.Translate(Vector3.forward.normalized * Distance);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Destroy(gameObject);
+        //Destroy(gameObject);
+        if (other.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("Hurt Player");
+            Destroy(gameObject);
+        }
     }
 }
