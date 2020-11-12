@@ -15,7 +15,6 @@ namespace Dom.EnemyCreator
             Capsule.AddComponent(typeof(Rigidbody));
             Capsule.AddComponent(typeof(NavMeshAgent));
             Capsule.AddComponent(typeof(EnemyBehavior));
-            Capsule.AddComponent(typeof(Animator));
             Capsule.GetComponent<EnemyBehavior>().EnemyType = EnemyBehavior.AttackType.RangeHumanoid;
             GameObject Barrel = GameObject.CreatePrimitive(PrimitiveType.Cube);
             Barrel.name = "Fire Point";

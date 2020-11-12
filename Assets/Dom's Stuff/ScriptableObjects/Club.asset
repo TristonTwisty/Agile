@@ -9,13 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5f17dedf49e7f743bb1b4a1d4e141ff, type: 3}
-  m_Name: Shooter
+  m_Script: {fileID: 11500000, guid: f12471e9b44472546a114ec1ed6e331e, type: 3}
+  m_Name: Club
   m_EditorClassIdentifier: 
-  Description: 
-  Health: 10
-  MovementSpeed: 2
-  AttackRate: 2
-  AttackRange: 10
-  DamageDealt: 5
-  ProjectileOBJ: {fileID: 11400000, guid: eca87343d7849cb438b2801c277c0dd9, type: 2}
+  MeleeWeapon: {fileID: 545482175396158259, guid: 5020ca3fc2f065841bec2e3db3661c0c,
+    type: 3}
+  DamageDealth: 10
+  HitBox: 0.6

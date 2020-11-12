@@ -4,10 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Hoverboard
-  - Sheild
-  - Board Camera
   - Particle Disc
+  - Hoverboard
+  - Board Camera
+  - Sheild
   layers:
   - Default
   - TransparentFX
@@ -17,15 +17,9 @@ TagManager:
   - UI
   - 
   - 
-<<<<<<< HEAD
-  - grapplingMask
-  - Sheild
+  - Level
+  - Enemy
   - Player
-=======
-  - 
-  - 
-  - 
->>>>>>> 05bd0b0fbd1e2b33875d6c98dd15d99879a7a99a
   - 
   - 
   - 

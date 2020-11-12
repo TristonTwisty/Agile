@@ -16,6 +16,9 @@ public class EnemyBehavior : MonoBehaviour
     private float Health = 0;
     private float CurrentHealth = 0;
     private Animator Animator;
+    [SerializeField] private GameObject Weapon;
+    private BoxCollider WeaponBC;
+    [SerializeField] LayerMask Actors;
 
     [Header("Movement")]
     [Tooltip("If you want the enemy to patrol place the transforms here. Leave empty to have enemy idle")] public Transform[] points;
@@ -61,9 +64,11 @@ public class EnemyBehavior : MonoBehaviour
         // Find the Player and enemy's fire point
         Player = GameObject.Find("Player Target");
         FirePoint = gameObject.transform.Find("Fire Point");
+        WeaponBC = Weapon.GetComponent<BoxCollider>();
+        WeaponBC.isTrigger = true;
 
         // Get Animator
-        Animator = GetComponent<Animator>();
+        Animator = gameObject.GetComponentInChildren<Animator>();
 
         // set health and current health
         Health = EnemyOBj.Health;
@@ -71,7 +76,7 @@ public class EnemyBehavior : MonoBehaviour
 
         // Movement and Patrol Initialization
         Agent = GetComponent<NavMeshAgent>();
-        Agent.autoBraking = false; // Enemy does not slow down when reaching point
+        Agent.autoBraking = true; // Enemy does not slow down when reaching point
         Agent.speed = EnemyOBj.MovementSpeed;
 
         // If no patrol points were set the enemy stands still
@@ -121,7 +126,12 @@ public class EnemyBehavior : MonoBehaviour
                 break;
 
             case AttackType.MeleeHumanoid:
-                MeleeAttack();
+                if(AttackCooldown <= 0)
+                {
+                    MeleeAttack();
+                    AttackCooldown = 1 / EnemyOBj.AttackRate;
+                }
+                AttackCooldown -= Time.deltaTime;
                     break;
         }
     }
@@ -135,7 +145,16 @@ public class EnemyBehavior : MonoBehaviour
 
     private void MeleeAttack()
     {
-        Animator.Play("Swing Club");
+        Debug.Log("Melee");
+        transform.LookAt(Player.transform);
+        Animator.SetTrigger("Swing Club");
+
+        Collider[] HitTargets = Physics.OverlapSphere(Weapon.transform.position, EnemyOBj.MeleeObj.HitBox, Actors);
+
+        foreach(Collider collider in HitTargets)
+        {
+            Debug.Log(collider.name);
+        }
     }
 
     private void OnDrawGizmosSelected()
@@ -144,11 +163,16 @@ public class EnemyBehavior : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, EnemyOBj.AttackRange);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, ChasePlayerRange);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(Weapon.transform.position, EnemyOBj.MeleeObj.HitBox);
     }
 
     private void Update()
     {
         PlayerDistance = Vector3.Distance(transform.position, Player.transform.position);
+
+        float blend = Agent.velocity.magnitude / Agent.speed;
+        Animator.SetFloat("Blend", blend , .1f, Time.deltaTime);
 
         if(CurrentHealth <= 0)
         {
