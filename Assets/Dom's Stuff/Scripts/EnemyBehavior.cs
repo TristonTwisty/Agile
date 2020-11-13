@@ -18,7 +18,7 @@ public class EnemyBehavior : MonoBehaviour
     private Animator Animator;
     [SerializeField] private GameObject Weapon;
     private BoxCollider WeaponBC;
-    [SerializeField] LayerMask Actors;
+    private LayerMask Actors;
 
     [Header("Movement")]
     [Tooltip("If you want the enemy to patrol place the transforms here. Leave empty to have enemy idle")] public Transform[] points;
@@ -60,9 +60,10 @@ public class EnemyBehavior : MonoBehaviour
     private void Initial()
     {
         Debug.Log("In Initial");
+        gameObject.gameObject.tag = "Enemy";
 
         // Find the Player and enemy's fire point
-        Player = GameObject.Find("Player Target");
+        Player = GameObject.Find("Player");
         FirePoint = gameObject.transform.Find("Fire Point");
         WeaponBC = Weapon.GetComponent<BoxCollider>();
         WeaponBC.isTrigger = true;
@@ -78,6 +79,8 @@ public class EnemyBehavior : MonoBehaviour
         Agent = GetComponent<NavMeshAgent>();
         Agent.autoBraking = true; // Enemy does not slow down when reaching point
         Agent.speed = EnemyOBj.MovementSpeed;
+
+        Actors = LayerMask.GetMask("Player");
 
         // If no patrol points were set the enemy stands still
         if (points == null)
@@ -153,7 +156,7 @@ public class EnemyBehavior : MonoBehaviour
 
         foreach(Collider collider in HitTargets)
         {
-            Debug.Log(collider.name);
+            Player.GetComponent<PlayerHealth>().TakeDamage(EnemyOBj.MeleeObj.DamageDealth);
         }
     }
 

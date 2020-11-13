@@ -16,8 +16,7 @@ public class Projectile : MonoBehaviour
         //Destroy(gameObject);
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Hurt Player");
-            Destroy(gameObject);
+            other.gameObject.GetComponent<PlayerHealth>().TakeDamage(ProjectileOBJ.DamageDealt);
         }
     }
 }
