@@ -22,8 +22,8 @@ public class PlayerData
 
         position = new float[3];
         position[0] = Player.Player.transform.position.x;
-        position[0] = Player.Player.transform.position.y;
-        position[0] = Player.Player.transform.position.z;
+        position[1] = Player.Player.transform.position.y;
+        position[2] = Player.Player.transform.position.z;
 
         hasboard = Player.hasboard;
         hasdisk = Player.hasdisk;
