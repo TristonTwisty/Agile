@@ -8,6 +8,8 @@ TagManager:
   - Hoverboard
   - Board Camera
   - Sheild
+  - dash
+  - enemy
   layers:
   - Default
   - TransparentFX
