@@ -3,18 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-<<<<<<< HEAD
-  tags: []
-=======
   tags:
-  - Inventory
-  - PlayerCamera
-  - Particle Disc
   - Hoverboard
-  - Board Camera
-  - Whip
   - Sheild
->>>>>>> 8cabb0a26eb2b820248d919ca8926a4ba2d6bf17
+  - Board Camera
+  - Particle Disc
   layers:
   - Default
   - TransparentFX
@@ -24,7 +17,7 @@ TagManager:
   - UI
   - 
   - 
-  - grapplingMask
+  - 
   - 
   - 
   - 
