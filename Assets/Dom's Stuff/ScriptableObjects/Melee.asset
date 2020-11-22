@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5f17dedf49e7f743bb1b4a1d4e141ff, type: 3}
   m_Name: Melee
   m_EditorClassIdentifier: 
-  EnemyName: 
   Description: 
-  Health: 0
-  MovementSpeed: 0
-  AttackRate: 0
-  AttackRange: 1
-  DamageDealt: 0
-  ProjectileOBJ: {fileID: 0}
+  Health: 10
+  MovementSpeed: 2
+  AttackRate: 0.45
+  AttackRange: 1.5
+  DamageDealt: 5
+  ProjectileOBJ: {fileID: 11400000, guid: eca87343d7849cb438b2801c277c0dd9, type: 2}
+  MeleeObj: {fileID: 11400000, guid: 02371e93e7a2f7c4ea0bb78d920cf023, type: 2}

@@ -13,7 +13,8 @@ public class NewRingToss : MonoBehaviour
     [SerializeField] [Tooltip("The trail renderer of the disc")] private TrailRenderer TR = null;
 
     [Header("Mechanics")]
-    [SerializeField] [Tooltip("How fast the ring travels after being thrown")] private float ThrowSpeed = 500;
+    [SerializeField] private ProjectileScriptableObjects ProjectileOBJ;
+    [Tooltip("How fast the ring travels after being thrown")] private float ThrowSpeed;
     [SerializeField] [Tooltip("How how seconds it takes for ring to return to player")] private float ReturnSpeed = 0f;
     [SerializeField] [Tooltip("How far the disc can travel before returning to player")] private float MaxDistance = 0f;
 
@@ -34,6 +35,9 @@ public class NewRingToss : MonoBehaviour
         TR.enabled = false;
         BC.isTrigger = true;
         PlayerCamera = GameObject.FindGameObjectWithTag("PlayerCamera");
+
+        //Set ring throwspeed
+        ThrowSpeed = ProjectileOBJ.ProjectileSpeed;
 
         // Move ring to player
         transform.position = RingHolster.position;
@@ -122,6 +126,12 @@ public class NewRingToss : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             DoReturn = true;
+        }
+
+        // Call the take damage method after touching an enemy
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            collision.gameObject.GetComponent<EnemyBehavior>().TakeDamage(ProjectileOBJ.DamageDealt);
         }
     }
 

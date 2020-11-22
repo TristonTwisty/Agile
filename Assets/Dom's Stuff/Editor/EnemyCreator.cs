@@ -6,23 +6,17 @@ namespace Dom.EnemyCreator
 {
     public static class EnemyCreator
     {
-        [MenuItem("GameObject/Enemy Creator/RangedEnemy", false, 0)]
-        public static void CreatorCharacter()
+        [MenuItem("GameObject/Enemy Creator/Ranged Enemy", false, 0)]
+        public static void CreateRangedEnemy()
         {
             // Create character with required comonents
-            GameObject Capsule = GameObject.CreatePrimitive(PrimitiveType.Capsule);
-            Capsule.name = "Ranged Enemy";
+            GameObject Capsule = new GameObject("Ranged Enemy");
             Capsule.AddComponent(typeof(Rigidbody));
             Capsule.AddComponent(typeof(NavMeshAgent));
             Capsule.AddComponent(typeof(EnemyBehavior));
-            Capsule.AddComponent(typeof(Animator));
             Capsule.GetComponent<EnemyBehavior>().EnemyType = EnemyBehavior.AttackType.RangeHumanoid;
-            GameObject Barrel = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            Barrel.name = "Fire Point";
-            Barrel.transform.parent = Capsule.transform;
-
-            var MR = Capsule.GetComponent<MeshRenderer>();
-            MR.material = AssetDatabase.LoadAssetAtPath<Material>("Assets/Dom's Stuff/Materials/Enemy.mat");
+            GameObject FirePoint = new GameObject("Fire Point");
+            FirePoint.transform.parent = Capsule.transform;
 
             // Initialize rigibody
             var RB = Capsule.GetComponent<Rigidbody>();
@@ -36,6 +30,29 @@ namespace Dom.EnemyCreator
             // Focus the newly created character
 
             Selection.activeGameObject = Capsule;
+            SceneView.FrameLastActiveSceneView();
+        }
+
+        [MenuItem("GameObject/Enemy Creator/Melee Enemy", false, 0)]
+        public static void CreateMeleeEnemy()
+        {
+            GameObject Enemy = new GameObject("Melee Enemy");
+            Enemy.AddComponent(typeof(Rigidbody));
+            Enemy.AddComponent(typeof(NavMeshAgent));
+            Enemy.AddComponent(typeof(EnemyBehavior));
+            Enemy.GetComponent<EnemyBehavior>().EnemyType = EnemyBehavior.AttackType.MeleeHumanoid;
+
+            // Inbitalize rigibody
+            var RB = Enemy.GetComponent<Rigidbody>();
+
+            RB.angularDrag = 0f;
+            RB.useGravity = true;
+            RB.isKinematic = false;
+            RB.interpolation = RigidbodyInterpolation.Interpolate;
+            RB.freezeRotation = false;
+
+            // Focus on created character
+            Selection.activeGameObject = Enemy;
             SceneView.FrameLastActiveSceneView();
         }
     }

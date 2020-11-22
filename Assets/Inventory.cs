@@ -10,6 +10,7 @@ public class Inventory : MonoBehaviour
     public GameObject PlayerCamera;
     public GameObject GunPos;
     public GameObject SheildPos;
+    public int Health = 100;
     public string LastHeld;
 
     [Header("Items")]
@@ -241,5 +242,30 @@ public class Inventory : MonoBehaviour
         Sheild.transform.parent = null;
         Sheild.transform.parent = PlayerCamera.transform;
         Sheild.transform.position = SheildPos.transform.position;
+    }
+
+    public void SavePlayer ()
+    {
+        SaveSystem.SavePlayer(this);
+    }
+
+    public void LoadPlayer()
+    {
+        PlayerData data = SaveSystem.LoadPlayer();
+
+        Health = data.health;
+
+        Vector3 position;
+        position.x = data.position[0];
+        position.y = data.position[1];
+        position.z = data.position[2];
+        Player.transform.position = position;
+
+        hasboard = data.hasboard;
+        hasdisk = data.hasdisk;
+        haswhip = data.haswhip;
+
+        
+
     }
 }
