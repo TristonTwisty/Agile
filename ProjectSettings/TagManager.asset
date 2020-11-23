@@ -3,20 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-<<<<<<< HEAD
-  - Hoverboard
-  - Sheild
-  - Board Camera
-  - Particle Disc
-=======
-  - Particle Disc
-  - Hoverboard
-  - Board Camera
-  - Sheild
-  - dash
-  - enemy
->>>>>>> 447639d791b6e32ae5c56bdb66b080f61638c055
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -26,15 +13,9 @@ TagManager:
   - UI
   - 
   - 
-<<<<<<< HEAD
   - 
   - 
   - 
-=======
-  - Level
-  - Enemy
-  - Player
->>>>>>> 447639d791b6e32ae5c56bdb66b080f61638c055
   - 
   - 
   - 
