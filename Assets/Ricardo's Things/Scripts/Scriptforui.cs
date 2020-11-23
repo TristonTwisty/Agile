@@ -16,25 +16,29 @@ public class Scriptforui : MonoBehaviour
     public Text displayTotalDashAmount;
     public UnityEngine.UI.Slider playerHealthSlider;
     public UnityEngine.UI.Image dashRecharge;
-   
+    public UnityEngine.UI.Slider shieldRechargeSlider;
+    public float shieldRecharge;
+  
+
     void Start()
     {
         currentDashAmount = 0;
         totalDashAmount = 2;
         playerHealth = 100;
- 
 
-
-
+        shieldRecharge = 100;
+        shieldRechargeSlider.value = shieldRecharge;
         playerHealthSlider.value = playerHealth;
         displayPlayerHealth.text = playerHealth.ToString();
         displayTotalDashAmount.text = currentDashAmount.ToString();
+
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        shieldRechargeSlider.value = shieldRecharge;
         playerHealth = playerHealthSlider.value;
         displayPlayerHealth.text = playerHealth.ToString();
         
@@ -49,5 +53,14 @@ public class Scriptforui : MonoBehaviour
                 dashRecharge.fillAmount = 0;
             }
         }
+
+ 
+
     }
+
+
+
+
+
+
 }

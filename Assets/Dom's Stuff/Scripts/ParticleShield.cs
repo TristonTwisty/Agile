@@ -14,6 +14,15 @@ public class ParticleShield : MonoBehaviour
     private BoxCollider Collider;
     private MeshRenderer MeshRend;
 
+
+    //Added By Ricardo for U.I.
+    public bool shieldOn;
+
+
+    //Added By Ricardo For U.I.
+    public Scriptforui scriptForUI;
+
+
     private void Start()
     {
         CurrentCapacity = MaxCapacity;
@@ -25,6 +34,12 @@ public class ParticleShield : MonoBehaviour
         // Disable meshrenderer and collider at start
         Collider.enabled = false;
         MeshRend.enabled = false;
+
+
+        //Added By Ricardo For U.I.
+        shieldOn = false;
+        scriptForUI = GameObject.FindObjectOfType<Scriptforui>();
+        
     }
     void Update()
     {
@@ -35,6 +50,11 @@ public class ParticleShield : MonoBehaviour
             MeshRend.enabled = true;
             Collider.enabled = true;
             CurrentCapacity -= DrainSpeed;
+
+            //Added By Ricardo For U.I.
+            scriptForUI.shieldRecharge = scriptForUI.shieldRecharge - .3f;
+            shieldOn = true;
+
         }
 
         if(Input.GetKeyUp(KeyCode.LeftControl))
@@ -43,6 +63,10 @@ public class ParticleShield : MonoBehaviour
             MeshRend.enabled = false;
             Collider.enabled = false;
             ShieldRecharge();
+            shieldOn = false;
+
+            //Added By Ricardo For U.I.
+ 
         }
 
         if(CurrentCapacity <= 0)
@@ -59,6 +83,14 @@ public class ParticleShield : MonoBehaviour
         {
             CurrentCapacity = MaxCapacity;
         }
+
+        //Added By Ricardo For U.I.
+        if(shieldOn == false & scriptForUI.shieldRecharge < 100)
+        {
+            scriptForUI.shieldRecharge = scriptForUI.shieldRecharge + 0.3f;
+        }
+
+        
     }
 
     private void OnCollisionEnter(Collision collision)
