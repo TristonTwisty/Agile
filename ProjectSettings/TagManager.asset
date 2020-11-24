@@ -8,6 +8,9 @@ TagManager:
   - Hoverboard
   - Board Camera
   - Sheild
+  - Rail End
+  - Projectile
+  - Enemy
   layers:
   - Default
   - TransparentFX

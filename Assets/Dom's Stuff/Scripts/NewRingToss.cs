@@ -31,7 +31,7 @@ public class NewRingToss : MonoBehaviour
         // Get ring's collider and rigidbody
         // Set ring's collider to trigger
         RB = GetComponent<Rigidbody>();
-        BC =GetComponent<BoxCollider>();
+        BC = GetComponent<BoxCollider>();
         TR.enabled = false;
         BC.isTrigger = true;
         PlayerCamera = GameObject.FindGameObjectWithTag("PlayerCamera");

@@ -15,7 +15,7 @@ public class EnemyBehavior : MonoBehaviour
     private float AttackCooldown = 0;
     private float Health = 0;
     private float CurrentHealth = 0;
-    private Animator Animator;
+    [SerializeField] private Animator Animator;
     [SerializeField] private GameObject Weapon;
     private BoxCollider WeaponBC;
     private LayerMask Actors;
@@ -33,7 +33,7 @@ public class EnemyBehavior : MonoBehaviour
 
     private IEnumerator Start()
     {
-        while(Alive == true)
+        while (Alive == true)
         {
             switch (ActiveState)
             {
@@ -68,12 +68,12 @@ public class EnemyBehavior : MonoBehaviour
         WeaponBC = Weapon.GetComponent<BoxCollider>();
         WeaponBC.isTrigger = true;
 
-        // Get Animator
-        Animator = gameObject.GetComponentInChildren<Animator>();
-
         // set health and current health
         Health = EnemyOBj.Health;
         CurrentHealth = Health;
+
+        // Get Animator
+        Animator = gameObject.GetComponentInChildren<Animator>();
 
         // Movement and Patrol Initialization
         Agent = GetComponent<NavMeshAgent>();

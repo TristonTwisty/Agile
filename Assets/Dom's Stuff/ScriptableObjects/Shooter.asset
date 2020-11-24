@@ -16,6 +16,6 @@ MonoBehaviour:
   Health: 10
   MovementSpeed: 2
   AttackRate: 2
-  AttackRange: 10
-  DamageDealt: 5
+  AttackRange: 3
   ProjectileOBJ: {fileID: 11400000, guid: eca87343d7849cb438b2801c277c0dd9, type: 2}
+  MeleeObj: {fileID: 11400000, guid: 02371e93e7a2f7c4ea0bb78d920cf023, type: 2}
