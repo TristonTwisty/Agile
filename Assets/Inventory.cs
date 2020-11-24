@@ -42,6 +42,10 @@ public class Inventory : MonoBehaviour
     public bool hasdisk;
     public bool haswhip;
 
+    //Added By Ricardo For UI
+    private Scriptforui scriptForUI;
+    private GameSounds gameSounds;
+    SpriteRenderer spriteRenderer;
 
     // Start is called before the first frame update
     void Start()
@@ -74,7 +78,15 @@ public class Inventory : MonoBehaviour
         Whip = GameObject.FindGameObjectWithTag("Whip");
         WhipRotationScript = Whip.GetComponent<RotateGun>();
         GrapplingScript = GameObject.Find("Whip").GetComponent<Grappling>();
-            
+
+
+        //Added By Ricardo For UI
+        scriptForUI = GameObject.FindObjectOfType<Scriptforui>();
+        gameSounds = GameObject.FindObjectOfType<GameSounds>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
+
+
     }
 
     // Update is called once per frame
@@ -106,6 +118,17 @@ public class Inventory : MonoBehaviour
         hasboard = true;
         ActivateBoard();
 
+        //added by ricardo for UI
+        if (haswhip == true)
+        {
+            //Added By Ricardo
+            scriptForUI.thirdItem.sprite = scriptForUI.playerWhip.sprite;
+        }
+        if (hasdisk == true)
+        {
+            //Added By Ricardo
+            scriptForUI.secondItem.sprite = scriptForUI.playerDisc.sprite;
+        }
     }
 
     private void ActivateBoard()
@@ -120,13 +143,23 @@ public class Inventory : MonoBehaviour
         Player.transform.parent = Board.transform;
         Player.transform.localPosition = new Vector3(0, 0, 0);
         onboard = true;
+
+        //Added By Ricardo For UI
+        scriptForUI.currentItem.sprite = scriptForUI.playerHoverBoard.sprite;
+        scriptForUI.itemInSlot1 = true;
+        //End Ricardo
+     
         if (haswhip == true)
             {
                 Whip.gameObject.SetActive(false);
+                //Added By Ricardo
+                scriptForUI.thirdItem.sprite = scriptForUI.playerWhip.sprite;
             }
         if (hasdisk == true)
             {
                 Disk.gameObject.SetActive(false);
+                //Added By Ricardo
+                scriptForUI.secondItem.sprite = scriptForUI.playerDisc.sprite;
             }
         }
         else
@@ -171,11 +204,28 @@ public class Inventory : MonoBehaviour
         hasdisk = true;
         LastHeld = "Disk";
 
+        //Added By Ricardo For UI
+        scriptForUI.currentItem.sprite = scriptForUI.playerDisc.sprite;
+        scriptForUI.itemInSlot1 = true;
+      
+
         if (Whip.gameObject.activeInHierarchy == true && haswhip == true)
         {
             Whip.gameObject.SetActive(false);
         }
 
+        if (haswhip == true)
+        {
+            //Added By Ricardo
+            scriptForUI.thirdItem.sprite = scriptForUI.playerWhip.sprite;
+        }
+        if (hasboard == true)
+        {
+            //Added By Ricardo
+            scriptForUI.secondItem.sprite = scriptForUI.playerHoverBoard.sprite;
+
+        }
+        ///End Ricardo
     }
 
     private void SwitchToDisk()
@@ -183,11 +233,22 @@ public class Inventory : MonoBehaviour
         if (haswhip == true)
         {
             Whip.gameObject.SetActive(false);
+            //Added By Ricardo
+            scriptForUI.thirdItem.sprite = scriptForUI.playerWhip.sprite;
         }
-
+        if (hasdisk == true)
+        {
+            scriptForUI.secondItem.sprite = scriptForUI.playerWhip.sprite;
+            //Added By Ricardo For UI
+            scriptForUI.currentItem.sprite = scriptForUI.playerDisc.sprite;
+            scriptForUI.itemInSlot1 = true;
+        }
         if (hasboard == true)
         {
             Board.gameObject.SetActive(false);
+            //Added By Ricardo
+            scriptForUI.secondItem.sprite = scriptForUI.playerHoverBoard.sprite;
+
         }
 
         if (Disk.gameObject.activeInHierarchy == false)
@@ -210,22 +271,52 @@ public class Inventory : MonoBehaviour
         haswhip = true;
         LastHeld = "Whip";
 
+ 
+
         if (Disk.gameObject.activeInHierarchy == true && hasdisk == true)
         {
             Disk.gameObject.SetActive(false);
         }
+
+        //Added By Ricardo For UI
+        scriptForUI.currentItem.sprite = scriptForUI.playerWhip.sprite;
+        scriptForUI.itemInSlot1 = true;
+
+        if (hasdisk == true)
+        {
+            //Added By Ricardo
+            scriptForUI.secondItem.sprite = scriptForUI.playerDisc.sprite;
+        }
+        if (hasboard == true)
+        {
+            //Added By Ricardo
+            scriptForUI.thirdItem.sprite = scriptForUI.playerHoverBoard.sprite;
+        }
+
+        //End Ricardo
     }
 
     private void SwitchToGun()
     {
+
+        //Added By Ricardo For UI
+        scriptForUI.currentItem.sprite = scriptForUI.playerWhip.sprite;
+        scriptForUI.itemInSlot1 = true;
+        //End Ricardo
+
         if (hasdisk == true)
         {
             Disk.gameObject.SetActive(false);
+            //Added By Ricardo
+            scriptForUI.secondItem.sprite = scriptForUI.playerDisc.sprite;
+
         }
 
         if (hasboard == true)
         {
             Board.gameObject.SetActive(false);
+            //Added By Ricardo
+            scriptForUI.thirdItem.sprite = scriptForUI.playerHoverBoard.sprite;
         }
 
         if (Whip.gameObject.activeInHierarchy == false)
@@ -234,6 +325,10 @@ public class Inventory : MonoBehaviour
         }
 
         LastHeld = "Whip";
+
+        //Added By Ricardo For UI
+        scriptForUI.currentItem.sprite = scriptForUI.playerWhip.sprite;
+        scriptForUI.itemInSlot1 = true;
     }
 
     public void PickupShield()
@@ -242,6 +337,10 @@ public class Inventory : MonoBehaviour
         Sheild.transform.parent = null;
         Sheild.transform.parent = PlayerCamera.transform;
         Sheild.transform.position = SheildPos.transform.position;
+
+        //added by ricardo for ui
+        scriptForUI.shieldImage.gameObject.SetActive(true);
+        scriptForUI.shieldRechargeSlider.gameObject.SetActive(true);
     }
 
     public void SavePlayer ()

@@ -18,7 +18,24 @@ public class Scriptforui : MonoBehaviour
     public UnityEngine.UI.Image dashRecharge;
     public UnityEngine.UI.Slider shieldRechargeSlider;
     public float shieldRecharge;
-  
+    public UnityEngine.UI.Image shieldImage;
+
+    //Player Items Holder
+    public UnityEngine.UI.Image currentItem;
+    public UnityEngine.UI.Image secondItem;
+    public UnityEngine.UI.Image thirdItem;
+    public UnityEngine.UI.Image fourthItem;
+    //Player Items
+    public UnityEngine.UI.Image playerBaton;
+    public UnityEngine.UI.Image playerDisc;
+    public UnityEngine.UI.Image playerHoverBoard;
+    public UnityEngine.UI.Image playerWhip;
+
+    public bool itemInSlot1;
+    public bool itemInSlot2;
+    public bool itemInSlot3;
+    public bool itemInSlot4;
+
 
     void Start()
     {
@@ -32,7 +49,10 @@ public class Scriptforui : MonoBehaviour
         displayPlayerHealth.text = playerHealth.ToString();
         displayTotalDashAmount.text = currentDashAmount.ToString();
 
-
+        itemInSlot1 = false;
+        itemInSlot2 = false;
+        itemInSlot3 = false;
+        itemInSlot4 = false;
     }
 
     // Update is called once per frame

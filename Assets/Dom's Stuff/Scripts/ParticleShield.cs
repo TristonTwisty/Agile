@@ -21,6 +21,7 @@ public class ParticleShield : MonoBehaviour
 
     //Added By Ricardo For U.I.
     public Scriptforui scriptForUI;
+    public GameSounds gameSounds;
 
 
     private void Start()
@@ -39,6 +40,7 @@ public class ParticleShield : MonoBehaviour
         //Added By Ricardo For U.I.
         shieldOn = false;
         scriptForUI = GameObject.FindObjectOfType<Scriptforui>();
+        gameSounds = GameObject.FindObjectOfType<GameSounds>();
         
     }
     void Update()
@@ -54,7 +56,7 @@ public class ParticleShield : MonoBehaviour
             //Added By Ricardo For U.I.
             scriptForUI.shieldRecharge = scriptForUI.shieldRecharge - .3f;
             shieldOn = true;
-
+            gameSounds.audioSource.PlayOneShot(gameSounds.shieldActivated);
         }
 
         if(Input.GetKeyUp(KeyCode.LeftControl))
@@ -66,6 +68,7 @@ public class ParticleShield : MonoBehaviour
             shieldOn = false;
 
             //Added By Ricardo For U.I.
+            gameSounds.audioSource.Stop();
  
         }
 

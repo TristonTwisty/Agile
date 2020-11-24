@@ -12,7 +12,7 @@ public class Grappling : MonoBehaviour
     public float maxDistance = 100f;
     public SpringJoint joint;
     public Inventory script;
-
+    private GameSounds gameSounds;
 
 
 
@@ -25,7 +25,7 @@ public class Grappling : MonoBehaviour
     {
         grapplingLine = GetComponent<LineRenderer>();
         script = GameObject.FindGameObjectWithTag("Inventory").GetComponent<Inventory>();
-
+        gameSounds = GameObject.FindObjectOfType<GameSounds>();
         camera = script.PlayerCamera.transform;
         player = script.Player.transform;
     }
@@ -38,6 +38,9 @@ public class Grappling : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             StartGrapple();
+            gameSounds.audioSource.PlayOneShot(gameSounds.grapplingLaunch);
+       
+
         }
         else if (Input.GetMouseButtonUp(0))
         {
