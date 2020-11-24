@@ -3,14 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Particle Disc
-  - Hoverboard
-  - Board Camera
-  - Sheild
-  - Rail End
-  - Projectile
-  - Enemy
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -20,9 +13,9 @@ TagManager:
   - UI
   - 
   - 
-  - Level
-  - Enemy
-  - Player
+  - 
+  - 
+  - 
   - 
   - 
   - 
