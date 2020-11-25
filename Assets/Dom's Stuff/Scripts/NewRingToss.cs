@@ -34,7 +34,7 @@ public class NewRingToss : MonoBehaviour
         BC = GetComponent<BoxCollider>();
         TR.enabled = false;
         BC.isTrigger = true;
-        PlayerCamera = GameObject.FindGameObjectWithTag("PlayerCamera");
+        PlayerCamera = GameObject.FindGameObjectWithTag("MainCamera");
 
         //Set ring throwspeed
         ThrowSpeed = ProjectileOBJ.ProjectileSpeed;
@@ -113,6 +113,11 @@ public class NewRingToss : MonoBehaviour
 
             transform.position = Vector3.MoveTowards(transform.position, RingHolster.position, 1);
         }
+
+        if(Thrown && other.gameObject.CompareTag("Enemy"))
+        {
+            other.gameObject.GetComponent<EnemyBehavior>().TakeDamage(ProjectileOBJ.DamageDealt);
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -126,12 +131,6 @@ public class NewRingToss : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             DoReturn = true;
-        }
-
-        // Call the take damage method after touching an enemy
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            collision.gameObject.GetComponent<EnemyBehavior>().TakeDamage(ProjectileOBJ.DamageDealt);
         }
     }
 

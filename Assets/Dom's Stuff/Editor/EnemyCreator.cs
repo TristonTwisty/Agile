@@ -12,6 +12,7 @@ namespace Dom.EnemyCreator
             // Create character with required comonents
             GameObject Capsule = new GameObject("Ranged Enemy");
             Capsule.AddComponent(typeof(Rigidbody));
+            Capsule.AddComponent(typeof(CapsuleCollider));
             Capsule.AddComponent(typeof(NavMeshAgent));
             Capsule.AddComponent(typeof(EnemyBehavior));
             Capsule.GetComponent<EnemyBehavior>().EnemyType = EnemyBehavior.AttackType.RangeHumanoid;
@@ -38,6 +39,7 @@ namespace Dom.EnemyCreator
         {
             GameObject Enemy = new GameObject("Melee Enemy");
             Enemy.AddComponent(typeof(Rigidbody));
+            Enemy.AddComponent(typeof(CapsuleCollider));
             Enemy.AddComponent(typeof(NavMeshAgent));
             Enemy.AddComponent(typeof(EnemyBehavior));
             Enemy.GetComponent<EnemyBehavior>().EnemyType = EnemyBehavior.AttackType.MeleeHumanoid;

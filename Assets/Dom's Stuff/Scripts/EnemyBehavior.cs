@@ -14,7 +14,7 @@ public class EnemyBehavior : MonoBehaviour
     private Transform FirePoint = null; // The barrel of the gun. Comes with the Ranged Enemy Prefab
     private float AttackCooldown = 0;
     private float Health = 0;
-    private float CurrentHealth = 0;
+    [SerializeField] private float CurrentHealth = 0;
     [SerializeField] private Animator Animator;
     [SerializeField] private GameObject Weapon;
     private BoxCollider WeaponBC;
@@ -28,7 +28,7 @@ public class EnemyBehavior : MonoBehaviour
 
     private bool Alive = true;
 
-    private enum State {Initial, Idle, Patrol, Attack, ChasePlayer };
+    private enum State {Initial, Idle, Patrol, Attack, ChasePlayer, Dead };
     private State ActiveState = State.Initial;
 
     private IEnumerator Start()
@@ -51,6 +51,9 @@ public class EnemyBehavior : MonoBehaviour
                     break;
                 case State.ChasePlayer:
                     ChasePlayer();
+                    break;
+                case State.Dead:
+                    DoDeath();
                     break;
             }
             yield return null;
@@ -160,6 +163,13 @@ public class EnemyBehavior : MonoBehaviour
         }
     }
 
+    private void DoDeath()
+    {
+        Debug.Log("Is dead");
+        Agent.isStopped = true;
+        Destroy(gameObject);
+    }
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
@@ -179,10 +189,11 @@ public class EnemyBehavior : MonoBehaviour
 
         if(CurrentHealth <= 0)
         {
-            Destroy(gameObject);
+            ActiveState = State.Dead;
         }
 
-        if (PlayerDistance <= ChasePlayerRange)
+        // If the player is in range of chase distance AND is not dead, Chase Player
+        if (PlayerDistance <= ChasePlayerRange && ActiveState != State.Dead)
         {
             ActiveState = State.ChasePlayer;
         }
@@ -195,7 +206,8 @@ public class EnemyBehavior : MonoBehaviour
             ActiveState = State.Patrol;
         }
 
-        if (PlayerDistance <= EnemyOBj.AttackRange)
+        // If player is in attack range AND not dead, attack player
+        if (PlayerDistance <= EnemyOBj.AttackRange && ActiveState != State.Dead)
         {
             ActiveState = State.Attack;
             Agent.isStopped = true;
