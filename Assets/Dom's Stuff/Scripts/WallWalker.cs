@@ -8,6 +8,7 @@ public class WallWalker : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] private float MovementSpeed = 6;
+    [SerializeField] private float StrafeSpeed = 3;
     [SerializeField] private float TurnSpeed = 90;
     [SerializeField] private float LerpSpeed = 10;
     [SerializeField] private float JumpSpeed = 10;
@@ -50,24 +51,9 @@ public class WallWalker : MonoBehaviour
             return;
 
         Ray ray;
-
         RaycastHit Hit;
 
-        if (Input.GetButtonDown("Jump"))
-        {
-            ray = new Ray(transform.position, -MyNormal);
-
-            if (Physics.Raycast(ray, out Hit, JumpRange))
-            {
-                JumpToWall(Hit.point, Hit.normal);
-            }
-            else if(IsGrounded)
-            {
-                RB.velocity += JumpSpeed * MyNormal;
-            }
-        }
-
-        transform.Rotate(0, Input.GetAxis("Horizontal") * TurnSpeed * Time.deltaTime, 0);
+        transform.Translate(Input.GetAxis("Horizontal") , 0 , 0 * StrafeSpeed * Time.deltaTime);
 
         ray = new Ray(transform.position, -MyNormal);
         if(Physics.Raycast(ray, out Hit))
@@ -87,32 +73,5 @@ public class WallWalker : MonoBehaviour
         transform.rotation = Quaternion.Lerp(transform.rotation, TargetRotation, LerpSpeed * Time.deltaTime);
 
         transform.Translate(0, 0, Input.GetAxis("Vertical") * MovementSpeed * Time.deltaTime);
-    }
-
-    private void JumpToWall(Vector3 point, Vector3 normal)
-    {
-        IsJumping = true;
-        RB.isKinematic = true;
-        Vector3 OriginalPos = transform.position;
-        Quaternion OriginalRotation = transform.rotation;
-        Vector3 DistantPos = point + normal * (GroundDistance + 0.5f);
-        Vector3 MyForward = Vector3.Cross(transform.right, normal);
-        Quaternion DistanceRot = Quaternion.LookRotation(MyForward, normal);
-
-        StartCoroutine(JumpTime(OriginalPos, OriginalRotation, DistantPos, DistanceRot, normal));
-    }
-
-    private IEnumerator JumpTime(Vector3 OriginalPos, Quaternion OriginalRotation, Vector3 DistantPos, Quaternion DistanceRot, Vector3 normal)
-    {
-        for(float t = 0.0f; t < 1.0f;)
-        {
-            t += Time.deltaTime;
-            transform.position = Vector3.Lerp(OriginalPos, DistantPos, t);
-            transform.rotation = Quaternion.Slerp(OriginalRotation, DistanceRot, t);
-            yield return null;
-        }
-        MyNormal = normal;
-        RB.isKinematic = false;
-        IsJumping = false;
     }
 }
