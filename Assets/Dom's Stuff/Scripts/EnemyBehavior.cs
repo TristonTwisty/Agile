@@ -14,9 +14,9 @@ public class EnemyBehavior : MonoBehaviour
     private Transform FirePoint = null; // The barrel of the gun. Comes with the Ranged Enemy Prefab
     private float AttackCooldown = 0;
     private float Health = 0;
-    [SerializeField] private float CurrentHealth = 0;
+    private float CurrentHealth = 0;
     [SerializeField] private Animator Animator;
-    [SerializeField] private GameObject Weapon;
+    [SerializeField] private GameObject Weapon = null;
     private BoxCollider WeaponBC;
     private LayerMask Actors;
 

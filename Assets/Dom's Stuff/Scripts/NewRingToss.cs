@@ -132,6 +132,11 @@ public class NewRingToss : MonoBehaviour
         {
             DoReturn = true;
         }
+
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            collision.gameObject.GetComponent<EnemyBehavior>().TakeDamage(ProjectileOBJ.DamageDealt);
+        }
     }
 
     private void ThrowDisc()

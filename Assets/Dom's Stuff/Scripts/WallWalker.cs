@@ -1,27 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider))]
 [RequireComponent(typeof(Rigidbody))]
 public class WallWalker : MonoBehaviour
 {
     [Header("Movement")]
-    [SerializeField] private float MovementSpeed = 6;
-    [SerializeField] private float StrafeSpeed = 3;
-    [SerializeField] private float TurnSpeed = 90;
-    [SerializeField] private float LerpSpeed = 10;
-    [SerializeField] private float JumpSpeed = 10;
-    [SerializeField] private float JumpRange = 10;
-    private float VerticleSpeed = 0;
-    private bool IsJumping = false;
+    [Tooltip("How fast can the player move forward and backward")] [SerializeField] private float MovementSpeed = 6;
+    [Tooltip("How fast can the player move side to side")] [SerializeField] private float StrafeSpeed = 3;
+    [Tooltip("How smooth the player rotates when latching to a surface")] [SerializeField] private float LerpSpeed = 10;
+    [SerializeField] private float JumpHeight = 10;
 
     [Header("Gravity")]
     [SerializeField] private float Gravity = 10;
     private bool IsGrounded;
-    [SerializeField] private float DeltaGround = .2f;
+    private float DeltaGround = .2f;
 
     [Header("Ground")]
+    [Tooltip("What can the player latch to?")] [SerializeField] private LayerMask Walkable;
+    [Tooltip("How close the player's feet have to be to the surface to lock onto it")] [SerializeField] private float GravityLock = 1;
     private Vector3 SurfaceNormal;
     private Vector3 MyNormal;
     private float GroundDistance;
@@ -47,19 +43,21 @@ public class WallWalker : MonoBehaviour
 
     private void Update()
     {
-        if (IsJumping)
-            return;
+        if (Input.GetButtonDown("Jump"))
+        {
+            RB.AddForce(transform.up * JumpHeight, ForceMode.Force);
+        }
 
         Ray ray;
         RaycastHit Hit;
 
-        transform.Translate(Input.GetAxis("Horizontal") , 0 , 0 * StrafeSpeed * Time.deltaTime);
+        transform.Translate(Input.GetAxis("Horizontal") * StrafeSpeed * Time.deltaTime, 0, Input.GetAxis("Vertical") * MovementSpeed * Time.deltaTime);
 
         ray = new Ray(transform.position, -MyNormal);
-        if(Physics.Raycast(ray, out Hit))
+        if(Physics.Raycast(ray, out Hit , GravityLock, Walkable))
         {
-            IsGrounded = Hit.distance <= GroundDistance + DeltaGround;
-            SurfaceNormal = Hit.normal;
+                IsGrounded = Hit.distance <= GroundDistance + DeltaGround;
+                SurfaceNormal = Hit.normal;
         }
         else
         {
@@ -71,7 +69,5 @@ public class WallWalker : MonoBehaviour
         Vector3 MyForward = Vector3.Cross(transform.right, MyNormal);
         Quaternion TargetRotation = Quaternion.LookRotation(MyForward, MyNormal);
         transform.rotation = Quaternion.Lerp(transform.rotation, TargetRotation, LerpSpeed * Time.deltaTime);
-
-        transform.Translate(0, 0, Input.GetAxis("Vertical") * MovementSpeed * Time.deltaTime);
     }
 }
