@@ -12671,7 +12671,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh63634
+  m_Name: pb_Mesh20290
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -20650,15 +20650,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1786018001408664821}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed4ded277baea674ebacdffb827e121d, type: 3}
+  m_Script: {fileID: 11500000, guid: 20bd6aca28ce538499100b4ebe1a46a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementSpeed: 10
-  StrafeSpeed: 8
-  LerpSpeed: 20
-  JumpHeight: 500
+  MovementSpeed: 6
+  StrafeSpeed: 3
+  LerpSpeed: 10
+  JumpHeight: 10
   CanWallWalk: 0
-  IsJumping: 0
   Gravity: 10
   Walkable:
     serializedVersion: 2
