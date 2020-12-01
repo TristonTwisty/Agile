@@ -7,8 +7,10 @@ public class WallWalker : MonoBehaviour
     [Header("Movement")]
     [Tooltip("How fast can the player move forward and backward")] [SerializeField] private float MovementSpeed = 6;
     [Tooltip("How fast can the player move side to side")] [SerializeField] private float StrafeSpeed = 3;
-    [Tooltip("How smooth the player rotates when latching to a surface")] [SerializeField] private float LerpSpeed = 10;
+    [Tooltip("How smooth the player rotates when latching to a surface")] [SerializeField] private float LerpSpeed = 5;
     [SerializeField] private float JumpHeight = 10;
+    public bool CanWallWalk = false;
+    public bool IsJumping = false;
 
     [Header("Gravity")]
     [SerializeField] private float Gravity = 10;
@@ -16,7 +18,7 @@ public class WallWalker : MonoBehaviour
     private float DeltaGround = .2f;
 
     [Header("Ground")]
-    [Tooltip("What can the player latch to?")] [SerializeField] private LayerMask Walkable;
+    [Tooltip("What can the player latch to?")] [SerializeField] private LayerMask Walkable = 10;
     [Tooltip("How close the player's feet have to be to the surface to lock onto it")] [SerializeField] private float GravityLock = 1;
     private Vector3 SurfaceNormal;
     private Vector3 MyNormal;
@@ -43,8 +45,9 @@ public class WallWalker : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && IsJumping == false)
         {
+            IsJumping = true;
             RB.AddForce(transform.up * JumpHeight, ForceMode.Force);
         }
 
@@ -54,20 +57,33 @@ public class WallWalker : MonoBehaviour
         transform.Translate(Input.GetAxis("Horizontal") * StrafeSpeed * Time.deltaTime, 0, Input.GetAxis("Vertical") * MovementSpeed * Time.deltaTime);
 
         ray = new Ray(transform.position, -MyNormal);
-        if(Physics.Raycast(ray, out Hit , GravityLock, Walkable))
-        {
+        if (Physics.Raycast(ray, out Hit, GravityLock, Walkable))
+         {
+            if (CanWallWalk)
+            {
                 IsGrounded = Hit.distance <= GroundDistance + DeltaGround;
                 SurfaceNormal = Hit.normal;
-        }
-        else
-        {
-            IsGrounded = false;
-            SurfaceNormal = Vector3.up;
-        }
+            }
+         }
+            else
+            {
+                IsGrounded = false;
+                SurfaceNormal = Vector3.up;
+            }
 
         MyNormal = Vector3.Lerp(MyNormal, SurfaceNormal, LerpSpeed * Time.deltaTime);
         Vector3 MyForward = Vector3.Cross(transform.right, MyNormal);
         Quaternion TargetRotation = Quaternion.LookRotation(MyForward, MyNormal);
         transform.rotation = Quaternion.Lerp(transform.rotation, TargetRotation, LerpSpeed * Time.deltaTime);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.layer == Walkable)
+        {
+            IsJumping = false;
+        }
+
+        IsJumping = false;
     }
 }

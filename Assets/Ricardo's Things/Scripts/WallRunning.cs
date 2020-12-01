@@ -11,7 +11,7 @@ public class WallRunning : MonoBehaviour
     bool isWallRunning;
     public float maxWallRunCameraTilt, wallRunCameraTilt;
     public Transform orientation;
-    private Rigidbody rb;
+    private Rigidbody rb = null;
     private Transform playerCam;
 
     private void WallRunInput()

@@ -3,8 +3,8 @@
 public class ParticleShield : MonoBehaviour
 {
     public float MaxCapacity;
-    [SerializeField] private float DrainSpeed;
-    [SerializeField] private float RechargeSpeed;
+    [SerializeField] private float DrainSpeed = 0;
+    [SerializeField] private float RechargeSpeed = 0;
     [Tooltip("The PS when the shield is activated")] public ParticleSystem ShieldPS;
     [Tooltip("The PS activated when something hits the shield")] public ParticleSystem DeflectPS;
     private float CurrentCapacity;

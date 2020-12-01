@@ -180,7 +180,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh161138
+  m_Name: pb_Mesh62698
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -416,6 +416,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &308403019 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5061879719463780113, guid: c7ac8b12026679241979693c6ae4672e,
+    type: 3}
+  m_PrefabInstance: {fileID: 5166280565606155231}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &350944374
 GameObject:
   m_ObjectHideFlags: 0
@@ -881,14 +887,8 @@ Transform:
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &537233521 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4537564174305494984, guid: 6b6729954c6a07f408800042b6a49b86,
-    type: 3}
-  m_PrefabInstance: {fileID: 3425523117381616932}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &556320883
 GameObject:
   m_ObjectHideFlags: 0
@@ -1376,6 +1376,9 @@ MonoBehaviour:
   audioSource: {fileID: 1004650502}
   grapplingLaunch: {fileID: 8300000, guid: d64fe7930c1a46047b1c1dab2e0ab786, type: 3}
   shieldActivated: {fileID: 8300000, guid: db23c2fc60f739b4bb8b8fe118b2a271, type: 3}
+  hoverBoardStationary: {fileID: 0}
+  hoverBoardAccelerating: {fileID: 0}
+  discTossed: {fileID: 0}
 --- !u!82 &1004650502
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1525,7 +1528,7 @@ MonoBehaviour:
   Board: {fileID: 0}
   Disk: {fileID: 0}
   Whip: {fileID: 0}
-  Sheild: {fileID: 537233521}
+  Sheild: {fileID: 0}
   BoardRb: {fileID: 0}
   BoardMovement: {fileID: 0}
   BoardInput: {fileID: 0}
@@ -1539,6 +1542,7 @@ MonoBehaviour:
   hasboard: 0
   hasdisk: 0
   haswhip: 0
+  gameSounds: {fileID: 0}
 --- !u!4 &1029355674
 Transform:
   m_ObjectHideFlags: 0
@@ -1550,44 +1554,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.8, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 8812731746103942974}
+  - {fileID: 308403019}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1108457578 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4875760815680302841, guid: c40e2e5dae82bb8469f0fec7a7e38f60,
-    type: 3}
-  m_PrefabInstance: {fileID: 4875760816788674195}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1108457579
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1108457578}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edbf14232367b7944ae682d421c2c116, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  script: {fileID: 0}
-  FunctionToCall: GunPickup
-  Debug: Sending GunPickup information.
---- !u!65 &1108457580
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1108457578}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1141073715
 GameObject:
   m_ObjectHideFlags: 0
@@ -1624,7 +1594,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh161112
+  m_Name: pb_Mesh62676
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1911,7 +1881,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh160888
+  m_Name: pb_Mesh50638
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2477,7 +2447,7 @@ MonoBehaviour:
   fsm:
     dataVersion: 2
     usedInTemplate: {fileID: 0}
-    name: FSM
+    name: Dash and melee
     startState: meleenodash
     states:
     - name: meleenodash
@@ -4029,6 +3999,18 @@ MonoBehaviour:
     - name: hasupgrade
       isSystemEvent: 0
       isGlobal: 1
+    - name: dash
+      isSystemEvent: 0
+      isGlobal: 0
+    - name: FINISHED
+      isSystemEvent: 1
+      isGlobal: 0
+    - name: upgrade1
+      isSystemEvent: 0
+      isGlobal: 0
+    - name: upgrage2
+      isSystemEvent: 0
+      isGlobal: 0
     globalTransitions:
     - fsmEvent:
         name: has dash
@@ -4533,7 +4515,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &1743296629
 GameObject:
@@ -4612,7 +4594,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1756475791
 GameObject:
@@ -4946,6 +4928,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1188254980660926173, guid: 739f43c76dae333469dc3a10171ba850,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3293176568014618809, guid: 739f43c76dae333469dc3a10171ba850,
         type: 3}
       propertyPath: Player
@@ -5109,6 +5096,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7690927570945399107, guid: 6b6729954c6a07f408800042b6a49b86,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b6729954c6a07f408800042b6a49b86, type: 3}
@@ -14927,29 +14919,8 @@ Transform:
   m_Children:
   - {fileID: 1564152118}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &8144421793288226180 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3941947875915761243, guid: c7ac8b12026679241979693c6ae4672e,
-    type: 3}
-  m_PrefabInstance: {fileID: 5166280565606155231}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &8144421793288226181
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8144421793288226180}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edbf14232367b7944ae682d421c2c116, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  script: {fileID: 0}
-  FunctionToCall: PickupRing
-  Debug: Ring information sent to inventory
 --- !u!33 &8615105096667326080
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -15009,7 +14980,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8615105096667326084
 MonoBehaviour:
@@ -21093,9 +21064,3 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.98498344
   m_Center: {x: -0.5, y: 0.48498344, z: 0}
---- !u!4 &8812731746103942974 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4467373028478606561, guid: c7ac8b12026679241979693c6ae4672e,
-    type: 3}
-  m_PrefabInstance: {fileID: 5166280565606155231}
-  m_PrefabAsset: {fileID: 0}

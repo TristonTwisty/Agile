@@ -37,14 +37,18 @@ public class Inventory : MonoBehaviour
     public Component WhipRotationScript;
     public Component GrapplingScript;
 
+    [Header("Bat Settings")]
+    public GameObject Batt;
+
     [Header("Item Bools")]
     public bool hasboard;
     public bool hasdisk;
     public bool haswhip;
+    public bool hasBat;
 
     //Added By Ricardo For UI
     private Scriptforui scriptForUI;
-    private GameSounds gameSounds;
+    public GameSounds gameSounds;
     SpriteRenderer spriteRenderer;
 
     // Start is called before the first frame update
@@ -57,6 +61,7 @@ public class Inventory : MonoBehaviour
         Iteminventory = GameObject.FindGameObjectWithTag("Inventory");
         GunPos = GameObject.Find("GunPickupPos");
         SheildPos = GameObject.Find("Sheild Pos");
+        Batt = GameObject.FindGameObjectWithTag("Batt");
 
 
         //finding all Board things needed to manage
@@ -110,6 +115,12 @@ public class Inventory : MonoBehaviour
         {
             SwitchToGun();
         }
+
+        if (Input.GetKeyDown("4") && hasBat == true && onboard == false)
+        {
+            SwitchToBatt();
+        }
+
     }
 
 
@@ -117,6 +128,8 @@ public class Inventory : MonoBehaviour
     {
         hasboard = true;
         ActivateBoard();
+        //Added By Ricardo
+        //gameSounds.audioSource.PlayOneShot(gameSounds.hoverBoardStationary);
 
         //added by ricardo for UI
         if (haswhip == true)
@@ -145,6 +158,7 @@ public class Inventory : MonoBehaviour
         onboard = true;
 
         //Added By Ricardo For UI
+        gameSounds.audioSource.PlayOneShot(gameSounds.hoverBoardStationary);
         scriptForUI.currentItem.sprite = scriptForUI.playerHoverBoard.sprite;
         scriptForUI.itemInSlot1 = true;
         //End Ricardo
@@ -160,6 +174,10 @@ public class Inventory : MonoBehaviour
                 Disk.gameObject.SetActive(false);
                 //Added By Ricardo
                 scriptForUI.secondItem.sprite = scriptForUI.playerDisc.sprite;
+            }
+        if (hasBat == true)
+            {
+                Batt.gameObject.SetActive(false);
             }
         }
         else
@@ -180,7 +198,10 @@ public class Inventory : MonoBehaviour
         Board.transform.parent = Player.transform;
         Board.transform.localPosition = new Vector3(0, 0, 0);
         onboard = false;
-        
+
+         //added by Ricardo
+        gameSounds.audioSource.Stop();
+
         if (LastHeld == "Disk")
             {
                 SwitchToDisk();
@@ -189,7 +210,12 @@ public class Inventory : MonoBehaviour
             {
                 SwitchToGun();
             }
+        else if (LastHeld == "Batt")
+            {
+                SwitchToBatt();
+            }
         }
+        
         else
         {
             Debug.Log("you no have board dummy");
@@ -225,6 +251,10 @@ public class Inventory : MonoBehaviour
             scriptForUI.secondItem.sprite = scriptForUI.playerHoverBoard.sprite;
 
         }
+        if (hasBat == true)
+        {
+            Batt.gameObject.SetActive(false);
+        }
         ///End Ricardo
     }
 
@@ -254,6 +284,11 @@ public class Inventory : MonoBehaviour
         if (Disk.gameObject.activeInHierarchy == false)
         {
             Disk.gameObject.SetActive(true);
+        }
+
+        if (hasBat == true)
+        {
+            Batt.gameObject.SetActive(false);
         }
 
         LastHeld = "Disk";
@@ -292,6 +327,10 @@ public class Inventory : MonoBehaviour
             //Added By Ricardo
             scriptForUI.thirdItem.sprite = scriptForUI.playerHoverBoard.sprite;
         }
+        if (hasBat == true)
+        {
+            Batt.gameObject.SetActive(false);
+        }
 
         //End Ricardo
     }
@@ -324,6 +363,11 @@ public class Inventory : MonoBehaviour
             Whip.gameObject.SetActive(true);
         }
 
+        if (hasBat == true)
+        {
+            Batt.gameObject.SetActive(false);
+        }
+
         LastHeld = "Whip";
 
         //Added By Ricardo For UI
@@ -337,10 +381,61 @@ public class Inventory : MonoBehaviour
         Sheild.transform.parent = null;
         Sheild.transform.parent = PlayerCamera.transform;
         Sheild.transform.position = SheildPos.transform.position;
+        Sheild.transform.rotation = SheildPos.transform.rotation;
+        Sheild.GetComponent<ParticleShield>().enabled = true;
 
         //added by ricardo for ui
         scriptForUI.shieldImage.gameObject.SetActive(true);
         scriptForUI.shieldRechargeSlider.gameObject.SetActive(true);
+    }
+
+    public void PickUpBoots()
+    {
+        Player.GetComponent<WallWalker>().CanWallWalk = true;
+    }
+
+    public void PickupBatt()
+    {
+        Batt.gameObject.SetActive(true);
+        hasBat = true;
+
+        //NEEDS Updated Ricky
+        //scriptForUI.shieldImage.gameObject.SetActive(true);
+        //scriptForUI.shieldRechargeSlider.gameObject.SetActive(true);
+    }
+
+    public void SwitchToBatt()
+    {
+        if (hasdisk == true)
+        {
+            Disk.gameObject.SetActive(false);
+            //NEEDS UPDATE RICKY
+            //scriptForUI.secondItem.sprite = scriptForUI.playerDisc.sprite;
+
+        }
+
+        if (hasboard == true)
+        {
+            Board.gameObject.SetActive(false);
+            //NEEDS UPDATE RICKY
+            //scriptForUI.thirdItem.sprite = scriptForUI.playerHoverBoard.sprite;
+        }
+
+        if (haswhip == true)
+        {
+            Whip.gameObject.SetActive(false);
+        }
+
+        if (Batt.activeInHierarchy == false)
+        {
+            Batt.gameObject.SetActive(true);
+        }
+
+        LastHeld = "Batt";
+
+        //NEEDS UPDATE RICKY
+        //scriptForUI.currentItem.sprite = scriptForUI.playerWhip.sprite;
+        //scriptForUI.itemInSlot1 = true;
     }
 
     public void SavePlayer ()
