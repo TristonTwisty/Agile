@@ -1,7 +1,4 @@
-﻿using DG.Tweening.Core.Easing;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(BoxCollider))]
@@ -116,6 +113,7 @@ public class NewRingToss : MonoBehaviour
 
         if(Thrown && other.gameObject.CompareTag("Enemy"))
         {
+            // If the ring hits an enemy while returning to the player, deal damage
             other.gameObject.GetComponent<EnemyBehavior>().TakeDamage(ProjectileOBJ.DamageDealt);
         }
     }
@@ -135,6 +133,7 @@ public class NewRingToss : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            // If an enemy is hit, deal damage
             collision.gameObject.GetComponent<EnemyBehavior>().TakeDamage(ProjectileOBJ.DamageDealt);
         }
     }

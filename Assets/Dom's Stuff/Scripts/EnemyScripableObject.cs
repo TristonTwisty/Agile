@@ -10,4 +10,5 @@ public class EnemyScripableObject : ScriptableObject
     public float AttackRange;
     public ProjectileScriptableObjects ProjectileOBJ;
     public MeleeScriptableObject MeleeObj;
+    public PickupScriptableObject PickupOBJ;
 }
