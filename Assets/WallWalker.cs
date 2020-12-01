@@ -7,10 +7,10 @@ public class WallWalker : MonoBehaviour
     [Header("Movement")]
     [Tooltip("How fast can the player move forward and backward")] [SerializeField] private float MovementSpeed = 6;
     [Tooltip("How fast can the player move side to side")] [SerializeField] private float StrafeSpeed = 3;
-    [Tooltip("How smooth the player rotates when latching to a surface")] [SerializeField] private float LerpSpeed = 10;
-    [SerializeField] private float JumpHeight = 10;
+    [Tooltip("How smooth the player rotates when latching to a surface")] [SerializeField] private float LerpSpeed = 5;
+    [SerializeField] private float JumpHeight = 350;
     [HideInInspector] public bool CanWallWalk = false;
-    private bool IsJumping = false;
+    public bool IsJumping = false;
 
     [Header("Gravity")]
     [SerializeField] private float Gravity = 10;
@@ -19,7 +19,7 @@ public class WallWalker : MonoBehaviour
 
     [Header("Ground")]
     [Tooltip("What can the player latch to?")] [SerializeField] private LayerMask Walkable;
-    [Tooltip("How close the player's feet have to be to the surface to lock onto it")] [SerializeField] private float GravityLock = 1;
+    [Tooltip("How close the player's feet have to be to the surface to lock onto it")] [SerializeField] private float GravityLock = 2;
     private Vector3 SurfaceNormal;
     private Vector3 MyNormal;
     private float GroundDistance;
@@ -79,7 +79,7 @@ public class WallWalker : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.layer == Walkable)
+        if(collision.gameObject.layer == 10)
         {
             IsJumping = false;
         }
