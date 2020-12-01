@@ -25,11 +25,12 @@ public class EnemyBehavior : MonoBehaviour
     private int DestinationPoint = 0;
     private NavMeshAgent Agent;
     private float PlayerDistance = 0;
+    private Vector3 SpawnLocation;
 
     private bool Alive = true;
 
     private enum State {Initial, Idle, Patrol, Attack, ChasePlayer, Dead };
-    private State ActiveState = State.Initial;
+    private State ActiveState = State.Initial; 
 
     private IEnumerator Start()
     {
@@ -84,6 +85,8 @@ public class EnemyBehavior : MonoBehaviour
         Agent.speed = EnemyOBj.MovementSpeed;
 
         Actors = LayerMask.GetMask("Player");
+
+        SpawnLocation = transform.position;
 
         // If no patrol points were set the enemy stands still
         if (points == null)
@@ -165,7 +168,12 @@ public class EnemyBehavior : MonoBehaviour
 
     private void DoDeath()
     {
-        Debug.Log("Is dead");
+        Debug.Log("Dying");
+        int RandomNumber = Random.Range(0, 100);
+        if(RandomNumber <= EnemyOBj.PickupOBJ.DropChance)
+        {
+            Instantiate(EnemyOBj.PickupOBJ.PickupGameObject, transform.position + new Vector3 (0f, 0.5f, 0f), transform.rotation);
+        }
         Agent.isStopped = true;
         Destroy(gameObject);
     }
@@ -197,13 +205,9 @@ public class EnemyBehavior : MonoBehaviour
         {
             ActiveState = State.ChasePlayer;
         }
-        else if (points == null)
-        {
-            ActiveState = State.Idle;
-        }
         else
         {
-            ActiveState = State.Patrol;
+            Agent.destination = SpawnLocation;
         }
 
         // If player is in attack range AND not dead, attack player
