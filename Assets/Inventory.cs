@@ -4,64 +4,43 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    [Header("Player")]
-    public GameObject Player;
-    public Rigidbody RbPlayer;
-    public GameObject PlayerCamera;
-    public GameObject GunPos;
-    public GameObject SheildPos;
-    public int Health = 100;
-    public string LastHeld;
 
-    [Header("Items")]
-    public GameObject Board;
-    public GameObject Disk;
-    public GameObject Whip;
-    public GameObject Sheild;
-    private GameObject Iteminventory;
+    public int Health;
 
-    [Header("Board Settings")]
-    public Rigidbody BoardRb;
-    public Component BoardMovement;
-    public Component BoardInput;
-    public GameObject BoardPerf;
-    public GameObject BoardCamera;
-    public bool onboard;
-    private Collider BoardPerfCol;
-
-    [Header("Disk Settings")]
-    public GameObject DiskHolster;
-    public Component DiskTossScript;
-
-    [Header("Whip Settings")]
-    public Component WhipRotationScript;
-    public Component GrapplingScript;
-
-    [Header("Bat Settings")]
-    public GameObject Batt;
-
-    [Header("Item Bools")]
-    public bool hasboard;
-    public bool hasdisk;
+    [Header("Has")]
     public bool haswhip;
+    public bool hasdisk;
+    public bool hasboard;
     public bool hasBat;
+    public bool hasboots;
+    public bool hasbelt;
+    public bool hasSheild;
+
+    [Header("In Use")]
+    public bool onboard;
+    public bool Holdingbatt;
+    public bool HoldingDisk;
+    public bool HoldingWhip;
+    
+    
+    
 
     //Added By Ricardo For UI
-    private Scriptforui scriptForUI;
-    public GameSounds gameSounds;
-    SpriteRenderer spriteRenderer;
+    //private Scriptforui scriptForUI;
+    //public GameSounds gameSounds;
+    //SpriteRenderer spriteRenderer;
 
     // Start is called before the first frame update
     void Start()
     {
-        //finding all objects
+        /*//finding all objects
         Player = GameObject.FindGameObjectWithTag("Player");
         RbPlayer = Player.GetComponent<Rigidbody>();
         PlayerCamera = GameObject.FindGameObjectWithTag("PlayerCamera");
         Iteminventory = GameObject.FindGameObjectWithTag("Inventory");
         GunPos = GameObject.Find("GunPickupPos");
         SheildPos = GameObject.Find("Sheild Pos");
-        Batt = GameObject.FindGameObjectWithTag("Batt");
+        Batt = GameObject.Find("Batt");
 
 
         //finding all Board things needed to manage
@@ -88,20 +67,21 @@ public class Inventory : MonoBehaviour
         //Added By Ricardo For UI
         scriptForUI = GameObject.FindObjectOfType<Scriptforui>();
         gameSounds = GameObject.FindObjectOfType<GameSounds>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();*/
 
 
 
     }
 
+
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("1") && onboard == false)
+        if (Input.GetKeyDown("1") && onboard == false && hasboard == true)
         {
             ActivateBoard();
         }
-        else if (Input.GetKeyDown("1") && onboard == true)
+        else if (Input.GetKeyDown("1") && onboard == true && hasboard == true)
         {
             DeActivateBoard();
         }
@@ -123,319 +103,154 @@ public class Inventory : MonoBehaviour
 
     }
 
-
     public void OnTriggerEnterBoardFunction()
     {
-        hasboard = true;
-        ActivateBoard();
-        //Added By Ricardo
-        //gameSounds.audioSource.PlayOneShot(gameSounds.hoverBoardStationary);
-
-        //added by ricardo for UI
-        if (haswhip == true)
-        {
-            //Added By Ricardo
-            scriptForUI.thirdItem.sprite = scriptForUI.playerWhip.sprite;
-        }
-        if (hasdisk == true)
-        {
-            //Added By Ricardo
-            scriptForUI.secondItem.sprite = scriptForUI.playerDisc.sprite;
-        }
+        onboard = true;
+        PlayerRefs.instance.PlayerBoard.transform.position = PlayerRefs.instance.Player.transform.position;
+        PlayerRefs.instance.PlayerBoard.transform.rotation = PlayerRefs.instance.Player.transform.rotation;
+        PlayerRefs.instance.PlayerBoard.gameObject.SetActive(true);
+        PlayerRefs.instance.movementS.enabled = false;
+        PlayerRefs.instance.boxa.enabled = false;
+        PlayerRefs.instance.boxb.enabled = false;
+        PlayerRefs.instance.PlayerCamera.gameObject.SetActive(false);
     }
 
     private void ActivateBoard()
     {
-        if (hasboard == true) {
-        //get On board
-        Board.transform.parent = null;
-        Board.gameObject.SetActive(true);
-        BoardInput.GetComponent<HoverboardInput>().enabled = true;
-        BoardMovement.GetComponent<HoverboardMovement>().enabled = true;
-        Player.gameObject.SetActive(false);
-        Player.transform.parent = Board.transform;
-        Player.transform.localPosition = new Vector3(0, 0, 0);
         onboard = true;
+        PlayerRefs.instance.PlayerBoard.transform.position = PlayerRefs.instance.Player.transform.position;
+        PlayerRefs.instance.PlayerBoard.transform.rotation = PlayerRefs.instance.Player.transform.rotation;
+        PlayerRefs.instance.PlayerBoard.gameObject.SetActive(true);
+        PlayerRefs.instance.movementS.enabled = false;
+        PlayerRefs.instance.boxa.enabled = false;
+        PlayerRefs.instance.boxb.enabled = false;
+        PlayerRefs.instance.PlayerCamera.gameObject.SetActive(false);
 
-        //Added By Ricardo For UI
-        gameSounds.audioSource.PlayOneShot(gameSounds.hoverBoardStationary);
-        scriptForUI.currentItem.sprite = scriptForUI.playerHoverBoard.sprite;
-        scriptForUI.itemInSlot1 = true;
-        //End Ricardo
-     
-        if (haswhip == true)
-            {
-                Whip.gameObject.SetActive(false);
-                //Added By Ricardo
-                scriptForUI.thirdItem.sprite = scriptForUI.playerWhip.sprite;
-            }
-        if (hasdisk == true)
-            {
-                Disk.gameObject.SetActive(false);
-                //Added By Ricardo
-                scriptForUI.secondItem.sprite = scriptForUI.playerDisc.sprite;
-            }
-        if (hasBat == true)
-            {
-                Batt.gameObject.SetActive(false);
-            }
-        }
-        else
-        {
-            Debug.Log("you no have board dummy");
-        }
+        PlayerRefs.instance.Disk.gameObject.SetActive(false);
+        PlayerRefs.instance.PlayerWhip.gameObject.SetActive(false);
+        PlayerRefs.instance.PlayerBatt.gameObject.SetActive(false);
+
     }
 
     private void DeActivateBoard()
     {
-        if (hasboard == true) {
-        //get Off board
-        Player.transform.parent = null;
-        Player.gameObject.SetActive(true);
-        Board.gameObject.SetActive(false);
-        BoardInput.GetComponent<HoverboardInput>().enabled = false;
-        BoardMovement.GetComponent<HoverboardMovement>().enabled = false;
-        Board.transform.parent = Player.transform;
-        Board.transform.localPosition = new Vector3(0, 0, 0);
         onboard = false;
+        PlayerRefs.instance.Player.transform.position = PlayerRefs.instance.PlayerBoard.transform.position;
+        PlayerRefs.instance.Player.transform.rotation = PlayerRefs.instance.PlayerBoard.transform.rotation;
+        PlayerRefs.instance.PlayerBoard.gameObject.SetActive(false);
+        PlayerRefs.instance.movementS.enabled = true;
+        PlayerRefs.instance.boxa.enabled = true;
+        PlayerRefs.instance.boxb.enabled = true;
+        PlayerRefs.instance.PlayerCamera.gameObject.SetActive(true);
 
-         //added by Ricardo
-        gameSounds.audioSource.Stop();
-
-        if (LastHeld == "Disk")
-            {
-                SwitchToDisk();
-            }
-        else if (LastHeld == "Whip")
-            {
-                SwitchToGun();
-            }
-        else if (LastHeld == "Batt")
-            {
-                SwitchToBatt();
-            }
-        }
-        
-        else
+        /*if (Holdingbatt)
         {
-            Debug.Log("you no have board dummy");
+            SwitchToBatt();
         }
+        else if (HoldingDisk)
+        {
+            SwitchToDisk();
+        }
+        else if (HoldingWhip)
+        {
+            SwitchToGun();
+        }*/
+
     }
 
-    public void PickupRing()
+    public void PickUpBoard()
     {
-        Debug.Log("ring pickup called");
-        DiskTossScript.GetComponent<NewRingToss>().enabled = true;
-        DiskTossScript.GetComponent<Pickup>().enabled = false;
-        hasdisk = true;
-        LastHeld = "Disk";
-
-        //Added By Ricardo For UI
-        scriptForUI.currentItem.sprite = scriptForUI.playerDisc.sprite;
-        scriptForUI.itemInSlot1 = true;
-      
-
-        if (Whip.gameObject.activeInHierarchy == true && haswhip == true)
-        {
-            Whip.gameObject.SetActive(false);
-        }
-
-        if (haswhip == true)
-        {
-            //Added By Ricardo
-            scriptForUI.thirdItem.sprite = scriptForUI.playerWhip.sprite;
-        }
-        if (hasboard == true)
-        {
-            //Added By Ricardo
-            scriptForUI.secondItem.sprite = scriptForUI.playerHoverBoard.sprite;
-
-        }
-        if (hasBat == true)
-        {
-            Batt.gameObject.SetActive(false);
-        }
-        ///End Ricardo
+        hasboard = true;
     }
 
-    private void SwitchToDisk()
+    public void BootsPickedUp()
     {
-        if (haswhip == true)
-        {
-            Whip.gameObject.SetActive(false);
-            //Added By Ricardo
-            scriptForUI.thirdItem.sprite = scriptForUI.playerWhip.sprite;
-        }
-        if (hasdisk == true)
-        {
-            scriptForUI.secondItem.sprite = scriptForUI.playerWhip.sprite;
-            //Added By Ricardo For UI
-            scriptForUI.currentItem.sprite = scriptForUI.playerDisc.sprite;
-            scriptForUI.itemInSlot1 = true;
-        }
-        if (hasboard == true)
-        {
-            Board.gameObject.SetActive(false);
-            //Added By Ricardo
-            scriptForUI.secondItem.sprite = scriptForUI.playerHoverBoard.sprite;
-
-        }
-
-        if (Disk.gameObject.activeInHierarchy == false)
-        {
-            Disk.gameObject.SetActive(true);
-        }
-
-        if (hasBat == true)
-        {
-            Batt.gameObject.SetActive(false);
-        }
-
-        LastHeld = "Disk";
-    }
-
-    public void GunPickup()
-    {
-        Whip.transform.parent = Player.transform;
-        Whip.transform.position = GunPos.transform.position;
-        Whip.transform.parent = PlayerCamera.transform;
-        GrapplingScript.GetComponent<Grappling>().enabled = true;
-        WhipRotationScript.GetComponent<RotateGun>().enabled = true;
-        Whip.GetComponent<Pickup>().enabled = false;
-        GunPos.gameObject.SetActive(false);
-        haswhip = true;
-        LastHeld = "Whip";
-
- 
-
-        if (Disk.gameObject.activeInHierarchy == true && hasdisk == true)
-        {
-            Disk.gameObject.SetActive(false);
-        }
-
-        //Added By Ricardo For UI
-        scriptForUI.currentItem.sprite = scriptForUI.playerWhip.sprite;
-        scriptForUI.itemInSlot1 = true;
-
-        if (hasdisk == true)
-        {
-            //Added By Ricardo
-            scriptForUI.secondItem.sprite = scriptForUI.playerDisc.sprite;
-        }
-        if (hasboard == true)
-        {
-            //Added By Ricardo
-            scriptForUI.thirdItem.sprite = scriptForUI.playerHoverBoard.sprite;
-        }
-        if (hasBat == true)
-        {
-            Batt.gameObject.SetActive(false);
-        }
-
-        //End Ricardo
-    }
-
-    private void SwitchToGun()
-    {
-
-        //Added By Ricardo For UI
-        scriptForUI.currentItem.sprite = scriptForUI.playerWhip.sprite;
-        scriptForUI.itemInSlot1 = true;
-        //End Ricardo
-
-        if (hasdisk == true)
-        {
-            Disk.gameObject.SetActive(false);
-            //Added By Ricardo
-            scriptForUI.secondItem.sprite = scriptForUI.playerDisc.sprite;
-
-        }
-
-        if (hasboard == true)
-        {
-            Board.gameObject.SetActive(false);
-            //Added By Ricardo
-            scriptForUI.thirdItem.sprite = scriptForUI.playerHoverBoard.sprite;
-        }
-
-        if (Whip.gameObject.activeInHierarchy == false)
-        {
-            Whip.gameObject.SetActive(true);
-        }
-
-        if (hasBat == true)
-        {
-            Batt.gameObject.SetActive(false);
-        }
-
-        LastHeld = "Whip";
-
-        //Added By Ricardo For UI
-        scriptForUI.currentItem.sprite = scriptForUI.playerWhip.sprite;
-        scriptForUI.itemInSlot1 = true;
+        hasboots = true;
+        PlayerRefs.instance.movementS.CanWallWalk = true;
     }
 
     public void PickupShield()
     {
-        Sheild.gameObject.SetActive(true);
-        Sheild.transform.parent = null;
-        Sheild.transform.parent = PlayerCamera.transform;
-        Sheild.transform.position = SheildPos.transform.position;
-        Sheild.transform.rotation = SheildPos.transform.rotation;
-        Sheild.GetComponent<ParticleShield>().enabled = true;
-
-        //added by ricardo for ui
-        scriptForUI.shieldImage.gameObject.SetActive(true);
-        scriptForUI.shieldRechargeSlider.gameObject.SetActive(true);
+        PlayerRefs.instance.Sheild.gameObject.SetActive(true);
+        hasSheild = true;
     }
 
-    public void PickUpBoots()
+    public void PickupDisk()
     {
-        Player.GetComponent<WallWalker>().CanWallWalk = true;
+        hasdisk = true;
+        HoldingDisk = false;
+        SwitchToDisk();
+    }
+
+    public void PickupGun()
+    {
+        haswhip = true;
+        HoldingWhip = false;
+        SwitchToGun();
     }
 
     public void PickupBatt()
     {
-        Batt.gameObject.SetActive(true);
         hasBat = true;
-
-        //NEEDS Updated Ricky
-        //scriptForUI.shieldImage.gameObject.SetActive(true);
-        //scriptForUI.shieldRechargeSlider.gameObject.SetActive(true);
+        Holdingbatt = false;
+        SwitchToBatt();
     }
 
-    public void SwitchToBatt()
+    private void SwitchToDisk()
     {
-        if (hasdisk == true)
+        if (HoldingDisk == false & hasdisk == true & onboard == false)
         {
-            Disk.gameObject.SetActive(false);
-            //NEEDS UPDATE RICKY
-            //scriptForUI.secondItem.sprite = scriptForUI.playerDisc.sprite;
+            PlayerRefs.instance.PlayerWhip.gameObject.SetActive(false);
+            PlayerRefs.instance.Disk.gameObject.SetActive(true);
+            PlayerRefs.instance.PlayerBatt.gameObject.SetActive(false);
+            PlayerRefs.instance.PlayerBoard.gameObject.SetActive(false);
+            HoldingDisk = true;
+            HoldingWhip = false;
+            Holdingbatt = false;
+        }
+        else
+        {
+            PlayerRefs.instance.Disk.gameObject.SetActive(false);
+            HoldingDisk = false;
+        }
+    }
 
+    private void SwitchToGun()
+    {
+        if (HoldingWhip == false & haswhip == true & onboard == false)
+        {
+            PlayerRefs.instance.PlayerWhip.gameObject.SetActive(true);
+            PlayerRefs.instance.Disk.gameObject.SetActive(false);
+            PlayerRefs.instance.PlayerBatt.gameObject.SetActive(false);
+            PlayerRefs.instance.PlayerBoard.gameObject.SetActive(false);
+            HoldingWhip = true;
+            HoldingDisk = false;
+            Holdingbatt = false;
+        }
+        else
+        {
+            PlayerRefs.instance.PlayerWhip.gameObject.SetActive(false);
+            HoldingWhip = false;
         }
 
-        if (hasboard == true)
+    }
+
+    private void SwitchToBatt()
+    {
+        if (Holdingbatt == false & hasBat == true & onboard == false)
         {
-            Board.gameObject.SetActive(false);
-            //NEEDS UPDATE RICKY
-            //scriptForUI.thirdItem.sprite = scriptForUI.playerHoverBoard.sprite;
-        }
-
-        if (haswhip == true)
+            PlayerRefs.instance.Disk.gameObject.SetActive(false);
+            PlayerRefs.instance.PlayerWhip.gameObject.SetActive(false);
+            PlayerRefs.instance.PlayerBatt.gameObject.SetActive(true);
+            Holdingbatt = true;
+            HoldingWhip = false;
+            HoldingDisk = false;
+        } 
+        else
         {
-            Whip.gameObject.SetActive(false);
+            PlayerRefs.instance.PlayerBatt.gameObject.SetActive(false);
+            Holdingbatt = false;
         }
-
-        if (Batt.activeInHierarchy == false)
-        {
-            Batt.gameObject.SetActive(true);
-        }
-
-        LastHeld = "Batt";
-
-        //NEEDS UPDATE RICKY
-        //scriptForUI.currentItem.sprite = scriptForUI.playerWhip.sprite;
-        //scriptForUI.itemInSlot1 = true;
     }
 
     public void SavePlayer ()
@@ -453,7 +268,7 @@ public class Inventory : MonoBehaviour
         position.x = data.position[0];
         position.y = data.position[1];
         position.z = data.position[2];
-        Player.transform.position = position;
+        PlayerRefs.instance.Player.transform.position = position;
 
         hasboard = data.hasboard;
         hasdisk = data.hasdisk;

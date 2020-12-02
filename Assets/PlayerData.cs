@@ -21,9 +21,9 @@ public class PlayerData
         health = Player.Health;
 
         position = new float[3];
-        position[0] = Player.Player.transform.position.x;
-        position[1] = Player.Player.transform.position.y;
-        position[2] = Player.Player.transform.position.z;
+        position[0] = PlayerRefs.instance.Player.transform.position.x;
+        position[1] = PlayerRefs.instance.Player.transform.position.y;
+        position[2] = PlayerRefs.instance.Player.transform.position.z;
 
         hasboard = Player.hasboard;
         hasdisk = Player.hasdisk;

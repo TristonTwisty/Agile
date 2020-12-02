@@ -291,6 +291,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   script: {fileID: 0}
-  FunctionToCall: PickupRing
+  FunctionToCall: PickupDisk
   Debug: Ring information sent to inventory
-  dummy: {fileID: 0}
+  dummy: {fileID: 5581288585183897003}

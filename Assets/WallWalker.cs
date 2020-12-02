@@ -9,7 +9,7 @@ public class WallWalker : MonoBehaviour
     [Tooltip("How fast can the player move side to side")] [SerializeField] private float StrafeSpeed = 3;
     [Tooltip("How smooth the player rotates when latching to a surface")] [SerializeField] private float LerpSpeed = 5;
     [SerializeField] private float JumpHeight = 350;
-    [HideInInspector] public bool CanWallWalk = false;
+    public bool CanWallWalk = false;
     public bool IsJumping = false;
 
     [Header("Gravity")]

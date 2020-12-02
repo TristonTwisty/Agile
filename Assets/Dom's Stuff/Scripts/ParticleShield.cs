@@ -54,13 +54,13 @@ public class ParticleShield : MonoBehaviour
             //Added By Ricardo For U.I.
             scriptForUI.shieldRecharge = scriptForUI.shieldRecharge - .3f;
             shieldOn = true;
-            gameSounds.audioSource.PlayOneShot(gameSounds.shieldActivated);
+            //gameSounds.audioSource.PlayOneShot(gameSounds.shieldActivated);
         }
 
         if(Input.GetKeyUp(KeyCode.LeftControl))
         {
             //Added By Ricardo For U.I.
-            gameSounds.audioSource.Stop();
+            //gameSounds.audioSource.Stop();
             shieldOn = false;
         }
 
@@ -74,7 +74,7 @@ public class ParticleShield : MonoBehaviour
             ShieldRecharge();
 
             // Ricky's ugly code jk
-            gameSounds.audioSource.Stop();
+            //gameSounds.audioSource.Stop();
         }
 
         if(CurrentCapacity >= MaxCapacity)

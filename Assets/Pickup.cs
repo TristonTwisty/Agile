@@ -19,7 +19,7 @@ public class Pickup : MonoBehaviour
         if (other.tag == "Player")
         {
             print(Debug);
-            script.Invoke(FunctionToCall, 0f);
+            script.Invoke(FunctionToCall, 0f);  
             Destroy(dummy);
         }
 
