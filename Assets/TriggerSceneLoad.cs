@@ -7,9 +7,8 @@ public class TriggerSceneLoad : MonoBehaviour
 {
     public string LevelName;
 
-    private bool ShouldLoad;
-    private bool isLoaded;
-    //public string Unload;
+    public bool ShouldLoad;
+    public bool isLoaded;
 
     private void Update()
     {
@@ -56,7 +55,7 @@ public class TriggerSceneLoad : MonoBehaviour
         {
             LoadScene();
         }
-        else
+        else 
         {
             UnLoadScene();
         }

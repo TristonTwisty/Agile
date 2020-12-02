@@ -67,7 +67,7 @@ public class EnemyBehavior : MonoBehaviour
         gameObject.gameObject.tag = "Enemy";
 
         // Find the Player and enemy's fire point
-        Player = GameObject.Find("Player");
+        Player = PlayerRefs.instance.Player.gameObject;
         FirePoint = gameObject.transform.Find("Fire Point");
         WeaponBC = Weapon.GetComponent<BoxCollider>();
         WeaponBC.isTrigger = true;

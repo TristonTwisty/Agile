@@ -6,6 +6,10 @@ public class Inventory : MonoBehaviour
 {
 
     public int Health;
+    public GameObject CheckPoint;
+    private Vector3 CheckPointPos;
+    private Quaternion CheckPointRot;
+
 
     [Header("Has")]
     public bool haswhip;
@@ -21,8 +25,8 @@ public class Inventory : MonoBehaviour
     public bool Holdingbatt;
     public bool HoldingDisk;
     public bool HoldingWhip;
-    
-    
+
+    public GameObject escMenu;
     
 
     //Added By Ricardo For UI
@@ -68,7 +72,8 @@ public class Inventory : MonoBehaviour
         scriptForUI = GameObject.FindObjectOfType<Scriptforui>();
         gameSounds = GameObject.FindObjectOfType<GameSounds>();
         spriteRenderer = GetComponent<SpriteRenderer>();*/
-
+        CheckPointPos = CheckPoint.transform.position;
+        CheckPointRot = CheckPoint.transform.rotation;
 
 
     }
@@ -101,7 +106,34 @@ public class Inventory : MonoBehaviour
             SwitchToBatt();
         }
 
+        /*if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            ActivateMenu();
+        }*/
+
     }
+
+    /*public void ActivateMenu()
+    {
+        if (escMenu.activeInHierarchy == false)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            PlayerRefs.instance.movementS.enabled = false;
+            PlayerRefs.instance.PlayerCamera.GetComponent<DomsMouseLook>().enabled = false;
+            escMenu.SetActive(true);
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            PlayerRefs.instance.movementS.enabled = true;
+            PlayerRefs.instance.PlayerCamera.GetComponent<DomsMouseLook>().enabled = true;
+            escMenu.SetActive(false);
+        }
+
+
+    }*/
 
     public void OnTriggerEnterBoardFunction()
     {
@@ -253,9 +285,12 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void SavePlayer ()
+    public void SavePlayer()
     {
         SaveSystem.SavePlayer(this);
+        Debug.Log(CheckPoint + ("Updated to ") + CheckPoint);
+        Debug.Log(CheckPointPos + ("Updated to ") + CheckPointPos);
+        Debug.Log(CheckPointRot + ("Updated to ") + CheckPointRot);
     }
 
     public void LoadPlayer()
@@ -264,17 +299,20 @@ public class Inventory : MonoBehaviour
 
         Health = data.health;
 
-        Vector3 position;
-        position.x = data.position[0];
-        position.y = data.position[1];
-        position.z = data.position[2];
-        PlayerRefs.instance.Player.transform.position = position;
+        CheckPointPos.x = data.position[0];
+        CheckPointPos.y = data.position[1];
+        CheckPointPos.z = data.position[2];
 
-        hasboard = data.hasboard;
-        hasdisk = data.hasdisk;
+        PlayerRefs.instance.Player.transform.position = CheckPointPos;
+        PlayerRefs.instance.Player.transform.rotation = CheckPointRot;
+
         haswhip = data.haswhip;
-
-        
+        hasdisk = data.hasdisk;
+        hasboard = data.hasboard;
+        hasBat = data.hasBat;
+        hasboots = data.hasboots;
+        hasbelt = data.hasbelt;
+        hasSheild = data.hasSheild;
 
     }
 }

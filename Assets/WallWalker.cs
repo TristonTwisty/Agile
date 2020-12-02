@@ -83,5 +83,9 @@ public class WallWalker : MonoBehaviour
         {
             IsJumping = false;
         }
+        else
+        {
+            Debug.Log("Say wha");
+        }
     }
 }

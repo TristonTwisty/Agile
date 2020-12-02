@@ -8,9 +8,13 @@ public class PlayerData
     public int health;
     public float[] position;
 
-    public bool hasboard;
-    public bool hasdisk;
     public bool haswhip;
+    public bool hasdisk;
+    public bool hasboard;
+    public bool hasBat;
+    public bool hasboots;
+    public bool hasbelt;
+    public bool hasSheild;
 
     public string BoardParent;
     public string DiskParent;
@@ -21,15 +25,17 @@ public class PlayerData
         health = Player.Health;
 
         position = new float[3];
-        position[0] = PlayerRefs.instance.Player.transform.position.x;
-        position[1] = PlayerRefs.instance.Player.transform.position.y;
-        position[2] = PlayerRefs.instance.Player.transform.position.z;
+        position[0] = Player.CheckPoint.transform.position.x;
+        position[1] = Player.CheckPoint.transform.position.y;
+        position[2] = Player.CheckPoint.transform.position.z;
 
-        hasboard = Player.hasboard;
-        hasdisk = Player.hasdisk;
         haswhip = Player.haswhip;
-
-        
+        hasdisk = Player.hasdisk;
+        hasboard = Player.hasboard;
+        hasBat = Player.hasBat;
+        hasboots = Player.hasboots;
+        hasbelt = Player.hasbelt;
+        hasSheild = Player.hasSheild;
 
     }
 }
