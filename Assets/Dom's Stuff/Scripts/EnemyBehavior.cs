@@ -15,7 +15,7 @@ public class EnemyBehavior : MonoBehaviour
     private float AttackCooldown = 0;
     private float Health = 0;
     private float CurrentHealth = 0;
-    [SerializeField] private Animator Animator;
+    private Animator Animator;
     [SerializeField] private GameObject Weapon = null;
     private BoxCollider WeaponBC;
     private LayerMask Actors;
