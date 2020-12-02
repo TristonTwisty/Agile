@@ -1134,6 +1134,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &860615669 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4176597020681365052, guid: 739f43c76dae333469dc3a10171ba850,
+    type: 3}
+  m_PrefabInstance: {fileID: 3293176566775373913}
+  m_PrefabAsset: {fileID: 0}
+--- !u!81 &860615675
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 860615669}
+  m_Enabled: 1
 --- !u!1 &898791717
 GameObject:
   m_ObjectHideFlags: 0
@@ -1376,6 +1390,10 @@ MonoBehaviour:
   audioSource: {fileID: 1004650502}
   grapplingLaunch: {fileID: 8300000, guid: d64fe7930c1a46047b1c1dab2e0ab786, type: 3}
   shieldActivated: {fileID: 8300000, guid: db23c2fc60f739b4bb8b8fe118b2a271, type: 3}
+  hoverBoardStationary: {fileID: 8300000, guid: b30a78b2035cf8549ad741d1d58991cd,
+    type: 3}
+  hoverBoardAccelerating: {fileID: 0}
+  discTossed: {fileID: 0}
 --- !u!82 &1004650502
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1539,6 +1557,7 @@ MonoBehaviour:
   hasboard: 0
   hasdisk: 0
   haswhip: 0
+  gameSounds: {fileID: 0}
 --- !u!4 &1029355674
 Transform:
   m_ObjectHideFlags: 0
