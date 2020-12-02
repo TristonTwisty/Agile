@@ -9,6 +9,10 @@ public class GameSounds : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip grapplingLaunch;
     public AudioClip shieldActivated;
+    public AudioClip hoverBoardStationary;
+    public AudioClip hoverBoardAccelerating;
+    public AudioClip discTossed;
+
     void Start()
     {
         audioSource = GetComponent<AudioSource>();

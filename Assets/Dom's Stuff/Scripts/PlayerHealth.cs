@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
     public float MaxHealth = 100;
-    private float CurrentHealth = 0;
+    [HideInInspector] public float CurrentHealth = 0;
 
     void Start()
     {
@@ -18,6 +16,10 @@ public class PlayerHealth : MonoBehaviour
         if(CurrentHealth <= 0)
         {
             Destroy(gameObject);
+        }
+        if(CurrentHealth >= MaxHealth)
+        {
+            CurrentHealth = MaxHealth;
         }
     }
 

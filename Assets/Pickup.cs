@@ -7,6 +7,7 @@ public class Pickup : MonoBehaviour
     public Inventory script;
     public string FunctionToCall;
     public string Debug;
+    public GameObject dummy;
 
     private void Start()
     {
@@ -19,6 +20,7 @@ public class Pickup : MonoBehaviour
         {
             print(Debug);
             script.Invoke(FunctionToCall, 0f);
+            Destroy(dummy);
         }
 
     }

@@ -1,7 +1,4 @@
-﻿using DG.Tweening.Core.Easing;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(BoxCollider))]
@@ -13,7 +10,7 @@ public class NewRingToss : MonoBehaviour
     [SerializeField] [Tooltip("The trail renderer of the disc")] private TrailRenderer TR = null;
 
     [Header("Mechanics")]
-    [SerializeField] private ProjectileScriptableObjects ProjectileOBJ;
+    [SerializeField] private ProjectileScriptableObjects ProjectileOBJ = null;
     [Tooltip("How fast the ring travels after being thrown")] private float ThrowSpeed;
     [SerializeField] [Tooltip("How how seconds it takes for ring to return to player")] private float ReturnSpeed = 0f;
     [SerializeField] [Tooltip("How far the disc can travel before returning to player")] private float MaxDistance = 0f;
@@ -31,7 +28,7 @@ public class NewRingToss : MonoBehaviour
         // Get ring's collider and rigidbody
         // Set ring's collider to trigger
         RB = GetComponent<Rigidbody>();
-        BC =GetComponent<BoxCollider>();
+        BC = GetComponent<BoxCollider>();
         TR.enabled = false;
         BC.isTrigger = true;
         PlayerCamera = GameObject.FindGameObjectWithTag("PlayerCamera");
@@ -113,6 +110,12 @@ public class NewRingToss : MonoBehaviour
 
             transform.position = Vector3.MoveTowards(transform.position, RingHolster.position, 1);
         }
+
+        if(Thrown && other.gameObject.CompareTag("Enemy"))
+        {
+            // If the ring hits an enemy while returning to the player, deal damage
+            other.gameObject.GetComponent<EnemyBehavior>().TakeDamage(ProjectileOBJ.DamageDealt);
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -128,9 +131,9 @@ public class NewRingToss : MonoBehaviour
             DoReturn = true;
         }
 
-        // Call the take damage method after touching an enemy
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            // If an enemy is hit, deal damage
             collision.gameObject.GetComponent<EnemyBehavior>().TakeDamage(ProjectileOBJ.DamageDealt);
         }
     }

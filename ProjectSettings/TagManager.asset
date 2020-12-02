@@ -3,7 +3,20 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Particle Disc
+  - Enemy
+  - dash
+  - Inventory
+  - PlayerCamera
+  - Hoverboard
+  - Board Camera
+  - Sheild
+  - Whip
+  - Dummy
+  - Floor
+  - Rail End
+  - Batt
   layers:
   - Default
   - TransparentFX
@@ -13,10 +26,10 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - Shield
+  - grapplingMask
+  - Ground
+  - Wall
   - 
   - 
   - 

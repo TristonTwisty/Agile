@@ -1,12 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ParticleShield : MonoBehaviour
 {
     public float MaxCapacity;
-    public float DrainSpeed;
-    public float RechargeSpeed;
+    [SerializeField] private float DrainSpeed = 0;
+    [SerializeField] private float RechargeSpeed = 0;
     [Tooltip("The PS when the shield is activated")] public ParticleSystem ShieldPS;
     [Tooltip("The PS activated when something hits the shield")] public ParticleSystem DeflectPS;
     private float CurrentCapacity;
@@ -16,7 +14,7 @@ public class ParticleShield : MonoBehaviour
 
 
     //Added By Ricardo for U.I.
-    public bool shieldOn;
+    [HideInInspector] public bool shieldOn = false;
 
 
     //Added By Ricardo For U.I.
@@ -45,9 +43,9 @@ public class ParticleShield : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKey(KeyCode.LeftControl))
+        if (Input.GetKey(KeyCode.LeftControl) && !shieldOn)
         {
-            // Enable PS, meshrenderer and collider when in use
+            // Enable PS, mesh renderer and collider when in use
             ShieldPS.Play();
             MeshRend.enabled = true;
             Collider.enabled = true;
@@ -61,18 +59,12 @@ public class ParticleShield : MonoBehaviour
 
         if(Input.GetKeyUp(KeyCode.LeftControl))
         {
-            ShieldPS.Stop();
-            MeshRend.enabled = false;
-            Collider.enabled = false;
-            ShieldRecharge();
-            shieldOn = false;
-
             //Added By Ricardo For U.I.
             gameSounds.audioSource.Stop();
- 
+            shieldOn = false;
         }
 
-        if(CurrentCapacity <= 0)
+        if(CurrentCapacity <= 0 || !shieldOn)
         {
             //Disable everything when shield reaches 0
             CurrentCapacity = 0;
@@ -80,6 +72,9 @@ public class ParticleShield : MonoBehaviour
             MeshRend.enabled = false;
             Collider.enabled = false;
             ShieldRecharge();
+
+            // Ricky's ugly code jk
+            gameSounds.audioSource.Stop();
         }
 
         if(CurrentCapacity >= MaxCapacity)

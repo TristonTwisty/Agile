@@ -16,7 +16,7 @@ public class EnemyBehavior : MonoBehaviour
     private float Health = 0;
     private float CurrentHealth = 0;
     private Animator Animator;
-    [SerializeField] private GameObject Weapon;
+    [SerializeField] private GameObject Weapon = null;
     private BoxCollider WeaponBC;
     private LayerMask Actors;
 
@@ -25,15 +25,16 @@ public class EnemyBehavior : MonoBehaviour
     private int DestinationPoint = 0;
     private NavMeshAgent Agent;
     private float PlayerDistance = 0;
+    private Vector3 SpawnLocation;
 
     private bool Alive = true;
 
-    private enum State {Initial, Idle, Patrol, Attack, ChasePlayer };
-    private State ActiveState = State.Initial;
+    private enum State {Initial, Idle, Patrol, Attack, ChasePlayer, Dead };
+    private State ActiveState = State.Initial; 
 
     private IEnumerator Start()
     {
-        while(Alive == true)
+        while (Alive == true)
         {
             switch (ActiveState)
             {
@@ -52,6 +53,9 @@ public class EnemyBehavior : MonoBehaviour
                 case State.ChasePlayer:
                     ChasePlayer();
                     break;
+                case State.Dead:
+                    DoDeath();
+                    break;
             }
             yield return null;
         }
@@ -68,12 +72,12 @@ public class EnemyBehavior : MonoBehaviour
         WeaponBC = Weapon.GetComponent<BoxCollider>();
         WeaponBC.isTrigger = true;
 
-        // Get Animator
-        Animator = gameObject.GetComponentInChildren<Animator>();
-
         // set health and current health
         Health = EnemyOBj.Health;
         CurrentHealth = Health;
+
+        // Get Animator
+        Animator = gameObject.GetComponentInChildren<Animator>();
 
         // Movement and Patrol Initialization
         Agent = GetComponent<NavMeshAgent>();
@@ -81,6 +85,8 @@ public class EnemyBehavior : MonoBehaviour
         Agent.speed = EnemyOBj.MovementSpeed;
 
         Actors = LayerMask.GetMask("Player");
+
+        SpawnLocation = transform.position;
 
         // If no patrol points were set the enemy stands still
         if (points == null)
@@ -160,6 +166,18 @@ public class EnemyBehavior : MonoBehaviour
         }
     }
 
+    private void DoDeath()
+    {
+        Debug.Log("Dying");
+        int RandomNumber = Random.Range(0, 100);
+        if(RandomNumber <= EnemyOBj.PickupOBJ.DropChance)
+        {
+            Instantiate(EnemyOBj.PickupOBJ.PickupGameObject, transform.position + new Vector3 (0f, 0.5f, 0f), transform.rotation);
+        }
+        Agent.isStopped = true;
+        Destroy(gameObject);
+    }
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
@@ -179,23 +197,21 @@ public class EnemyBehavior : MonoBehaviour
 
         if(CurrentHealth <= 0)
         {
-            Destroy(gameObject);
+            ActiveState = State.Dead;
         }
 
-        if (PlayerDistance <= ChasePlayerRange)
+        // If the player is in range of chase distance AND is not dead, Chase Player
+        if (PlayerDistance <= ChasePlayerRange && ActiveState != State.Dead)
         {
             ActiveState = State.ChasePlayer;
         }
-        else if (points == null)
-        {
-            ActiveState = State.Idle;
-        }
         else
         {
-            ActiveState = State.Patrol;
+            Agent.destination = SpawnLocation;
         }
 
-        if (PlayerDistance <= EnemyOBj.AttackRange)
+        // If player is in attack range AND not dead, attack player
+        if (PlayerDistance <= EnemyOBj.AttackRange && ActiveState != State.Dead)
         {
             ActiveState = State.Attack;
             Agent.isStopped = true;
