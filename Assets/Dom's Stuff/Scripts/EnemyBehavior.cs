@@ -17,8 +17,6 @@ public class EnemyBehavior : MonoBehaviour
     private float CurrentHealth = 0;
     private Animator Animator;
     [SerializeField] private GameObject Weapon = null;
-    private BoxCollider WeaponBC;
-    private LayerMask Actors;
 
     [Header("Movement")]
     [Tooltip("If you want the enemy to patrol place the transforms here. Leave empty to have enemy idle")] public Transform[] points;
@@ -63,14 +61,11 @@ public class EnemyBehavior : MonoBehaviour
 
     private void Initial()
     {
-        Debug.Log("In Initial");
         gameObject.gameObject.tag = "Enemy";
 
         // Find the Player and enemy's fire point
         Player = PlayerRefs.instance.Player.gameObject;
         FirePoint = gameObject.transform.Find("Fire Point");
-        WeaponBC = Weapon.GetComponent<BoxCollider>();
-        WeaponBC.isTrigger = true;
 
         // set health and current health
         Health = EnemyOBj.Health;
@@ -83,8 +78,6 @@ public class EnemyBehavior : MonoBehaviour
         Agent = GetComponent<NavMeshAgent>();
         Agent.autoBraking = true; // Enemy does not slow down when reaching point
         Agent.speed = EnemyOBj.MovementSpeed;
-
-        Actors = LayerMask.GetMask("Player");
 
         SpawnLocation = transform.position;
 
@@ -106,7 +99,6 @@ public class EnemyBehavior : MonoBehaviour
 
     private void Patrol()
     {
-        Debug.Log("In Patrol");
         if (points.Length == 0)
             return;
         Agent.destination = points[DestinationPoint].position;
@@ -115,14 +107,11 @@ public class EnemyBehavior : MonoBehaviour
 
     private void ChasePlayer()
     {
-        Debug.Log("In ChasePlayer");
         Agent.destination = Player.transform.position;
     }
 
     private void StartAttack()
     {
-        Debug.Log("In StartAttack");
-
         switch (EnemyType)
         {
             case AttackType.RangeHumanoid:
@@ -147,28 +136,18 @@ public class EnemyBehavior : MonoBehaviour
 
     private void RangedAttack()
     {
-        Debug.Log("Shoot");
         transform.LookAt(Player.transform);
         Instantiate(EnemyOBj.ProjectileOBJ.Projectile, FirePoint.position, FirePoint.transform.rotation);
     }
 
     private void MeleeAttack()
     {
-        Debug.Log("Melee");
         transform.LookAt(Player.transform);
         Animator.SetTrigger("Swing Club");
-
-        Collider[] HitTargets = Physics.OverlapSphere(Weapon.transform.position, EnemyOBj.MeleeObj.HitBox, Actors);
-
-        foreach(Collider collider in HitTargets)
-        {
-            Player.GetComponent<PlayerHealth>().TakeDamage(EnemyOBj.MeleeObj.DamageDealth);
-        }
     }
 
     private void DoDeath()
     {
-        Debug.Log("Dying");
         int RandomNumber = Random.Range(0, 100);
         if(RandomNumber <= EnemyOBj.PickupOBJ.DropChance)
         {
@@ -184,8 +163,6 @@ public class EnemyBehavior : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, EnemyOBj.AttackRange);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, ChasePlayerRange);
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(Weapon.transform.position, EnemyOBj.MeleeObj.HitBox);
     }
 
     private void Update()

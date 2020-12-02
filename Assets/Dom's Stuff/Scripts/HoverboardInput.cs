@@ -36,9 +36,9 @@ public class HoverboardInput : MonoBehaviour
         boardAnim.SetFloat("Yvalue", Yvalue);
         isBraking = Input.GetButton(brakingKey);
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            boardAnim.SetTrigger("Attack");
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    boardAnim.SetTrigger("Attack");
+        //}
 	}
 }

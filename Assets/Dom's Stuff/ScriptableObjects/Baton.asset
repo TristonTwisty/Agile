@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f12471e9b44472546a114ec1ed6e331e, type: 3}
+  m_Name: Baton
+  m_EditorClassIdentifier: 
+  MeleeWeapon: {fileID: 3885157617110023946, guid: 99f36f831a4fa114eab6713f0d21dce6,
+    type: 3}
+  DamageDealth: 100

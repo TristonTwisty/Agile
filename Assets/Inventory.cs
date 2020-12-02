@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-
-    public int Health;
-    public GameObject CheckPoint;
+    public GameObject CheckPoint = null;
     private Vector3 CheckPointPos;
     private Quaternion CheckPointRot;
 
@@ -27,6 +25,10 @@ public class Inventory : MonoBehaviour
     public bool HoldingWhip;
 
     public GameObject escMenu;
+
+    // My ugly code for UI
+    [Header("UI")]
+    private UIManager UIManager;
     
 
     //Added By Ricardo For UI
@@ -37,6 +39,8 @@ public class Inventory : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        UIManager = GameObject.FindGameObjectWithTag("UI").GetComponent<UIManager>();
+
         /*//finding all objects
         Player = GameObject.FindGameObjectWithTag("Player");
         RbPlayer = Player.GetComponent<Rigidbody>();
@@ -162,6 +166,9 @@ public class Inventory : MonoBehaviour
         PlayerRefs.instance.PlayerWhip.gameObject.SetActive(false);
         PlayerRefs.instance.PlayerBatt.gameObject.SetActive(false);
 
+        // Turn on board UI
+        UIManager.Hoverboard.enabled = true;
+
     }
 
     private void DeActivateBoard()
@@ -174,6 +181,9 @@ public class Inventory : MonoBehaviour
         PlayerRefs.instance.boxa.enabled = true;
         PlayerRefs.instance.boxb.enabled = true;
         PlayerRefs.instance.PlayerCamera.gameObject.SetActive(true);
+
+        //Turn off board UI
+        UIManager.Hoverboard.enabled = false;
 
         /*if (Holdingbatt)
         {
@@ -205,27 +215,30 @@ public class Inventory : MonoBehaviour
     {
         PlayerRefs.instance.Sheild.gameObject.SetActive(true);
         hasSheild = true;
+
+        UIManager.Shield.enabled = true;
+        UIManager.SheildCpacity.enabled = true;
     }
 
     public void PickupDisk()
     {
         hasdisk = true;
         HoldingDisk = false;
-        SwitchToDisk();
+        //SwitchToDisk();
     }
 
     public void PickupGun()
     {
         haswhip = true;
         HoldingWhip = false;
-        SwitchToGun();
+        //SwitchToGun();
     }
 
     public void PickupBatt()
     {
         hasBat = true;
         Holdingbatt = false;
-        SwitchToBatt();
+        //SwitchToBatt();
     }
 
     private void SwitchToDisk()
@@ -239,11 +252,17 @@ public class Inventory : MonoBehaviour
             HoldingDisk = true;
             HoldingWhip = false;
             Holdingbatt = false;
+
+            // Turn on disc UI
+            UIManager.Disc.enabled = true;
         }
         else
         {
             PlayerRefs.instance.Disk.gameObject.SetActive(false);
             HoldingDisk = false;
+
+            // Turn off disc UI
+            UIManager.Disc.enabled = false;
         }
     }
 
@@ -258,11 +277,17 @@ public class Inventory : MonoBehaviour
             HoldingWhip = true;
             HoldingDisk = false;
             Holdingbatt = false;
+
+            // Turn on hook UI
+            UIManager.GrapplingHook.enabled = true;
         }
         else
         {
             PlayerRefs.instance.PlayerWhip.gameObject.SetActive(false);
             HoldingWhip = false;
+
+            // Turn off hook UI
+            UIManager.GrapplingHook.enabled = false;
         }
 
     }
@@ -277,11 +302,17 @@ public class Inventory : MonoBehaviour
             Holdingbatt = true;
             HoldingWhip = false;
             HoldingDisk = false;
+
+            //Turn on Baton UI
+            UIManager.Baton.enabled = true;
         } 
         else
         {
             PlayerRefs.instance.PlayerBatt.gameObject.SetActive(false);
             Holdingbatt = false;
+
+            // Turn off Baton UI
+            UIManager.Baton.enabled = false;
         }
     }
 
@@ -296,8 +327,6 @@ public class Inventory : MonoBehaviour
     public void LoadPlayer()
     {
         PlayerData data = SaveSystem.LoadPlayer();
-
-        Health = data.health;
 
         CheckPointPos.x = data.position[0];
         CheckPointPos.y = data.position[1];

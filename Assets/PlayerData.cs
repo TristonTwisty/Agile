@@ -22,8 +22,6 @@ public class PlayerData
 
     public PlayerData (Inventory Player)
     {
-        health = Player.Health;
-
         position = new float[3];
         position[0] = Player.CheckPoint.transform.position.x;
         position[1] = Player.CheckPoint.transform.position.y;

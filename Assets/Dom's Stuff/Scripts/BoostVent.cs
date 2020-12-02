@@ -9,7 +9,10 @@ public class BoostVent : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Rigidbody RB = other.gameObject.GetComponent<Rigidbody>();
-        RB.AddForce(Boost * BoostForce, ForceMode.Impulse);
+        if (other.gameObject.CompareTag("Player"))
+        {
+            Rigidbody RB = other.gameObject.GetComponent<Rigidbody>();
+            RB.AddForce(Boost * BoostForce, ForceMode.Impulse);
+        }
     }
 }

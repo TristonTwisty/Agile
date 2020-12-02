@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 1489285220817917728}
   - component: {fileID: 1489285220817917731}
   - component: {fileID: 1489285220817917730}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Wall Crawler Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,10 +100,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8788fbac7465394f97f1237a55eb728, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyOBj: {fileID: 11400000, guid: 73bc861e70a18d74f8071faa4ad3b379, type: 2}
+  EnemyOBj: {fileID: 11400000, guid: ad0509dcd2d82b64abddbaf227a5926a, type: 2}
   EnemyType: 1
-  ChasePlayerRange: 100
+  ChasePlayerRange: 15
   Weapon: {fileID: 1489285222610229238}
+  Actors:
+    serializedVersion: 2
+    m_Bits: 4096
   points: []
 --- !u!1 &1489285222285319144
 GameObject:
@@ -117,7 +120,7 @@ GameObject:
   - component: {fileID: 1489285222285319151}
   - component: {fileID: 1489285222285319150}
   - component: {fileID: 1489285222285319148}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -214,7 +217,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1489285222610229236}
   - component: {fileID: 1489285222610229239}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Fire Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}

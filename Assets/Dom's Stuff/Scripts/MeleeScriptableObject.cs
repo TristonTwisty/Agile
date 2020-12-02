@@ -6,5 +6,4 @@ public class MeleeScriptableObject : ScriptableObject
 {
     public GameObject MeleeWeapon;
     public float DamageDealth;
-    public float HitBox;
 }

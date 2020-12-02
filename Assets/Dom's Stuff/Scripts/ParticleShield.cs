@@ -7,7 +7,7 @@ public class ParticleShield : MonoBehaviour
     [SerializeField] private float RechargeSpeed = 0;
     [Tooltip("The PS when the shield is activated")] public ParticleSystem ShieldPS;
     [Tooltip("The PS activated when something hits the shield")] public ParticleSystem DeflectPS;
-    private float CurrentCapacity;
+    public float CurrentCapacity;
     private Rigidbody ShieldBody;
     private BoxCollider Collider;
     private MeshRenderer MeshRend;
@@ -15,11 +15,12 @@ public class ParticleShield : MonoBehaviour
 
     //Added By Ricardo for U.I.
     [HideInInspector] public bool shieldOn = false;
+    public AudioSource ShieldSound;
 
 
     //Added By Ricardo For U.I.
-    public Scriptforui scriptForUI;
-    public GameSounds gameSounds;
+    //public Scriptforui scriptForUI;
+    //public GameSounds gameSounds;
 
 
     private void Start()
@@ -36,59 +37,50 @@ public class ParticleShield : MonoBehaviour
 
 
         //Added By Ricardo For U.I.
-        shieldOn = false;
-        scriptForUI = GameObject.FindObjectOfType<Scriptforui>();
-        gameSounds = GameObject.FindObjectOfType<GameSounds>();
+        //shieldOn = false;
+        //scriptForUI = GameObject.FindObjectOfType<Scriptforui>();
+        //gameSounds = GameObject.FindObjectOfType<GameSounds>();
         
     }
     void Update()
     {
-        if (Input.GetKey(KeyCode.LeftControl) && !shieldOn)
+        if (Input.GetKey(KeyCode.LeftControl))
         {
-            // Enable PS, mesh renderer and collider when in use
-            ShieldPS.Play();
-            MeshRend.enabled = true;
-            Collider.enabled = true;
-            CurrentCapacity -= DrainSpeed;
-
-            //Added By Ricardo For U.I.
-            scriptForUI.shieldRecharge = scriptForUI.shieldRecharge - .3f;
             shieldOn = true;
-            //gameSounds.audioSource.PlayOneShot(gameSounds.shieldActivated);
         }
-
-        if(Input.GetKeyUp(KeyCode.LeftControl))
+        else if(CurrentCapacity <= 0)
         {
-            //Added By Ricardo For U.I.
-            //gameSounds.audioSource.Stop();
+            shieldOn = false;
+        }
+        else
+        {
             shieldOn = false;
         }
 
-        if(CurrentCapacity <= 0 || !shieldOn)
+        if (shieldOn)
         {
-            //Disable everything when shield reaches 0
-            CurrentCapacity = 0;
-            ShieldPS.Stop();
+            CurrentCapacity -= DrainSpeed * Time.deltaTime;
+
+            MeshRend.enabled = true;
+            Collider.enabled = true;
+            ShieldPS.Play();
+            ShieldSound.Play();
+        }
+
+        if (!shieldOn)
+        {
+            CurrentCapacity += RechargeSpeed * Time.deltaTime;
+
             MeshRend.enabled = false;
             Collider.enabled = false;
-            ShieldRecharge();
-
-            // Ricky's ugly code jk
-            //gameSounds.audioSource.Stop();
+            ShieldPS.Stop();
+            ShieldSound.Stop();
         }
 
         if(CurrentCapacity >= MaxCapacity)
         {
             CurrentCapacity = MaxCapacity;
         }
-
-        //Added By Ricardo For U.I.
-        if(shieldOn == false & scriptForUI.shieldRecharge < 100)
-        {
-            scriptForUI.shieldRecharge = scriptForUI.shieldRecharge + 0.3f;
-        }
-
-        
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -104,10 +96,5 @@ public class ParticleShield : MonoBehaviour
             //Destroy object hit
             Destroy(collision.gameObject);
         }
-    }
-
-    private void ShieldRecharge()
-    {
-        CurrentCapacity += RechargeSpeed;
     }
 }

@@ -8,7 +8,6 @@ using UnityEngine.UIElements;
 
 public class Scriptforui : MonoBehaviour
 {
-    // Start is called before the first frame update
     public Text displayPlayerHealth;
     public float playerHealth;
     public int totalDashAmount;

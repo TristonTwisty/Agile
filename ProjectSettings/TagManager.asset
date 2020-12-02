@@ -17,6 +17,7 @@ TagManager:
   - Floor
   - Rail End
   - Batt
+  - UI
   layers:
   - Default
   - TransparentFX
@@ -30,7 +31,7 @@ TagManager:
   - grapplingMask
   - Ground
   - Wall
-  - 
+  - Actors
   - 
   - 
   - 
