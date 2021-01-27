@@ -1,22 +1,27 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+
+[RequireComponent(typeof(Rigidbody))]
 public class Projectile : MonoBehaviour
 {
     public ProjectileScriptableObjects ProjectileOBJ;
 
-    private void Update()
+    private void OnEnable()
     {
-        float Distance = ProjectileOBJ.ProjectileSpeed * Time.deltaTime;
-        transform.Translate(Vector3.forward.normalized * Distance);
+        GetComponent<Rigidbody>().AddForce(transform.forward * ProjectileOBJ.ProjectileSpeed);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        //Destroy(gameObject);
-        if (other.gameObject.CompareTag("Player"))
+        ObjectPooling.DeSpawn(gameObject);
+        if (collision.gameObject.CompareTag("Player"))
         {
-            other.gameObject.GetComponent<PlayerHealth>().TakeDamage(ProjectileOBJ.DamageDealt);
+            //other.gameObject.GetComponent<PlayerHealth>().TakeDamage(ProjectileOBJ.DamageDealt);
+        }
+        else if (collision.gameObject.CompareTag("Enemy"))
+        {
+
         }
     }
 }

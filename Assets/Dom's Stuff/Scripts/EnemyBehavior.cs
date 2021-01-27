@@ -61,7 +61,7 @@ public class EnemyBehavior : MonoBehaviour
 
     private void Initial()
     {
-        gameObject.gameObject.tag = "Enemy";
+        gameObject.tag = "Enemy";
 
         // Find the Player and enemy's fire point
         Player = PlayerRefs.instance.Player.gameObject;

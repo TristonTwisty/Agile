@@ -9,7 +9,7 @@ public class AIClub : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            other.gameObject.GetComponent<PlayerHealth>().TakeDamage(MeleeOBJ.DamageDealth);
+            other.gameObject.GetComponent<PlayerHealth>().TakeDamage(MeleeOBJ.DamageDealt);
         }
     }
 }

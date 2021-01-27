@@ -15,4 +15,4 @@ MonoBehaviour:
   Projectile: {fileID: 1390898042279356264, guid: b5cc2ce8e2c2b2642995a3a142425d2c,
     type: 3}
   DamageDealt: 5
-  ProjectileSpeed: 10
+  ProjectileSpeed: 50

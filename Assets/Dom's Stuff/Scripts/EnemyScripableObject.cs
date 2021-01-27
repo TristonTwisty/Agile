@@ -8,6 +8,7 @@ public class EnemyScripableObject : ScriptableObject
     public float MovementSpeed;
     public float AttackRate;
     public float AttackRange;
+    public float ChaseRange;
     public ProjectileScriptableObjects ProjectileOBJ;
     public MeleeScriptableObject MeleeObj;
     public PickupScriptableObject PickupOBJ;
