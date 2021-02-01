@@ -20,7 +20,7 @@ public class PlayerData
     public string DiskParent;
     public string WhipParent;
 
-    public PlayerData (Inventory Player)
+/*    public PlayerData (InventoryToken Player)
     {
         position = new float[3];
         position[0] = Player.CheckPoint.transform.position.x;
@@ -35,5 +35,5 @@ public class PlayerData
         hasbelt = Player.hasbelt;
         hasSheild = Player.hasSheild;
 
-    }
+    }*/
 }

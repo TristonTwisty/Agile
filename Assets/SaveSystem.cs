@@ -4,20 +4,20 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public static class SaveSystem
 {
-    public static void SavePlayer (Inventory player)
+    public static void SavePlayer (InventoryToken player)
     {
         BinaryFormatter formatter = new BinaryFormatter();
         string path = Application.persistentDataPath + "/player.fart";
         FileStream stream = new FileStream(path, FileMode.Create);
 
 
-        PlayerData data = new PlayerData(player);
-
-        formatter.Serialize(stream, data);
+        //PlayerData data = new PlayerData(player);
+        Debug.Log(path);
+        formatter.Serialize(stream, player);
         stream.Close();
     }
 
-    public static PlayerData LoadPlayer ()
+    public static InventoryToken LoadPlayer ()
     {
         string path = Application.persistentDataPath + "/player.fart";
         if (File.Exists(path))
@@ -25,7 +25,7 @@ public static class SaveSystem
             BinaryFormatter formatter = new BinaryFormatter();
             FileStream stream = new FileStream(path, FileMode.Open);
 
-            PlayerData data = formatter.Deserialize(stream) as PlayerData;
+            InventoryToken data = formatter.Deserialize(stream) as InventoryToken;
             stream.Close();
 
             return data;

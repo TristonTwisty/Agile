@@ -76,8 +76,8 @@ public class Inventory : MonoBehaviour
         scriptForUI = GameObject.FindObjectOfType<Scriptforui>();
         gameSounds = GameObject.FindObjectOfType<GameSounds>();
         spriteRenderer = GetComponent<SpriteRenderer>();*/
-        CheckPointPos = CheckPoint.transform.position;
-        CheckPointRot = CheckPoint.transform.rotation;
+        //CheckPointPos = CheckPoint.transform.position;
+        //CheckPointRot = CheckPoint.transform.rotation;
 
 
     }
@@ -108,6 +108,15 @@ public class Inventory : MonoBehaviour
         if (Input.GetKeyDown("4") && hasBat == true && onboard == false)
         {
             SwitchToBatt();
+        }
+
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            SavePlayer();
+        }
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            LoadPlayer();
         }
 
         /*if (Input.GetKeyDown(KeyCode.Escape))
@@ -318,7 +327,7 @@ public class Inventory : MonoBehaviour
 
     public void SavePlayer()
     {
-        SaveSystem.SavePlayer(this);
+        SaveSystem.SavePlayer(new InventoryToken(this));
         Debug.Log(CheckPoint + ("Updated to ") + CheckPoint);
         Debug.Log(CheckPointPos + ("Updated to ") + CheckPointPos);
         Debug.Log(CheckPointRot + ("Updated to ") + CheckPointRot);
@@ -326,22 +335,22 @@ public class Inventory : MonoBehaviour
 
     public void LoadPlayer()
     {
-        PlayerData data = SaveSystem.LoadPlayer();
+        InventoryToken data = SaveSystem.LoadPlayer();
 
-        CheckPointPos.x = data.position[0];
-        CheckPointPos.y = data.position[1];
-        CheckPointPos.z = data.position[2];
+        CheckPointPos.x = data.x;
+        CheckPointPos.y = data.y;
+        CheckPointPos.z = data.z;
 
         PlayerRefs.instance.Player.transform.position = CheckPointPos;
         PlayerRefs.instance.Player.transform.rotation = CheckPointRot;
 
-        haswhip = data.haswhip;
-        hasdisk = data.hasdisk;
-        hasboard = data.hasboard;
-        hasBat = data.hasBat;
-        hasboots = data.hasboots;
-        hasbelt = data.hasbelt;
-        hasSheild = data.hasSheild;
+        haswhip = data.haswhip_;
+        hasdisk = data.hasdisk_;
+        hasboard = data.hasboard_;
+        hasBat = data.hasBat_;
+        hasboots = data.hasboots_;
+        hasbelt = data.hasbelt_;
+        hasSheild = data.hasSheild_;
 
     }
 }

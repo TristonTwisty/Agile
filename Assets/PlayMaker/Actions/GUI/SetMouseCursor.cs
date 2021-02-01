@@ -22,7 +22,7 @@ namespace HutongGames.PlayMaker.Actions
 		public override void OnEnter()
 		{
 			PlayMakerGUI.LockCursor = lockCursor.Value;
-			PlayMakerGUI.HideCursor = hideCursor.Value;
+			//PlayMakerGUI.HideCursor = hideCursor.Value;
 			PlayMakerGUI.MouseCursor = cursorTexture.Value;
 			
 			Finish();
