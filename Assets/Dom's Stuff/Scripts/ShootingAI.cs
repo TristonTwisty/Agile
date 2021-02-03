@@ -15,6 +15,7 @@ public class ShootingAI : MonoBehaviour
     private float ChasePlayerRange;
     private float AttackRange;
     [Tooltip("Where the projectiles come from")] public Transform FirePoint = null;
+    [Tooltip("The enemy's face, where they look")] [SerializeField] private Transform Face = null;
     private float AttackCooldown = 0;
     private float Health = 0;
     private float CurrentHealth = 0;
@@ -164,7 +165,14 @@ public class ShootingAI : MonoBehaviour
 
         if(PlayerDistance <= ChasePlayerRange && PlayerDistance > AttackRange)
         {
-            ActiveState = State.Chase;
+            transform.LookAt(Player);
+            if (Physics.Raycast(Face.position, transform.forward, out RaycastHit hit, Mathf.Infinity))
+            {
+                if (hit.transform.CompareTag("Player"))
+                {
+                    ActiveState = State.Chase;
+                }
+            }
         }
         else if(PlayerDistance <= AttackRange)
         {

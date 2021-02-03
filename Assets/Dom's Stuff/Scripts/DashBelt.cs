@@ -4,18 +4,16 @@ using UnityEngine;
 
 public class DashBelt : MonoBehaviour
 {
-    private Transform Cam;
-
     [SerializeField] private float DashPower = 20;
     public int MaximumDashes = 3;
     [HideInInspector] public int CurrentDashes;
     [SerializeField] private float DashRecharge = 5;
+    public bool HasDashBelt;
 
     private Rigidbody RB;
 
     private void Start()
     {
-        Cam = Camera.main.transform;
         RB = GetComponent<Rigidbody>();
 
         CurrentDashes = MaximumDashes;
@@ -23,29 +21,34 @@ public class DashBelt : MonoBehaviour
 
     private void Update()
     {
-        if(CurrentDashes != 0)
+        float DashCooling = DashRecharge;
+
+        if (HasDashBelt)
         {
-            if (Input.GetKeyDown(KeyCode.LeftShift))
+            if (CurrentDashes != 0)
             {
-                RB.AddForce(transform.forward * DashPower, ForceMode.VelocityChange);
+                if (Input.GetKeyDown(KeyCode.LeftShift))
+                {
+                    CurrentDashes -= 1;
+                    DashCooling = DashRecharge;
+                    RB.AddForce(transform.forward * DashPower, ForceMode.Impulse);
+                }
+            }
+
+            if (CurrentDashes >= MaximumDashes)
+            {
+                CurrentDashes = MaximumDashes;
+            }
+
+            if (CurrentDashes < MaximumDashes)
+            {
+                DashCooling -= Time.deltaTime;
+                if (DashCooling <= 0)
+                {
+                    CurrentDashes += 1;
+                    DashCooling = 0;
+                }
             }
         }
-
-        if(CurrentDashes >= MaximumDashes)
-        {
-            CurrentDashes = MaximumDashes;
-        }
-
-        if (CurrentDashes <= MaximumDashes)
-        {
-            StartCoroutine(DashCharge());
-        }
-    }
-
-    private IEnumerator DashCharge()
-    {
-        yield return new WaitForSeconds(DashRecharge);
-
-        CurrentDashes += 1;
     }
 }

@@ -16,7 +16,7 @@ public class MeleeAI : MonoBehaviour
     private float AttackRange;
     private float Health = 0;
     [HideInInspector] public float CurrentHealth = 0;
-    [Tooltip("Where the projectiles come from")] public Transform FirePoint = null;
+    [Tooltip("The enemy's face, where they look")] [SerializeField] private Transform Face = null;
     [SerializeField] private GameObject Weapon = null;
 
 
@@ -164,7 +164,14 @@ public class MeleeAI : MonoBehaviour
 
         if (PlayerDistance <= ChasePlayerRange && PlayerDistance > AttackRange)
         {
-            ActiveState = State.Chase;
+            transform.LookAt(Player);
+            if (Physics.Raycast(Face.position, transform.forward, out RaycastHit hit, Mathf.Infinity))
+            {
+                if (hit.transform.CompareTag("Player"))
+                {
+                    ActiveState = State.Chase;
+                }
+            }
         }
         else if (PlayerDistance <= AttackRange)
         {

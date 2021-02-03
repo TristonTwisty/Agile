@@ -127,6 +127,66 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 382540431}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &156315920
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 156315921}
+  m_Layer: 0
+  m_Name: Face
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &156315921
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156315920}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.7, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1383115729}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &360899776
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 360899777}
+  m_Layer: 0
+  m_Name: Face
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &360899777
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 360899776}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.7, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1523127602}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &382540431
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -142,7 +202,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: a819283c56b71184d830b7246cda86b9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1.75
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a819283c56b71184d830b7246cda86b9,
         type: 3}
@@ -152,7 +212,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: a819283c56b71184d830b7246cda86b9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -14
+      value: -13
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a819283c56b71184d830b7246cda86b9,
         type: 3}
@@ -2240,7 +2300,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 97238cc123318b44a95882690fc0cba7,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 97238cc123318b44a95882690fc0cba7,
         type: 3}
@@ -2391,7 +2451,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 688384428}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 10
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -2438,10 +2498,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 843bb43d3830ce64db04797b1b1572a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DashPower: 20
+  DashPower: 75
   MaximumDashes: 3
   CurrentDashes: 0
   DashRecharge: 5
+  HasDashBelt: 1
 --- !u!4 &688384434 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a819283c56b71184d830b7246cda86b9,
@@ -2764,7 +2825,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 97238cc123318b44a95882690fc0cba7,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 97238cc123318b44a95882690fc0cba7,
         type: 3}
@@ -2810,6 +2871,7 @@ MonoBehaviour:
   Player: {fileID: 688384434}
   EnemyOBJ: {fileID: 11400000, guid: 73bc861e70a18d74f8071faa4ad3b379, type: 2}
   FirePoint: {fileID: 954322945}
+  Face: {fileID: 156315921}
   points: []
 --- !u!195 &1383115732
 NavMeshAgent:
@@ -2855,13 +2917,13 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1383115728}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 100
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 16
   m_CollisionDetection: 0
 --- !u!1 &1523127598 stripped
 GameObject:
@@ -2884,7 +2946,7 @@ MonoBehaviour:
   Player: {fileID: 688384434}
   EnemyOBJ: {fileID: 11400000, guid: a5b149644a339254fb593c5b0cf429dd, type: 2}
   CurrentHealth: 0
-  FirePoint: {fileID: 0}
+  Face: {fileID: 360899777}
   Weapon: {fileID: 426931817}
   points: []
 --- !u!195 &1523127600
@@ -2909,6 +2971,12 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!4 &1523127602 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 97238cc123318b44a95882690fc0cba7,
+    type: 3}
+  m_PrefabInstance: {fileID: 576656987}
+  m_PrefabAsset: {fileID: 0}
 --- !u!136 &1523127603
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2931,7 +2999,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1523127598}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 100
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
