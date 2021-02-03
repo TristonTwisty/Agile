@@ -69,8 +69,12 @@ public class NewWallWalker : MonoBehaviour
             RB.AddForce(transform.up * JumpHeight, ForceMode.Force);
         }
 
+        float VelocityZ = Input.GetAxis("Vertical") * MovementSpeed * Time.deltaTime;
+        float VelocityX = Input.GetAxis("Horizontal") * StrafeSpeed * Time.deltaTime;
+        Vector3 MovementDir = new Vector3(VelocityX, 0, VelocityZ);
+
         // Movement
-        transform.Translate(Input.GetAxis("Horizontal") * StrafeSpeed * Time.deltaTime, 0, Input.GetAxis("Vertical") * MovementSpeed * Time.deltaTime);
+        transform.Translate(MovementDir);
 
         // Gravity
         Ray ray;

@@ -14,13 +14,16 @@ public class MeleeAI : MonoBehaviour
     public EnemyScripableObject EnemyOBJ;
     private float ChasePlayerRange;
     private float AttackRange;
-    [Tooltip("Where the projectiles come from")] public Transform FirePoint = null;
     private float Health = 0;
-    private float CurrentHealth = 0;
+    [HideInInspector] public float CurrentHealth = 0;
+    [Tooltip("Where the projectiles come from")] public Transform FirePoint = null;
+    [SerializeField] private GameObject Weapon = null;
+
 
     [Header("Behavior")]
     private Animator animator;
     private bool Idling = false;
+    private bool CanAttack = true; 
 
     [Header("Movement")]
     [Tooltip("If you want the enemy to patrol place the transforms here. Leave empty to have enemy idle")] public Transform[] points;
@@ -64,7 +67,7 @@ public class MeleeAI : MonoBehaviour
 
     private void Initial()
     {
-        gameObject.tag = "Enemy";
+        gameObject.tag = "Melee Enemy";
 
         //Player = PlayerRefs.instance.Player;
 
@@ -112,12 +115,25 @@ public class MeleeAI : MonoBehaviour
 
     private void StartAttack()
     {
-        animator.SetTrigger("Melee");
+        Agent.isStopped = true;
+        if (CanAttack)
+        {
+            CanAttack = false;
+            animator.SetTrigger("Melee");
+        }
+        transform.LookAt(Player);
     }
 
     private void ExecuteAttack()
     {
+        Weapon.GetComponent<Collider>().enabled = true;
+    }
 
+    private void StopAttack()
+    {
+        Weapon.GetComponent<Collider>().enabled = false;
+        CanAttack = true;
+        Agent.isStopped = false;
     }
 
     private void DoDeath()
@@ -134,14 +150,6 @@ public class MeleeAI : MonoBehaviour
     public void TakeDamage(float Damage)
     {
         CurrentHealth -= Damage;
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, EnemyOBJ.AttackRange);
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, EnemyOBJ.ChaseRange);
     }
 
     private void Update()
@@ -168,7 +176,20 @@ public class MeleeAI : MonoBehaviour
             if (transform.position != SpawnLocation)
             {
                 Agent.destination = SpawnLocation;
+                ActiveState = State.Idle;
             }
         }
+        else if (PlayerDistance > ChasePlayerRange) 
+        {
+            ActiveState = State.Patrol;
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, EnemyOBJ.AttackRange);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, EnemyOBJ.ChaseRange);
     }
 }

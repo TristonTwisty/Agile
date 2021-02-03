@@ -65,7 +65,7 @@ public class ShootingAI : MonoBehaviour
 
     private void Initial()
     {
-        gameObject.tag = "Enemy";
+        gameObject.tag = "Shooter Enemy";
 
         //Player = PlayerRefs.instance.Player;
 

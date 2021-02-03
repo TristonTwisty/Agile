@@ -19,9 +19,5 @@ public class Projectile : MonoBehaviour
         {
             //other.gameObject.GetComponent<PlayerHealth>().TakeDamage(ProjectileOBJ.DamageDealt);
         }
-        else if (collision.gameObject.CompareTag("Enemy"))
-        {
-
-        }
     }
 }
