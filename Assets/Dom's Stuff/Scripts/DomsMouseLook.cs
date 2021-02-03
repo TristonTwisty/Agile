@@ -11,7 +11,7 @@ public class DomsMouseLook : MonoBehaviour
     {
         PlayerBody = gameObject.transform.parent;
 
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
     }
     private void Update()
     {
