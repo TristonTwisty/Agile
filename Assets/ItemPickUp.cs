@@ -8,7 +8,7 @@ public class ItemPickUp : MonoBehaviour
 
     public enum ItemsInGame
     {
-        Whip, Disk, Board, Batt, Sheild
+        Whip, Disk, Board, Batt, Sheild, Dash
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -42,7 +42,10 @@ public class ItemPickUp : MonoBehaviour
                         player.GetComponent<Player>().Inventory.Add(new SheildItem());
                         player.GetComponent<Player>().hassheild = true;
                         break;
-
+                    case ItemsInGame.Dash:
+                        player.GetComponent<Player>().Inventory.Add(new DashItem());
+                        player.GetComponent<Player>().hasdash = true;
+                        break;
                 }
 
                 Destroy(gameObject);

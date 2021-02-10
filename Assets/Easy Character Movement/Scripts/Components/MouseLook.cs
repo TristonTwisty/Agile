@@ -223,8 +223,8 @@ namespace ECM.Components
             
             // We force unlock the cursor if the user disable the cursor locking helper
 
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
 
         public virtual void UpdateCursorLock()
@@ -249,8 +249,8 @@ namespace ECM.Components
             }
             else if (!_isCursorLocked)
             {
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
             }
         }
 

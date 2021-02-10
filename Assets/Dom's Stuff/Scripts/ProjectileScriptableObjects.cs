@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Projectile SO", menuName = "Projectile Statistics")]
+[CreateAssetMenu(fileName = "Projectile - ", menuName = "Projectile Statistics")]
 
 public class ProjectileScriptableObjects : ScriptableObject
 {

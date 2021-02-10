@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class MeleeAI : MonoBehaviour
 {
     [Header("Player info")]
-    public Transform Player = null;
+    private Transform Player;
     private float PlayerDistance = 0;
 
     [Header("Enemy Statistics")]
@@ -69,9 +69,9 @@ public class MeleeAI : MonoBehaviour
 
     private void Initial()
     {
-        gameObject.tag = "Melee Enemy";
+        Player = PlayerRefs.instance.Player;
 
-        //Player = PlayerRefs.instance.Player;
+        gameObject.tag = "Melee Enemy";
 
         Health = EnemyOBJ.Health;
         CurrentHealth = Health;
@@ -111,6 +111,7 @@ public class MeleeAI : MonoBehaviour
 
     private void Chase()
     {
+        Agent.isStopped = false;
         transform.LookAt(Player.position);
         Agent.destination = Player.position;
     }
@@ -158,6 +159,10 @@ public class MeleeAI : MonoBehaviour
     {
         PlayerDistance = Vector3.Distance(transform.position, Player.position);
 
+        Vector3 LookPos = Player.position - transform.position;
+
+        Quaternion LookRotation = Quaternion.LookRotation(LookPos);
+
         if (CurrentHealth <= 0)
         {
             ActiveState = State.Dead;
@@ -165,7 +170,7 @@ public class MeleeAI : MonoBehaviour
 
         else if (PlayerDistance <= ChasePlayerRange && PlayerDistance > AttackRange)
         {
-            transform.LookAt(Player);
+            transform.rotation = Quaternion.Slerp(transform.rotation, LookRotation, 5 * Time.deltaTime);
             if (Physics.Raycast(Face.position, transform.forward, out RaycastHit hit, Mathf.Infinity))
             {
                 if (hit.transform.CompareTag("Player"))

@@ -32,11 +32,10 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(collision.gameObject);
         ObjectPooling.DeSpawn(gameObject);
-        if (collision.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
             //other.gameObject.GetComponent<PlayerHealth>().TakeDamage(ProjectileOBJ.DamageDealt);
         }

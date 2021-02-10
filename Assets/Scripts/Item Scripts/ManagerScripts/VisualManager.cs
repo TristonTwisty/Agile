@@ -10,6 +10,7 @@ public class VisualManager : MonoBehaviour
     public GameObject BoardVisual;
     public GameObject BattVisual;
     public GameObject SheildVisual;
+    public Component DashVisual;
 
     private void Awake()
     {

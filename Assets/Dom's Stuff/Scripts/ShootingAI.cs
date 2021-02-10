@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class ShootingAI : MonoBehaviour
 {
     [Header("Player info")]
-    public Transform Player = null;
+    private Transform Player;
     private float PlayerDistance = 0;
 
     [Header("Enemy Statistics")]
@@ -16,7 +16,6 @@ public class ShootingAI : MonoBehaviour
     private float AttackRange;
     [Tooltip("The enemy's face, where they look")] [SerializeField] private Transform Face = null;
     private float Health = 0;
-    [SerializeField]
     private float CurrentHealth = 0;
 
     [Header("Behavior")]
@@ -72,9 +71,9 @@ public class ShootingAI : MonoBehaviour
 
     private void Initial()
     {
-        gameObject.tag = "Shooter Enemy";
+        Player = PlayerRefs.instance.Player;
 
-        //Player = PlayerRefs.instance.Player;
+        gameObject.tag = "Shooter Enemy";
 
         Health = EnemyOBJ.Health;
         CurrentHealth = Health;
@@ -116,6 +115,7 @@ public class ShootingAI : MonoBehaviour
 
     private void Chase()
     {
+        Agent.isStopped = false;
         transform.LookAt(Player.position);
         Agent.destination = Player.position;
     }
@@ -173,14 +173,18 @@ public class ShootingAI : MonoBehaviour
     {
         PlayerDistance = Vector3.Distance(transform.position, Player.position);
 
-        if(CurrentHealth <= 0)
+        Vector3 LookPos = Player.position - transform.position;
+
+        Quaternion LookRotation = Quaternion.LookRotation(LookPos);
+
+        if (CurrentHealth <= 0)
         {
             ActiveState = State.Dead;
         }
 
         else if (PlayerDistance <= ChasePlayerRange && PlayerDistance > AttackRange)
         {
-            transform.LookAt(Player);
+            transform.rotation = Quaternion.Slerp(transform.rotation, LookRotation, 5 * Time.deltaTime);
             if (Physics.Raycast(Face.position, transform.forward, out RaycastHit hit, Mathf.Infinity))
             {
                 if (hit.transform.CompareTag("Player"))
