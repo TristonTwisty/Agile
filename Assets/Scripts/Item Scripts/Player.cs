@@ -4,19 +4,69 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private WhipItem _whip = new WhipItem();
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private int _itemIndex = 0;
 
-    // Update is called once per frame
+    private List<ItemBase> _inventory = new List<ItemBase>();
+
+    public List<ItemBase> Inventory { get { return _inventory; } }
+
+    [Header("Debug These do NOTHING they just tell")]
+    public bool hasdisk;
+    public bool hasboard;
+    public bool hasbatt;
+    public bool hassheild;
+    public bool haswhip;
+
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        /*if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (_itemIndex > -1 && _itemIndex < Inventory.Count+1 && _inventory.Count != 0)
             {
-            _whip.UseItem(transform.position);
+                if (_inventory[_itemIndex] != null)
+                {
+                    _inventory[_itemIndex].UseItem(gameObject);
+                }
             }
+        }*/
+        CheckItemButton();
+    }
+
+    private void CheckItemButton()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            _inventory[_itemIndex].DeActivateObject(gameObject);
+            _itemIndex++;
+            if(_itemIndex > _inventory.Count-1)
+            {
+                _itemIndex = 0;
+            }
+            _inventory[_itemIndex].ActivateObject(gameObject);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            _inventory[_itemIndex].DeActivateObject(gameObject);
+            _itemIndex--;
+            if (_itemIndex < 0)
+            {
+                _itemIndex = _inventory.Count-1;
+            }
+            _inventory[_itemIndex].ActivateObject(gameObject);
+        }
+    }
+
+    public void SavePlayer()
+    {
+        SaveSystem.SavePlayer(new InventoryToken(this));
+    }
+
+    public void LoadPlayer()
+    {
+        InventoryToken data = SaveSystem.LoadPlayer();
+
+        _inventory = data.ItemList_;
+        
     }
 }

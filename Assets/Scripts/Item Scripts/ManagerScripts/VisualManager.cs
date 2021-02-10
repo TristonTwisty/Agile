@@ -5,7 +5,11 @@ using UnityEngine;
 public class VisualManager : MonoBehaviour
 {
     public static VisualManager instace;
-    public GameObject WhipEffect;
+    public GameObject WhipVisual;
+    public GameObject DiskVisual;
+    public GameObject BoardVisual;
+    public GameObject BattVisual;
+    public GameObject SheildVisual;
 
     private void Awake()
     {

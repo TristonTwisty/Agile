@@ -18,6 +18,7 @@ public class PlayerRefs : MonoBehaviour
     public WallWalker movementS;
     public Transform PlayerCamera;
     public Transform RingHolster;
+    public Transform checkpoint;
 
     private void Awake()
     {
@@ -29,6 +30,8 @@ public class PlayerRefs : MonoBehaviour
         {
             Destroy(this);
         }
+
+        
     }
 
     // Start is called before the first frame update

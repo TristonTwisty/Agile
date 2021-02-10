@@ -26,31 +26,8 @@ public class DashBelt : MonoBehaviour
         {
             if (CurrentDashes > 0)
             {
-                if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift))
+                if (Input.GetKeyDown(KeyCode.LeftShift))
                 {
-                    RB.AddForce(transform.forward * DashPower, ForceMode.Impulse);
-                    CurrentDashes -= 1;
-                    StartCoroutine(Dash());
-                }
-
-                else if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.LeftShift))
-                {
-                    RB.AddForce(transform.right * DashPower, ForceMode.Impulse);
-                    CurrentDashes -= 1;
-                    StartCoroutine(Dash());
-                }
-
-                else if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.LeftShift))
-                {
-                    RB.AddForce(-transform.forward * DashPower, ForceMode.Impulse);
-                    CurrentDashes -= 1;
-                    StartCoroutine(Dash());
-                }
-
-                else if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.LeftShift))
-                {
-                    RB.AddForce(-transform.right * DashPower, ForceMode.Impulse);
-                    CurrentDashes -= 1;
                     StartCoroutine(Dash());
                 }
             }
@@ -69,6 +46,9 @@ public class DashBelt : MonoBehaviour
 
     private IEnumerator Dash()
     {
+        RB.AddForce(transform.forward * DashPower, ForceMode.Impulse);
+        CurrentDashes -= 1;
+
         yield return new WaitForSeconds(DashRecharge);
 
         CurrentDashes += 1;

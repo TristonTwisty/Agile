@@ -4,7 +4,17 @@ using UnityEngine;
 
 public class ItemBase
 {
-    public virtual void UseItem(Vector3 posistion)
+    public virtual void UseItem(GameObject source)
+    {
+
+    }
+
+    public virtual void ActivateObject(GameObject source)
+    {
+
+    }
+
+    public virtual void DeActivateObject(GameObject source)
     {
 
     }
