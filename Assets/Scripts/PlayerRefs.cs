@@ -12,10 +12,8 @@ public class PlayerRefs : MonoBehaviour
     public Transform Disk;
     public Transform Player;
     public Transform Sheild;
-    public BoxCollider boxa;
-    public BoxCollider boxb;
-    public PlayMakerFSM DashBatt;
-    public WallWalker movementS;
+    public Transform Batt;
+    public NewWallWalker movementS;
     public Transform PlayerCamera;
     public Transform RingHolster;
     public Transform checkpoint;

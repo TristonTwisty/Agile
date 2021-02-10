@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     public bool hasbatt;
     public bool hassheild;
     public bool haswhip;
+    public bool hasdash;
 
     void Update()
     {

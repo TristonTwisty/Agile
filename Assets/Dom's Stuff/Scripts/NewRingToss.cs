@@ -31,7 +31,7 @@ public class NewRingToss : MonoBehaviour
         BC = GetComponent<BoxCollider>();
         TR.enabled = false;
         BC.isTrigger = true;
-        PlayerCamera = GameObject.FindGameObjectWithTag("PlayerCamera");
+        PlayerCamera = PlayerRefs.instance.PlayerCamera.gameObject;
 
         //Set ring throwspeed
         ThrowSpeed = ProjectileOBJ.ProjectileSpeed;
