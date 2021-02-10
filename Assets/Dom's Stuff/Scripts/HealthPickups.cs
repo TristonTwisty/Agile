@@ -7,7 +7,7 @@ public class HealthPickups : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            other.GetComponent<PlayerHealth>().CurrentHealth += PickUpOBJ.HealthGain;
+            //other.GetComponent<PlayerHealth>().CurrentHealth += PickUpOBJ.HealthGain;
             Destroy(gameObject);
         }
     }
