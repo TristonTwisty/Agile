@@ -175,11 +175,10 @@ public class ShootingAI : MonoBehaviour
 
         if(CurrentHealth <= 0)
         {
-            IsAlive = false;
             ActiveState = State.Dead;
         }
 
-        if(PlayerDistance <= ChasePlayerRange && PlayerDistance > AttackRange)
+        else if (PlayerDistance <= ChasePlayerRange && PlayerDistance > AttackRange)
         {
             transform.LookAt(Player);
             if (Physics.Raycast(Face.position, transform.forward, out RaycastHit hit, Mathf.Infinity))
@@ -190,14 +189,14 @@ public class ShootingAI : MonoBehaviour
                 }
             }
         }
-        else if(PlayerDistance <= AttackRange)
+        else if (PlayerDistance <= AttackRange)
         {
             ActiveState = State.Attack;
         }
 
-        if(PlayerDistance > ChasePlayerRange && Idling)
+        else if (PlayerDistance > ChasePlayerRange && Idling)
         {
-            if(transform.position != SpawnLocation)
+            if (transform.position != SpawnLocation)
             {
                 Agent.destination = SpawnLocation;
             }
