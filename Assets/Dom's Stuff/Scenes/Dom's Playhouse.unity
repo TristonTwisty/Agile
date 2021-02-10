@@ -2489,7 +2489,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 97238cc123318b44a95882690fc0cba7,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 97238cc123318b44a95882690fc0cba7,
         type: 3}
@@ -3012,7 +3012,7 @@ GameObject:
   - component: {fileID: 1030229866}
   - component: {fileID: 1030229865}
   - component: {fileID: 1030229864}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -17,4 +17,4 @@ MonoBehaviour:
   DamageDealt: 5
   ProjectileSpeed: 100
   ProjectileLifetime: 5
-  MaxSpread: 15
+  MaxSpread: 20

@@ -103,7 +103,7 @@ public class NewWallWalker : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer == 8)
+        if (collision.gameObject.layer == 11)
         {
             IsJumping = false;
         }
