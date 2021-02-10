@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class ShootingAI : MonoBehaviour
 {
     [Header("Player info")]
-    public Transform Player = null;
+    public Transform Player;
     private float PlayerDistance = 0;
 
     [Header("Enemy Statistics")]
@@ -72,6 +72,7 @@ public class ShootingAI : MonoBehaviour
 
     private void Initial()
     {
+        Player = PlayerRefs.instance.Player;
         gameObject.tag = "Shooter Enemy";
 
         //Player = PlayerRefs.instance.Player;

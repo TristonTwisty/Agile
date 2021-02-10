@@ -33,7 +33,7 @@ public class MeleeWeapon : MonoBehaviour
             other.GetComponent<Rigidbody>().AddForce(transform.forward * MeleeOBJ.KnockbackPower, ForceMode.Impulse);
         }
         else
-        {
+        {   
             Debug.Log("Wrong tag buddy");
         }
     }

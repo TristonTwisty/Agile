@@ -71,7 +71,7 @@ public class MeleeAI : MonoBehaviour
     {
         gameObject.tag = "Melee Enemy";
 
-        //Player = PlayerRefs.instance.Player;
+        Player = PlayerRefs.instance.Player;
 
         Health = EnemyOBJ.Health;
         CurrentHealth = Health;
