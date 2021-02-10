@@ -17,7 +17,6 @@ public class MeleeAI : MonoBehaviour
     private float Health = 0;
     [HideInInspector] public float CurrentHealth = 0;
     [Tooltip("The enemy's face, where they look")] [SerializeField] private Transform Face = null;
-    [SerializeField] private GameObject Weapon = null;
 
 
     [Header("Behavior")]
@@ -30,6 +29,9 @@ public class MeleeAI : MonoBehaviour
     private int DestinationPoint = 0;
     private NavMeshAgent Agent;
     private Vector3 SpawnLocation;
+
+    [Header("Melee")]
+    [SerializeField] private GameObject Weapon = null;
 
     // States
     private enum State { Initial, Idle, Patrol, Chase, Attack, Dead };

@@ -28,13 +28,13 @@ TagManager:
   - UI
   - 
   - 
-  - Shield
-  - grapplingMask
+  - Player
+  - Enemy
+  - Projectile
   - Ground
   - Wall
-  - Actors
-  - Player Body
-  - 
+  - Shield
+  - GrappleMask
   - 
   - 
   - 

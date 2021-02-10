@@ -5,17 +5,17 @@ using UnityEngine;
 public class MeleeWeapon : MonoBehaviour
 {
     [SerializeField] GameObject Owner;
-    [SerializeField] private MeleeScriptableObject MeleeOBJ = null;
+    [SerializeField] private MeleeScriptableObject MeleeOBJ;
     private void Start()
     {
         GetComponent<Collider>().isTrigger = true;
         GetComponent<Collider>().enabled = false;
         Physics.IgnoreCollision(GetComponent<Collider>(), Owner.GetComponent<Collider>());
-        gameObject.layer = 0;
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other.gameObject);
         if (other.CompareTag("Shooter Enemy"))
         {
             other.GetComponent<Rigidbody>().AddForce(transform.forward * MeleeOBJ.KnockbackPower, ForceMode.Impulse);

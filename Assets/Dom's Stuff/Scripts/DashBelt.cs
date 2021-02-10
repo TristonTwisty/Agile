@@ -6,7 +6,8 @@ public class DashBelt : MonoBehaviour
 {
     [SerializeField] private float DashPower = 20;
     public int MaximumDashes = 3;
-    [HideInInspector] public int CurrentDashes;
+    //[HideInInspector] 
+    public int CurrentDashes;
     [SerializeField] private float DashRecharge = 5;
     public bool HasDashBelt;
 
@@ -21,34 +22,55 @@ public class DashBelt : MonoBehaviour
 
     private void Update()
     {
-        float DashCooling = DashRecharge;
-
         if (HasDashBelt)
         {
-            if (CurrentDashes != 0)
+            if (CurrentDashes > 0)
             {
-                if (Input.GetKeyDown(KeyCode.LeftShift))
+                if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift))
                 {
-                    CurrentDashes -= 1;
-                    DashCooling = DashRecharge;
                     RB.AddForce(transform.forward * DashPower, ForceMode.Impulse);
+                    CurrentDashes -= 1;
+                    StartCoroutine(Dash());
                 }
-            }
 
-            if (CurrentDashes >= MaximumDashes)
-            {
-                CurrentDashes = MaximumDashes;
-            }
-
-            if (CurrentDashes < MaximumDashes)
-            {
-                DashCooling -= Time.deltaTime;
-                if (DashCooling <= 0)
+                else if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.LeftShift))
                 {
-                    CurrentDashes += 1;
-                    DashCooling = 0;
+                    RB.AddForce(transform.right * DashPower, ForceMode.Impulse);
+                    CurrentDashes -= 1;
+                    StartCoroutine(Dash());
+                }
+
+                else if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.LeftShift))
+                {
+                    RB.AddForce(-transform.forward * DashPower, ForceMode.Impulse);
+                    CurrentDashes -= 1;
+                    StartCoroutine(Dash());
+                }
+
+                else if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.LeftShift))
+                {
+                    RB.AddForce(-transform.right * DashPower, ForceMode.Impulse);
+                    CurrentDashes -= 1;
+                    StartCoroutine(Dash());
                 }
             }
         }
+
+        if(CurrentDashes < 0)
+        {
+            CurrentDashes = 0;
+        }
+
+        if(CurrentDashes > MaximumDashes)
+        {
+            CurrentDashes = MaximumDashes;
+        }
+    }
+
+    private IEnumerator Dash()
+    {
+        yield return new WaitForSeconds(DashRecharge);
+
+        CurrentDashes += 1;
     }
 }

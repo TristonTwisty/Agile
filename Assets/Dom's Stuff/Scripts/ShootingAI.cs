@@ -14,10 +14,9 @@ public class ShootingAI : MonoBehaviour
     public EnemyScripableObject EnemyOBJ;
     private float ChasePlayerRange;
     private float AttackRange;
-    [Tooltip("Where the projectiles come from")] public Transform FirePoint = null;
     [Tooltip("The enemy's face, where they look")] [SerializeField] private Transform Face = null;
-    private float AttackCooldown = 0;
     private float Health = 0;
+    [SerializeField]
     private float CurrentHealth = 0;
 
     [Header("Behavior")]
@@ -29,6 +28,13 @@ public class ShootingAI : MonoBehaviour
     private int DestinationPoint = 0;
     private NavMeshAgent Agent;
     private Vector3 SpawnLocation;
+
+    [Header("Shooter")]
+    [Tooltip("Where the projectiles come from")] public Transform FirePoint = null;
+    private float AttackCooldown = 0;
+    private float BulletsPerShot;
+    private float Bullets = 0;
+    private float MaxSpread;
 
     // States
     private enum State {Initial, Idle, Patrol, Chase, Attack, Dead};
@@ -82,6 +88,8 @@ public class ShootingAI : MonoBehaviour
         ChasePlayerRange = EnemyOBJ.ChaseRange;
         AttackRange = EnemyOBJ.AttackRange;
 
+        BulletsPerShot = EnemyOBJ.BulletsPerShot;
+
         if(points.Length == 0)
         {
             ActiveState = State.Idle;
@@ -126,7 +134,15 @@ public class ShootingAI : MonoBehaviour
 
     private void Shoot()
     {
-        ObjectPooling.Spawn(EnemyOBJ.ProjectileOBJ.Projectile, FirePoint.position, FirePoint.rotation);
+        while(Bullets < BulletsPerShot)
+        {
+            ObjectPooling.Spawn(EnemyOBJ.ProjectileOBJ.Projectile, FirePoint.position, FirePoint.rotation);
+            Bullets += 1;
+        }
+        if(Bullets >= BulletsPerShot)
+        {
+            Bullets = 0;
+        }
     }
 
     private void DoDeath()

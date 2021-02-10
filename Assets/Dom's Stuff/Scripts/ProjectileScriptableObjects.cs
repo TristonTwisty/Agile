@@ -9,4 +9,6 @@ public class ProjectileScriptableObjects : ScriptableObject
     public GameObject Projectile;
     public float DamageDealt = 10;
     public float ProjectileSpeed;
+    public float ProjectileLifetime;
+    public float MaxSpread;
 }
