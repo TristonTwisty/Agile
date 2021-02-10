@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Enemy Bat
   m_EditorClassIdentifier: 
   DamageDealt: 10
-  KnockbackPower: 80
+  KnockbackPower: 50

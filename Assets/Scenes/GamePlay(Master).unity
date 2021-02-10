@@ -9126,7 +9126,7 @@ GameObject:
   - component: {fileID: 7549186072190594025}
   - component: {fileID: 7549186072190594024}
   - component: {fileID: 8022575158721988964}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Bat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9363,7 +9363,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 65079
+    m_Bits: 130615
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
