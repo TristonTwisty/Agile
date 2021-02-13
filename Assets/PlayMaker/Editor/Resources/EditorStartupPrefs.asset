@@ -14,11 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   welcomeScreenVersion: '1.9.0 '
   playmakerVersion: 
-  showWelcomeScreen: 0
+  showWelcomeScreen: 1
   showUpgradeGuide: 0
-<<<<<<< HEAD
-  lastAutoUpdateSignature: 2019.4.8f1__C:/Users/ricar/OneDrive/Documents/Agile/Assets__0.0.0.0
-=======
-  lastAutoUpdateSignature: 2019.4.8f1__D:/THIS PC DO NOT DELETE/Documents/Agile/Assets__0.0.0.0
->>>>>>> 707071181f308e19d20caf434eb7016494c0d059
+  lastAutoUpdateSignature: 
   useLegacyNetworking: 0
