@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Melee SO", menuName = "Melee Statistics")]
+[CreateAssetMenu(fileName = "Melee - ", menuName = "Melee Statistics")]
 
 public class MeleeScriptableObject : ScriptableObject
 {
