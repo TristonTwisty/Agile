@@ -11,6 +11,6 @@ public class DashItem : ItemBase
 
     public override void DeActivateObject(GameObject source)
     {
-        VisualManager.instace.DashVisual.GetComponent<DashBelt>().enabled = false;
+        //VisualManager.instace.DashVisual.GetComponent<DashBelt>().enabled = false;
     }
 }

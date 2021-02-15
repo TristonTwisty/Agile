@@ -17,19 +17,17 @@ public class Player : MonoBehaviour
     public bool hassheild;
     public bool haswhip;
     public bool hasdash;
+    public bool hasboots;
+
+    [Header("Quick Item Switch")]
+    public bool ScrollWheelSwitch;
 
     void Update()
     {
-        /*if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            if (_itemIndex > -1 && _itemIndex < Inventory.Count+1 && _inventory.Count != 0)
-            {
-                if (_inventory[_itemIndex] != null)
-                {
-                    _inventory[_itemIndex].UseItem(gameObject);
-                }
-            }
-        }*/
+            _inventory[_itemIndex].UseItem(gameObject);
+        }
         CheckItemButton();
     }
 
@@ -53,6 +51,28 @@ public class Player : MonoBehaviour
             if (_itemIndex < 0)
             {
                 _itemIndex = _inventory.Count-1;
+            }
+            _inventory[_itemIndex].ActivateObject(gameObject);
+        }
+
+        if (ScrollWheelSwitch && Input.GetAxis ("Mouse ScrollWheel") > 0)
+        {
+            _inventory[_itemIndex].DeActivateObject(gameObject);
+            _itemIndex++;
+            if (_itemIndex > _inventory.Count - 1)
+            {
+                _itemIndex = 0;
+            }
+            _inventory[_itemIndex].ActivateObject(gameObject);
+        }
+
+        if (ScrollWheelSwitch && Input.GetAxis("Mouse ScrollWheel") < 0)
+        {
+            _inventory[_itemIndex].DeActivateObject(gameObject);
+            _itemIndex--;
+            if (_itemIndex < 0)
+            {
+                _itemIndex = _inventory.Count - 1;
             }
             _inventory[_itemIndex].ActivateObject(gameObject);
         }

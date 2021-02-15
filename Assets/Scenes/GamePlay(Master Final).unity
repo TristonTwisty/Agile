@@ -8980,6 +8980,8 @@ MonoBehaviour:
   hassheild: 0
   haswhip: 0
   hasdash: 0
+  hasboots: 0
+  ScrollWheelSwitch: 1
 --- !u!4 &7222690412832555246
 Transform:
   m_ObjectHideFlags: 0
