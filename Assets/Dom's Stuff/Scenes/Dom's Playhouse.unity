@@ -493,6 +493,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Basic Bat
       objectReference: {fileID: 0}
+    - target: {fileID: 8646572968610474528, guid: faeaba7d38f8a4b418d6bf7649da983b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8880999080472253445, guid: faeaba7d38f8a4b418d6bf7649da983b,
         type: 3}
       propertyPath: Player
