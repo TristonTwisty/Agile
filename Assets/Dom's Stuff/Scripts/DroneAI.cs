@@ -1,37 +1,41 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
-[RequireComponent(typeof(NavMeshAgent))]
-public class MeleeAI : MonoBehaviour
+public class DroneAI : MonoBehaviour
 {
     [Header("Player info")]
-    private Transform Player;
+    [SerializeField] private Transform Player;
     private float PlayerDistance = 0;
 
     [Header("Enemy Statistics")]
-    public EnemyScripableObject EnemyOBJ;
     private float ChasePlayerRange;
     private float AttackRange;
     private float Health = 0;
-    [HideInInspector] public float CurrentHealth = 0;
-    [Tooltip("The enemy's face, where they look")] [SerializeField] private Transform Face = null;
+    private float CurrentHealth = 0;
+    private LayerMask MyLayer;
 
+    [Header("Components")]
+    public EnemyScripableObject EnemyOBJ;
+    [Tooltip("The enemy's face, where they look")] [SerializeField] private Transform Face = null;
+    private Rigidbody RB;
 
     [Header("Behavior")]
     private Animator animator;
     private bool Idling = false;
-    private bool CanAttack = true; 
 
     [Header("Movement")]
     [Tooltip("If you want the enemy to patrol place the transforms here. Leave empty to have enemy idle")] public Transform[] points;
     private int DestinationPoint = 0;
-    private NavMeshAgent Agent;
     private Vector3 SpawnLocation;
+    private float MovementSpeed = 0;
+    [Tooltip("How close to the ground can this enemy get before it's pushed back up?")] [SerializeReference] float HoverHeight = 1;
 
-    [Header("Melee")]
-    [SerializeField] private GameObject Weapon = null;
+    [Header("Shooter")]
+    [Tooltip("Where the projectiles come from")] public Transform FirePoint = null;
+    private float AttackCooldown = 0;
+    private float BulletsPerShot;
+    private float Bullets = 0;
 
     // States
     private enum State { Initial, Idle, Patrol, Chase, Attack, Dead };
@@ -69,22 +73,27 @@ public class MeleeAI : MonoBehaviour
 
     private void Initial()
     {
-        Player = PlayerRefs.instance.Player;
+        //Player = PlayerRefs.instance.Player;
 
-        gameObject.tag = "Melee Enemy";
+        gameObject.tag = "Shooter Enemy";
 
         Health = EnemyOBJ.Health;
         CurrentHealth = Health;
 
         animator = gameObject.GetComponent<Animator>();
 
-        Agent = GetComponent<NavMeshAgent>();
-        Agent.speed = EnemyOBJ.MovementSpeed;
-
         SpawnLocation = transform.position;
 
         ChasePlayerRange = EnemyOBJ.ChaseRange;
         AttackRange = EnemyOBJ.AttackRange;
+
+        MovementSpeed = EnemyOBJ.MovementSpeed;
+
+        BulletsPerShot = EnemyOBJ.BulletsPerShot;
+
+        MyLayer = gameObject.layer;
+
+        RB = GetComponent<Rigidbody>();
 
         if (points.Length == 0)
         {
@@ -106,43 +115,42 @@ public class MeleeAI : MonoBehaviour
     {
         if (points.Length == 0)
             return;
-        Agent.destination = points[DestinationPoint].position;
+        transform.position = Vector3.MoveTowards(transform.position, points[DestinationPoint].position, MovementSpeed * Time.deltaTime);
         DestinationPoint = (DestinationPoint + 1) % points.Length;
     }
 
     private void Chase()
     {
-        Agent.isStopped = false;
         transform.LookAt(Player.position);
-        Agent.destination = Player.position;
+        transform.position = Vector3.MoveTowards(transform.position, Player.position, MovementSpeed * Time.deltaTime);
     }
 
     private void StartAttack()
     {
-        Agent.isStopped = true;
-        if (CanAttack)
+        transform.LookAt(Player.position);
+        if (AttackCooldown <= 0)
         {
-            CanAttack = false;
-            animator.SetTrigger("Melee");
+            Shoot();
+            AttackCooldown = 1 / EnemyOBJ.AttackRate;
         }
-        transform.LookAt(Player);
+        AttackCooldown -= Time.deltaTime;
     }
 
-    private void ExecuteAttack()
+    private void Shoot()
     {
-        Weapon.GetComponent<Collider>().enabled = true;
-    }
-
-    private void StopAttack()
-    {
-        Weapon.GetComponent<Collider>().enabled = false;
-        CanAttack = true;
-        Agent.isStopped = false;
+        while (Bullets < BulletsPerShot)
+        {
+            ObjectPooling.Spawn(EnemyOBJ.ProjectileOBJ.Projectile, FirePoint.position, FirePoint.rotation);
+            Bullets += 1;
+        }
+        if (Bullets >= BulletsPerShot)
+        {
+            Bullets = 0;
+        }
     }
 
     private void DoDeath()
     {
-        Agent.isStopped = true;
         int RandomNumber = Random.Range(0, 100);
         if (RandomNumber <= EnemyOBJ.PickupOBJ.DropChance)
         {
@@ -156,13 +164,19 @@ public class MeleeAI : MonoBehaviour
         CurrentHealth -= Damage;
     }
 
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, EnemyOBJ.AttackRange);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, EnemyOBJ.ChaseRange);
+        Gizmos.color = Color.green;
+        Gizmos.DrawRay(transform.position, -transform.up * HoverHeight);
+    }
+
     private void Update()
     {
         PlayerDistance = Vector3.Distance(transform.position, Player.position);
-
-        Vector3 LookPos = Player.position - transform.position;
-
-        Quaternion LookRotation = Quaternion.LookRotation(LookPos);
 
         if (CurrentHealth <= 0)
         {
@@ -171,7 +185,7 @@ public class MeleeAI : MonoBehaviour
 
         else if (PlayerDistance <= ChasePlayerRange && PlayerDistance > AttackRange)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, LookRotation, 5 * Time.deltaTime);
+            transform.LookAt(Player);
             if (Physics.Raycast(Face.position, transform.forward, out RaycastHit hit, Mathf.Infinity))
             {
                 if (hit.transform.CompareTag("Player"))
@@ -189,16 +203,18 @@ public class MeleeAI : MonoBehaviour
         {
             if (transform.position != SpawnLocation)
             {
-                Agent.destination = SpawnLocation;
+                transform.position = Vector3.MoveTowards(transform.position, SpawnLocation, MovementSpeed * Time.deltaTime);
             }
         }
-    }
 
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, EnemyOBJ.AttackRange);
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, EnemyOBJ.ChaseRange);
+        if(Physics.Raycast(transform.position, -transform.up, out RaycastHit Ground, Mathf.Infinity))
+        {
+            float GroundDistance = Vector3.Distance(transform.position, Ground.transform.position);
+
+            if(GroundDistance < HoverHeight)
+            {
+                RB.AddForce(transform.up * 50, ForceMode.Acceleration);
+            }
+        }
     }
 }
