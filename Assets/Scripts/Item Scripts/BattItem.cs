@@ -13,4 +13,10 @@ public class BattItem : ItemBase
     {
         VisualManager.instace.BattVisual.SetActive(false);
     }
+
+    public override void UseItem(GameObject source)
+    {
+        PlayerRefs.instance.Player.GetComponent<Animator>().SetTrigger("Attack");
+        VisualManager.instace.BattVisual.GetComponent<Collider>().enabled = true;
+    }
 }

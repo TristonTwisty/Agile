@@ -12,6 +12,10 @@ public class VisualManager : MonoBehaviour
     public GameObject SheildVisual;
     public Component DashVisual;
 
+    public GameObject PlayerSurface;
+    public GameObject PlayerJoints;
+
+
     private void Awake()
     {
         if(VisualManager.instace == null)
