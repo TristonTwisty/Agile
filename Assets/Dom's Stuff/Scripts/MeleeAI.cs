@@ -79,6 +79,7 @@ public class MeleeAI : MonoBehaviour
         animator = gameObject.GetComponent<Animator>();
 
         Agent = GetComponent<NavMeshAgent>();
+        Agent.speed = EnemyOBJ.MovementSpeed;
 
         SpawnLocation = transform.position;
 
