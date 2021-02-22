@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
 
     private void CheckItemButton()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        /*if (Input.GetKeyDown(KeyCode.E))
         {
             _inventory[_itemIndex].DeActivateObject(gameObject);
             _itemIndex++;
@@ -53,7 +53,7 @@ public class Player : MonoBehaviour
                 _itemIndex = _inventory.Count-1;
             }
             _inventory[_itemIndex].ActivateObject(gameObject);
-        }
+        }*/
 
         if (ScrollWheelSwitch && Input.GetAxis ("Mouse ScrollWheel") > 0)
         {
@@ -75,6 +75,31 @@ public class Player : MonoBehaviour
                 _itemIndex = _inventory.Count - 1;
             }
             _inventory[_itemIndex].ActivateObject(gameObject);
+        }
+
+
+    }
+
+    private void OnGUI()
+    {
+        Event e = Event.current;
+        //Debug.Log(e);
+        if (e.isKey)
+        {
+            //Debug.Log(e);
+            for (int i = 0; i < Inventory.Count; i++)
+            {
+                if (Inventory[i].PressSelectKey(e.keyCode))
+                {
+                    if (_itemIndex != i)
+                    {
+                        _inventory[_itemIndex].DeActivateObject(gameObject);
+                        _itemIndex = i;
+                        _inventory[_itemIndex].ActivateObject(gameObject);
+                    }
+
+                }
+            }
         }
     }
 

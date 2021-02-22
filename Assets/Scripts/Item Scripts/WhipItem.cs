@@ -9,6 +9,17 @@ public class WhipItem : ItemBase
         GameObject.Instantiate(VisualManager.instace.WhipVisual, source.transform.position,Quaternion.identity);
     }*/
 
+    private KeyCode SelectionKey = KeyCode.Alpha4;
+
+    public override bool PressSelectKey(KeyCode KeyPressed)
+    {
+        if (KeyPressed == SelectionKey)
+        {
+            return true;
+        }
+        return false;
+    }
+
     public override void ActivateObject(GameObject source)
     {
         VisualManager.instace.WhipVisual.SetActive(true);

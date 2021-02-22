@@ -4,6 +4,17 @@ using UnityEngine;
 
 public class BoardItem : ItemBase
 {
+    private KeyCode SelectionKey = KeyCode.Alpha3;
+
+    public override bool PressSelectKey(KeyCode KeyPressed)
+    {
+        if (KeyPressed == SelectionKey)
+        {
+            return true;
+        }
+        return false;
+    }
+
     public override void ActivateObject(GameObject source)
     {
         VisualManager.instace.BoardVisual.SetActive(true);
