@@ -28,6 +28,12 @@ public class MeleeWeapon : MonoBehaviour
             other.GetComponent<MeleeAI>().TakeDamage(MeleeOBJ.DamageDealt);
         }
 
+        else if(other.CompareTag("Drone Enemy"))
+        {
+            other.GetComponent<Rigidbody>().AddForce(Owner.transform.forward * MeleeOBJ.KnockbackPower, ForceMode.Impulse);
+            other.GetComponent<DroneAI>().TakeDamage(MeleeOBJ.DamageDealt);
+        }
+
         else if (other.CompareTag("Player"))
         {
             other.GetComponent<Rigidbody>().AddForce(Owner.transform.forward * MeleeOBJ.KnockbackPower, ForceMode.Impulse);

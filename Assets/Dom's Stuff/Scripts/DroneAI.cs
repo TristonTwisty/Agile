@@ -13,29 +13,33 @@ public class DroneAI : MonoBehaviour
     private float AttackRange;
     private float Health = 0;
     private float CurrentHealth = 0;
-    private LayerMask MyLayer;
 
     [Header("Components")]
     public EnemyScripableObject EnemyOBJ;
-    [Tooltip("The enemy's face, where they look")] [SerializeField] private Transform Face = null;
     private Rigidbody RB;
 
     [Header("Behavior")]
     private Animator animator;
     private bool Idling = false;
+    private Quaternion LookRotation;
 
     [Header("Movement")]
-    [Tooltip("If you want the enemy to patrol place the transforms here. Leave empty to have enemy idle")] public Transform[] points;
+    [SerializeField] [Tooltip("If you want the enemy to patrol place the transforms here. Leave empty to have enemy idle")] private Transform[] points;
     private int DestinationPoint = 0;
     private Vector3 SpawnLocation;
     private float MovementSpeed = 0;
-    [Tooltip("How close to the ground can this enemy get before it's pushed back up?")] [SerializeReference] float HoverHeight = 1;
 
     [Header("Shooter")]
     [Tooltip("Where the projectiles come from")] public Transform FirePoint = null;
     private float AttackCooldown = 0;
     private float BulletsPerShot;
     private float Bullets = 0;
+
+    [Header("Drone")]
+    [Tooltip("How close to the ground can this enemy get before it's pushed back up?")] [SerializeReference] float HoverHeight = 1;
+    [SerializeField] float HoverForce;
+    private Vector3 DownwardTransform;
+    private bool IsStopped = false;
 
     // States
     private enum State { Initial, Idle, Patrol, Chase, Attack, Dead };
@@ -75,7 +79,7 @@ public class DroneAI : MonoBehaviour
     {
         //Player = PlayerRefs.instance.Player;
 
-        gameObject.tag = "Shooter Enemy";
+        gameObject.tag = "Drone Enemy";
 
         Health = EnemyOBJ.Health;
         CurrentHealth = Health;
@@ -91,7 +95,7 @@ public class DroneAI : MonoBehaviour
 
         BulletsPerShot = EnemyOBJ.BulletsPerShot;
 
-        MyLayer = gameObject.layer;
+        DownwardTransform = -transform.up;
 
         RB = GetComponent<Rigidbody>();
 
@@ -115,25 +119,41 @@ public class DroneAI : MonoBehaviour
     {
         if (points.Length == 0)
             return;
-        transform.position = Vector3.MoveTowards(transform.position, points[DestinationPoint].position, MovementSpeed * Time.deltaTime);
+
+        Vector3 Directtion = points[DestinationPoint].position - transform.position;
+        Directtion.Normalize();
+        Vector3 Velocity = Directtion * MovementSpeed;
+        RB.velocity = Velocity;
+
         DestinationPoint = (DestinationPoint + 1) % points.Length;
     }
 
     private void Chase()
     {
-        transform.LookAt(Player.position);
-        transform.position = Vector3.MoveTowards(transform.position, Player.position, MovementSpeed * Time.deltaTime);
+        if (!IsStopped)
+        {
+            Vector3 Directtion = Player.position - transform.position;
+            Directtion.Normalize();
+            Vector3 Velocity = Directtion * MovementSpeed;
+            RB.velocity = Velocity;
+        }
+        else
+        {
+            RB.velocity = Vector3.zero;
+            RB.angularVelocity = Vector3.zero;
+        }
     }
 
     private void StartAttack()
     {
-        transform.LookAt(Player.position);
+        FirePoint.LookAt(Player);
+
         if (AttackCooldown <= 0)
         {
             Shoot();
             AttackCooldown = 1 / EnemyOBJ.AttackRate;
         }
-        AttackCooldown -= Time.deltaTime;
+        AttackCooldown -= Time.fixedDeltaTime;
     }
 
     private void Shoot()
@@ -151,6 +171,9 @@ public class DroneAI : MonoBehaviour
 
     private void DoDeath()
     {
+        RB.velocity = Vector3.zero;
+        RB.angularVelocity = Vector3.zero;
+
         int RandomNumber = Random.Range(0, 100);
         if (RandomNumber <= EnemyOBJ.PickupOBJ.DropChance)
         {
@@ -171,49 +194,57 @@ public class DroneAI : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, EnemyOBJ.ChaseRange);
         Gizmos.color = Color.green;
-        Gizmos.DrawRay(transform.position, -transform.up * HoverHeight);
+        Gizmos.DrawRay(FirePoint.position, FirePoint.forward * EnemyOBJ.AttackRange);
     }
 
     private void Update()
     {
+        // Distance betyween AI and player
         PlayerDistance = Vector3.Distance(transform.position, Player.position);
 
         if (CurrentHealth <= 0)
         {
             ActiveState = State.Dead;
+            IsStopped = true;
         }
 
+        // If the player is within the chase range but not the attack range, chase
         else if (PlayerDistance <= ChasePlayerRange && PlayerDistance > AttackRange)
         {
-            transform.LookAt(Player);
-            if (Physics.Raycast(Face.position, transform.forward, out RaycastHit hit, Mathf.Infinity))
-            {
-                if (hit.transform.CompareTag("Player"))
-                {
-                    ActiveState = State.Chase;
-                }
-            }
+            ActiveState = State.Chase;
+            IsStopped = false;
         }
+        // If the player is in attack range, attack
         else if (PlayerDistance <= AttackRange)
         {
             ActiveState = State.Attack;
+            IsStopped = true;
         }
 
+        // If the player leaves the chase range and the AI was idling, return to spawn point
         else if (PlayerDistance > ChasePlayerRange && Idling)
         {
             if (transform.position != SpawnLocation)
             {
-                transform.position = Vector3.MoveTowards(transform.position, SpawnLocation, MovementSpeed * Time.deltaTime);
+                Vector3 Direction = SpawnLocation - transform.position;
+                Direction.Normalize();
+                Vector3 Velocity = Direction * MovementSpeed;
+                //RB.velocity = Velocity;
             }
         }
 
-        if(Physics.Raycast(transform.position, -transform.up, out RaycastHit Ground, Mathf.Infinity))
+        if(Physics.Raycast(transform.position, DownwardTransform, out RaycastHit Ground, HoverHeight))
         {
             float GroundDistance = Vector3.Distance(transform.position, Ground.transform.position);
 
             if(GroundDistance < HoverHeight)
             {
-                RB.AddForce(transform.up * 50, ForceMode.Acceleration);
+                RB.AddForce(-DownwardTransform * HoverForce, ForceMode.Impulse);
+            }
+            if(GroundDistance >= HoverHeight)
+            {
+                RB.velocity = Vector3.zero;
+                RB.angularVelocity = Vector3.zero;
             }
         }
     }

@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Description: 
   Health: 5
-  MovementSpeed: 8
+  MovementSpeed: 5
   AttackRate: 1
-  AttackRange: 1
+  AttackRange: 10
   ChaseRange: 15
-  BulletsPerShot: 2
+  BulletsPerShot: 1
   ProjectileOBJ: {fileID: 11400000, guid: 02d64a7e483c9b2419c34fd48a6aae8a, type: 2}
   MeleeObj: {fileID: 0}
   PickupOBJ: {fileID: 11400000, guid: 64f0cb28eb0bcac4987413abbb629bc1, type: 2}
