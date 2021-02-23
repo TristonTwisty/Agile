@@ -1398,7 +1398,27 @@ PrefabInstance:
     - target: {fileID: 1516215818112021572, guid: 1cef8abb8325e21459c3473db7fdebe9,
         type: 3}
       propertyPath: MaxLockOn
-      value: 2
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1516215818112021572, guid: 1cef8abb8325e21459c3473db7fdebe9,
+        type: 3}
+      propertyPath: _lockOnColour.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1516215818112021572, guid: 1cef8abb8325e21459c3473db7fdebe9,
+        type: 3}
+      propertyPath: _lockOnColour.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1516215818112021572, guid: 1cef8abb8325e21459c3473db7fdebe9,
+        type: 3}
+      propertyPath: _lockOnColour.b
+      value: 0.8605418
+      objectReference: {fileID: 0}
+    - target: {fileID: 1516215818112021572, guid: 1cef8abb8325e21459c3473db7fdebe9,
+        type: 3}
+      propertyPath: _lockOnColour.a
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8144421793421210426, guid: 1cef8abb8325e21459c3473db7fdebe9,
         type: 3}
