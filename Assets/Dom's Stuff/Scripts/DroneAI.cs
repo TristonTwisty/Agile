@@ -38,7 +38,6 @@ public class DroneAI : MonoBehaviour
     [Header("Drone")]
     [Tooltip("How close to the ground can this enemy get before it's pushed back up?")] [SerializeReference] float HoverHeight = 1;
     [SerializeField] float HoverForce;
-    private Vector3 DownwardTransform;
     private bool IsStopped = false;
 
     // States
@@ -94,8 +93,6 @@ public class DroneAI : MonoBehaviour
         MovementSpeed = EnemyOBJ.MovementSpeed;
 
         BulletsPerShot = EnemyOBJ.BulletsPerShot;
-
-        DownwardTransform = -transform.up;
 
         RB = GetComponent<Rigidbody>();
 
@@ -233,15 +230,32 @@ public class DroneAI : MonoBehaviour
             }
         }
 
-        if(Physics.Raycast(transform.position, DownwardTransform, out RaycastHit Ground, HoverHeight))
+        // If the drone is too close to the ground, push it upwards
+        if(Physics.Raycast(transform.position, -transform.up, out RaycastHit Ground, HoverHeight))
         {
             float GroundDistance = Vector3.Distance(transform.position, Ground.transform.position);
 
             if(GroundDistance < HoverHeight)
             {
-                RB.AddForce(-DownwardTransform * HoverForce, ForceMode.Impulse);
+                RB.AddForce(transform.up * HoverForce, ForceMode.Impulse);
             }
             if(GroundDistance >= HoverHeight)
+            {
+                RB.velocity = Vector3.zero;
+                RB.angularVelocity = Vector3.zero;
+            }
+        }
+
+        // If the drone is too close to the ceiling, push it downwards
+        if (Physics.Raycast(transform.position, transform.up, out RaycastHit Ceiling, HoverHeight))
+        {
+            float GroundDistance = Vector3.Distance(transform.position, Ground.transform.position);
+
+            if (GroundDistance < HoverHeight)
+            {
+                RB.AddForce(-transform.up * HoverForce, ForceMode.Impulse);
+            }
+            if (GroundDistance >= HoverHeight)
             {
                 RB.velocity = Vector3.zero;
                 RB.angularVelocity = Vector3.zero;
