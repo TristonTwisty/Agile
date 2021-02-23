@@ -18,19 +18,25 @@ public class MeleeWeapon : MonoBehaviour
         Debug.Log(other.gameObject);
         if (other.CompareTag("Shooter Enemy"))
         {
-            other.GetComponent<Rigidbody>().AddForce(transform.forward * MeleeOBJ.KnockbackPower, ForceMode.Impulse);
+            other.GetComponent<Rigidbody>().AddForce(Owner.transform.forward * MeleeOBJ.KnockbackPower, ForceMode.Impulse);
             other.GetComponent<ShootingAI>().TakeDamage(MeleeOBJ.DamageDealt);
         }
 
         else if (other.CompareTag("Melee Enemy"))
         {
-            other.GetComponent<Rigidbody>().AddForce(transform.forward * MeleeOBJ.KnockbackPower, ForceMode.Impulse);
+            other.GetComponent<Rigidbody>().AddForce(Owner.transform.forward * MeleeOBJ.KnockbackPower, ForceMode.Impulse);
             other.GetComponent<MeleeAI>().TakeDamage(MeleeOBJ.DamageDealt);
+        }
+
+        else if(other.CompareTag("Drone Enemy"))
+        {
+            other.GetComponent<Rigidbody>().AddForce(Owner.transform.forward * MeleeOBJ.KnockbackPower, ForceMode.Impulse);
+            other.GetComponent<DroneAI>().TakeDamage(MeleeOBJ.DamageDealt);
         }
 
         else if (other.CompareTag("Player"))
         {
-            other.GetComponent<Rigidbody>().AddForce(transform.forward * MeleeOBJ.KnockbackPower, ForceMode.Impulse);
+            other.GetComponent<Rigidbody>().AddForce(Owner.transform.forward * MeleeOBJ.KnockbackPower, ForceMode.Impulse);
         }
         else
         {   

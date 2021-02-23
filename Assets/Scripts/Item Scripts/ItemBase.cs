@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ItemBase
 {
+
     public virtual void UseItem(GameObject source)
     {
 
@@ -17,5 +18,10 @@ public class ItemBase
     public virtual void DeActivateObject(GameObject source)
     {
 
+    }
+
+    public virtual bool PressSelectKey(KeyCode KeyPressed)
+    {
+        return false;
     }
 }

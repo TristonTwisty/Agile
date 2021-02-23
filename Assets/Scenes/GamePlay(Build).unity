@@ -120,7 +120,7 @@ NavMeshSettings:
     accuratePlacement: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: b0a1d7aa50e07204d88193ff84f6358e, type: 2}
 --- !u!1 &63826285
 GameObject:
   m_ObjectHideFlags: 0
@@ -137,7 +137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &63826286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32aa3bb7d467a3042b4a69190d03ff8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Level: Gladiator Pit
+  Level: factory level
 --- !u!4 &63826287
 Transform:
   m_ObjectHideFlags: 0
@@ -486,8 +486,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 161.82297, y: 41.59068, z: 65.78781}
-  m_Center: {x: 81.12117, y: 5.7046604, z: -66.39391}
+  m_Size: {x: 673.0102, y: 179.3777, z: 560.78784}
+  m_Center: {x: 88.52756, y: 8.6920395, z: -313.89392}
 --- !u!114 &1475234994
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -500,7 +500,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af9e0a0d028e733419b892320ada056c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelName: Tristons hoverBoard level
+  LevelName: RichTown
   ShouldLoad: 0
   isLoaded: 0
 --- !u!4 &1475234995
@@ -511,7 +511,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1475234992}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -75, y: -12, z: -153}
+  m_LocalPosition: {x: -75, y: -96.3, z: -153}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -9154,8 +9154,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7175501153760910742}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.65, y: 6.37, z: -2.64}
+  m_LocalRotation: {x: -0.025738208, y: 0.70795, z: -0.025597837, w: -0.7053292}
+  m_LocalPosition: {x: -7.869848, y: 29.971605, z: -187.7724}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7849134978538585794}
@@ -9474,7 +9474,7 @@ MonoBehaviour:
   Gravity: 10
   Walkable:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2048
   GravityLock: 2
 --- !u!54 &8022575158605960166
 Rigidbody:

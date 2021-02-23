@@ -4,6 +4,17 @@ using UnityEngine;
 
 public class BoardItem : ItemBase
 {
+    private KeyCode SelectionKey = KeyCode.Alpha3;
+
+    public override bool PressSelectKey(KeyCode KeyPressed)
+    {
+        if (KeyPressed == SelectionKey)
+        {
+            return true;
+        }
+        return false;
+    }
+
     public override void ActivateObject(GameObject source)
     {
         VisualManager.instace.BoardVisual.SetActive(true);
@@ -12,6 +23,13 @@ public class BoardItem : ItemBase
         PlayerRefs.instance.PlayerBoard.gameObject.SetActive(true);
         PlayerRefs.instance.PlayerCamera.gameObject.SetActive(false);
         PlayerRefs.instance.movementS.enabled = false;
+        PlayerRefs.instance.Player.GetComponent<Animator>().SetBool("Board", true);
+        PlayerRefs.instance.Player.GetComponent<Rigidbody>().isKinematic = true;
+        VisualManager.instace.BoardVisual.transform.parent = null;
+        PlayerRefs.instance.Player.transform.parent = VisualManager.instace.BoardVisual.transform;
+        VisualManager.instace.PlayerSurface.gameObject.SetActive(false);
+        VisualManager.instace.PlayerJoints.gameObject.SetActive(false);
+        VisualManager.instace.BoardVisual.GetComponent<HoverboardMovement>().enabled = true;
     }
 
     public override void DeActivateObject(GameObject source)
@@ -22,5 +40,12 @@ public class BoardItem : ItemBase
         PlayerRefs.instance.PlayerBoard.gameObject.SetActive(false);
         PlayerRefs.instance.movementS.enabled = true;
         PlayerRefs.instance.PlayerCamera.gameObject.SetActive(true);
+        PlayerRefs.instance.Player.GetComponent<Animator>().SetBool("Board", false);
+        PlayerRefs.instance.Player.GetComponent<Rigidbody>().isKinematic = false;
+        VisualManager.instace.BoardVisual.transform.parent = PlayerRefs.instance.Player.transform;
+        PlayerRefs.instance.Player.transform.parent = null;
+        VisualManager.instace.PlayerSurface.gameObject.SetActive(true);
+        VisualManager.instace.PlayerJoints.gameObject.SetActive(true);
+        VisualManager.instace.BoardVisual.GetComponent<HoverboardMovement>().enabled = false;
     }
 }

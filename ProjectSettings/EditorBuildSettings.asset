@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Main Menu.unity
     guid: 2ff8569dc309e244ea9730f45da5c52c
   - enabled: 1
-    path: Assets/Scenes/GamePlay(Master).unity
+    path: Assets/Scenes/GamePlay(Master Final).unity
     guid: dd9a3b6a207aa644985a286be354359e
   - enabled: 1
     path: Assets/Scenes/Gladiator Pit.unity

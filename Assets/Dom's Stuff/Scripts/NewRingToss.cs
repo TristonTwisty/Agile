@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(BoxCollider))]
@@ -10,17 +11,23 @@ public class NewRingToss : MonoBehaviour
     [SerializeField] [Tooltip("The trail renderer of the disc")] private TrailRenderer TR = null;
 
     [Header("Mechanics")]
-    [SerializeField] private ProjectileScriptableObjects ProjectileOBJ = null;
-    [Tooltip("How fast the ring travels after being thrown")] private float ThrowSpeed;
+    [SerializeField] private float Damage;
+    [SerializeField] [Tooltip("How fast the ring travels after being thrown")] private float ThrowSpeed;
     [SerializeField] [Tooltip("How how seconds it takes for ring to return to player")] private float ReturnSpeed = 0f;
     [SerializeField] [Tooltip("How far the disc can travel before returning to player")] private float MaxDistance = 0f;
+
+    [Header("Lock On")]
+    [SerializeField] private float LockOnDistance = 15;
+    [SerializeField] private int MaxLockOn;
+    private int CurrentLockOn;
+    private List<Transform> LockOnTargets = new List<Transform>();
 
     private Rigidbody RB;
     private BoxCollider BC;
     private Vector3 LastVelocity;
     private bool Thrown = false; // Has the ring been thrown?
     private bool DoReturn = false;
-    private GameObject PlayerCamera;
+    private Transform PlayerCamera;
     [HideInInspector] public bool ThirdPerson;
 
 
@@ -35,10 +42,8 @@ public class NewRingToss : MonoBehaviour
         BC = GetComponent<BoxCollider>();
         TR.enabled = false;
         BC.isTrigger = true;
-        PlayerCamera = PlayerRefs.instance.PlayerCamera.gameObject;
-
-        //Set ring throwspeed
-        ThrowSpeed = ProjectileOBJ.ProjectileSpeed;
+        //PlayerCamera = PlayerRefs.instance.PlayerCamera.gameObject;
+        PlayerCamera = Camera.main.transform;
 
         // Move ring to player
         transform.position = RingHolster.position;
@@ -54,23 +59,56 @@ public class NewRingToss : MonoBehaviour
     {
         if (!Thrown && Input.GetMouseButtonDown(0))
         {
-            // If the ring was NOT thrown and player hits left mouse, throw ring
-            if (!ThirdPerson)
+            if (Input.GetMouseButtonDown(0))
             {
+<<<<<<< HEAD
                 ThrowDisc();
 
                 //Added For GameSounds
                 gameSounds.audioSource.PlayOneShot(gameSounds.discTossed);
+=======
+                // If the ring was NOT thrown and player hits left mouse, throw ring
+                if (!ThirdPerson)
+                {
+                    ThrowDisc();
+                }
+>>>>>>> fd995de88b3b738846d8733ee7054a74d5d20829
             }
-            else
+
+            // If the ring has not been thrown and the player hits right mouse, begin locking onto targets
+            if (Input.GetMouseButtonDown(1))
             {
-                StraightShot();
+                // If the player points at an enemy or a targetable object, add them to lock-on target list
+                if(Physics.Raycast(PlayerCamera.position, PlayerCamera.forward, out RaycastHit hit, LockOnDistance))
+                {
+                    if(CurrentLockOn >= MaxLockOn)
+                    {
+                        if (hit.transform.CompareTag("Enemy") || hit.transform.CompareTag("Target"))
+                        {
+                            CurrentLockOn += 1;
+                            LockOnTargets.Add(hit.transform);
+                        }
+                    }
+                }
+                if (Input.GetMouseButtonUp(1))
+                {
+                    // If the player did not lock onto any object just throw the disc normally
+                    if(LockOnTargets == null)
+                    {
+                        ThrowDisc();
+                    }
+                    // If targets have been assigned begin lock-on attack
+                    else if(LockOnTargets != null)
+                    {
+                        LockOnAttack();
+                    }
+                }
             }
         }
         if (!Thrown)
         {
             // If ring was not thrown, make the ring follow the ring holster
-            transform.position = Vector3.MoveTowards(transform.position, RingHolster.position, 1);
+            transform.position = RingHolster.position;
         }
         if (Thrown)
         {
@@ -125,7 +163,7 @@ public class NewRingToss : MonoBehaviour
         if(Thrown && other.gameObject.CompareTag("Enemy"))
         {
             // If the ring hits an enemy while returning to the player, deal damage
-            other.gameObject.GetComponent<EnemyBehavior>().TakeDamage(ProjectileOBJ.DamageDealt);
+            other.gameObject.GetComponent<EnemyBehavior>().TakeDamage(Damage);
         }
     }
 
@@ -145,20 +183,24 @@ public class NewRingToss : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             // If an enemy is hit, deal damage
-            collision.gameObject.GetComponent<EnemyBehavior>().TakeDamage(ProjectileOBJ.DamageDealt);
+            collision.gameObject.GetComponent<EnemyBehavior>().TakeDamage(Damage);
         }
     }
 
     private void ThrowDisc()
     {
         Thrown = true;
-        RB.AddForce(PlayerCamera.transform.forward * ThrowSpeed, ForceMode.Force);
+        RB.AddForce(PlayerCamera.forward * ThrowSpeed, ForceMode.Force);
     }
 
-    private void StraightShot()
+    private void LockOnAttack()
     {
         Thrown = true;
-        RB.AddForce(transform.up * ThrowSpeed, ForceMode.Force);
+        while(LockOnTargets != null)
+        {
+            Vector3 Direction = LockOnTargets[0].position - transform.position;
+            Direction.Normalize();
+        }
     }
 
     private void ReturnDisc()

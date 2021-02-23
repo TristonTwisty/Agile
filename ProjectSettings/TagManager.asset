@@ -19,6 +19,7 @@ TagManager:
   - UI
   - Melee Enemy
   - Shooter Enemy
+  - Drone Enemy
   layers:
   - Default
   - TransparentFX
@@ -37,7 +38,7 @@ TagManager:
   - GrappleMask
   - Post
   - Bat
-  - 
+  - FPS View
   - 
   - 
   - 

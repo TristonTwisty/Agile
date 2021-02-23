@@ -33,7 +33,6 @@ public class ShootingAI : MonoBehaviour
     private float AttackCooldown = 0;
     private float BulletsPerShot;
     private float Bullets = 0;
-    private float MaxSpread;
 
     // States
     private enum State {Initial, Idle, Patrol, Chase, Attack, Dead};
@@ -81,6 +80,7 @@ public class ShootingAI : MonoBehaviour
         animator = gameObject.GetComponent<Animator>();
 
         Agent = GetComponent<NavMeshAgent>();
+        Agent.speed = EnemyOBJ.MovementSpeed;
 
         SpawnLocation = transform.position;
 
