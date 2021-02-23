@@ -16,5 +16,9 @@ MonoBehaviour:
   playmakerVersion: 
   showWelcomeScreen: 0
   showUpgradeGuide: 0
+<<<<<<< HEAD
+  lastAutoUpdateSignature: 2019.4.8f1__C:/Users/ricar/OneDrive/Documents/Agile/Assets__0.0.0.0
+=======
   lastAutoUpdateSignature: 2019.4.8f1__C:/Users/Dman/Documents/Agile/Assets__0.0.0.0
+>>>>>>> fd995de88b3b738846d8733ee7054a74d5d20829
   useLegacyNetworking: 0

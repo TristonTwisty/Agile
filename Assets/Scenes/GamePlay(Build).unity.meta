@@ -1,5 +1,10 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Ricardo's Things/Test Scenes.meta
+guid: 6d452d483fbfba24aba9f32534e9abad
+folderAsset: yes
+=======
 guid: 249430ed4b86220488f51e1f40c17614
+>>>>>>> fd995de88b3b738846d8733ee7054a74d5d20829:Assets/Scenes/GamePlay(Build).unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

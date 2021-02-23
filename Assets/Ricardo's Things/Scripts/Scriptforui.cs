@@ -28,11 +28,13 @@ public class Scriptforui : MonoBehaviour
     public UnityEngine.UI.Image playerDisc;
     public UnityEngine.UI.Image playerHoverBoard;
     public UnityEngine.UI.Image playerWhip;
+    public UnityEngine.UI.Image playerDash;
 
     public bool itemInSlot1;
     public bool itemInSlot2;
     public bool itemInSlot3;
     public bool itemInSlot4;
+    public bool hasDash;
 
 
     void Start()
@@ -59,19 +61,20 @@ public class Scriptforui : MonoBehaviour
         shieldRechargeSlider.value = shieldRecharge;
         playerHealth = playerHealthSlider.value;
         displayPlayerHealth.text = playerHealth.ToString();
-        
-        if(currentDashAmount < totalDashAmount)
+        if (hasDash == true)
         {
-            dashRecharge.fillAmount = (dashRecharge.fillAmount + .001f);
-            
-            if(dashRecharge.fillAmount == 1)
+            if (currentDashAmount < totalDashAmount)
             {
-                currentDashAmount = currentDashAmount + 1;
-                displayTotalDashAmount.text = currentDashAmount.ToString();
-                dashRecharge.fillAmount = 0;
+                dashRecharge.fillAmount = (dashRecharge.fillAmount + .002f);
+
+                if (dashRecharge.fillAmount == 1)
+                {
+                    currentDashAmount = currentDashAmount + 1;
+                    displayTotalDashAmount.text = currentDashAmount.ToString();
+                    dashRecharge.fillAmount = 0;
+                }
             }
         }
-
  
 
     }

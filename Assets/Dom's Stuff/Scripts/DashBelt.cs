@@ -13,11 +13,18 @@ public class DashBelt : MonoBehaviour
 
     private Rigidbody RB;
 
+    //Added For Sounds
+    private GameSounds gameSounds;
+
+
     private void Start()
     {
         RB = GetComponent<Rigidbody>();
 
         CurrentDashes = MaximumDashes;
+
+        //Added For Sounds
+        gameSounds = GameSounds.FindObjectOfType<GameSounds>();
     }
 
     private void Update()
@@ -29,6 +36,9 @@ public class DashBelt : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.LeftShift))
                 {
                     StartCoroutine(Dash());
+
+                    //Added For Sounds
+                    gameSounds.audioSource.PlayOneShot(gameSounds.playerDash);
                 }
             }
         }

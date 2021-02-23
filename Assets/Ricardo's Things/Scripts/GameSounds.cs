@@ -12,7 +12,7 @@ public class GameSounds : MonoBehaviour
     public AudioClip hoverBoardStationary;
     public AudioClip hoverBoardAccelerating;
     public AudioClip discTossed;
-
+    public AudioClip playerDash;
     void Start()
     {
         audioSource = GetComponent<AudioSource>();

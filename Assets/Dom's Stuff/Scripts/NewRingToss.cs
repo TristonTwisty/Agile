@@ -34,6 +34,10 @@ public class NewRingToss : MonoBehaviour
 
     [HideInInspector] public bool ThirdPerson;
 
+
+    //Added For GameSounds
+    private GameSounds gameSounds;
+
     private void Start()
     {
         // Get ring's collider and rigidbody
@@ -49,6 +53,10 @@ public class NewRingToss : MonoBehaviour
         transform.position = RingHolster.position;
 
         ThirdPerson = false;
+
+
+        //Added For GameSounds
+        gameSounds = GameSounds.FindObjectOfType<GameSounds>();
     }
 
     private void Update()
@@ -57,11 +65,18 @@ public class NewRingToss : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
+<<<<<<< HEAD
+                ThrowDisc();
+
+                //Added For GameSounds
+                gameSounds.audioSource.PlayOneShot(gameSounds.discTossed);
+=======
                 // If the ring was NOT thrown and player hits left mouse, throw ring
                 if (!ThirdPerson)
                 {
                     ThrowDisc();
                 }
+>>>>>>> fd995de88b3b738846d8733ee7054a74d5d20829
             }
 
             // If the ring has not been thrown and the player hits right mouse, begin locking onto targets

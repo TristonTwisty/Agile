@@ -11,7 +11,7 @@ public class Grappling : MonoBehaviour
     public Transform gunTip, camera, player;
     public float maxDistance = 100f;
     public SpringJoint joint;
-    //private GameSounds gameSounds;
+    private GameSounds gameSounds;
 
 
 
@@ -23,7 +23,7 @@ public class Grappling : MonoBehaviour
     void Start()
     {
         grapplingLine = GetComponent<LineRenderer>();
-        //gameSounds = GameObject.FindObjectOfType<GameSounds>();
+        gameSounds = GameObject.FindObjectOfType<GameSounds>();
         camera = PlayerRefs.instance.PlayerCamera;
         player = PlayerRefs.instance.Player;
     }
@@ -36,7 +36,7 @@ public class Grappling : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             StartGrapple();
-            //gameSounds.audioSource.PlayOneShot(gameSounds.grapplingLaunch);
+            gameSounds.audioSource.PlayOneShot(gameSounds.grapplingLaunch);
        
 
         }
