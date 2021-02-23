@@ -20,6 +20,7 @@ public class Scriptforui : MonoBehaviour
 
     //Player Items Holder
     public UnityEngine.UI.Image currentItem;
+    public UnityEngine.UI.Image firstItem;
     public UnityEngine.UI.Image secondItem;
     public UnityEngine.UI.Image thirdItem;
     public UnityEngine.UI.Image fourthItem;

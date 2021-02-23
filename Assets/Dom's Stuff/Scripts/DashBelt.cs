@@ -15,7 +15,7 @@ public class DashBelt : MonoBehaviour
 
     //Added For Sounds
     private GameSounds gameSounds;
-
+    private Scriptforui scriptForUI;
 
     private void Start()
     {
@@ -25,6 +25,9 @@ public class DashBelt : MonoBehaviour
 
         //Added For Sounds
         gameSounds = GameSounds.FindObjectOfType<GameSounds>();
+
+        //Added For UI
+        scriptForUI = Scriptforui.FindObjectOfType<Scriptforui>();
     }
 
     private void Update()
@@ -39,6 +42,8 @@ public class DashBelt : MonoBehaviour
 
                     //Added For Sounds
                     gameSounds.audioSource.PlayOneShot(gameSounds.playerDash);
+
+                  
                 }
             }
         }
