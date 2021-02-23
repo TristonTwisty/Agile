@@ -20,6 +20,7 @@ TagManager:
   - Melee Enemy
   - Shooter Enemy
   - Drone Enemy
+  - Enemy
   layers:
   - Default
   - TransparentFX

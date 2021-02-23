@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -19,8 +20,8 @@ public class NewRingToss : MonoBehaviour
     [Header("Lock On")]
     [SerializeField] private float LockOnDistance = 15;
     [SerializeField] private int MaxLockOn;
-    private int CurrentLockOn;
     private List<Transform> LockOnTargets = new List<Transform>();
+    private List<RingTarget> _ringTarget = new List<RingTarget>();
 
     private Rigidbody RB;
     private BoxCollider BC;
@@ -28,6 +29,9 @@ public class NewRingToss : MonoBehaviour
     private bool Thrown = false; // Has the ring been thrown?
     private bool DoReturn = false;
     private Transform PlayerCamera;
+
+    [SerializeField]private Color _lockOnColour;
+
     [HideInInspector] public bool ThirdPerson;
 
 
@@ -57,7 +61,7 @@ public class NewRingToss : MonoBehaviour
 
     private void Update()
     {
-        if (!Thrown && Input.GetMouseButtonDown(0))
+        if (Thrown == false)
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -76,40 +80,50 @@ public class NewRingToss : MonoBehaviour
             }
 
             // If the ring has not been thrown and the player hits right mouse, begin locking onto targets
-            if (Input.GetMouseButtonDown(1))
+            if (Input.GetMouseButton(1))
             {
+                Debug.Log("Mouse Down");
+
                 // If the player points at an enemy or a targetable object, add them to lock-on target list
-                if(Physics.Raycast(PlayerCamera.position, PlayerCamera.forward, out RaycastHit hit, LockOnDistance))
+                if (Physics.Raycast(PlayerCamera.position, PlayerCamera.forward, out RaycastHit hit, LockOnDistance))
                 {
-                    if(CurrentLockOn >= MaxLockOn)
+                    Debug.Log(hit.transform.name);
+
+                    if (LockOnTargets.Count < MaxLockOn)
                     {
                         if (hit.transform.CompareTag("Enemy") || hit.transform.CompareTag("Target"))
                         {
-                            CurrentLockOn += 1;
-                            LockOnTargets.Add(hit.transform);
+                            if (!LockOnTargets.Contains(hit.transform))
+                            {
+                                LockOnTargets.Add(hit.transform);
+                                _ringTarget.Add(new RingTarget(hit.transform.GetComponent<MeshRenderer>(), hit.transform.GetComponent<MeshRenderer>().material.color));
+                                hit.transform.GetComponent<MeshRenderer>().material.color = _lockOnColour;
+                            }
                         }
                     }
                 }
-                if (Input.GetMouseButtonUp(1))
+            }
+            if (Input.GetMouseButtonUp(1))
+            {
+                // If the player did not lock onto any object just throw the disc normally
+                if (LockOnTargets == null)
                 {
-                    // If the player did not lock onto any object just throw the disc normally
-                    if(LockOnTargets == null)
-                    {
-                        ThrowDisc();
-                    }
-                    // If targets have been assigned begin lock-on attack
-                    else if(LockOnTargets != null)
-                    {
-                        LockOnAttack();
-                    }
+                    ThrowDisc();
+                }
+                // If targets have been assigned begin lock-on attack
+                else if (LockOnTargets != null)
+                {
+                    StartCoroutine(LockOnAttack());
                 }
             }
         }
+
         if (!Thrown)
         {
             // If ring was not thrown, make the ring follow the ring holster
             transform.position = RingHolster.position;
         }
+
         if (Thrown)
         {
             // Check whether the ring was thrown
@@ -160,7 +174,7 @@ public class NewRingToss : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, RingHolster.position, 1);
         }
 
-        if(Thrown && other.gameObject.CompareTag("Enemy"))
+        if(Thrown && other.gameObject.CompareTag("Enemy") && other.gameObject.GetComponent<EnemyBehavior>() != null)
         {
             // If the ring hits an enemy while returning to the player, deal damage
             other.gameObject.GetComponent<EnemyBehavior>().TakeDamage(Damage);
@@ -180,7 +194,7 @@ public class NewRingToss : MonoBehaviour
             DoReturn = true;
         }
 
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy") && GetComponent<EnemyBehavior>() != null)
         {
             // If an enemy is hit, deal damage
             collision.gameObject.GetComponent<EnemyBehavior>().TakeDamage(Damage);
@@ -193,14 +207,51 @@ public class NewRingToss : MonoBehaviour
         RB.AddForce(PlayerCamera.forward * ThrowSpeed, ForceMode.Force);
     }
 
-    private void LockOnAttack()
+    private IEnumerator LockOnAttack()
     {
+        Debug.Log("Count: " + LockOnTargets.Count);
+
         Thrown = true;
-        while(LockOnTargets != null)
+        float t = 0;
+        int curIndex = 0;
+
+        //dumby value
+        float speed = 25;
+
+        Vector3 startPosition;
+        float currentDistance;
+        float timeToReachDistance;
+
+        while (curIndex < LockOnTargets.Count)
         {
-            Vector3 Direction = LockOnTargets[0].position - transform.position;
-            Direction.Normalize();
+            t = 0;
+            startPosition = transform.position;
+            currentDistance = Vector3.Distance(startPosition, LockOnTargets[curIndex].position);
+            timeToReachDistance = currentDistance / speed;
+
+            while (t < timeToReachDistance)
+            {
+                t += Time.deltaTime;
+                transform.position = Vector3.Lerp(startPosition, LockOnTargets[curIndex].position, t / timeToReachDistance);
+                yield return null;
+            }
+
+            curIndex++;
+            yield return null;
         }
+
+        LockOnTargets.Clear();
+
+        for (int i = 0; i < _ringTarget.Count; i++)
+        {
+            if(_ringTarget[i] != null && _ringTarget[i].meshRenderer != null)
+            {
+                _ringTarget[i].meshRenderer.material.color = _ringTarget[i].colour;
+            }
+        }
+        _ringTarget.Clear();
+
+        ReturnDisc();
     }
 
     private void ReturnDisc()
@@ -209,5 +260,17 @@ public class NewRingToss : MonoBehaviour
         BC.isTrigger = true;
         Vector3 Destination = RingHolster.position - transform.position;
         RB.velocity = Destination * ReturnSpeed;
+    }
+
+    public class RingTarget
+    {
+        public MeshRenderer meshRenderer;
+        public Color colour;
+
+        public RingTarget(MeshRenderer _meshRenderer, Color _colour)
+        {
+            meshRenderer = _meshRenderer;
+            colour = _colour;
+        }
     }
 }
