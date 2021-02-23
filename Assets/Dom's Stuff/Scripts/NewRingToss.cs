@@ -23,6 +23,10 @@ public class NewRingToss : MonoBehaviour
     private GameObject PlayerCamera;
     [HideInInspector] public bool ThirdPerson;
 
+
+    //Added For GameSounds
+    private GameSounds gameSounds;
+
     private void Start()
     {
         // Get ring's collider and rigidbody
@@ -40,6 +44,10 @@ public class NewRingToss : MonoBehaviour
         transform.position = RingHolster.position;
 
         ThirdPerson = false;
+
+
+        //Added For GameSounds
+        gameSounds = GameSounds.FindObjectOfType<GameSounds>();
     }
 
     private void Update()
@@ -50,6 +58,9 @@ public class NewRingToss : MonoBehaviour
             if (!ThirdPerson)
             {
                 ThrowDisc();
+
+                //Added For GameSounds
+                gameSounds.audioSource.PlayOneShot(gameSounds.discTossed);
             }
             else
             {

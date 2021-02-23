@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8491672602686698602}
   - component: {fileID: 7377353374695792357}
   - component: {fileID: 572549118268953363}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Torus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19341,7 +19341,7 @@ GameObject:
   - component: {fileID: 4415568058532203955}
   - component: {fileID: 4605904464423938632}
   - component: {fileID: 856358298608616335}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Torus (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38668,7 +38668,7 @@ GameObject:
   - component: {fileID: 6064066402207176814}
   - component: {fileID: 6064066402207176813}
   - component: {fileID: 6064066402207176812}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Grappling Point
   m_TagString: Whip
   m_Icon: {fileID: 0}

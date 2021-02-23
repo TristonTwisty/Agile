@@ -6,6 +6,16 @@ public class ItemPickUp : MonoBehaviour
 {
     public ItemsInGame ItemToPickup;
 
+    //Added For UI
+    public Scriptforui scriptForUI;
+    private void Start()
+    {
+        scriptForUI = GameObject.FindObjectOfType<Scriptforui>();
+    }
+    //End Added For UI
+    
+
+
     public enum ItemsInGame
     {
         Whip, Disk, Board, Batt, Sheild, Dash
@@ -25,6 +35,9 @@ public class ItemPickUp : MonoBehaviour
                     case ItemsInGame.Whip:
                         player.GetComponent<Player>().Inventory.Add(new WhipItem());
                         player.GetComponent<Player>().haswhip = true;
+                        //Added for UI
+                        scriptForUI.currentItem.sprite = scriptForUI.playerWhip.sprite;
+                        //End Added For UI
                         break;
                     case ItemsInGame.Disk:
                         player.GetComponent<Player>().Inventory.Add(new DiskItem());
@@ -37,14 +50,26 @@ public class ItemPickUp : MonoBehaviour
                     case ItemsInGame.Batt:
                         player.GetComponent<Player>().Inventory.Add(new BattItem());
                         player.GetComponent<Player>().hasbatt = true;
+                        //Added for UI
+                        scriptForUI.currentItem.sprite = scriptForUI.playerBaton.sprite;
+                        //End Added For UI
                         break;
                     case ItemsInGame.Sheild:
                         player.GetComponent<Player>().Inventory.Add(new SheildItem());
                         player.GetComponent<Player>().hassheild = true;
+                        //Added For UI
+                        scriptForUI.shieldImage.gameObject.SetActive(true); 
+                        scriptForUI.shieldRechargeSlider.gameObject.SetActive(true);
+                        //End Added For UI
                         break;
                     case ItemsInGame.Dash:
                         player.GetComponent<Player>().Inventory.Add(new DashItem());
                         player.GetComponent<Player>().hasdash = true;
+                        //Added For UI
+                        scriptForUI.playerDash.gameObject.SetActive(true);
+                        scriptForUI.displayTotalDashAmount.gameObject.SetActive(true);
+                        scriptForUI.hasDash = true;
+                        //End Added For UI
                         break;
                 }
 
