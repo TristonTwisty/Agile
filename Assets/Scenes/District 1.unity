@@ -129,7 +129,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh118750
+  m_Name: pb_Mesh36756
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -12462,7 +12462,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh118710
+  m_Name: pb_Mesh36704
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -20338,7 +20338,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &463651348
 Transform:
   m_ObjectHideFlags: 0
@@ -60402,7 +60402,7 @@ PrefabInstance:
     - target: {fileID: 7556847642459928202, guid: e7ccc667fc45a2c4089e13293c14b35e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4
+      value: -95
       objectReference: {fileID: 0}
     - target: {fileID: 7556847642459928202, guid: e7ccc667fc45a2c4089e13293c14b35e,
         type: 3}
@@ -60443,6 +60443,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8022575158191841859, guid: e7ccc667fc45a2c4089e13293c14b35e,
+        type: 3}
+      propertyPath: JumpHeight
+      value: 3000
       objectReference: {fileID: 0}
     - target: {fileID: 8022575158191841887, guid: e7ccc667fc45a2c4089e13293c14b35e,
         type: 3}

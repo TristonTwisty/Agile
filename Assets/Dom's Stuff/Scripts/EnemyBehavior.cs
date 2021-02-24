@@ -20,4 +20,12 @@ public class EnemyBehavior : MonoBehaviour
     {
         CurrentHealth -= Damage;
     }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, EnemyOBJ.AttackRange);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, EnemyOBJ.ChaseRange);
+    }
 }
