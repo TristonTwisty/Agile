@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class WhipItem : ItemBase
 {
     /*public override void UseItem(GameObject source)

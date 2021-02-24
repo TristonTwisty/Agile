@@ -451,7 +451,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: a819283c56b71184d830b7246cda86b9, type: 3}
   m_Controller: {fileID: 9100000, guid: 65abd081584fee54a861973cd2363f4c, type: 2}
-  m_CullingMode: 2
+  m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -6453,9 +6453,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RingHolster: {fileID: 1937694646}
   TR: {fileID: 394966628}
-  ProjectileOBJ: {fileID: 11400000, guid: 9fd7647291762f843bf1109181a7f911, type: 2}
+  Damage: 0
+  ThrowSpeed: 0
   ReturnSpeed: 10
   MaxDistance: 50
+  LockOnDistance: 15
+  MaxLockOn: 0
+  _lockOnColour: {r: 0, g: 0, b: 0, a: 0}
   ThirdPerson: 0
 --- !u!65 &528860264
 BoxCollider:
@@ -7296,6 +7300,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemToPickup: 5
+  scriptForUI: {fileID: 0}
 --- !u!1 &1015301788
 GameObject:
   m_ObjectHideFlags: 0
@@ -8069,6 +8074,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemToPickup: 2
+  scriptForUI: {fileID: 0}
 --- !u!135 &1360234721
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -8435,6 +8441,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemToPickup: 0
+  scriptForUI: {fileID: 0}
 --- !u!1 &1453868254
 GameObject:
   m_ObjectHideFlags: 0
@@ -8912,6 +8919,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemToPickup: 4
+  scriptForUI: {fileID: 0}
 --- !u!135 &1596940290
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -9550,6 +9558,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemToPickup: 3
+  scriptForUI: {fileID: 0}
 --- !u!135 &1737981379
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -10497,6 +10506,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemToPickup: 1
+  scriptForUI: {fileID: 0}
 --- !u!135 &2139634713
 SphereCollider:
   m_ObjectHideFlags: 0

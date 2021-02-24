@@ -15,25 +15,11 @@ public class MeleeWeapon : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject);
-        if (other.CompareTag("Shooter Enemy"))
+        if(other.CompareTag("Enemy"))
         {
             other.GetComponent<Rigidbody>().AddForce(Owner.transform.forward * MeleeOBJ.KnockbackPower, ForceMode.Impulse);
-            other.GetComponent<ShootingAI>().TakeDamage(MeleeOBJ.DamageDealt);
+            other.GetComponent<EnemyBehavior>().TakeDamage(MeleeOBJ.DamageDealt);
         }
-
-        else if (other.CompareTag("Melee Enemy"))
-        {
-            other.GetComponent<Rigidbody>().AddForce(Owner.transform.forward * MeleeOBJ.KnockbackPower, ForceMode.Impulse);
-            other.GetComponent<MeleeAI>().TakeDamage(MeleeOBJ.DamageDealt);
-        }
-
-        else if(other.CompareTag("Drone Enemy"))
-        {
-            other.GetComponent<Rigidbody>().AddForce(Owner.transform.forward * MeleeOBJ.KnockbackPower, ForceMode.Impulse);
-            other.GetComponent<DroneAI>().TakeDamage(MeleeOBJ.DamageDealt);
-        }
-
         else if (other.CompareTag("Player"))
         {
             other.GetComponent<Rigidbody>().AddForce(Owner.transform.forward * MeleeOBJ.KnockbackPower, ForceMode.Impulse);

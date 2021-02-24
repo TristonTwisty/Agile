@@ -11,7 +11,7 @@ public class BoostVent : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             Rigidbody RB = other.gameObject.GetComponent<Rigidbody>();
-            RB.AddForce(transform.forward * BoostForce, ForceMode.Impulse);
+            RB.AddForce(transform.up * BoostForce, ForceMode.Impulse);
         }
     }
 }

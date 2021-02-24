@@ -4,19 +4,21 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(EnemyBehavior))]
+[RequireComponent(typeof(Rigidbody))]
 public class ShootingAI : MonoBehaviour
 {
     [Header("Player info")]
-    private Transform Player;
+    [SerializeField] private Transform Player;
     private float PlayerDistance = 0;
 
     [Header("Enemy Statistics")]
-    public EnemyScripableObject EnemyOBJ;
+    private EnemyBehavior EB;
+    private EnemyScripableObject EnemyOBJ;
     private float ChasePlayerRange;
     private float AttackRange;
     [Tooltip("The enemy's face, where they look")] [SerializeField] private Transform Face = null;
-    private float Health = 0;
-    private float CurrentHealth = 0;
+    private float Health;
 
     [Header("Behavior")]
     private Animator animator;
@@ -70,12 +72,14 @@ public class ShootingAI : MonoBehaviour
 
     private void Initial()
     {
-        Player = PlayerRefs.instance.Player;
+        //Player = PlayerRefs.instance.Player;
 
-        gameObject.tag = "Shooter Enemy";
+        gameObject.tag = "Enemy";
 
-        Health = EnemyOBJ.Health;
-        CurrentHealth = Health;
+        EB = GetComponent<EnemyBehavior>();
+        EnemyOBJ = EB.EnemyOBJ;
+
+        Health = EB.CurrentHealth;
 
         animator = gameObject.GetComponent<Animator>();
 
@@ -123,8 +127,12 @@ public class ShootingAI : MonoBehaviour
     private void StartAttack()
     {
         Agent.isStopped = true;
-        transform.LookAt(Player.position);
-        if(AttackCooldown <= 0)
+
+        Vector3 LookPos = Player.position - transform.position;
+        Quaternion LookRotation = Quaternion.LookRotation(LookPos);
+        transform.rotation = Quaternion.Slerp(transform.rotation, LookRotation, 5 * Time.deltaTime);
+
+        if (AttackCooldown <= 0)
         {
             Shoot();
             AttackCooldown = 1 / EnemyOBJ.AttackRate;
@@ -136,6 +144,7 @@ public class ShootingAI : MonoBehaviour
     {
         while(Bullets < BulletsPerShot)
         {
+            FirePoint.LookAt(Player);
             ObjectPooling.Spawn(EnemyOBJ.ProjectileOBJ.Projectile, FirePoint.position, FirePoint.rotation);
             Bullets += 1;
         }
@@ -156,11 +165,6 @@ public class ShootingAI : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void TakeDamage(float Damage)
-    {
-        CurrentHealth -= Damage;
-    }
-
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
@@ -173,11 +177,13 @@ public class ShootingAI : MonoBehaviour
     {
         PlayerDistance = Vector3.Distance(transform.position, Player.position);
 
+        Health = EB.CurrentHealth;
+
         Vector3 LookPos = Player.position - transform.position;
 
         Quaternion LookRotation = Quaternion.LookRotation(LookPos);
 
-        if (CurrentHealth <= 0)
+        if (Health <= 0)
         {
             ActiveState = State.Dead;
         }

@@ -42,12 +42,17 @@ public class DashBelt : MonoBehaviour
                     {
                         StartCoroutine(Dash());
 
+<<<<<<< HEAD
                         //Added For Sounds and UI
                         gameSounds.audioSource.PlayOneShot(gameSounds.playerDash);
                         scriptForUI.currentDashAmount = scriptForUI.currentDashAmount - 1;
                         scriptForUI.displayTotalDashAmount.text = scriptForUI.currentDashAmount.ToString();
 
                     }
+=======
+                    //Added For Sounds
+                    //gameSounds.audioSource.PlayOneShot(gameSounds.playerDash);
+>>>>>>> 2b1f738b95ea290543c036b108ba4dd1f188db88
                 }
             }
         }

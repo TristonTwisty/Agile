@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class DiskItem : ItemBase
 {
     private KeyCode SelectionKey = KeyCode.Alpha2;

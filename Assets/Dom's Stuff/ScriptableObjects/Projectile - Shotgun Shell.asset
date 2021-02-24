@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Projectile: {fileID: 528658829877488543, guid: dc2ae7db968c51140a9f31bf9533a016,
     type: 3}
-  DamageDealt: 5
+  DamageDealt: 10
   ProjectileSpeed: 200
   ProjectileLifetime: 5
   MaxSpread: 8
