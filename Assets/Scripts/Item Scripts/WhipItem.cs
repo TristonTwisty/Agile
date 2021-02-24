@@ -11,6 +11,14 @@ public class WhipItem : ItemBase
 
     private KeyCode SelectionKey = KeyCode.Alpha4;
 
+    //Added for UI 
+    private Scriptforui scriptForUI;
+
+    private void Start()
+    {
+        scriptForUI = Scriptforui.FindObjectOfType<Scriptforui>();
+    }
+
     public override bool PressSelectKey(KeyCode KeyPressed)
     {
         if (KeyPressed == SelectionKey)
@@ -19,6 +27,7 @@ public class WhipItem : ItemBase
         }
         return false;
     }
+
 
     public override void ActivateObject(GameObject source)
     {

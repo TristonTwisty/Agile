@@ -34,16 +34,20 @@ public class DashBelt : MonoBehaviour
     {
         if (HasDashBelt)
         {
-            if (CurrentDashes > 0)
+            if (scriptForUI.currentDashAmount > 0)//Added For UI
             {
-                if (Input.GetKeyDown(KeyCode.LeftShift))
+                if (CurrentDashes > 0)
                 {
-                    StartCoroutine(Dash());
+                    if (Input.GetKeyDown(KeyCode.LeftShift))
+                    {
+                        StartCoroutine(Dash());
 
-                    //Added For Sounds
-                    gameSounds.audioSource.PlayOneShot(gameSounds.playerDash);
+                        //Added For Sounds and UI
+                        gameSounds.audioSource.PlayOneShot(gameSounds.playerDash);
+                        scriptForUI.currentDashAmount = scriptForUI.currentDashAmount - 1;
+                        scriptForUI.displayTotalDashAmount.text = scriptForUI.currentDashAmount.ToString();
 
-                  
+                    }
                 }
             }
         }

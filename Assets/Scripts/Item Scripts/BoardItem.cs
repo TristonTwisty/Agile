@@ -6,6 +6,16 @@ public class BoardItem : ItemBase
 {
     private KeyCode SelectionKey = KeyCode.Alpha3;
 
+
+    //Added for UI 
+    private Scriptforui scriptForUI;
+    private void Start()
+    {
+        scriptForUI = Scriptforui.FindObjectOfType<Scriptforui>();
+        scriptForUI.firstItem.rectTransform.sizeDelta= new Vector2(100, 100);
+    }
+
+
     public override bool PressSelectKey(KeyCode KeyPressed)
     {
         if (KeyPressed == SelectionKey)

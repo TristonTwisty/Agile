@@ -35,9 +35,6 @@ public class ItemPickUp : MonoBehaviour
                     case ItemsInGame.Whip:
                         player.GetComponent<Player>().Inventory.Add(new WhipItem());
                         player.GetComponent<Player>().haswhip = true;
-                        //Added for UI
-                        scriptForUI.currentItem.sprite = scriptForUI.playerWhip.sprite;
-                        //End Added For UI
                         break;
                     case ItemsInGame.Disk:
                         player.GetComponent<Player>().Inventory.Add(new DiskItem());
@@ -50,8 +47,8 @@ public class ItemPickUp : MonoBehaviour
                     case ItemsInGame.Batt:
                         player.GetComponent<Player>().Inventory.Add(new BattItem());
                         player.GetComponent<Player>().hasbatt = true;
-                        //Added for UI
-                        scriptForUI.currentItem.sprite = scriptForUI.playerBaton.sprite;
+                        //Added For UI
+                        scriptForUI.firstItem.gameObject.SetActive(true);
                         //End Added For UI
                         break;
                     case ItemsInGame.Sheild:

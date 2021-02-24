@@ -36,12 +36,14 @@ public class Scriptforui : MonoBehaviour
     public bool itemInSlot3;
     public bool itemInSlot4;
     public bool hasDash;
+    private ItemPickUp itemPickUp;
 
 
     void Start()
     {
+       
         currentDashAmount = 0;
-        totalDashAmount = 2;
+        totalDashAmount = 3;
         playerHealth = 100;
 
         shieldRecharge = 100;
@@ -54,6 +56,9 @@ public class Scriptforui : MonoBehaviour
         itemInSlot2 = false;
         itemInSlot3 = false;
         itemInSlot4 = false;
+
+        itemPickUp = ItemPickUp.FindObjectOfType<ItemPickUp>();
+        
     }
 
     // Update is called once per frame
@@ -76,12 +81,52 @@ public class Scriptforui : MonoBehaviour
                 }
             }
         }
- 
 
+        playerPressedOne();
+        pullOutWeapons();
     }
 
+    private void playerPressedOne()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            //firstItem.rectTransform.sizeDelta = new Vector2(100, 100);
+        }
+    }
+    private void pullOutWeapons()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            firstItem.gameObject.SetActive(true);
+            secondItem.gameObject.SetActive(false);
+            thirdItem.gameObject.SetActive(false);
+            fourthItem.gameObject.SetActive(false);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            firstItem.gameObject.SetActive(false);
+            secondItem.gameObject.SetActive(true);
+            thirdItem.gameObject.SetActive(false);
+            fourthItem.gameObject.SetActive(false);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            firstItem.gameObject.SetActive(false);
+            secondItem.gameObject.SetActive(false);
+            thirdItem.gameObject.SetActive(true);
+            fourthItem.gameObject.SetActive(false);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            firstItem.gameObject.SetActive(false);
+            secondItem.gameObject.SetActive(false);
+            thirdItem.gameObject.SetActive(false);
+            fourthItem.gameObject.SetActive(true);
+        }
 
 
+
+    }
 
 
 
