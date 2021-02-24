@@ -4,18 +4,15 @@ using UnityEngine;
 
 public class BarrierOpen : MonoBehaviour
 {
-    private GameObject[] Enemies;
-
-    private void Start()
-    {
-        Enemies = GameObject.FindGameObjectsWithTag("Enemy");
-    }
+    [SerializeField] private GameObject[] Enemies;
+    [SerializeField] private Transform MoveLocation;
+    [SerializeField] private float MoveSpeed;
 
     private void Update()
     {
-        if(Enemies.Length == 0)
+        if(Enemies == null)
         {
-            Destroy(gameObject);
+            transform.position = Vector3.MoveTowards(transform.position, MoveLocation.position, MoveSpeed * Time.deltaTime);
         }
     }
 }

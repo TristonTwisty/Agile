@@ -4,19 +4,21 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(EnemyBehavior))]
+[RequireComponent(typeof(Rigidbody))]
 public class MeleeAI : MonoBehaviour
 {
     [Header("Player info")]
-    private Transform Player;
+    [SerializeField] private Transform Player;
     private float PlayerDistance = 0;
 
     [Header("Enemy Statistics")]
-    public EnemyScripableObject EnemyOBJ;
+    private EnemyBehavior EB;
+    private EnemyScripableObject EnemyOBJ;
     private float ChasePlayerRange;
     private float AttackRange;
-    private float Health = 0;
-    [HideInInspector] public float CurrentHealth = 0;
     [Tooltip("The enemy's face, where they look")] [SerializeField] private Transform Face = null;
+    private float Health;
 
 
     [Header("Behavior")]
@@ -69,12 +71,14 @@ public class MeleeAI : MonoBehaviour
 
     private void Initial()
     {
-        Player = PlayerRefs.instance.Player;
+        //Player = PlayerRefs.instance.Player;
 
-        gameObject.tag = "Melee Enemy";
+        EB = GetComponent<EnemyBehavior>();
+        EnemyOBJ = EB.EnemyOBJ;
 
-        Health = EnemyOBJ.Health;
-        CurrentHealth = Health;
+        Health = EB.CurrentHealth;
+
+        gameObject.tag = "Enemy";
 
         animator = gameObject.GetComponent<Animator>();
 
@@ -113,7 +117,11 @@ public class MeleeAI : MonoBehaviour
     private void Chase()
     {
         Agent.isStopped = false;
-        transform.LookAt(Player.position);
+
+        Vector3 LookPos = Player.position - transform.position;
+        Quaternion LookRotation = Quaternion.LookRotation(LookPos);
+        transform.rotation = Quaternion.Slerp(transform.rotation, LookRotation, 5 * Time.deltaTime);
+
         Agent.destination = Player.position;
     }
 
@@ -125,7 +133,10 @@ public class MeleeAI : MonoBehaviour
             CanAttack = false;
             animator.SetTrigger("Melee");
         }
-        transform.LookAt(Player);
+
+        Vector3 LookPos = Player.position - transform.position;
+        Quaternion LookRotation = Quaternion.LookRotation(LookPos);
+        transform.rotation = Quaternion.Slerp(transform.rotation, LookRotation, 5 * Time.deltaTime);
     }
 
     private void ExecuteAttack()
@@ -151,20 +162,17 @@ public class MeleeAI : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void TakeDamage(float Damage)
-    {
-        CurrentHealth -= Damage;
-    }
-
     private void Update()
     {
         PlayerDistance = Vector3.Distance(transform.position, Player.position);
+
+        Health = EB.CurrentHealth;
 
         Vector3 LookPos = Player.position - transform.position;
 
         Quaternion LookRotation = Quaternion.LookRotation(LookPos);
 
-        if (CurrentHealth <= 0)
+        if (Health <= 0)
         {
             ActiveState = State.Dead;
         }

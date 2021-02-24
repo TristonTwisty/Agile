@@ -18,6 +18,7 @@ public class NewRingToss : MonoBehaviour
     [SerializeField] [Tooltip("How far the disc can travel before returning to player")] private float MaxDistance = 0f;
 
     [Header("Lock On")]
+    [Tooltip("How fast the disk moves between targets. Different from throw speed")][SerializeField] private float LockOnAttackSpeed;
     [SerializeField] private float LockOnDistance = 15;
     [SerializeField] private int MaxLockOn;
     private List<Transform> LockOnTargets = new List<Transform>();
@@ -31,9 +32,6 @@ public class NewRingToss : MonoBehaviour
     private Transform PlayerCamera;
 
     [SerializeField]private Color _lockOnColour;
-
-    [HideInInspector] public bool ThirdPerson;
-
 
     //Added For GameSounds
     private GameSounds gameSounds;
@@ -52,9 +50,6 @@ public class NewRingToss : MonoBehaviour
         // Move ring to player
         transform.position = RingHolster.position;
 
-        ThirdPerson = false;
-
-
         //Added For GameSounds
         gameSounds = GameSounds.FindObjectOfType<GameSounds>();
     }
@@ -68,12 +63,7 @@ public class NewRingToss : MonoBehaviour
                 ThrowDisc();
 
                 //Added For GameSounds
-                gameSounds.audioSource.PlayOneShot(gameSounds.discTossed);
-                // If the ring was NOT thrown and player hits left mouse, throw ring
-                if (!ThirdPerson)
-                {
-                    ThrowDisc();
-                }
+                //gameSounds.audioSource.PlayOneShot(gameSounds.discTossed);
             }
 
             // If the ring has not been thrown and the player hits right mouse, begin locking onto targets
@@ -93,8 +83,8 @@ public class NewRingToss : MonoBehaviour
                             if (!LockOnTargets.Contains(hit.transform))
                             {
                                 LockOnTargets.Add(hit.transform);
-                                _ringTarget.Add(new RingTarget(hit.transform.GetComponent<MeshRenderer>(), hit.transform.GetComponent<MeshRenderer>().material.color));
-                                hit.transform.GetComponent<MeshRenderer>().material.color = _lockOnColour;
+                                _ringTarget.Add(new RingTarget(hit.transform.GetComponent<EnemyBehavior>().MR, hit.transform.GetComponent<EnemyBehavior>().MR.material.color));
+                                hit.transform.GetComponent<EnemyBehavior>().MR.material.color = _lockOnColour;
                             }
                         }
                     }
@@ -212,9 +202,6 @@ public class NewRingToss : MonoBehaviour
         float t = 0;
         int curIndex = 0;
 
-        //dumby value
-        float speed = 25;
-
         Vector3 startPosition;
         float currentDistance;
         float timeToReachDistance;
@@ -224,7 +211,7 @@ public class NewRingToss : MonoBehaviour
             t = 0;
             startPosition = transform.position;
             currentDistance = Vector3.Distance(startPosition, LockOnTargets[curIndex].position);
-            timeToReachDistance = currentDistance / speed;
+            timeToReachDistance = currentDistance / LockOnAttackSpeed;
 
             while (t < timeToReachDistance)
             {

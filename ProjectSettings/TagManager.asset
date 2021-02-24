@@ -17,10 +17,8 @@ TagManager:
   - Rail End
   - Batt
   - UI
-  - Melee Enemy
-  - Shooter Enemy
-  - Drone Enemy
   - Enemy
+  - Target
   layers:
   - Default
   - TransparentFX

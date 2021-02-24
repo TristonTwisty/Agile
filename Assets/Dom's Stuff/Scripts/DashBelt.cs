@@ -41,9 +41,7 @@ public class DashBelt : MonoBehaviour
                     StartCoroutine(Dash());
 
                     //Added For Sounds
-                    gameSounds.audioSource.PlayOneShot(gameSounds.playerDash);
-
-                  
+                    //gameSounds.audioSource.PlayOneShot(gameSounds.playerDash);
                 }
             }
         }

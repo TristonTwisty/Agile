@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(EnemyBehavior))]
 public class DroneAI : MonoBehaviour
 {
     [Header("Player info")]
@@ -12,10 +13,10 @@ public class DroneAI : MonoBehaviour
     private float ChasePlayerRange;
     private float AttackRange;
     private float Health = 0;
-    private float CurrentHealth = 0;
 
     [Header("Components")]
-    public EnemyScripableObject EnemyOBJ;
+    private EnemyBehavior EB;
+    private EnemyScripableObject EnemyOBJ;
     private Rigidbody RB;
 
     [Header("Behavior")]
@@ -78,10 +79,12 @@ public class DroneAI : MonoBehaviour
     {
         //Player = PlayerRefs.instance.Player;
 
-        gameObject.tag = "Drone Enemy";
+        gameObject.tag = "Enemy";
 
-        Health = EnemyOBJ.Health;
-        CurrentHealth = Health;
+        EB = GetComponent<EnemyBehavior>();
+        EnemyOBJ = EB.EnemyOBJ;
+
+        Health = EB.CurrentHealth;
 
         animator = gameObject.GetComponent<Animator>();
 
@@ -179,11 +182,6 @@ public class DroneAI : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void TakeDamage(float Damage)
-    {
-        CurrentHealth -= Damage;
-    }
-
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
@@ -199,7 +197,10 @@ public class DroneAI : MonoBehaviour
         // Distance betyween AI and player
         PlayerDistance = Vector3.Distance(transform.position, Player.position);
 
-        if (CurrentHealth <= 0)
+
+        Health = EB.CurrentHealth;
+
+        if (Health <= 0)
         {
             ActiveState = State.Dead;
             IsStopped = true;
@@ -226,7 +227,7 @@ public class DroneAI : MonoBehaviour
                 Vector3 Direction = SpawnLocation - transform.position;
                 Direction.Normalize();
                 Vector3 Velocity = Direction * MovementSpeed;
-                //RB.velocity = Velocity;
+                RB.velocity = Velocity;
             }
         }
 
