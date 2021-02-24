@@ -287,6 +287,16 @@ PrefabInstance:
       propertyPath: DashVisual
       value: 
       objectReference: {fileID: 7556847642918209324}
+    - target: {fileID: 6822800622938346298, guid: 34e33f63c4430a14e8ed174367436748,
+        type: 3}
+      propertyPath: PlayerJoints
+      value: 
+      objectReference: {fileID: 5901391385255735189}
+    - target: {fileID: 6822800622938346298, guid: 34e33f63c4430a14e8ed174367436748,
+        type: 3}
+      propertyPath: PlayerSurface
+      value: 
+      objectReference: {fileID: 4201563275140120325}
     - target: {fileID: 6822800622938346299, guid: 34e33f63c4430a14e8ed174367436748,
         type: 3}
       propertyPath: m_Name
@@ -1464,9 +1474,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RingHolster: {fileID: 8985961754218985380}
   TR: {fileID: 9076572407353811833}
-  ProjectileOBJ: {fileID: 11400000, guid: 9fd7647291762f843bf1109181a7f911, type: 2}
+  Damage: 0
+  ThrowSpeed: 0
   ReturnSpeed: 10
   MaxDistance: 50
+  LockOnDistance: 15
+  MaxLockOn: 0
+  _lockOnColour: {r: 0, g: 0, b: 0, a: 0}
   ThirdPerson: 0
 --- !u!65 &932450713795245633
 BoxCollider:
@@ -8980,6 +8994,8 @@ MonoBehaviour:
   hassheild: 0
   haswhip: 0
   hasdash: 0
+  hasboots: 0
+  ScrollWheelSwitch: 0
 --- !u!4 &7222690412832555246
 Transform:
   m_ObjectHideFlags: 0
