@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class CheckPoint : MonoBehaviour
 {
-    public PlayerRefs PlayerCheckPoint;
+    public PlayerRefs refs;
     private void OnTriggerEnter(Collider other)
     {
-        PlayerCheckPoint.checkpoint = gameObject.transform;
+        if (other.tag == "Player") 
+        {
+            refs = other.GetComponent<PlayerRefs>();
+            refs.checkpoint = gameObject.transform;
+            other.GetComponent<Player>().SavePlayer();
+        }
+        gameObject.SetActive(false);
     }
 }

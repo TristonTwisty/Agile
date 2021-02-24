@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
 
     public List<ItemBase> Inventory { get { return _inventory; } }
 
+    public Vector3 xyz;
+
     [Header("Debug These do NOTHING they just tell")]
     public bool hasdisk;
     public bool hasboard;
@@ -22,6 +24,13 @@ public class Player : MonoBehaviour
     [Header("Quick Item Switch")]
     public bool ScrollWheelSwitch;
 
+    public PlayerRefs Prefs;
+
+    private void Start()
+    {
+        Prefs = gameObject.GetComponent<PlayerRefs>();
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
@@ -29,6 +38,11 @@ public class Player : MonoBehaviour
             _inventory[_itemIndex].UseItem(gameObject);
         }
         CheckItemButton();
+
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            LoadPlayer();
+        }
     }
 
     private void CheckItemButton()
@@ -113,6 +127,9 @@ public class Player : MonoBehaviour
         InventoryToken data = SaveSystem.LoadPlayer();
 
         _inventory = data.ItemList_;
-        
+        xyz.x = data.x;
+        xyz.y = data.y;
+        xyz.z = data.z;
+        Prefs.Player.transform.position = xyz;
     }
 }

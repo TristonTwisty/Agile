@@ -18,7 +18,11 @@ public class InventoryToken
     public float y;
     public float z;
 
-    public List<ItemBase> ItemList_;
+    public float xor;
+    public float yor;
+    public float zor;
+
+    [SerializeField] public List<ItemBase> ItemList_;
 
     public InventoryToken(Player ItemTemp)
     {
@@ -33,6 +37,10 @@ public class InventoryToken
         x = PlayerRefs.instance.checkpoint.position.x;
         y = PlayerRefs.instance.checkpoint.position.y;
         z = PlayerRefs.instance.checkpoint.position.z;
+
+        xor = PlayerRefs.instance.checkpoint.rotation.x;
+        yor = PlayerRefs.instance.checkpoint.rotation.y;
+        zor = PlayerRefs.instance.checkpoint.rotation.z;
     }
 
 }
