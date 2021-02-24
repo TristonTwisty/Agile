@@ -77,7 +77,7 @@ public class DroneAI : MonoBehaviour
 
     private void Initial()
     {
-        //Player = PlayerRefs.instance.Player;
+        Player = PlayerRefs.instance.Player;
 
         gameObject.tag = "Enemy";
 
