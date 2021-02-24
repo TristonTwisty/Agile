@@ -15,7 +15,7 @@ public class ParticleShield : MonoBehaviour
 
     //Added By Ricardo for U.I.
     [HideInInspector] public bool shieldOn = false;
-    public AudioSource ShieldSound;
+    //public AudioSource ShieldSound;
 
 
     //Added By Ricardo For U.I.
@@ -64,7 +64,7 @@ public class ParticleShield : MonoBehaviour
             MeshRend.enabled = true;
             Collider.enabled = true;
             ShieldPS.Play();
-            ShieldSound.Play();
+            //ShieldSound.Play();
         }
 
         if (!shieldOn)
@@ -74,7 +74,7 @@ public class ParticleShield : MonoBehaviour
             MeshRend.enabled = false;
             Collider.enabled = false;
             ShieldPS.Stop();
-            ShieldSound.Stop();
+            //ShieldSound.Stop();
         }
 
         if(CurrentCapacity >= MaxCapacity)
@@ -91,7 +91,7 @@ public class ParticleShield : MonoBehaviour
             var Contact = collision.contacts[0];
 
             //Play PS at point of contact
-            Instantiate(DeflectPS, new Vector3(Contact.point.x, Contact.point.y, Contact.point.z), Quaternion.identity);
+            //Instantiate(DeflectPS, new Vector3(Contact.point.x, Contact.point.y, Contact.point.z), Quaternion.identity);
 
             //Destroy object hit
             Destroy(collision.gameObject);
