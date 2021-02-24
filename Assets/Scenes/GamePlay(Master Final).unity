@@ -1464,9 +1464,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RingHolster: {fileID: 8985961754218985380}
   TR: {fileID: 9076572407353811833}
-  ProjectileOBJ: {fileID: 11400000, guid: 9fd7647291762f843bf1109181a7f911, type: 2}
+  Damage: 0
+  ThrowSpeed: 0
   ReturnSpeed: 10
   MaxDistance: 50
+  LockOnDistance: 15
+  MaxLockOn: 0
+  _lockOnColour: {r: 0, g: 0, b: 0, a: 0}
   ThirdPerson: 0
 --- !u!65 &932450713795245633
 BoxCollider:
@@ -2946,7 +2950,6 @@ MonoBehaviour:
     type: 3}
   CurrentCapacity: 0
   shieldOn: 0
-  ShieldSound: {fileID: 3643548095935600961}
 --- !u!4 &5174438299165227449
 Transform:
   m_ObjectHideFlags: 0
@@ -8974,6 +8977,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _itemIndex: 0
+  xyz: {x: 0, y: 0, z: 0}
   hasdisk: 0
   hasboard: 0
   hasbatt: 0
@@ -8982,6 +8986,7 @@ MonoBehaviour:
   hasdash: 0
   hasboots: 0
   ScrollWheelSwitch: 1
+  Prefs: {fileID: 0}
 --- !u!4 &7222690412832555246
 Transform:
   m_ObjectHideFlags: 0
