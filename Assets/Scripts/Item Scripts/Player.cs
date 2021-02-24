@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
 
     public Vector3 xyz;
 
+    public bool Startwith;
     [Header("Debug These do NOTHING they just tell")]
     public bool hasdisk;
     public bool hasboard;
@@ -29,6 +30,16 @@ public class Player : MonoBehaviour
     private void Start()
     {
         Prefs = gameObject.GetComponent<PlayerRefs>();
+
+        if (Startwith)
+        {
+            if (hasdisk) { Inventory.Add(new DiskItem()); }
+            if (hasboard) { Inventory.Add(new BoardItem()); }
+            if (hasbatt) { Inventory.Add(new BattItem()); }
+            if (hassheild) { Inventory.Add(new SheildItem()); }
+            if (haswhip) { Inventory.Add(new WhipItem()); }
+            if (hasdash) { Inventory.Add(new DashItem()); }
+        }
     }
 
     void Update()

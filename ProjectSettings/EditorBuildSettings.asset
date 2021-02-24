@@ -9,21 +9,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Main Menu.unity
     guid: 2ff8569dc309e244ea9730f45da5c52c
   - enabled: 1
-    path: Assets/Scenes/GamePlay(Master Final).unity
-    guid: dd9a3b6a207aa644985a286be354359e
-  - enabled: 1
-    path: Assets/Scenes/Gladiator Pit.unity
-    guid: 654ff63e5c935b647b422de4710a740b
+    path: Assets/Scenes/GamePlay(Build).unity
+    guid: 2273eb28a0ef429428556020d3344576
   - enabled: 1
     path: Assets/Scenes/District 1.unity
     guid: c8033b0e937bdbc4099bf4846a41df4d
   - enabled: 1
     path: Assets/Scenes/factory level.unity
     guid: 0cf9160a713d9ac41a5cc16a3c02df7b
-  - enabled: 1
-    path: Assets/Scenes/RichTown.unity
-    guid: dea890a4a17ade848b1027b8eb50445f
-  - enabled: 1
-    path: Assets/Scenes/Tristons hoverBoard level.unity
-    guid: 2ca48a5fe521d744c83d77b57c95fdeb
   m_configObjects: {}

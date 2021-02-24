@@ -10,7 +10,7 @@ public class ItemPickUp : MonoBehaviour
     public Scriptforui scriptForUI;
     private void Start()
     {
-        scriptForUI = GameObject.FindObjectOfType<Scriptforui>();
+        //scriptForUI = GameObject.FindObjectOfType<Scriptforui>();
     }
     //End Added For UI
     
@@ -23,8 +23,8 @@ public class ItemPickUp : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        
-        if(collision.gameObject.tag == "Player")
+        scriptForUI = GameObject.FindObjectOfType<Scriptforui>();
+        if (collision.gameObject.tag == "Player")
         {
             GameObject player = collision.gameObject;
 
@@ -49,6 +49,7 @@ public class ItemPickUp : MonoBehaviour
                         player.GetComponent<Player>().hasbatt = true;
                         //Added For UI
                         scriptForUI.firstItem.gameObject.SetActive(true);
+                        player.GetComponent<Player>().Inventory[0].ActivateObject(VisualManager.instace.BattVisual);
                         //End Added For UI
                         break;
                     case ItemsInGame.Sheild:
@@ -58,6 +59,7 @@ public class ItemPickUp : MonoBehaviour
                         scriptForUI.shieldImage.gameObject.SetActive(true); 
                         scriptForUI.shieldRechargeSlider.gameObject.SetActive(true);
                         //End Added For UI
+                        VisualManager.instace.SheildVisual.SetActive(true);
                         break;
                     case ItemsInGame.Dash:
                         player.GetComponent<Player>().Inventory.Add(new DashItem());

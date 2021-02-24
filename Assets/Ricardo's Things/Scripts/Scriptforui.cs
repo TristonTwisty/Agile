@@ -5,8 +5,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
+[System.Serializable]
 public class Scriptforui : MonoBehaviour
 {
+    private Player player;
     public Text displayPlayerHealth;
     public float playerHealth;
     public int totalDashAmount;

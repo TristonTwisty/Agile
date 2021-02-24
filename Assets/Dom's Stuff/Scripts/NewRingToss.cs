@@ -68,7 +68,7 @@ public class NewRingToss : MonoBehaviour
                 ThrowDisc();
 
                 //Added For GameSounds
-                gameSounds.audioSource.PlayOneShot(gameSounds.discTossed);
+                //gameSounds.audioSource.PlayOneShot(gameSounds.discTossed);
                 // If the ring was NOT thrown and player hits left mouse, throw ring
                 if (!ThirdPerson)
                 {

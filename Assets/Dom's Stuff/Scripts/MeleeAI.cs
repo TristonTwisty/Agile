@@ -71,7 +71,7 @@ public class MeleeAI : MonoBehaviour
 
     private void Initial()
     {
-        //Player = PlayerRefs.instance.Player;
+        Player = PlayerRefs.instance.Player;
 
         EB = GetComponent<EnemyBehavior>();
         EnemyOBJ = EB.EnemyOBJ;
