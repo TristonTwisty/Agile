@@ -107,9 +107,5 @@ public class NewWallWalker : MonoBehaviour
         {
             IsJumping = false;
         }
-        else
-        {
-            Debug.Log("Is the ground layer set to to right int?");
-        }
     }
 }

@@ -88,7 +88,7 @@ public class ParticleShield : MonoBehaviour
         if (collision.gameObject.CompareTag("Projectile"))
         {
             //Find where the point of contact
-            var Contact = collision.contacts[0];
+            ContactPoint Contact = collision.contacts[0];
 
             //Play PS at point of contact
             //Instantiate(DeflectPS, new Vector3(Contact.point.x, Contact.point.y, Contact.point.z), Quaternion.identity);
