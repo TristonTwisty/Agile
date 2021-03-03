@@ -6,32 +6,37 @@ public class LaserGrid1 : MonoBehaviour
 {
     [Header("Line")]
     [SerializeField] private Transform StartPoint;
-    private LineRenderer LR;
-    [SerializeField] private LayerMask IgnoreMask;
+    [SerializeField] private LineRenderer LR;
 
-    [Header("Mesh")]
-    private MeshCollider MC;
+    private Collider collider;
 
     private void Start()
     {
-        LR = GetComponent<LineRenderer>();
+        //LR = GetComponent<LineRenderer>();
         LR.startWidth = .5f;
 
-        MC = GetComponent<MeshCollider>();
+        collider = GetComponent<Collider>();
 
         LR.SetPosition(0, StartPoint.position);
+
+        LR.useWorldSpace = true;
     }
 
     private void Update()
     {
-        Mesh mesh = new Mesh();
 
-        if (Physics.Raycast(StartPoint.position, StartPoint.right, out RaycastHit hit, Mathf.Infinity, ~IgnoreMask))
+        if (Physics.Raycast(StartPoint.position, StartPoint.right, out RaycastHit hit, Mathf.Infinity))
         {
             LR.SetPosition(1, hit.point);
 
-            LR.BakeMesh(mesh, true);
-            MC.sharedMesh = mesh;
+            if (hit.transform.CompareTag("Sheild"))
+            {
+                collider.enabled = false;
+            }
+            else
+            {
+                collider.enabled = true;
+            }
         }
     }
 
