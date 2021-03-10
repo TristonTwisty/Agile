@@ -93,8 +93,16 @@ public class NewRingToss : MonoBehaviour
                             if (!LockOnTargets.Contains(hit.transform))
                             {
                                 LockOnTargets.Add(hit.transform);
-                                _ringTarget.Add(new RingTarget(hit.transform.GetComponent<MeshRenderer>(), hit.transform.GetComponent<MeshRenderer>().material.color));
-                                hit.transform.GetComponent<MeshRenderer>().material.color = _lockOnColour;
+                                if (hit.transform.CompareTag("Enemy"))
+                                {
+                                    _ringTarget.Add(new RingTarget(hit.transform.GetComponent<EnemyBehavior>().MR, hit.transform.GetComponent<EnemyBehavior>().MR.material.color));
+                                    hit.transform.GetComponent<EnemyBehavior>().MR.material.color = _lockOnColour;
+                                }
+                                else
+                                {
+                                    _ringTarget.Add(new RingTarget(hit.transform.GetComponent<MeshRenderer>(), hit.transform.GetComponent<MeshRenderer>().material.color));
+                                    hit.transform.GetComponent<MeshRenderer>().material.color = _lockOnColour;
+                                }
                             }
                         }
                     }
@@ -171,7 +179,7 @@ public class NewRingToss : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, RingHolster.position, 1);
         }
 
-        if(Thrown && other.gameObject.CompareTag("Enemy") && other.gameObject.GetComponent<EnemyBehavior>() != null)
+        if(Thrown && other.gameObject.CompareTag("Enemy")) // && other.gameObject.GetComponent<EnemyBehavior>() != null
         {
             // If the ring hits an enemy while returning to the player, deal damage
             other.gameObject.GetComponent<EnemyBehavior>().TakeDamage(Damage);
@@ -186,15 +194,22 @@ public class NewRingToss : MonoBehaviour
         RB.velocity = Direction * Mathf.Max(Speed, 0);
 
         // If the ring hits the player, return ring to player
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.transform.CompareTag("Player"))
         {
             DoReturn = true;
         }
 
-        if (collision.gameObject.CompareTag("Enemy") && GetComponent<EnemyBehavior>() != null)
+        // If an enemy is hit, deal damage
+        if (collision.transform.CompareTag("Enemy"))
         {
-            // If an enemy is hit, deal damage
-            collision.gameObject.GetComponent<EnemyBehavior>().TakeDamage(Damage);
+            collision.transform.GetComponent<EnemyBehavior>().TakeDamage(Damage);
+        }
+
+        // If a target is hit
+        if(collision.transform.CompareTag("Target"))
+        {
+            Debug.Log("Hit a target!");
+            collision.transform.GetComponent<SequencePuzzleObject>().StartFailTimer();
         }
     }
 

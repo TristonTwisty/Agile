@@ -1502,9 +1502,9 @@ GameObject:
   - component: {fileID: 6345041540949470553}
   - component: {fileID: 1075851775944046371}
   - component: {fileID: 6882807363181382334}
-  - component: {fileID: 6882807363181382333}
-  - component: {fileID: 6882807363181382335}
   - component: {fileID: 6882807363181382328}
+  - component: {fileID: 6882807363181382335}
+  - component: {fileID: 6882807363181382333}
   m_Layer: 9
   m_Name: Sniper
   m_TagString: Enemy
@@ -1567,37 +1567,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &6882807363181382333
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6000427501641512931}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3bd458e9aaee1746bc5c1058dc2a821, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Player: {fileID: 0}
-  Face: {fileID: 6882807363414130468}
-  points: []
-  FirePoint: {fileID: 6882807365146294041}
---- !u!114 &6882807363181382335
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6000427501641512931}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8788fbac7465394f97f1237a55eb728, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EnemyOBJ: {fileID: 11400000, guid: 38b21555b233e6d4194df8135a662874, type: 2}
-  MR: {fileID: 6882807364391567763}
-  CurrentHealth: 0
 --- !u!195 &6882807363181382328
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1620,6 +1589,37 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &6882807363181382335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6000427501641512931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8788fbac7465394f97f1237a55eb728, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemyOBJ: {fileID: 11400000, guid: 38b21555b233e6d4194df8135a662874, type: 2}
+  MR: {fileID: 6882807364391567763}
+  CurrentHealth: 0
+--- !u!114 &6882807363181382333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6000427501641512931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3bd458e9aaee1746bc5c1058dc2a821, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 0}
+  Face: {fileID: 6882807363414130468}
+  points: []
+  FirePoint: {fileID: 6882807365146294041}
 --- !u!1 &6501959225002238610
 GameObject:
   m_ObjectHideFlags: 0

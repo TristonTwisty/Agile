@@ -7,6 +7,7 @@ public class DroneAI : MonoBehaviour
 {
     [Header("Player info")]
     [SerializeField] private Transform Player;
+
     private float PlayerDistance = 0;
 
     [Header("Enemy Statistics")]
@@ -130,11 +131,14 @@ public class DroneAI : MonoBehaviour
 
     private void Chase()
     {
+        Vector3 ChaseDirection;
+        Vector3 Velocity;
+
         if (!IsStopped)
         {
-            Vector3 Directtion = Player.position - transform.position;
-            Directtion.Normalize();
-            Vector3 Velocity = Directtion * MovementSpeed;
+            ChaseDirection = Player.position - transform.position;
+            ChaseDirection.Normalize();
+            Velocity = ChaseDirection * MovementSpeed;
             RB.velocity = Velocity;
         }
         else
@@ -180,16 +184,6 @@ public class DroneAI : MonoBehaviour
             Instantiate(EnemyOBJ.PickupOBJ.PickupGameObject, transform.position + new Vector3(0f, 0.5f, 0f), transform.rotation);
         }
         Destroy(gameObject);
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, EnemyOBJ.AttackRange);
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, EnemyOBJ.ChaseRange);
-        Gizmos.color = Color.green;
-        Gizmos.DrawRay(FirePoint.position, FirePoint.forward * EnemyOBJ.AttackRange);
     }
 
     private void Update()

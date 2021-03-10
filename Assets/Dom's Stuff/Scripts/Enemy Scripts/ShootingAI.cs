@@ -165,14 +165,6 @@ public class ShootingAI : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, EnemyOBJ.AttackRange);
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, EnemyOBJ.ChaseRange);
-    }
-
     private void Update()
     {
         PlayerDistance = Vector3.Distance(transform.position, Player.position);
