@@ -27,6 +27,8 @@ public class Player : MonoBehaviour
 
     public PlayerRefs Prefs;
 
+    public int Health = 100;
+
     private void Start()
     {
         Prefs = gameObject.GetComponent<PlayerRefs>();
@@ -50,7 +52,12 @@ public class Player : MonoBehaviour
         }
         CheckItemButton();
 
-        if (Input.GetKeyDown(KeyCode.F1))
+        //if (Input.GetKeyDown(KeyCode.F1))
+        //{
+        //    LoadPlayer();
+        //}
+
+        if (Health <= 0)
         {
             LoadPlayer();
         }
