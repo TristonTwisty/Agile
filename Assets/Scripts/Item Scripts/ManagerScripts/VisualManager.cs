@@ -5,6 +5,7 @@ using UnityEngine;
 public class VisualManager : MonoBehaviour
 {
     public static VisualManager instace;
+    public static PlayerRefs refs;
     public GameObject WhipVisual;
     public GameObject DiskVisual;
     public GameObject BoardVisual;
@@ -27,6 +28,15 @@ public class VisualManager : MonoBehaviour
             Destroy(this);
         }
         DontDestroyOnLoad(this.gameObject);
+    }
+
+    private void Start()
+    {
+        WhipVisual = PlayerRefs.instance.PlayerWhip.gameObject;
+        DiskVisual = PlayerRefs.instance.Disk.gameObject;
+        BoardVisual = PlayerRefs.instance.PlayerBoard.gameObject;
+        BattVisual = PlayerRefs.instance.Batt.gameObject;
+        SheildVisual = PlayerRefs.instance.Sheild.gameObject;
     }
 
 }

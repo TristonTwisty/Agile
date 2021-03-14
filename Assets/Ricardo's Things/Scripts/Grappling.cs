@@ -36,7 +36,7 @@ public class Grappling : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             StartGrapple();
-            gameSounds.audioSource.PlayOneShot(gameSounds.grapplingLaunch);
+            //gameSounds.audioSource.PlayOneShot(gameSounds.grapplingLaunch);
        
 
         }
