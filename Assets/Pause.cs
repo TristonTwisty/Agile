@@ -64,10 +64,10 @@ public class Pause : MonoBehaviour
     {
         Debug.Log("Calling Load");
         ui.SetActive(false);
-        Time.timeScale = 1f;
         GameIsPaused = false;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         PlayerRefs.instance.Player.GetComponent<Player>().LoadPlayer();
+        Time.timeScale = 1f;
     }
 }

@@ -4879,7 +4879,7 @@ GameObject:
   - component: {fileID: 3104759442738510494}
   - component: {fileID: 3104759442738510495}
   m_Layer: 8
-  m_Name: Dom's Test Player
+  m_Name: FINAL PLAYER
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4969,17 +4969,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67a4ef60fe1ccf94dabdbb891ec07b98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementSpeed: 10
-  StrafeSpeed: 8
+  MovementSpeed: 150
   LerpSpeed: 5
   JumpHeight: 3500
   CanWallWalk: 0
   IsJumping: 0
   TurnSpeed: 100
   Gravity: 10
-  Walkable:
-    serializedVersion: 2
-    m_Bits: 0
   GravityLock: 2
 --- !u!114 &3104759442738510491
 MonoBehaviour:
