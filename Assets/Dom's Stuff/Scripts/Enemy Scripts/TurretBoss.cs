@@ -11,19 +11,28 @@ public class TurretBoss : MonoBehaviour
     [SerializeField] private ParticleSystem AttackPS;
     [SerializeField] private Transform Head;
 
+    [Header("SpikeTraps")]
+    [SerializeField] private GameObject[] ElectricTraps;
+    private List<GameObject> SelectedTraps = new List<GameObject>();
+    private int TrapCount = 0;
+
     [Header("Statistics")]
     private float AttackTimer;
     public float DamageDealt = 10;
     private float TurnSpeed;
     private Quaternion OriginalRot;
+    private float MaxHealth;
+    public float CurrentHealth;
 
     // States
-    [HideInInspector] public enum State {Initial, ChooseAttack, DirectAttack, SpinAttack, Dead, ResetRotation }
+    [HideInInspector] public enum State {Initial, ChooseAttack, DirectAttack, SpinAttack, Dead}
     [HideInInspector] public State ActiveState = State.ChooseAttack;
 
     [Header("Bools")]
     private bool IsAlive = true;
     private bool IsAttacking = false;
+    private bool ActivateTraps = false;
+    public bool TestTraps = false;
 
     private IEnumerator Start()
     {
@@ -46,9 +55,6 @@ public class TurretBoss : MonoBehaviour
                 case State.Dead:
                     DoDead();
                     break;
-                case State.ResetRotation:
-                    StartCoroutine(ResetRotation());
-                    break;
             }
             yield return null;
         }
@@ -65,12 +71,14 @@ public class TurretBoss : MonoBehaviour
         ActiveState = State.ChooseAttack;
 
         OriginalRot = transform.rotation;
+
+        MaxHealth = EnemyOBJ.Health;
+        CurrentHealth = MaxHealth;
     }
 
     private void DoChooseAttack()
     {
         int AttackChoice = Random.Range(0, 2);
-        Debug.Log(AttackChoice);
 
         if(AttackChoice == 0)
         {
@@ -86,13 +94,17 @@ public class TurretBoss : MonoBehaviour
 
     private void DoDirectAttack()
     {
-        Head.LookAt(Player);
+        Vector3 RelativePos = Player.position - transform.position;
+        Quaternion Rotation = Quaternion.LookRotation(RelativePos, Vector3.up);
+
+        Head.rotation = Quaternion.Slerp(Head.rotation, Rotation,  TurnSpeed * Time.deltaTime);
+
         AttackPS.Play();
 
         if (IsAttacking == false)
         {
             AttackPS.Stop();
-            ActiveState = State.ResetRotation;
+            ActiveState = State.ChooseAttack;
         }
     }
 
@@ -100,25 +112,18 @@ public class TurretBoss : MonoBehaviour
     {
         AttackPS.Play();
 
+        Head.Rotate(Vector3.up * ( TurnSpeed * 40) * Time.deltaTime);
+
         if (IsAttacking == false)
         {
             AttackPS.Stop();
-            ActiveState = State.ResetRotation;
+            ActiveState = State.ChooseAttack;
         }
     }
 
     private void DoDead()
     {
 
-    }
-
-    private IEnumerator ResetRotation()
-    {
-        Head.rotation = OriginalRot;
-
-        yield return null;
-
-        ActiveState = State.ChooseAttack;
     }
 
     private IEnumerator SetTimer(float Duration)
@@ -133,5 +138,56 @@ public class TurretBoss : MonoBehaviour
         }
 
         IsAttacking = false;
+    }
+
+    private void Update()
+    {
+        if (CurrentHealth <= (CurrentHealth * .5) && ActivateTraps)
+        {
+            StartCoroutine(StartTraps(3));
+        }
+        else if (CurrentHealth <= (CurrentHealth * .25) && ActivateTraps)
+        {
+            StartCoroutine(StartTraps(4));
+        }
+
+        if (TestTraps && ActivateTraps)
+        {
+            StartCoroutine(StartTraps(5));
+        }
+    }
+
+    private IEnumerator StartTraps(int SelectionNumber)
+    {
+        ActivateTraps = false;
+
+        int RandomTrap = Random.Range(0, ElectricTraps.Length);
+
+        Debug.Log("Trap # " + RandomTrap);
+
+        while (TrapCount < SelectionNumber)
+        {
+            if (SelectedTraps.Contains(ElectricTraps[RandomTrap]))
+            {
+                RandomTrap = Random.Range(0, ElectricTraps.Length);
+            }
+            else
+            {
+                SelectedTraps.Add(ElectricTraps[RandomTrap]);
+                TrapCount += 1;
+            }
+        }
+
+        if (TrapCount == SelectionNumber)
+        {
+            foreach (GameObject Trap in SelectedTraps)
+            {
+                Trap.GetComponent<ElectricTrap>().ActivateTrap();
+            }
+        }
+
+        yield return new WaitForSeconds(16);
+
+        ActivateTraps = true;
     }
 }
