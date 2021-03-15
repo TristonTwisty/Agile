@@ -9,6 +9,7 @@ public class TriggerSceneLoad : MonoBehaviour
 
     public bool ShouldLoad;
     public bool isLoaded;
+    public bool unload;
 
     private void Update()
     {
@@ -43,7 +44,7 @@ public class TriggerSceneLoad : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !unload)
         {
             ShouldLoad = false;
         }

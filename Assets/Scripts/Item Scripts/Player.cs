@@ -27,7 +27,6 @@ public class Player : MonoBehaviour
 
     public PlayerRefs Prefs;
 
-    public float Health = 100;
 
     private void Start()
     {
@@ -57,7 +56,7 @@ public class Player : MonoBehaviour
         //    LoadPlayer();
         //}
 
-        if (Health <= 0)
+        if (PlayerRefs.instance.PlayerHealth <= 0)
         {
             LoadPlayer();
         }
@@ -153,6 +152,6 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(float DamageTaken)
     {
-        Health -= DamageTaken;
+        PlayerRefs.instance.PlayerHealth -= DamageTaken;
     }
 }
