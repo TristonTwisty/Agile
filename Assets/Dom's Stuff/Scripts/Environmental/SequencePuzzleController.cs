@@ -7,25 +7,51 @@ public class SequencePuzzleController : MonoBehaviour
     [SerializeField] private GameObject[] SequenceObJects;
 
     [Header("Object to move")]
-    private Transform MovePosition;
+    [SerializeField]private Transform MovePosition;
 
     [Header("Puzzle Objects")]
     public float ResetTimer = 5;
     public Color ActivationColor;
+    public float doorDuration = 5;
 
-    private void Start()
-    {
-        MovePosition = GetComponentInChildren<Transform>();
-    }
+    private bool _hasTriggered = false;
 
     private void Update()
     {
-        foreach (GameObject item in SequenceObJects)
+        if (_hasTriggered == false)
         {
-            if(item.GetComponent<SequencePuzzleObject>().Activated == true)
+            bool isEverythingActive = true;
+
+            foreach (GameObject item in SequenceObJects)
             {
-                transform.position = Vector3.Lerp(transform.position, MovePosition.position, 5 * Time.deltaTime);
+                if (item.GetComponent<SequencePuzzleObject>().Activated == false)
+                {
+                    isEverythingActive = false;
+                }
             }
+
+            if (_hasTriggered == false && isEverythingActive == true)
+            {
+                StartCoroutine(MoveDoor());
+            }
+        }
+    }
+
+    private IEnumerator MoveDoor()
+    {
+        _hasTriggered = true;
+        float t = 0;
+
+        Debug.Log("Door Open");
+
+        Vector3 startPosition = transform.position;
+
+        while(t < doorDuration)
+        {
+            Debug.Log(t);
+            t += Time.deltaTime;
+            transform.position = Vector3.Lerp(startPosition, MovePosition.position, t/doorDuration);
+            yield return null;
         }
     }
 }
