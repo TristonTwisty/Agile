@@ -37,7 +37,7 @@ public class Projectile : MonoBehaviour
         ObjectPooling.DeSpawn(gameObject);
         if (other.gameObject.CompareTag("Player"))
         {
-            //other.gameObject.GetComponent<PlayerHealth>().TakeDamage(ProjectileOBJ.DamageDealt);
+            other.gameObject.GetComponent<Player>().TakeDamage(ProjectileOBJ.DamageDealt);
         }
     }
 }

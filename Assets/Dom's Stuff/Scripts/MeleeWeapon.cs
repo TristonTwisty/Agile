@@ -23,10 +23,7 @@ public class MeleeWeapon : MonoBehaviour
         else if (other.CompareTag("Player"))
         {
             other.GetComponent<Rigidbody>().AddForce(Owner.transform.forward * MeleeOBJ.KnockbackPower, ForceMode.Impulse);
-        }
-        else
-        {   
-            Debug.Log("Wrong tag buddy");
+            other.gameObject.GetComponent<Player>().TakeDamage(MeleeOBJ.DamageDealt);
         }
     }
 }

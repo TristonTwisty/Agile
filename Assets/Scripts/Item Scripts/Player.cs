@@ -27,7 +27,7 @@ public class Player : MonoBehaviour
 
     public PlayerRefs Prefs;
 
-    public int Health = 100;
+    public float Health = 100;
 
     private void Start()
     {
@@ -149,5 +149,10 @@ public class Player : MonoBehaviour
         xyz.y = data.y;
         xyz.z = data.z;
         Prefs.Player.transform.position = xyz;
+    }
+
+    public void TakeDamage(float DamageTaken)
+    {
+        Health -= DamageTaken;
     }
 }

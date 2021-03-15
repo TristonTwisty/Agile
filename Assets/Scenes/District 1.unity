@@ -15101,7 +15101,7 @@ MonoBehaviour:
   DamageDealt: 10
   CurrentHealth: 0
   ActiveState: 0
-  TestTraps: 0
+  TestTraps: 1
 --- !u!4 &311825297
 Transform:
   m_ObjectHideFlags: 0
@@ -57122,7 +57122,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh18318
+  m_Name: pb_Mesh18016
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -59999,7 +59999,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh18218
+  m_Name: pb_Mesh17916
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
