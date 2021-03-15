@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LaserGrid1 : MonoBehaviour
 {
+    [SerializeField][Tooltip("How much force will the grid push the player back?")] private float KnockBackPower = 50;
     [Header("Line")]
     [SerializeField] private Transform StartPoint;
     [SerializeField] private LineRenderer LR;
@@ -48,7 +49,7 @@ public class LaserGrid1 : MonoBehaviour
 
             Vector3 Direction = (collision.transform.position - CP.point).normalized;
 
-            collision.gameObject.GetComponent<Rigidbody>().AddForce(Direction * 20, ForceMode.Impulse);
+            collision.gameObject.GetComponent<Rigidbody>().AddForce(Direction * KnockBackPower, ForceMode.Impulse);
         }
 
         if (collision.transform.CompareTag("Enemy"))

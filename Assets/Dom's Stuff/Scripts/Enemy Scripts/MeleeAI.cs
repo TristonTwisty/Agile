@@ -8,6 +8,9 @@ using UnityEngine.AI;
 [RequireComponent(typeof(Rigidbody))]
 public class MeleeAI : MonoBehaviour
 {
+    [Header("Testing")]
+    [Tooltip("Toggle when wanted to test AI without loading whole game")] public bool AiTest = false;
+
     [Header("Player info")]
     [SerializeField] private Transform Player;
     private float PlayerDistance = 0;
@@ -71,7 +74,10 @@ public class MeleeAI : MonoBehaviour
 
     private void Initial()
     {
-        Player = PlayerRefs.instance.Player;
+        if (!AiTest)
+        {
+            Player = PlayerRefs.instance.Player;
+        }
 
         EB = GetComponent<EnemyBehavior>();
         EnemyOBJ = EB.EnemyOBJ;

@@ -17,12 +17,12 @@ public class TurretBoss : MonoBehaviour
     private int TrapCount = 0;
 
     [Header("Statistics")]
+    [SerializeField ]private float DamageDealt;
+    public float CurrentHealth;
     private float AttackTimer;
-    public float DamageDealt = 10;
     private float TurnSpeed;
     private Quaternion OriginalRot;
     private float MaxHealth;
-    public float CurrentHealth;
 
     // States
     [HideInInspector] public enum State {Initial, ChooseAttack, DirectAttack, SpinAttack, Dead}
@@ -144,16 +144,16 @@ public class TurretBoss : MonoBehaviour
     {
         if (CurrentHealth <= (CurrentHealth * .5) && ActivateTraps)
         {
-            StartCoroutine(StartTraps(3));
+            StartCoroutine(StartTraps(2));
         }
         else if (CurrentHealth <= (CurrentHealth * .25) && ActivateTraps)
         {
-            StartCoroutine(StartTraps(4));
+            StartCoroutine(StartTraps(3));
         }
 
         if (TestTraps && ActivateTraps)
         {
-            StartCoroutine(StartTraps(5));
+            StartCoroutine(StartTraps(4));
         }
     }
 

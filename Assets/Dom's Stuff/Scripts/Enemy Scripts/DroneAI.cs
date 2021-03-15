@@ -5,9 +5,11 @@ using UnityEngine;
 [RequireComponent(typeof(EnemyBehavior))]
 public class DroneAI : MonoBehaviour
 {
+    [Header("Testing")]
+    [Tooltip("Toggle when wanted to test AI without loading whole game")]public bool AiTest = false;
+
     [Header("Player info")]
     [SerializeField] private Transform Player;
-
     private float PlayerDistance = 0;
 
     [Header("Enemy Statistics")]
@@ -78,7 +80,10 @@ public class DroneAI : MonoBehaviour
 
     private void Initial()
     {
-        Player = PlayerRefs.instance.Player;
+        if (!AiTest)
+        {
+            Player = PlayerRefs.instance.Player;
+        }
 
         gameObject.tag = "Enemy";
 
