@@ -26,6 +26,9 @@ public class Scriptforui : MonoBehaviour
     public UnityEngine.UI.Image secondItem;
     public UnityEngine.UI.Image thirdItem;
     public UnityEngine.UI.Image fourthItem;
+    public UnityEngine.UI.Image dockedItem1;
+    public UnityEngine.UI.Image dockedItem2;
+    public UnityEngine.UI.Image dockedItem3;
     //Player Items
     public UnityEngine.UI.Image playerBaton;
     public UnityEngine.UI.Image playerDisc;
@@ -40,6 +43,14 @@ public class Scriptforui : MonoBehaviour
     public bool hasDash;
     private ItemPickUp itemPickUp;
 
+    //Sprites
+    public Sprite spritePlayerDisc;
+    public Sprite spritePlayerWhip;
+    public Sprite spritePlayerBoard;
+    public Sprite spritePlayerBat;
+    public UnityEngine.UI.Text item1Text;
+    public UnityEngine.UI.Text item2Text;
+    public UnityEngine.UI.Text item3Text;
 
     void Start()
     {
@@ -60,7 +71,8 @@ public class Scriptforui : MonoBehaviour
         itemInSlot4 = false;
 
         itemPickUp = ItemPickUp.FindObjectOfType<ItemPickUp>();
-        
+     
+
     }
 
     // Update is called once per frame
@@ -86,6 +98,9 @@ public class Scriptforui : MonoBehaviour
 
         playerPressedOne();
         pullOutWeapons();
+        
+        
+        
     }
 
     private void playerPressedOne()
@@ -99,31 +114,82 @@ public class Scriptforui : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
+            //Swapping Weapons
             firstItem.gameObject.SetActive(true);
             secondItem.gameObject.SetActive(false);
             thirdItem.gameObject.SetActive(false);
             fourthItem.gameObject.SetActive(false);
+
+            //Docking Items
+            dockedItem1.sprite = spritePlayerDisc;
+            dockedItem2.sprite = spritePlayerBoard;
+            dockedItem3.sprite = spritePlayerWhip;
+            item1Text.text = "2";
+            item2Text.text = "3";
+            item3Text.text = "4";
+            dockedItem1.color = Color.blue;//new Color(0, 144, 229, 255);
+            dockedItem2.color = Color.magenta;//new Color(161, 0, 231, 255);
+            dockedItem3.color = Color.yellow;//new Color(221, 97, 0, 255);
+
+
+
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
+            //Swapping Weapons
             firstItem.gameObject.SetActive(false);
             secondItem.gameObject.SetActive(true);
             thirdItem.gameObject.SetActive(false);
             fourthItem.gameObject.SetActive(false);
+
+            //Docking Items
+            dockedItem1.sprite = spritePlayerBat;
+            dockedItem2.sprite = spritePlayerBoard;
+            dockedItem3.sprite = spritePlayerWhip;
+            item1Text.text = "1";
+            item2Text.text = "3";
+            item3Text.text = "4";
+            dockedItem1.color = Color.red;//new Color(0, 144, 229, 255);
+            dockedItem2.color = Color.magenta;//new Color(161, 0, 231, 255);
+            dockedItem3.color = Color.yellow;//new Color(221, 97, 0, 255);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
+            //Swapping Weapons
             firstItem.gameObject.SetActive(false);
             secondItem.gameObject.SetActive(false);
             thirdItem.gameObject.SetActive(true);
             fourthItem.gameObject.SetActive(false);
+
+            //Docking Items
+            dockedItem1.sprite = spritePlayerBat;
+            dockedItem2.sprite = spritePlayerDisc;
+            dockedItem3.sprite = spritePlayerWhip;
+            item1Text.text = "1";
+            item2Text.text = "2";
+            item3Text.text = "4";
+            dockedItem1.color = Color.red;//new Color(0, 144, 229, 255);
+            dockedItem2.color = Color.blue;//new Color(161, 0, 231, 255);
+            dockedItem3.color = Color.yellow;//new Color(221, 97, 0, 255);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha4))
         {
+            //Swapping Weapons
             firstItem.gameObject.SetActive(false);
             secondItem.gameObject.SetActive(false);
             thirdItem.gameObject.SetActive(false);
             fourthItem.gameObject.SetActive(true);
+
+            //Docking Items
+            dockedItem1.sprite = spritePlayerBat;
+            dockedItem2.sprite = spritePlayerDisc;
+            dockedItem3.sprite = spritePlayerBoard;
+            item1Text.text = "1";
+            item2Text.text = "2";
+            item3Text.text = "3";
+            dockedItem1.color = Color.red;//new Color(0, 144, 229, 255);
+            dockedItem2.color = Color.blue;//new Color(161, 0, 231, 255);
+            dockedItem3.color = Color.magenta;//new Color(221, 97, 0, 255);
         }
 
 
