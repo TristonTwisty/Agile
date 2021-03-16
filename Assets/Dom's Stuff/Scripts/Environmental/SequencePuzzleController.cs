@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class SequencePuzzleController : MonoBehaviour
 {
-    [SerializeField] private GameObject[] SequenceObJects;
+    [SerializeField] private GameObject[] SequenceObjects;
 
-    [Header("Object to move")]
-    [SerializeField]private Transform MovePosition;
+    [Header("Object To Move")]
+    [SerializeField] private Transform MovePosition;
 
     [Header("Puzzle Objects")]
     public float ResetTimer = 5;
@@ -16,13 +16,18 @@ public class SequencePuzzleController : MonoBehaviour
 
     private bool _hasTriggered = false;
 
+    private void Awake()
+    {
+        MovePosition.parent = null;
+    }
+
     private void Update()
     {
         if (_hasTriggered == false)
         {
             bool isEverythingActive = true;
 
-            foreach (GameObject item in SequenceObJects)
+            foreach (GameObject item in SequenceObjects)
             {
                 if (item.GetComponent<SequencePuzzleObject>().Activated == false)
                 {

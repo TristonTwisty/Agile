@@ -7,32 +7,38 @@ public class TurretBoss : MonoBehaviour
     [SerializeField] private Transform Player;
 
     [Header("Components")]
-    private EnemyScripableObject EnemyOBJ;
     [SerializeField] private ParticleSystem AttackPS;
     [SerializeField] private Transform Head;
+    [SerializeField] private GameObject Nozzle;
+    private EnemyScripableObject EnemyOBJ;
+    private EnemyBehavior EB;
+    private TurretBoss TB;
 
     [Header("SpikeTraps")]
     [SerializeField] private GameObject[] ElectricTraps;
-    private List<GameObject> SelectedTraps = new List<GameObject>();
     private int TrapCount = 0;
 
     [Header("Statistics")]
-    [SerializeField ]private float DamageDealt;
     public float CurrentHealth;
     private float AttackTimer;
     private float TurnSpeed;
     private Quaternion OriginalRot;
-    private float MaxHealth;
 
     // States
     [HideInInspector] public enum State {Initial, ChooseAttack, DirectAttack, SpinAttack, Dead}
-    [HideInInspector] public State ActiveState = State.ChooseAttack;
+    [HideInInspector] public State ActiveState = State.Initial;
 
     [Header("Bools")]
+    public bool TestTraps = false;
+    public bool AiTest = false;
     private bool IsAlive = true;
     private bool IsAttacking = false;
     private bool ActivateTraps = false;
-    public bool TestTraps = false;
+    private bool TrapsActivated;
+
+    [Header("Boss Door")]
+    [SerializeField] private Transform Entrance;
+    [SerializeField] private Transform Exit;
 
     private IEnumerator Start()
     {
@@ -62,18 +68,20 @@ public class TurretBoss : MonoBehaviour
 
     private void DoInitial()
     {
-        //Player = PlayerRefs.instance.Player;
-        EnemyOBJ = GetComponent<EnemyBehavior>().EnemyOBJ;
+        if (!AiTest)
+        {
+            Player = PlayerRefs.instance.Player;
+        }
+
+        EB = GetComponent<EnemyBehavior>();
+        EnemyOBJ = EB.EnemyOBJ;
 
         AttackTimer = EnemyOBJ.AttackRate;
         TurnSpeed = EnemyOBJ.MovementSpeed;
 
-        ActiveState = State.ChooseAttack;
-
         OriginalRot = transform.rotation;
 
-        MaxHealth = EnemyOBJ.Health;
-        CurrentHealth = MaxHealth;
+        TB = this;
     }
 
     private void DoChooseAttack()
@@ -94,36 +102,52 @@ public class TurretBoss : MonoBehaviour
 
     private void DoDirectAttack()
     {
-        Vector3 RelativePos = Player.position - transform.position;
-        Quaternion Rotation = Quaternion.LookRotation(RelativePos, Vector3.up);
-
-        Head.rotation = Quaternion.Slerp(Head.rotation, Rotation,  TurnSpeed * Time.deltaTime);
-
-        AttackPS.Play();
-
-        if (IsAttacking == false)
+        if(ActiveState != State.Dead)
         {
-            AttackPS.Stop();
-            ActiveState = State.ChooseAttack;
+            Vector3 RelativePos = Player.position - transform.position;
+            Quaternion Rotation = Quaternion.LookRotation(RelativePos, Vector3.up);
+
+            Head.rotation = Quaternion.Slerp(Head.rotation, Rotation, TurnSpeed * Time.deltaTime);
+
+            AttackPS.Play();
+
+            if (IsAttacking == false)
+            {
+                AttackPS.Stop();
+                ActiveState = State.ChooseAttack;
+            }
         }
     }
 
     private void DoSpinAttack()
     {
-        AttackPS.Play();
-
-        Head.Rotate(Vector3.up * ( TurnSpeed * 40) * Time.deltaTime);
-
-        if (IsAttacking == false)
+        if(ActiveState != State.Dead)
         {
-            AttackPS.Stop();
-            ActiveState = State.ChooseAttack;
+            AttackPS.Play();
+
+            Head.Rotate(Vector3.up * (TurnSpeed * 40) * Time.deltaTime);
+
+            if (IsAttacking == false)
+            {
+                AttackPS.Stop();
+                ActiveState = State.ChooseAttack;
+            }
         }
     }
 
     private void DoDead()
     {
+        AttackPS.Stop();
 
+        foreach (GameObject Trap in ElectricTraps)
+        {
+            Trap.GetComponent<ElectricTrap>().DestroyTrap = true;
+        }
+
+        AttackPS.transform.parent = null;
+        Destroy(Nozzle);
+
+        TB.enabled = false;
     }
 
     private IEnumerator SetTimer(float Duration)
@@ -142,52 +166,37 @@ public class TurretBoss : MonoBehaviour
 
     private void Update()
     {
-        if (CurrentHealth <= (CurrentHealth * .5) && ActivateTraps)
+        CurrentHealth = EB.CurrentHealth;
+
+        if (CurrentHealth <= (CurrentHealth * .5) && !ActivateTraps)
         {
-            StartCoroutine(StartTraps(2));
-        }
-        else if (CurrentHealth <= (CurrentHealth * .25) && ActivateTraps)
-        {
-            StartCoroutine(StartTraps(3));
-        }
+            TrapsActivated = true;
 
-        if (TestTraps && ActivateTraps)
-        {
-            StartCoroutine(StartTraps(4));
-        }
-    }
-
-    private IEnumerator StartTraps(int SelectionNumber)
-    {
-        ActivateTraps = false;
-
-        int RandomTrap = Random.Range(0, ElectricTraps.Length);
-
-        Debug.Log("Trap # " + RandomTrap);
-
-        while (TrapCount < SelectionNumber)
-        {
-            if (SelectedTraps.Contains(ElectricTraps[RandomTrap]))
-            {
-                RandomTrap = Random.Range(0, ElectricTraps.Length);
-            }
-            else
-            {
-                SelectedTraps.Add(ElectricTraps[RandomTrap]);
-                TrapCount += 1;
-            }
-        }
-
-        if (TrapCount == SelectionNumber)
-        {
-            foreach (GameObject Trap in SelectedTraps)
+            foreach (GameObject Trap in ElectricTraps)
             {
                 Trap.GetComponent<ElectricTrap>().ActivateTrap();
             }
         }
 
-        yield return new WaitForSeconds(16);
+        if (TestTraps && !TrapsActivated)
+        {
+            TrapsActivated = true;
 
-        ActivateTraps = true;
+            foreach (GameObject Trap in ElectricTraps)
+            {
+                Trap.GetComponent<ElectricTrap>().ActivateTrap();
+            }
+        }
+
+        if(CurrentHealth <= 0)
+        {
+            ActiveState = State.Dead;
+        }
+
+        if (EB.ActivateBoss)
+        {
+            EB.ActivateBoss = false;
+            ActiveState = State.ChooseAttack;
+        }
     }
 }

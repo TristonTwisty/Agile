@@ -154,4 +154,9 @@ public class Player : MonoBehaviour
     {
         PlayerRefs.instance.PlayerHealth -= DamageTaken;
     }
+
+    public void HealPlayer(float HealthReceived)
+    {
+        PlayerRefs.instance.PlayerHealth += HealthReceived;
+    }
 }

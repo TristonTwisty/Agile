@@ -22,6 +22,8 @@ public class SequencePuzzleObject : MonoBehaviour
 
         ActivatedColor = PuzzleController.ActivationColor;
         FailTimer = PuzzleController.ResetTimer;
+
+        transform.parent = null;
     }
 
     private IEnumerator ActivationTimer()

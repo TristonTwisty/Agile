@@ -10,6 +10,8 @@ public class EnemyBehavior : MonoBehaviour
     private float MaxHealth;
     [HideInInspector] public float CurrentHealth;
 
+    [HideInInspector] public bool ActivateBoss;
+
     private void Awake()
     {
         MaxHealth = EnemyOBJ.Health;
