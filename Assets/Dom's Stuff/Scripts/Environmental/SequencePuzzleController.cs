@@ -53,7 +53,7 @@ public class SequencePuzzleController : MonoBehaviour
 
         while(t < doorDuration)
         {
-            Debug.Log(t);
+            //Debug.Log(t);
             t += Time.deltaTime;
             transform.position = Vector3.Lerp(startPosition, MovePosition.position, t/doorDuration);
             yield return null;
