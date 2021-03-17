@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class TriggerSceneUnload : MonoBehaviour
 {
     public string LevelName;
-    public GameObject activate;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +20,6 @@ public class TriggerSceneUnload : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        activate.SetActive(true);
         SceneManager.UnloadSceneAsync(LevelName);
     }
 }

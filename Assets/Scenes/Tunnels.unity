@@ -11815,6 +11815,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dom's Test Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7175501153237609520, guid: e7ccc667fc45a2c4089e13293c14b35e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7556847642459928202, guid: e7ccc667fc45a2c4089e13293c14b35e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -41311,7 +41316,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &789912506
 Light:
   m_ObjectHideFlags: 0
@@ -42846,7 +42851,7 @@ PrefabInstance:
     - target: {fileID: 6133622772989916307, guid: 3248dcef1cf0af242b06edf7da7bebdd,
         type: 3}
       propertyPath: BoostForce
-      value: 400
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 8365671969574144590, guid: 3248dcef1cf0af242b06edf7da7bebdd,
         type: 3}
@@ -58066,7 +58071,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-106296
+  m_Name: pb_Mesh-225974
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

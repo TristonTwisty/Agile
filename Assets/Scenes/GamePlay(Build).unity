@@ -285,6 +285,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3104759442235137927, guid: efb3e8e0a2c66154cad4d78e9acbf6c6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 3104759442235137927, guid: efb3e8e0a2c66154cad4d78e9acbf6c6,
+        type: 3}
+      propertyPath: m_TagString
+      value: Sheild
+      objectReference: {fileID: 0}
+    - target: {fileID: 3104759442545945763, guid: efb3e8e0a2c66154cad4d78e9acbf6c6,
+        type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 392759
+      objectReference: {fileID: 0}
     - target: {fileID: 3104759442672022585, guid: efb3e8e0a2c66154cad4d78e9acbf6c6,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -365,6 +380,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: FINAL PLAYER
       objectReference: {fileID: 0}
+    - target: {fileID: 3104759442738510496, guid: efb3e8e0a2c66154cad4d78e9acbf6c6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3104759442931137396, guid: efb3e8e0a2c66154cad4d78e9acbf6c6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: efb3e8e0a2c66154cad4d78e9acbf6c6, type: 3}
 --- !u!1 &377197779
@@ -411,9 +436,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LevelName: Tunnels
-  DeActivate: {fileID: 0}
-  Activate: {fileID: 0}
-  ShouldLoad: 1
+  ShouldLoad: 0
   isLoaded: 0
   unload: 0
 --- !u!4 &377197782
@@ -642,8 +665,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LevelName: RichTown
-  DeActivate: {fileID: 0}
-  Activate: {fileID: 0}
   ShouldLoad: 0
   isLoaded: 0
   unload: 1
@@ -732,8 +753,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LevelName: Gladiator Pit
-  DeActivate: {fileID: 0}
-  Activate: {fileID: 0}
   ShouldLoad: 1
   isLoaded: 0
   unload: 0
@@ -777,7 +796,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1137532080}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 7.5385723, y: 4.524273, z: 8.462667}
@@ -795,7 +814,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LevelName: factory level
-  activate: {fileID: 1320446326}
 --- !u!1 &1320446326
 GameObject:
   m_ObjectHideFlags: 0
@@ -807,6 +825,7 @@ GameObject:
   - component: {fileID: 1320446328}
   - component: {fileID: 1320446327}
   - component: {fileID: 1320446329}
+  - component: {fileID: 1320446330}
   m_Layer: 0
   m_Name: District 1
   m_TagString: Untagged
@@ -854,11 +873,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LevelName: District 1
-  DeActivate: {fileID: 0}
-  Activate: {fileID: 0}
-  ShouldLoad: 1
+  ShouldLoad: 0
   isLoaded: 0
   unload: 0
+--- !u!114 &1320446330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1320446326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c84d64f0f8cb5b49b69cf16112af6c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ToggleOff: 1
+  loadtrigger: {fileID: 1100833235}
 --- !u!1 &1387287868
 GameObject:
   m_ObjectHideFlags: 0
@@ -870,6 +901,7 @@ GameObject:
   - component: {fileID: 1387287871}
   - component: {fileID: 1387287870}
   - component: {fileID: 1387287869}
+  - component: {fileID: 1387287872}
   m_Layer: 0
   m_Name: Factory
   m_TagString: Untagged
@@ -903,8 +935,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LevelName: factory level
-  DeActivate: {fileID: 1320446326}
-  Activate: {fileID: 0}
   ShouldLoad: 0
   isLoaded: 0
   unload: 1
@@ -923,6 +953,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1387287872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1387287868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c84d64f0f8cb5b49b69cf16112af6c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ToggleOff: 1
+  loadtrigger: {fileID: 1320446326}
 --- !u!1 &1449251399 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3104759441543639792, guid: efb3e8e0a2c66154cad4d78e9acbf6c6,

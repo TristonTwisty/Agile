@@ -6,8 +6,6 @@ using UnityEngine.SceneManagement;
 public class TriggerSceneLoad : MonoBehaviour
 {
     public string LevelName;
-    public GameObject DeActivate = null;
-    public GameObject Activate = null;
 
     public bool ShouldLoad;
     public bool isLoaded;
@@ -38,8 +36,7 @@ public class TriggerSceneLoad : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        DeActivate.SetActive(false);
-        Activate.SetActive(true);
+
         if (other.CompareTag("Player"))
             {
             ShouldLoad = true;
