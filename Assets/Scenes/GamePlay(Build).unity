@@ -285,21 +285,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3104759442235137927, guid: efb3e8e0a2c66154cad4d78e9acbf6c6,
-        type: 3}
-      propertyPath: m_Layer
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 3104759442235137927, guid: efb3e8e0a2c66154cad4d78e9acbf6c6,
-        type: 3}
-      propertyPath: m_TagString
-      value: Sheild
-      objectReference: {fileID: 0}
-    - target: {fileID: 3104759442545945763, guid: efb3e8e0a2c66154cad4d78e9acbf6c6,
-        type: 3}
-      propertyPath: m_CullingMask.m_Bits
-      value: 392759
-      objectReference: {fileID: 0}
     - target: {fileID: 3104759442672022585, guid: efb3e8e0a2c66154cad4d78e9acbf6c6,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -360,35 +345,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3104759442738510493, guid: efb3e8e0a2c66154cad4d78e9acbf6c6,
-        type: 3}
-      propertyPath: PlayerHealth
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 3104759442738510495, guid: efb3e8e0a2c66154cad4d78e9acbf6c6,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3104759442738510495, guid: efb3e8e0a2c66154cad4d78e9acbf6c6,
-        type: 3}
-      propertyPath: ScrollWheelSwitch
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3104759442738510496, guid: efb3e8e0a2c66154cad4d78e9acbf6c6,
         type: 3}
       propertyPath: m_Name
       value: FINAL PLAYER
       objectReference: {fileID: 0}
-    - target: {fileID: 3104759442738510496, guid: efb3e8e0a2c66154cad4d78e9acbf6c6,
+    - target: {fileID: 7094584409950817561, guid: efb3e8e0a2c66154cad4d78e9acbf6c6,
         type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3104759442931137396, guid: efb3e8e0a2c66154cad4d78e9acbf6c6,
-        type: 3}
-      propertyPath: m_Layer
-      value: 13
+      propertyPath: speed
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: efb3e8e0a2c66154cad4d78e9acbf6c6, type: 3}
