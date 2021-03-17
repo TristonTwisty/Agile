@@ -99,6 +99,11 @@ public class DroneAI : MonoBehaviour
         ChasePlayerRange = EnemyOBJ.ChaseRange;
         AttackRange = EnemyOBJ.AttackRange;
 
+        if (ChasePlayerRange <= AttackRange)
+        {
+            ChasePlayerRange = 1 + AttackRange;
+        }
+
         MovementSpeed = EnemyOBJ.MovementSpeed;
 
         BulletsPerShot = EnemyOBJ.BulletsPerShot;

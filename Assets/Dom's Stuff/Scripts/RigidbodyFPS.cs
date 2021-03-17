@@ -5,15 +5,31 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class RigidbodyFPS : MonoBehaviour
 {
+
+	[Header("Movement")]
 	public float speed = 10.0f;
-	public float gravity = 10.0f;
 	public float maxVelocityChange = 10.0f;
-	public bool canJump = true;
 	public bool CanWalk = true;
+	[Tooltip("How smooth the player rotates when latching to a surface")] [SerializeField] private float LerpSpeed = 5;
+	public bool CanWallWalk = false;
+
+	[Header("Jump")]
+	public bool canJump = true;
 	public float jumpHeight = 2.0f;
 	public bool grounded = false;
 
+	[Header("Components")]
 	private Rigidbody rigidbody;
+
+	[Header("Gravity")]
+	public float gravity = 10.0f;
+	[Tooltip("How close the player's feet have to be to the surface to lock onto it")] [SerializeField] private float GravityLock = 2;
+	private Vector3 SurfaceNormal;
+	private Vector3 MyNormal;
+	private float GroundDistance;
+	private float DeltaGround = .2f;
+	private bool IsGrounded;
+
 	void Awake()
 	{
 		rigidbody = GetComponent<Rigidbody>();
@@ -42,7 +58,7 @@ public class RigidbodyFPS : MonoBehaviour
 			// Jump
 			if (canJump && Input.GetKeyDown(KeyCode.Space))
 			{
-				rigidbody.velocity = new Vector3(velocity.x, CalculateJumpVerticalSpeed(), velocity.z);
+				rigidbody.AddForce(transform.up * jumpHeight, ForceMode.VelocityChange);
 			}
 		}
 
@@ -51,32 +67,6 @@ public class RigidbodyFPS : MonoBehaviour
 
 		grounded = false;
 	}
-
-	void OnCollisionStay()
-	{
-		grounded = true;
-	}
-
-	float CalculateJumpVerticalSpeed()
-	{
-		// From the jump height and gravity we deduce the upwards speed 
-		// for the character to reach at the apex.
-		return Mathf.Sqrt(2 * jumpHeight * gravity);
-	}
-
-	[Header("Ground")]
-	[Tooltip("How close the player's feet have to be to the surface to lock onto it")] [SerializeField] private float GravityLock = 2;
-	private Vector3 SurfaceNormal;
-	private Vector3 MyNormal;
-	private float GroundDistance;
-
-	public bool CanWallWalk = false;
-
-	private float DeltaGround = .2f;
-
-	[Tooltip("How smooth the player rotates when latching to a surface")] [SerializeField] private float LerpSpeed = 5;
-
-	private bool IsGrounded;
 
 	private void Update()
 	{
@@ -107,5 +97,10 @@ public class RigidbodyFPS : MonoBehaviour
 		Vector3 MyForward = Vector3.Cross(transform.right, MyNormal);
 		Quaternion TargetRotation = Quaternion.LookRotation(MyForward, MyNormal);
 		transform.rotation = Quaternion.Lerp(transform.rotation, TargetRotation, LerpSpeed * Time.deltaTime);
+	}
+
+	void OnCollisionStay()
+	{
+		grounded = true;
 	}
 }
