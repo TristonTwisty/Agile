@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2748469677373009095
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4941016493709304652}
+  m_Layer: 8
+  m_Name: UpperStepRay
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4941016493709304652
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2748469677373009095}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3104759442738510486}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3104759440846401913
 GameObject:
   m_ObjectHideFlags: 0
@@ -4884,7 +4914,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3104759442738510486
 Transform:
   m_ObjectHideFlags: 0
@@ -4905,6 +4935,8 @@ Transform:
   - {fileID: 3104759441928369155}
   - {fileID: 3104759442611446681}
   - {fileID: 3104759442672022585}
+  - {fileID: 8189356587845431646}
+  - {fileID: 4941016493709304652}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4935,10 +4967,10 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3104759442738510496}
   serializedVersion: 2
-  m_Mass: 10
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_Mass: 15
+  m_Drag: 1
+  m_AngularDrag: 0
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -4950,7 +4982,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3104759442738510496}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 47140f5f9bbe831499dafc9a8ac94580, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
@@ -4969,14 +5001,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67a4ef60fe1ccf94dabdbb891ec07b98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementSpeed: 150
+  MovementSpeed: 20
   LerpSpeed: 5
-  JumpHeight: 3500
+  JumpHeight: 4000
   CanWallWalk: 0
   IsJumping: 0
   TurnSpeed: 100
-  Gravity: 10
+  Gravity: 20
   GravityLock: 2
+  LowerStepRay: {fileID: 8189356587845431646}
+  UpperStepRay: {fileID: 4941016493709304652}
+  StepHeight: 0.3
+  StepSmooth: 0.1
 --- !u!114 &3104759442738510491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5030,6 +5066,7 @@ MonoBehaviour:
   PlayerCamera: {fileID: 3104759442545945768}
   RingHolster: {fileID: 3104759440920688713}
   checkpoint: {fileID: 0}
+  PlayerHealth: 0
 --- !u!136 &3104759442738510494
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5068,7 +5105,6 @@ MonoBehaviour:
   hasboots: 0
   ScrollWheelSwitch: 1
   Prefs: {fileID: 0}
-  Health: 100
 --- !u!1 &3104759442788346866
 GameObject:
   m_ObjectHideFlags: 0
@@ -10380,3 +10416,33 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!1 &4206141623816463712
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8189356587845431646}
+  m_Layer: 8
+  m_Name: LowerStepRay
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8189356587845431646
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4206141623816463712}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3104759442738510486}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
