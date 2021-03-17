@@ -3034,9 +3034,9 @@ GameObject:
   - component: {fileID: 3104759442235137923}
   - component: {fileID: 3104759442235137924}
   - component: {fileID: 3104759442235137925}
-  m_Layer: 8
+  m_Layer: 13
   m_Name: Particle Shield
-  m_TagString: Untagged
+  m_TagString: Sheild
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3953,7 +3953,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 130615
+    m_Bits: 392759
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -4951,7 +4951,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3104759442738510496}
-  m_Material: {fileID: 13400000, guid: 47140f5f9bbe831499dafc9a8ac94580, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
@@ -4974,7 +4974,9 @@ MonoBehaviour:
   gravity: 10
   maxVelocityChange: 10
   canJump: 1
+  CanWalk: 1
   jumpHeight: 2
+  grounded: 0
   GravityLock: 2
   CanWallWalk: 0
   LerpSpeed: 5
@@ -5031,7 +5033,7 @@ MonoBehaviour:
   PlayerCamera: {fileID: 3104759442545945768}
   RingHolster: {fileID: 3104759440920688713}
   checkpoint: {fileID: 0}
-  PlayerHealth: 0
+  PlayerHealth: 100
 --- !u!136 &3104759442738510494
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5068,7 +5070,7 @@ MonoBehaviour:
   haswhip: 0
   hasdash: 0
   hasboots: 0
-  ScrollWheelSwitch: 1
+  ScrollWheelSwitch: 0
   Prefs: {fileID: 0}
 --- !u!1 &3104759442788346866
 GameObject:
@@ -5362,7 +5364,7 @@ GameObject:
   - component: {fileID: 3104759442931137395}
   - component: {fileID: 3104759442931137393}
   - component: {fileID: 3104759442931137394}
-  m_Layer: 8
+  m_Layer: 13
   m_Name: Shield PS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
