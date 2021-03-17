@@ -6,7 +6,7 @@ public class BootPickup : MonoBehaviour
 {
     private void OnCollisionEnter(Collision collision)
     {
-        collision.gameObject.GetComponent<NewWallWalker>().CanWallWalk = true;
+        collision.gameObject.GetComponent<RigidbodyFPS>().CanWallWalk = true;
         Destroy(gameObject);
     }
 }

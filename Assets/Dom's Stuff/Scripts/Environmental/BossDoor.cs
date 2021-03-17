@@ -33,12 +33,11 @@ public class BossDoor : MonoBehaviour
         Vector3 EntranceStartPosition = Entrance.position;
         Vector3 ExitStartPosition = Exit.position;
 
-        while (t < 5)
+        while (t < 2)
         {
-            Debug.Log(t);
             t += Time.deltaTime;
-            Entrance.position = Vector3.Lerp(EntranceStartPosition, EntranceClosePosition.position, t / 5);
-            Exit.position = Vector3.Lerp(ExitStartPosition, ExitClosePosition.position, t / 5);
+            Entrance.position = Vector3.Lerp(EntranceStartPosition, EntranceClosePosition.position, t / 2);
+            Exit.position = Vector3.Lerp(ExitStartPosition, ExitClosePosition.position, t / 2);
             yield return null;
         }
     }
@@ -52,25 +51,27 @@ public class BossDoor : MonoBehaviour
     {
         float t = 0;
 
-        Vector3 EntranceStartPosition = transform.position;
-        Vector3 ExitStartPosition = transform.position;
+        Vector3 EntranceStartPosition = Entrance.position;
+        Vector3 ExitStartPosition = Exit.position;
 
-        while (t < 5)
+        while (t < 2)
         {
-            Debug.Log(t);
             t += Time.deltaTime;
-            Entrance.position = Vector3.Lerp(EntranceStartPosition, EntranceOpenPosition.position, t / 5);
-            Exit.position = Vector3.Lerp(ExitStartPosition, ExitOpenPosition.position, t / 3);
+            Entrance.position = Vector3.Lerp(EntranceStartPosition, EntranceOpenPosition.position, t / 2);
+            Exit.position = Vector3.Lerp(ExitStartPosition, ExitOpenPosition.position, t / 2);
             yield return null;
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        GetComponent<Collider>().enabled = false;
+        if (other.transform.CompareTag("Player"))
+        {
+            GetComponent<Collider>().enabled = false;
 
-        StartCoroutine(Closing());
+            StartCoroutine(Closing());
 
-        Boss.GetComponent<EnemyBehavior>().ActivateBoss = true;
+            Boss.GetComponent<EnemyBehavior>().ActivateBoss = true;
+        }
     }
 }

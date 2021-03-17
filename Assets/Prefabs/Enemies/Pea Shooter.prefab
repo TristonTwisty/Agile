@@ -1200,6 +1200,7 @@ MonoBehaviour:
   EnemyOBJ: {fileID: 11400000, guid: 73bc861e70a18d74f8071faa4ad3b379, type: 2}
   MR: {fileID: 7431444707926515484}
   CurrentHealth: 0
+  ActivateBoss: 0
 --- !u!114 &3648524642659302151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1212,6 +1213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3bd458e9aaee1746bc5c1058dc2a821, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AiTest: 0
   Player: {fileID: 0}
   Face: {fileID: 7431444707530848930}
   points: []

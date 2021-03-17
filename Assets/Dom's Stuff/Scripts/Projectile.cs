@@ -11,9 +11,6 @@ public class Projectile : MonoBehaviour
 
     private void OnEnable()
     {
-        //Vector3 Direction = transform.forward + new Vector3(Random.Range(-ProjectileOBJ.MaxSpread, ProjectileOBJ.MaxSpread), Random.Range(-ProjectileOBJ.MaxSpread, ProjectileOBJ.MaxSpread), Random.Range(-ProjectileOBJ.MaxSpread, ProjectileOBJ.MaxSpread));
-        //GetComponent<Rigidbody>().AddForce(Direction * ProjectileOBJ.ProjectileSpeed);
-
         float width = Random.Range(-1, 1) * ProjectileOBJ.MaxSpread;
         float height = Random.Range(-1, 1) * ProjectileOBJ.MaxSpread;
 
@@ -32,12 +29,12 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        ObjectPooling.DeSpawn(gameObject);
-        if (other.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
-            other.gameObject.GetComponent<Player>().TakeDamage(ProjectileOBJ.DamageDealt);
+            collision.gameObject.GetComponent<Player>().TakeDamage(ProjectileOBJ.DamageDealt);
         }
+        ObjectPooling.DeSpawn(gameObject);
     }
 }

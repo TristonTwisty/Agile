@@ -245,21 +245,5 @@ public class DroneAI : MonoBehaviour
                 RB.angularVelocity = Vector3.zero;
             }
         }
-
-        // If the drone is too close to the ceiling, push it downwards
-        if (Physics.Raycast(transform.position, transform.up, out RaycastHit Ceiling, HoverHeight))
-        {
-            float GroundDistance = Vector3.Distance(transform.position, Ground.transform.position);
-
-            if (GroundDistance < HoverHeight)
-            {
-                RB.AddForce(-transform.up * HoverForce, ForceMode.Impulse);
-            }
-            if (GroundDistance >= HoverHeight)
-            {
-                RB.velocity = Vector3.zero;
-                RB.angularVelocity = Vector3.zero;
-            }
-        }
     }
 }

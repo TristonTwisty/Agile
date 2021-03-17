@@ -4,10 +4,9 @@
 [RequireComponent(typeof(Rigidbody))]
 public class NewWallWalker : MonoBehaviour
 {
-    private Transform Cam;
-
     [Header("Movement")]
     [Tooltip("How fast can the player move forward and backward")] [SerializeField] private float MovementSpeed = 10;
+    [Tooltip("The maximum speed the player can go")] [SerializeField] private float MaxVelocity = 10;
     //[Tooltip("How fast can the player move side to side")] [SerializeField] private float StrafeSpeed = 8;
     [Tooltip("How smooth the player rotates when latching to a surface")] [SerializeField] private float LerpSpeed = 5;
     [SerializeField] private float JumpHeight = 350;
@@ -41,9 +40,6 @@ public class NewWallWalker : MonoBehaviour
     {
         gameObject.tag = "Player";
 
-        // Get main camera
-        Cam = Camera.main.transform;
-
         // Get rigibody and collider
         RB = GetComponent<Rigidbody>();
         CC = GetComponent<CapsuleCollider>();
@@ -62,16 +58,22 @@ public class NewWallWalker : MonoBehaviour
     {
         RB.AddForce(-Gravity * RB.mass * MyNormal);
 
-        // Movement
-        float VelocityZ = Input.GetAxis("Vertical") * MovementSpeed * Time.deltaTime;
-        float VelocityX = Input.GetAxis("Horizontal") * MovementSpeed * Time.deltaTime;
-        Vector3 MovementDir = new Vector3(VelocityX, 0, VelocityZ);
-        MovementDir = Cam.forward * MovementDir.z + Cam.right * MovementDir.x;
+        if (IsGrounded)
+        {
+            //Movement
+            Vector3 TargetVelocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            TargetVelocity.y = 0;
 
-        RB.AddForce(MovementDir, ForceMode.VelocityChange);
+            RB.AddForce(TargetVelocity * MovementSpeed, ForceMode.VelocityChange);
+        }
+
+        if (!IsJumping)
+        {
+            RB.AddForce(transform.up * JumpHeight, ForceMode.Impulse);
+        }
 
         //Step
-        ClimbStep();
+        //ClimbStep();
     }
 
     private void ClimbStep()
@@ -103,13 +105,7 @@ public class NewWallWalker : MonoBehaviour
 
     private void Update()
     {
-        // Jump
-        if (Input.GetButtonDown("Jump") && IsJumping == false)
-        {
-            IsJumping = true;
-            RB.AddForce(transform.up * JumpHeight, ForceMode.Force);
-        }
-
+        
         // Gravity
         Ray ray;
         RaycastHit Hit;

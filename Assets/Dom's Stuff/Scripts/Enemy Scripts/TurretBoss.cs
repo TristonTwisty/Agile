@@ -6,6 +6,11 @@ public class TurretBoss : MonoBehaviour
 {
     [SerializeField] private Transform Player;
 
+    private BossDoor BD;
+
+    [Header("Powerup")]
+    [SerializeField] private GameObject DiscPickup;
+
     [Header("Components")]
     [SerializeField] private ParticleSystem AttackPS;
     [SerializeField] private Transform Head;
@@ -82,6 +87,11 @@ public class TurretBoss : MonoBehaviour
         OriginalRot = transform.rotation;
 
         TB = this;
+
+        DiscPickup.SetActive(false);
+        DiscPickup.transform.parent = null;
+
+        BD = GetComponentInParent<BossDoor>();
     }
 
     private void DoChooseAttack()
@@ -137,7 +147,11 @@ public class TurretBoss : MonoBehaviour
 
     private void DoDead()
     {
+        DiscPickup.SetActive(true);
+
         AttackPS.Stop();
+
+        BD.OpenDoor();
 
         foreach (GameObject Trap in ElectricTraps)
         {
@@ -148,6 +162,8 @@ public class TurretBoss : MonoBehaviour
         Destroy(Nozzle);
 
         TB.enabled = false;
+
+        IsAlive = false;
     }
 
     private IEnumerator SetTimer(float Duration)
@@ -168,7 +184,7 @@ public class TurretBoss : MonoBehaviour
     {
         CurrentHealth = EB.CurrentHealth;
 
-        if (CurrentHealth <= (CurrentHealth * .5) && !ActivateTraps)
+        if (CurrentHealth <= (CurrentHealth /2) && !ActivateTraps)
         {
             TrapsActivated = true;
 

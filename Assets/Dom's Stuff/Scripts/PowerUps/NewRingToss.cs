@@ -285,4 +285,9 @@ public class NewRingToss : MonoBehaviour
             colour = _colour;
         }
     }
+
+    private void OnEnable()
+    {
+        transform.parent = null;
+    }
 }

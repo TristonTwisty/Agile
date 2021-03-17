@@ -72,7 +72,7 @@ public class ElectricTrap : MonoBehaviour
             other.GetComponent<Player>().TakeDamage(DamageDealt);
         }
 
-        if (other.transform.CompareTag("Enenmy"))
+        if (other.transform.CompareTag("Enemy"))
         {
             other.GetComponent<EnemyBehavior>().TakeDamage(DamageDealt);
         }

@@ -2213,9 +2213,9 @@ GameObject:
   - component: {fileID: 4485440299819052272}
   - component: {fileID: 8022575158191841856}
   - component: {fileID: 8022575158191841857}
-  - component: {fileID: 8022575158191841859}
   - component: {fileID: 8022575158191841886}
   - component: {fileID: 8022575158191841887}
+  - component: {fileID: 1859660963}
   m_Layer: 8
   m_Name: Dom's Test Player
   m_TagString: Player
@@ -2231,7 +2231,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7175501153237609520}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.75, y: 0, z: -13}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7849134977946193764}
@@ -2272,9 +2272,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7175501153237609520}
   serializedVersion: 2
-  m_Mass: 15
-  m_Drag: 1
-  m_AngularDrag: 0
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -2287,37 +2287,13 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7175501153237609520}
-  m_Material: {fileID: 13400000, guid: 47140f5f9bbe831499dafc9a8ac94580, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &8022575158191841859
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7175501153237609520}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67a4ef60fe1ccf94dabdbb891ec07b98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MovementSpeed: 20
-  LerpSpeed: 5
-  JumpHeight: 4500
-  CanWallWalk: 1
-  IsJumping: 0
-  TurnSpeed: 100
-  Gravity: 20
-  GravityLock: 2
-  LowerStepRay: {fileID: 2010987695}
-  UpperStepRay: {fileID: 852355546}
-  StepHeight: 0.3
-  StepSmooth: 0.1
 --- !u!114 &8022575158191841886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2348,6 +2324,26 @@ MonoBehaviour:
   CurrentDashes: 0
   DashRecharge: 5
   HasDashBelt: 1
+--- !u!114 &1859660963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7175501153237609520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff827f1c32f6b35488ea5ecc5582e62d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  gravity: 10
+  maxVelocityChange: 10
+  canJump: 1
+  jumpHeight: 2
+  GravityLock: 2
+  CanWallWalk: 0
+  LerpSpeed: 5
 --- !u!114 &8022575158060284098
 MonoBehaviour:
   m_ObjectHideFlags: 0
