@@ -29,6 +29,7 @@ public class Scriptforui : MonoBehaviour
     public UnityEngine.UI.Image dockedItem1;
     public UnityEngine.UI.Image dockedItem2;
     public UnityEngine.UI.Image dockedItem3;
+    
     //Player Items
     public UnityEngine.UI.Image playerBaton;
     public UnityEngine.UI.Image playerDisc;
@@ -51,6 +52,7 @@ public class Scriptforui : MonoBehaviour
     public UnityEngine.UI.Text item1Text;
     public UnityEngine.UI.Text item2Text;
     public UnityEngine.UI.Text item3Text;
+    public UnityEngine.UI.Text currentItemText;
 
     void Start()
     {
@@ -127,6 +129,7 @@ public class Scriptforui : MonoBehaviour
             item1Text.text = "2";
             item2Text.text = "3";
             item3Text.text = "4";
+            currentItemText.text = "1";
             dockedItem1.color = Color.blue;//new Color(0, 144, 229, 255);
             dockedItem2.color = Color.magenta;//new Color(161, 0, 231, 255);
             dockedItem3.color = Color.yellow;//new Color(221, 97, 0, 255);
@@ -149,6 +152,7 @@ public class Scriptforui : MonoBehaviour
             item1Text.text = "1";
             item2Text.text = "3";
             item3Text.text = "4";
+            currentItemText.text = "2";
             dockedItem1.color = Color.red;//new Color(0, 144, 229, 255);
             dockedItem2.color = Color.magenta;//new Color(161, 0, 231, 255);
             dockedItem3.color = Color.yellow;//new Color(221, 97, 0, 255);
@@ -168,6 +172,7 @@ public class Scriptforui : MonoBehaviour
             item1Text.text = "1";
             item2Text.text = "2";
             item3Text.text = "4";
+            currentItemText.text = "3";
             dockedItem1.color = Color.red;//new Color(0, 144, 229, 255);
             dockedItem2.color = Color.blue;//new Color(161, 0, 231, 255);
             dockedItem3.color = Color.yellow;//new Color(221, 97, 0, 255);
@@ -187,6 +192,7 @@ public class Scriptforui : MonoBehaviour
             item1Text.text = "1";
             item2Text.text = "2";
             item3Text.text = "3";
+            currentItemText.text = "4";
             dockedItem1.color = Color.red;//new Color(0, 144, 229, 255);
             dockedItem2.color = Color.blue;//new Color(161, 0, 231, 255);
             dockedItem3.color = Color.magenta;//new Color(221, 97, 0, 255);
