@@ -13495,7 +13495,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &311825295
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17574,7 +17574,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh274274
+  m_Name: pb_Mesh64458
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -38626,7 +38626,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh273904
+  m_Name: pb_Mesh64088
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -55525,7 +55525,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh274060
+  m_Name: pb_Mesh64244
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -57282,7 +57282,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh273922
+  m_Name: pb_Mesh64106
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

@@ -4,24 +4,25 @@ using UnityEngine;
 
 public class DashBelt : MonoBehaviour
 {
+    [Header("Dash")]
     [SerializeField] private float DashPower = 20;
     public int MaximumDashes = 3;
-    //[HideInInspector] 
     public int CurrentDashes;
     [SerializeField] private float DashRecharge = 5;
     public bool HasDashBelt;
+    private Vector3 PlayerVelocity;
 
-    private Rigidbody RB;
+    [Header("Character Controller")]
+    private CharacterController characterController;
 
     //Added For Sounds
+    [Header("UI")]
     private GameSounds gameSounds;
     private Scriptforui scriptForUI;
 
     private void Start()
     {
-        RB = GetComponent<Rigidbody>();
-
-        CurrentDashes = MaximumDashes;
+        characterController = GetComponent<CharacterController>();
 
         //Added For Sounds
         gameSounds = GameSounds.FindObjectOfType<GameSounds>();
@@ -46,7 +47,6 @@ public class DashBelt : MonoBehaviour
                         //gameSounds.audioSource.PlayOneShot(gameSounds.playerDash);
                         scriptForUI.currentDashAmount = scriptForUI.currentDashAmount - 1;
                         scriptForUI.displayTotalDashAmount.text = scriptForUI.currentDashAmount.ToString();
-
                     }
                 }
             }
@@ -65,11 +65,13 @@ public class DashBelt : MonoBehaviour
 
     private IEnumerator Dash()
     {
-        RB.AddForce(transform.forward * DashPower, ForceMode.Impulse);
+        PlayerVelocity.z += DashPower;
+        characterController.Move(PlayerVelocity);
         CurrentDashes -= 1;
 
         yield return new WaitForSeconds(DashRecharge);
 
         CurrentDashes += 1;
+        PlayerVelocity.z = 0;
     }
 }

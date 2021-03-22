@@ -10,7 +10,7 @@ public class BoostVent : MonoBehaviour
     {
         if (other.gameObject.GetComponent<Rigidbody>())
         {
-            other.gameObject.GetComponent<Rigidbody>().AddForce(transform.up * BoostForce, ForceMode.Impulse);
+            //other.gameObject.GetComponent<Rigidbody>().AddForce(transform.up * BoostForce, ForceMode.Impulse);
         }
     }
 }

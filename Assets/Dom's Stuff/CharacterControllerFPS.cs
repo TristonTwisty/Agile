@@ -10,8 +10,7 @@ public class CharacterControllerFPS : MonoBehaviour
     [SerializeField] private float JumpHeight = 5;
 
     [Header("Components")]
-    private CharacterController CharacterController;
-    public Animator Animator;
+    [HideInInspector] public CharacterController CharacterController;
 
     [Header("Gravity")]
     [SerializeField] private float Gravity = 10;
