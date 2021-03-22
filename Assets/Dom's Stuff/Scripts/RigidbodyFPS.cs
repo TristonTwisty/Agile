@@ -7,22 +7,21 @@ public class RigidbodyFPS : MonoBehaviour
 {
 
 	[Header("Movement")]
-	public float speed = 10.0f;
-	public float maxVelocityChange = 10.0f;
-	public bool CanWalk = true;
+	[SerializeField] private float MovementSpeed = 10.0f;
+	[SerializeField] private float MaxVelocityChange = 10.0f;
 	[Tooltip("How smooth the player rotates when latching to a surface")] [SerializeField] private float LerpSpeed = 5;
 	public bool CanWallWalk = false;
 
 	[Header("Jump")]
-	public bool canJump = true;
-	public float jumpHeight = 2.0f;
-	public bool grounded = false;
+	private bool canJump = true;
+	[SerializeField] private float JumpHeight = 2.0f;
+	private bool Grounded = false;
 
 	[Header("Components")]
 	private Rigidbody rigidbody;
 
 	[Header("Gravity")]
-	public float gravity = 10.0f;
+	[SerializeField] private float Gravity = 10.0f;
 	[Tooltip("How close the player's feet have to be to the surface to lock onto it")] [SerializeField] private float GravityLock = 2;
 	private Vector3 SurfaceNormal;
 	private Vector3 MyNormal;
@@ -43,29 +42,29 @@ public class RigidbodyFPS : MonoBehaviour
 		// Calculate how fast we should be moving
 		Vector3 targetVelocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 		targetVelocity = transform.TransformDirection(targetVelocity);
-		targetVelocity *= speed;
+		targetVelocity *= MovementSpeed;
 
 		// Apply a force that attempts to reach our target velocity
 		Vector3 velocity = rigidbody.velocity;
 		Vector3 velocityChange = (targetVelocity - velocity);
-		velocityChange.x = Mathf.Clamp(velocityChange.x, -maxVelocityChange, maxVelocityChange);
-		velocityChange.z = Mathf.Clamp(velocityChange.z, -maxVelocityChange, maxVelocityChange);
+		velocityChange.x = Mathf.Clamp(velocityChange.x, -MaxVelocityChange, MaxVelocityChange);
+		velocityChange.z = Mathf.Clamp(velocityChange.z, -MaxVelocityChange, MaxVelocityChange);
 		velocityChange.y = 0;
 		rigidbody.AddForce(velocityChange, ForceMode.VelocityChange);
 
-		if (grounded)
+		if (Grounded)
 		{
 			// Jump
 			if (canJump && Input.GetKeyDown(KeyCode.Space))
 			{
-				rigidbody.AddForce(transform.up * jumpHeight, ForceMode.VelocityChange);
+				rigidbody.AddForce(transform.up * JumpHeight, ForceMode.VelocityChange);
 			}
 		}
 
 		// We apply gravity manually for more tuning control
-		rigidbody.AddForce(new Vector3(0, -gravity * rigidbody.mass, 0));
+		rigidbody.AddForce(new Vector3(0, -Gravity * rigidbody.mass, 0));
 
-		grounded = false;
+		Grounded = false;
 	}
 
 	private void Update()
@@ -101,6 +100,6 @@ public class RigidbodyFPS : MonoBehaviour
 
 	void OnCollisionStay()
 	{
-		grounded = true;
+		Grounded = true;
 	}
 }

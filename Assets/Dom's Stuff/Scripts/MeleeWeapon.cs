@@ -22,7 +22,7 @@ public class MeleeWeapon : MonoBehaviour
         }
         else if (other.CompareTag("Player"))
         {
-            other.GetComponent<Rigidbody>().AddForce(Owner.transform.forward * MeleeOBJ.KnockbackPower, ForceMode.Impulse);
+            //other.GetComponent<Rigidbody>().AddForce(Owner.transform.forward * MeleeOBJ.KnockbackPower, ForceMode.Impulse);
             other.gameObject.GetComponent<Player>().TakeDamage(MeleeOBJ.DamageDealt);
         }
     }

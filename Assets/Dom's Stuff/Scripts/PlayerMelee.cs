@@ -8,16 +8,15 @@ public class PlayerMelee : MonoBehaviour
     private Animator animator;
 
     [Header("Weapon")]
-    [SerializeField] private GameObject Weapon = null;
-    private Collider WeaponCollider = null;
+    [SerializeField] private Collider WeaponCollider = null;
 
     private bool CanAttack = true;
 
     private void Start()
     {
-        WeaponCollider = Weapon.GetComponent<Collider>();
+        WeaponCollider.enabled = false;
 
-        animator = GetComponentInChildren<Animator>();
+        animator = GetComponent<Animator>();
     }
 
     private void Update()
