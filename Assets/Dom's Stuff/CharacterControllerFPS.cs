@@ -7,7 +7,7 @@ public class CharacterControllerFPS : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] private float MovementSpeed = 10;
-    [SerializeField] private float JumpHeight = 5;
+    [SerializeField] private float JumpHeight = 1.5f;
 
     [Header("Components")]
     [HideInInspector] public CharacterController CharacterController;

@@ -1,91 +1,104 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(BoxCollider))]
+[RequireComponent(typeof(CapsuleCollider))]
 [RequireComponent(typeof(Rigidbody))]
 public class WallWalker : MonoBehaviour
 {
-    [Header("Movement")]
-    [Tooltip("How fast can the player move forward and backward")] [SerializeField] private float MovementSpeed = 6;
-    [Tooltip("How fast can the player move side to side")] [SerializeField] private float StrafeSpeed = 3;
-    [Tooltip("How smooth the player rotates when latching to a surface")] [SerializeField] private float LerpSpeed = 5;
-    [SerializeField] private float JumpHeight = 350;
-    public bool CanWallWalk = false;
-    public bool IsJumping = false;
 
-    [Header("Gravity")]
-    [SerializeField] private float Gravity = 10;
-    private bool IsGrounded;
-    private float DeltaGround = .2f;
+	[Header("Movement")]
+	[SerializeField] private float MovementSpeed = 10.0f;
+	[SerializeField] private float MaxVelocityChange = 14.0f;
+	[Tooltip("How smooth the player rotates when latching to a surface")] [SerializeField] private float LerpSpeed = 5;
+	public bool CanWallWalk = false;
 
-    [Header("Ground")]
-    [Tooltip("What can the player latch to?")] [SerializeField] private LayerMask Walkable;
-    [Tooltip("How close the player's feet have to be to the surface to lock onto it")] [SerializeField] private float GravityLock = 2;
-    private Vector3 SurfaceNormal;
-    private Vector3 MyNormal;
-    private float GroundDistance;
+	[Header("Jump")]
+	private bool canJump = true;
+	[SerializeField] private float JumpHeight = 100.0f;
+	private bool Grounded = false;
 
-    [Header("Components")]
-    private Rigidbody RB;
-    private BoxCollider BC;
+	[Header("Components")]
+	private Rigidbody rigidbody;
 
-    private void Start()
-    {
-        RB = GetComponent<Rigidbody>();
-        BC = GetComponent<BoxCollider>();
+	[Header("Gravity")]
+	[SerializeField] private float Gravity = 225.0f;
+	[Tooltip("How close the player's feet have to be to the surface to lock onto it")] [SerializeField] private float GravityLock = 2;
+	private Vector3 SurfaceNormal;
+	private Vector3 MyNormal;
+	private float GroundDistance;
+	private float DeltaGround = .2f;
+	private bool IsGrounded;
 
-        MyNormal = transform.up;
-        RB.freezeRotation = true;
-        GroundDistance = BC.bounds.extents.y - BC.center.y;
-    }
+	void Awake()
+	{
+		rigidbody = GetComponent<Rigidbody>();
 
-    private void FixedUpdate()
-    {
-        RB.AddForce(-Gravity * RB.mass * MyNormal);
-    }
+		rigidbody.freezeRotation = true;
+		rigidbody.useGravity = false;
+	}
 
-    private void Update()
-    {
-        if (Input.GetButtonDown("Jump") && IsJumping == false)
-        {
-            IsJumping = true;
-            RB.AddForce(transform.up * JumpHeight, ForceMode.Force);
-        }
+	void FixedUpdate()
+	{
+		// Calculate how fast we should be moving
+		Vector3 targetVelocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+		targetVelocity = transform.TransformDirection(targetVelocity);
+		targetVelocity *= MovementSpeed;
 
-        Ray ray;
-        RaycastHit Hit;
+		// Apply a force that attempts to reach our target velocity
+		Vector3 velocity = rigidbody.velocity;
+		Vector3 velocityChange = (targetVelocity - velocity);
+		velocityChange.x = Mathf.Clamp(velocityChange.x, -MaxVelocityChange, MaxVelocityChange);
+		velocityChange.z = Mathf.Clamp(velocityChange.z, -MaxVelocityChange, MaxVelocityChange);
+		//velocityChange.y = 0;
+		rigidbody.AddForce(velocityChange, ForceMode.VelocityChange);
 
-        transform.Translate(Input.GetAxis("Horizontal") * StrafeSpeed * Time.deltaTime, 0, Input.GetAxis("Vertical") * MovementSpeed * Time.deltaTime);
+		if (Grounded)
+		{
+			// Jump
+			if (canJump && Input.GetKeyDown(KeyCode.Space))
+			{
+				rigidbody.AddForce(transform.up * JumpHeight, ForceMode.VelocityChange);
+			}
+		}
 
-        ray = new Ray(transform.position, -MyNormal);
-        if (Physics.Raycast(ray, out Hit, GravityLock, Walkable))
-         {
-            if (CanWallWalk)
-            {
-                IsGrounded = Hit.distance <= GroundDistance + DeltaGround;
-                SurfaceNormal = Hit.normal;
-            }
-         }
-            else
-            {
-                IsGrounded = false;
-                SurfaceNormal = Vector3.up;
-            }
+		// We apply gravity manually for more tuning control
+		rigidbody.AddForce(-Gravity * rigidbody.mass * MyNormal);
 
-        MyNormal = Vector3.Lerp(MyNormal, SurfaceNormal, LerpSpeed * Time.deltaTime);
-        Vector3 MyForward = Vector3.Cross(transform.right, MyNormal);
-        Quaternion TargetRotation = Quaternion.LookRotation(MyForward, MyNormal);
-        transform.rotation = Quaternion.Lerp(transform.rotation, TargetRotation, LerpSpeed * Time.deltaTime);
-    }
+		Grounded = false;
+	}
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.layer == 10)
-        {
-            IsJumping = false;
-        }
-        else
-        {
-            Debug.Log("Say wha");
-        }
-    }
+	private void Update()
+	{
+
+		// Gravity
+		Ray ray;
+		RaycastHit Hit;
+
+		ray = new Ray(transform.position, -MyNormal);
+		if (Physics.Raycast(ray, out Hit, GravityLock))
+		{
+			if (CanWallWalk)
+			{
+				if (Hit.transform.gameObject.layer == 18)
+				{
+					IsGrounded = Hit.distance <= GroundDistance + DeltaGround;
+					SurfaceNormal = Hit.normal;
+				}
+			}
+		}
+		else
+		{
+			IsGrounded = false;
+			SurfaceNormal = Vector3.up;
+		}
+
+		MyNormal = Vector3.Lerp(MyNormal, SurfaceNormal, LerpSpeed * Time.deltaTime);
+		Vector3 MyForward = Vector3.Cross(transform.right, MyNormal);
+		Quaternion TargetRotation = Quaternion.LookRotation(MyForward, MyNormal);
+		transform.rotation = Quaternion.Lerp(transform.rotation, TargetRotation, LerpSpeed * Time.deltaTime);
+	}
+
+	void OnCollisionStay()
+	{
+		Grounded = true;
+	}
 }
