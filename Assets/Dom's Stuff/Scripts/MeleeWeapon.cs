@@ -4,13 +4,35 @@ using UnityEngine;
 
 public class MeleeWeapon : MonoBehaviour
 {
-    [SerializeField] GameObject Owner;
+    [Header("Weapon and Owner")]
+    [SerializeField] Transform Owner;
     [SerializeField] private MeleeScriptableObject MeleeOBJ;
+
+    [Header("Player")]
+    [SerializeField] private Transform Player;
+
+    [Header("Which character controller?")]
+    [SerializeField] private bool HasCharacterController;
+    [SerializeField] private bool HasRigibody;
+
     private void Start()
     {
+        Player = PlayerRefs.instance.Player;
+
         GetComponent<Collider>().isTrigger = true;
         GetComponent<Collider>().enabled = false;
         Physics.IgnoreCollision(GetComponent<Collider>(), Owner.GetComponent<Collider>());
+
+        if (Player.GetComponent<CharacterController>() != null)
+        {
+            HasCharacterController = true;
+            HasRigibody = false;
+        }
+        else if (Player.GetComponent<Rigidbody>() != null)
+        {
+            HasRigibody = true;
+            HasCharacterController = false;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -22,8 +44,16 @@ public class MeleeWeapon : MonoBehaviour
         }
         else if (other.CompareTag("Player"))
         {
-            //other.GetComponent<Rigidbody>().AddForce(Owner.transform.forward * MeleeOBJ.KnockbackPower, ForceMode.Impulse);
             other.gameObject.GetComponent<Player>().TakeDamage(MeleeOBJ.DamageDealt);
+
+            if (HasCharacterController)
+            {
+                other.GetComponent<CharacterController>().Move(Owner.forward * MeleeOBJ.KnockbackPower);
+            }
+            else if (HasRigibody)
+            {
+                other.GetComponent<Rigidbody>().AddForce(Owner.forward * MeleeOBJ.KnockbackPower, ForceMode.VelocityChange);
+            }
         }
     }
 }
