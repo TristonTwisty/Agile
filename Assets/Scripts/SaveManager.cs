@@ -23,12 +23,12 @@ public class InventoryToken
     public float zor;
 
     [SerializeField] public List<ItemBase> ItemList_;
-    [SerializeField] public float PlayerHealth_;
+    public float PlayerHealth_;
 
     public InventoryToken(Player ItemTemp)
     {
 
-        ItemList_ = ItemTemp.Inventory;
+        ItemList_ = ItemTemp._inventory;
         PlayerHealth_ = PlayerRefs.instance.PlayerHealth;
 
         /*onboard_ = ItemTemp.onboard;

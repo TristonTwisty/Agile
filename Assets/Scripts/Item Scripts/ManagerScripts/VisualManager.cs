@@ -34,7 +34,6 @@ public class VisualManager : MonoBehaviour
     {
         WhipVisual = PlayerRefs.instance.PlayerWhip.gameObject;
         DiskVisual = PlayerRefs.instance.Disk.gameObject;
-        BoardVisual = PlayerRefs.instance.PlayerBoard.gameObject;
         BattVisual = PlayerRefs.instance.Batt.gameObject;
         SheildVisual = PlayerRefs.instance.Sheild.gameObject;
     }

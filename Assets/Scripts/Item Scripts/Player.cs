@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private int _itemIndex = 0;
 
-    private List<ItemBase> _inventory = new List<ItemBase>();
+    [SerializeField] public List<ItemBase> _inventory = new List<ItemBase>();
 
     public List<ItemBase> Inventory { get { return _inventory; } }
 
@@ -15,7 +15,6 @@ public class Player : MonoBehaviour
     public bool Startwith;
     [Header("Debug These do NOTHING they just tell")]
     public bool hasdisk;
-    public bool hasboard;
     public bool hasbatt;
     public bool hassheild;
     public bool haswhip;
@@ -35,7 +34,6 @@ public class Player : MonoBehaviour
         if (Startwith)
         {
             if (hasdisk) { Inventory.Add(new DiskItem()); }
-            if (hasboard) { Inventory.Add(new BoardItem()); }
             if (hasbatt) { Inventory.Add(new BattItem()); }
             if (hassheild) { Inventory.Add(new SheildItem()); }
             if (haswhip) { Inventory.Add(new WhipItem()); }
@@ -47,7 +45,14 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            _inventory[_itemIndex].UseItem(gameObject);
+            if (_inventory.Count != 0)
+            {
+                _inventory[_itemIndex].UseItem(gameObject);
+            }
+            else
+            {
+                Debug.Log("nothing here");
+            }
         }
         CheckItemButton();
 

@@ -40,10 +40,6 @@ public class ItemPickUp : MonoBehaviour
                         player.GetComponent<Player>().Inventory.Add(new DiskItem());
                         player.GetComponent<Player>().hasdisk = true;
                         break;
-                    case ItemsInGame.Board:
-                        player.GetComponent<Player>().Inventory.Add(new BoardItem());
-                        player.GetComponent<Player>().hasboard = true;
-                        break;
                     case ItemsInGame.Batt:
                         player.GetComponent<Player>().Inventory.Add(new BattItem());
                         player.GetComponent<Player>().hasbatt = true;
