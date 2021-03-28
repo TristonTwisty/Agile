@@ -17,6 +17,7 @@ public class PlayerRefs : MonoBehaviour
     public Transform PlayerCamera;
     public Transform RingHolster;
     public Transform checkpoint;
+    public Quaternion checkpointOri;
     public float PlayerHealth;
 
     private void Awake()

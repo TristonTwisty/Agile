@@ -21,27 +21,27 @@ public class Tester : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            AudioManager.instace.PlaySfx(clip1);
+            AudioManager.instance.PlaySfx(clip1);
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            AudioManager.instace.PlaySfx(clip2);
+            AudioManager.instance.PlaySfx(clip2);
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            AudioManager.instace.PlaySfx(clip2, transform, 1); 
+            AudioManager.instance.PlaySfx(clip2, transform, 1); 
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            AudioManager.instace.playBGM(Music1, 3);
+            AudioManager.instance.playBGM(Music1, 3);
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
-            AudioManager.instace.playBGM(Music2, 3);
+            AudioManager.instance.playBGM(Music2, 3);
         }
     }
 }

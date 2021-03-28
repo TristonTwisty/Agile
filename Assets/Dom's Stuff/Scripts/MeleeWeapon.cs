@@ -17,8 +17,9 @@ public class MeleeWeapon : MonoBehaviour
 
     private void Start()
     {
-        Player = PlayerRefs.instance.Player;
-
+        //Player = PlayerRefs.instance.Player;
+        Player = PlayerRefs.instance.Player.transform;
+        Owner = gameObject.transform;
         GetComponent<Collider>().isTrigger = true;
         GetComponent<Collider>().enabled = false;
         Physics.IgnoreCollision(GetComponent<Collider>(), Owner.GetComponent<Collider>());

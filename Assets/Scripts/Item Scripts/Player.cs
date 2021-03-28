@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     [SerializeField] public List<ItemBase> Inventory { get { return _inventory; } }
 
     public Vector3 xyz;
+    public Quaternion xyzOri;
 
     public bool Startwith;
     [Header("Debug These do NOTHING they just tell")]
@@ -72,12 +73,8 @@ public class Player : MonoBehaviour
 
         if (PlayerRefs.instance.PlayerHealth <= 0)
         {
+            _inventory.Clear();
             LoadPlayer();
-        }
-
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            Debug.Log(Inventory.Count);
         }
     }
 
@@ -139,7 +136,7 @@ public class Player : MonoBehaviour
             //Debug.Log(e);
             for (int i = 0; i < Inventory.Count; i++)
             {
-                if (Inventory[i].PressSelectKey(e.keyCode))
+                if (_inventory.Count > 0 && Inventory[i].PressSelectKey(e.keyCode))
                 {
                     if (_itemIndex != i)
                     {
@@ -148,6 +145,10 @@ public class Player : MonoBehaviour
                         _inventory[_itemIndex].ActivateObject(gameObject);
                     }
 
+                }
+                else
+                {
+                    Debug.Log("Inventory count not greater than 0" + _inventory.Count);
                 }
             }
         }
@@ -160,13 +161,34 @@ public class Player : MonoBehaviour
 
     public void LoadPlayer()
     {
+        Debug.Log("Calling Load and clearing items");
+
+        if (_inventory.Count != 0)
+        {
+            _inventory[_itemIndex].DeActivateObject(gameObject);
+        }
+
+        _inventory = new List<ItemBase>();
         InventoryToken data = SaveSystem.LoadPlayer();
+
+        Debug.Log("adding items back");
+        _inventory.Add(data.Item1);
+        _inventory.Add(data.Item2);
+        _inventory.Add(data.Item3);
+
 
 
         xyz.x = data.x;
         xyz.y = data.y;
         xyz.z = data.z;
+
+        xyzOri.x = data.xor;
+        xyzOri.y = data.yor;
+        xyzOri.z = data.zor;
+
+
         Prefs.Player.transform.position = xyz;
+        Prefs.Player.transform.rotation = xyzOri;
     }
 
     public void TakeDamage(float DamageTaken)
