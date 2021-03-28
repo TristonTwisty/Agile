@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    public static AudioManager instace;
+    public static AudioManager instance;
 
     [SerializeField] private int _sfxSourceLength;
 
@@ -15,11 +15,11 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
-        if(AudioManager.instace == null)
+        if(AudioManager.instance == null)
         {
-            AudioManager.instace = this;
+            AudioManager.instance = this;
         }
-        else if (AudioManager.instace != this)
+        else if (AudioManager.instance != this)
         {
             Destroy(this);
         }
