@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class Player : MonoBehaviour
 {
+
     [SerializeField] private int _itemIndex = 0;
 
     [SerializeField] public List<ItemBase> _inventory = new List<ItemBase>();
 
-    public List<ItemBase> Inventory { get { return _inventory; } }
+    [SerializeField] public List<ItemBase> Inventory { get { return _inventory; } }
 
     public Vector3 xyz;
 
@@ -39,6 +41,8 @@ public class Player : MonoBehaviour
             if (haswhip) { Inventory.Add(new WhipItem()); }
             if (hasdash) { Inventory.Add(new DashItem()); }
         }
+        Debug.Log(Inventory.Count);
+
     }
 
     void Update()
@@ -56,14 +60,24 @@ public class Player : MonoBehaviour
         }
         CheckItemButton();
 
-        //if (Input.GetKeyDown(KeyCode.F1))
-        //{
-        //    LoadPlayer();
-        //}
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            SavePlayer();
+        }
+
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            LoadPlayer();
+        }
 
         if (PlayerRefs.instance.PlayerHealth <= 0)
         {
             LoadPlayer();
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            Debug.Log(Inventory.Count);
         }
     }
 
@@ -148,7 +162,7 @@ public class Player : MonoBehaviour
     {
         InventoryToken data = SaveSystem.LoadPlayer();
 
-        _inventory = data.ItemList_;
+
         xyz.x = data.x;
         xyz.y = data.y;
         xyz.z = data.z;

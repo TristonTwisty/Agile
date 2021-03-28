@@ -5,16 +5,14 @@ using UnityEngine;
 [System.Serializable]
 public class BattItem : ItemBase
 {
+
     private KeyCode SelectionKey = KeyCode.Alpha1;
 
 
     //Added for UI 
-    private Scriptforui scriptForUI;
     private void Start()
     {
-        scriptForUI = Scriptforui.FindObjectOfType<Scriptforui>();
-        scriptForUI.firstItem.rectTransform.sizeDelta = new Vector2(100, 100);
-
+        Scriptforui.instance.firstItem.rectTransform.sizeDelta = new Vector2(100, 100);
     }
 
    
