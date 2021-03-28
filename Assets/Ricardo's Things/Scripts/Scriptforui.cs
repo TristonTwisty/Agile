@@ -8,8 +8,6 @@ using UnityEngine.UIElements;
 [System.Serializable]
 public class Scriptforui : MonoBehaviour
 {
-    public static Scriptforui instance;
-
     private Player player;
     public Text displayPlayerHealth;
     public float playerHealth;
@@ -51,23 +49,9 @@ public class Scriptforui : MonoBehaviour
     public UnityEngine.UI.Text item2Text;
     public UnityEngine.UI.Text currentItemText;
 
-<<<<<<< HEAD
     public ParticleShield uiParticleShield;
     public bool hasShield;
     public PlayerRefs playerRefs;
-=======
-    private void Awake()
-    {
-        if (Scriptforui.instance == null)
-        {
-            Scriptforui.instance = this;
-        }
-        else if (Scriptforui.instance != this)
-        {
-            Destroy(this);
-        }
-    }
->>>>>>> fa630fc04dfab531bb632308b9f33bd36167742f
 
     void Start()
     {
