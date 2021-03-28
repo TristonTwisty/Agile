@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class BoardItem : ItemBase
 {
-    private KeyCode SelectionKey = KeyCode.Alpha3;
+    //private KeyCode SelectionKey = KeyCode.Alpha3;
 
 
     //Added for UI 
@@ -17,14 +17,14 @@ public class BoardItem : ItemBase
     }
 
 
-    public override bool PressSelectKey(KeyCode KeyPressed)
-    {
-        if (KeyPressed == SelectionKey)
-        {
-            return true;
-        }
-        return false;
-    }
+    //public override bool PressSelectKey(KeyCode KeyPressed)
+    //{
+       // if (KeyPressed == SelectionKey)
+      //  {
+       //     return true;
+      //  }
+      //  return false;
+   // }
 
     public override void ActivateObject(GameObject source)
     {

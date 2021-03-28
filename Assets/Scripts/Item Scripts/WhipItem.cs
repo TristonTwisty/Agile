@@ -10,7 +10,7 @@ public class WhipItem : ItemBase
         GameObject.Instantiate(VisualManager.instace.WhipVisual, source.transform.position,Quaternion.identity);
     }*/
 
-    private KeyCode SelectionKey = KeyCode.Alpha4;
+    private KeyCode SelectionKey = KeyCode.Alpha3;
 
     //Added for UI 
     private Scriptforui scriptForUI;
