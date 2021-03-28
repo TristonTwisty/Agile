@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     [Header("Plugins")]
-    private PlayerHealth playerHealth;
+    private PlayerRefs playerHealth;
 
     [Header("UI")]
     public Text HealthText;
@@ -19,12 +19,12 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        playerHealth = PlayerRefs.instance.Player.gameObject.GetComponent<PlayerHealth>();
+        playerHealth = PlayerRefs.instance.Player.GetComponent<PlayerRefs>();
     }
 
     private void Update()
     {
-        HealthText.text = playerHealth.CurrentHealth.ToString();
+        HealthText.text = playerHealth.PlayerHealth.ToString();
 
         SheildCpacity.text = PlayerRefs.instance.Sheild.transform.gameObject.GetComponent<ParticleShield>().CurrentCapacity.ToString();
         if(PlayerRefs.instance.Sheild.transform.gameObject.GetComponent<ParticleShield>().CurrentCapacity <= 0)

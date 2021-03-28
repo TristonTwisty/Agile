@@ -20,7 +20,7 @@ public class MeleeAI : MonoBehaviour
     private EnemyScripableObject EnemyOBJ;
     private float ChasePlayerRange;
     private float AttackRange;
-    [Tooltip("The enemy's face, where they look")] [SerializeField] private Transform Face = null;
+    [Tooltip("The enemy's face, where they look")] public Transform Face = null;
     private float Health;
 
 
@@ -95,6 +95,11 @@ public class MeleeAI : MonoBehaviour
 
         ChasePlayerRange = EnemyOBJ.ChaseRange;
         AttackRange = EnemyOBJ.AttackRange;
+
+        if (ChasePlayerRange <= AttackRange)
+        {
+            ChasePlayerRange = 1 + AttackRange;
+        }
 
         if (points.Length == 0)
         {

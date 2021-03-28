@@ -25,6 +25,7 @@ public class TurretBoss : MonoBehaviour
 
     [Header("Statistics")]
     public float CurrentHealth;
+    private float MaxHealth;
     private float AttackTimer;
     private float TurnSpeed;
     private Quaternion OriginalRot;
@@ -92,6 +93,8 @@ public class TurretBoss : MonoBehaviour
         DiscPickup.transform.parent = null;
 
         BD = GetComponentInParent<BossDoor>();
+
+        MaxHealth = EnemyOBJ.Health;
     }
 
     private void DoChooseAttack()
@@ -184,7 +187,7 @@ public class TurretBoss : MonoBehaviour
     {
         CurrentHealth = EB.CurrentHealth;
 
-        if (CurrentHealth <= (CurrentHealth /2) && !ActivateTraps)
+        if (CurrentHealth <= (MaxHealth /2) && !ActivateTraps)
         {
             TrapsActivated = true;
 

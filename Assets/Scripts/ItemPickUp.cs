@@ -49,10 +49,6 @@ public class ItemPickUp : MonoBehaviour
                         scriptForUI.dockedItem1.gameObject.SetActive(true);
                         scriptForUI.item1Text.gameObject.SetActive(true);
                         break;
-                    case ItemsInGame.Board:
-                        player.GetComponent<Player>().Inventory.Add(new BoardItem());
-                        player.GetComponent<Player>().hasboard = true;
-                        break;
                     case ItemsInGame.Batt:
                         player.GetComponent<Player>().Inventory.Add(new BattItem());
                         player.GetComponent<Player>().hasbatt = true;

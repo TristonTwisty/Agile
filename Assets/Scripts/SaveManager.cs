@@ -2,18 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SaveManager : MonoBehaviour
-{
-
-    public void SaveGame()
-    {
-
-    }
-}
-
 [System.Serializable]
 public class InventoryToken
 {
+    public float PlayerHealth_;
+
     public float x;
     public float y;
     public float z;
@@ -22,19 +15,37 @@ public class InventoryToken
     public float yor;
     public float zor;
 
-    [SerializeField] public List<ItemBase> ItemList_;
-    [SerializeField] public float PlayerHealth_;
+    public ItemBase Item1;
+    public ItemBase Item2;
+    public ItemBase Item3;
+
+    //public float PlayerHealth_;
 
     public InventoryToken(Player ItemTemp)
     {
+        if (ItemTemp.Inventory.Count >= 1)
+        {
+            Debug.Log("Made it to 1");
+            Item1 = ItemTemp._inventory[0];
+            Debug.Log(Item1);
+        }
+        if (ItemTemp.Inventory.Count >= 2)
+        {
+            Debug.Log("Made it to 2");
+            Item2 = ItemTemp._inventory[1];
+            Debug.Log(Item2);
+        }
+        if (ItemTemp.Inventory.Count >= 3)
+        {
+            Debug.Log("Made it to 3");
+            Item3 = ItemTemp._inventory[2];
+            Debug.Log(Item3);
+        }
 
-        ItemList_ = ItemTemp.Inventory;
+
+
+
         PlayerHealth_ = PlayerRefs.instance.PlayerHealth;
-
-        /*onboard_ = ItemTemp.onboard;
-        Holdingbatt_ = ItemTemp.Holdingbatt;
-        HoldingDisk_ = ItemTemp.HoldingDisk;
-        HoldingWhip_ = ItemTemp.HoldingWhip;*/
 
         x = PlayerRefs.instance.checkpoint.position.x;
         y = PlayerRefs.instance.checkpoint.position.y;

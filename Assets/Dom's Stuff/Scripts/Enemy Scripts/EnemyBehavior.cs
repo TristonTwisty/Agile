@@ -16,6 +16,11 @@ public class EnemyBehavior : MonoBehaviour
     {
         MaxHealth = EnemyOBJ.Health;
         CurrentHealth = MaxHealth;
+
+        if(MR.GetComponent<Collider>() != null)
+        {
+            MR.GetComponent<Collider>().enabled = false;
+        }
     }
 
     public void TakeDamage(float Damage)
