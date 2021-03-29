@@ -14,7 +14,6 @@ public class PlayerMelee : MonoBehaviour
 
     private void Start()
     {
-        WeaponCollider = PlayerRefs.instance.PlayerBatt.GetComponent<Collider>();
         WeaponCollider.enabled = false;
 
         animator = GetComponent<Animator>();

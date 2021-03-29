@@ -134,14 +134,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 10478473}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1a0cdb274a443c4eb777c2ebe604a98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Owner: {fileID: 1437389974}
+  BatTest: 1
+  Owner: {fileID: 1437389981}
   MeleeOBJ: {fileID: 11400000, guid: 2c707777ea6a8bf46bc037086f732a16, type: 2}
-  Player: {fileID: 0}
+  Player: {fileID: 1437389981}
   HasCharacterController: 0
   HasRigibody: 0
 --- !u!65 &10478476 stripped
@@ -332,7 +333,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 73187205}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c09ddd30f1fc8b344b87f15439a4940b, type: 3}
   m_Name: 
@@ -6525,6 +6526,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1a0cdb274a443c4eb777c2ebe604a98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BatTest: 0
   Owner: {fileID: 419660218}
   MeleeOBJ: {fileID: 11400000, guid: 2c707777ea6a8bf46bc037086f732a16, type: 2}
   Player: {fileID: 0}
@@ -10532,7 +10534,7 @@ PrefabInstance:
     - target: {fileID: 545482175396158259, guid: 5020ca3fc2f065841bec2e3db3661c0c,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 545482175396158260, guid: 5020ca3fc2f065841bec2e3db3661c0c,
         type: 3}

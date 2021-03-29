@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MeleeWeapon : MonoBehaviour
 {
+    [SerializeField] private bool BatTest;
+
     [Header("Weapon and Owner")]
     [SerializeField] Transform Owner;
     [SerializeField] private MeleeScriptableObject MeleeOBJ;
@@ -17,9 +19,10 @@ public class MeleeWeapon : MonoBehaviour
 
     private void Start()
     {
-        //Player = PlayerRefs.instance.Player;
-        Player = PlayerRefs.instance.Player.transform;
-        Owner = gameObject.transform;
+        if (!BatTest)
+        {
+            Player = PlayerRefs.instance.Player.transform;
+        }
         GetComponent<Collider>().isTrigger = true;
         GetComponent<Collider>().enabled = false;
         Physics.IgnoreCollision(GetComponent<Collider>(), Owner.GetComponent<Collider>());

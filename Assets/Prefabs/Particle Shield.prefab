@@ -4880,9 +4880,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxCapacity: 100
   DrainSpeed: 10
-  RechargeSpeed: 5
+  RechargeSpeed: 2.5
   ShieldPS: {fileID: 8514155257129792955}
-  DeflectPS: {fileID: 6030627885937224471, guid: b9c08d09bee00f8499c043668ff3adf5,
+  DeflectPS: {fileID: 6030627885937224466, guid: b9c08d09bee00f8499c043668ff3adf5,
     type: 3}
   CurrentCapacity: 0
   ShieldOn: 0
