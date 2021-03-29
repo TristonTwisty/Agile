@@ -1,12 +1,13 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class ParticleShield : MonoBehaviour
 {
-    public float MaxCapacity;
-    [SerializeField] private float DrainSpeed = 0;
-    [SerializeField] private float RechargeSpeed = 0;
+    public float MaxCapacity = 100;
+    [SerializeField] private float DrainSpeed = 10;
+    public float RechargeSpeed = 2.5f;
     [Tooltip("The PS when the shield is activated")] public ParticleSystem ShieldPS;
-    [Tooltip("The PS activated when something hits the shield")] public ParticleSystem DeflectPS;
+    [Tooltip("The PS activated when something hits the shield")] public GameObject DeflectPS;
     public float CurrentCapacity;
     private Rigidbody ShieldBody;
     private BoxCollider Collider;
@@ -14,7 +15,7 @@ public class ParticleShield : MonoBehaviour
 
 
     //Added By Ricardo for U.I.
-    [HideInInspector] public bool shieldOn = false;
+    [HideInInspector] public bool ShieldOn = false;
     //public AudioSource ShieldSound;
 
 
@@ -44,20 +45,19 @@ public class ParticleShield : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKey(KeyCode.LeftControl))
+        if(CurrentCapacity > 5)
         {
-            shieldOn = true;
-        }
-        else if(CurrentCapacity <= 0)
-        {
-            shieldOn = false;
-        }
-        else
-        {
-            shieldOn = false;
+            if (Input.GetKey(KeyCode.LeftControl))
+            {
+                ShieldOn = true;
+            }
+            else
+            {
+                ShieldOn = false;
+            }
         }
 
-        if (shieldOn)
+        if (ShieldOn)
         {
             CurrentCapacity -= DrainSpeed * Time.deltaTime;
 
@@ -66,8 +66,7 @@ public class ParticleShield : MonoBehaviour
             ShieldPS.Play();
             //ShieldSound.Play();
         }
-
-        if (!shieldOn)
+        else if(!ShieldOn)
         {
             CurrentCapacity += RechargeSpeed * Time.deltaTime;
 
@@ -81,6 +80,11 @@ public class ParticleShield : MonoBehaviour
         {
             CurrentCapacity = MaxCapacity;
         }
+        if(CurrentCapacity <= 0)
+        {
+            CurrentCapacity = 0;
+            ShieldOn = false;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -91,7 +95,7 @@ public class ParticleShield : MonoBehaviour
             ContactPoint Contact = collision.contacts[0];
 
             //Play PS at point of contact
-            //Instantiate(DeflectPS, new Vector3(Contact.point.x, Contact.point.y, Contact.point.z), Quaternion.identity);
+            ObjectPooling.Spawn(DeflectPS, new Vector3(Contact.point.x, Contact.point.y, Contact.point.z), Quaternion.identity);
 
             //Destroy object hit
             Destroy(collision.gameObject);
