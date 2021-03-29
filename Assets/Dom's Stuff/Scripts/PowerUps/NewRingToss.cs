@@ -57,6 +57,8 @@ public class NewRingToss : MonoBehaviour
 
         //Added For GameSounds
         gameSounds = GameSounds.FindObjectOfType<GameSounds>();
+
+        transform.parent = null;
     }
 
     private void Update()

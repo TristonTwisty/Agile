@@ -26,10 +26,17 @@ public class SequencePuzzleObject : MonoBehaviour
         transform.parent = null;
     }
 
+    private void Update()
+    {
+        if (Activated)
+        {
+            MR.material.color = ActivatedColor;
+        }
+    }
+
     private IEnumerator ActivationTimer()
     {
         Activated = true;
-        MR.material.color = ActivatedColor;
 
         yield return new WaitForSeconds(FailTimer);
 

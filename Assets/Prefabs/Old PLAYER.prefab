@@ -2318,8 +2318,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1a0cdb274a443c4eb777c2ebe604a98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BatTest: 0
   Owner: {fileID: 3104759442738510496}
   MeleeOBJ: {fileID: 11400000, guid: 2c707777ea6a8bf46bc037086f732a16, type: 2}
+  Player: {fileID: 0}
+  HasCharacterController: 0
+  HasRigibody: 0
 --- !u!1 &3104759441890287921
 GameObject:
   m_ObjectHideFlags: 0
@@ -3151,7 +3155,7 @@ MonoBehaviour:
   DeflectPS: {fileID: 6030627885937224471, guid: b9c08d09bee00f8499c043668ff3adf5,
     type: 3}
   CurrentCapacity: 0
-  shieldOn: 0
+  ShieldOn: 0
 --- !u!82 &3104759442235137925
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4879,7 +4883,7 @@ GameObject:
   - component: {fileID: 3104759442738510494}
   - component: {fileID: 3104759442738510495}
   m_Layer: 8
-  m_Name: FINAL PLAYER
+  m_Name: Old PLAYER
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4970,16 +4974,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff827f1c32f6b35488ea5ecc5582e62d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  gravity: 10
-  maxVelocityChange: 10
-  canJump: 1
-  CanWalk: 1
-  jumpHeight: 2
-  grounded: 0
-  GravityLock: 2
-  CanWallWalk: 0
+  MovementSpeed: 10
+  MaxVelocityChange: 10
   LerpSpeed: 5
+  CanWallWalk: 0
+  JumpHeight: 2
+  Gravity: 10
+  GravityLock: 2
 --- !u!114 &3104759442738510491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4992,7 +4993,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c09ddd30f1fc8b344b87f15439a4940b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Weapon: {fileID: 3104759441829318180}
+  WeaponCollider: {fileID: 0}
 --- !u!114 &3104759442738510492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5010,6 +5011,9 @@ MonoBehaviour:
   CurrentDashes: 0
   DashRecharge: 5
   HasDashBelt: 1
+  DisableUI: 0
+  HasCharacterController: 0
+  HasRigibody: 0
 --- !u!114 &3104759442738510493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5023,7 +5027,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerBatt: {fileID: 3104759441829318179}
-  PlayerBoard: {fileID: 3104759441928369155}
   PlayerWhip: {fileID: 3104759441281512188}
   Disk: {fileID: 3104759442611446681}
   Player: {fileID: 3104759442738510486}
@@ -5033,7 +5036,9 @@ MonoBehaviour:
   PlayerCamera: {fileID: 3104759442545945768}
   RingHolster: {fileID: 3104759440920688713}
   checkpoint: {fileID: 0}
+  checkpointOri: {x: 0, y: 0, z: 0, w: 0}
   PlayerHealth: 100
+  currentHealth: 0
 --- !u!136 &3104759442738510494
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5061,10 +5066,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _itemIndex: 0
+  _inventory: []
   xyz: {x: 0, y: 0, z: 0}
+  xyzOri: {x: 0, y: 0, z: 0, w: 0}
   Startwith: 0
   hasdisk: 0
-  hasboard: 0
   hasbatt: 0
   hassheild: 0
   haswhip: 0

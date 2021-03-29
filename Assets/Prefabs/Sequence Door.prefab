@@ -154,7 +154,7 @@ GameObject:
   - component: {fileID: 2972684589775427330}
   m_Layer: 0
   m_Name: Sequence Door
-  m_TagString: Untagged
+  m_TagString: Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -463,8 +463,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eda0b05dddb09f742a71264bf664538b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SequenceObJects:
-  - {fileID: 2972684589176628457}
+  SequenceObjects: []
   MovePosition: {fileID: 2972684588795000178}
   ResetTimer: 5
   ActivationColor: {r: 1, g: 0, b: 1, a: 0}
