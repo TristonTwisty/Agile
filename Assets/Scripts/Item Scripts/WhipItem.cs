@@ -5,19 +5,10 @@ using UnityEngine;
 [System.Serializable]
 public class WhipItem : ItemBase
 {
-    /*public override void UseItem(GameObject source)
+    [SerializeField] private KeyCode SelectionKey = KeyCode.Alpha3;
+    public override GameObject ReturnGO()
     {
-        GameObject.Instantiate(VisualManager.instace.WhipVisual, source.transform.position,Quaternion.identity);
-    }*/
-
-    private KeyCode SelectionKey = KeyCode.Alpha3;
-
-    //Added for UI 
-    private Scriptforui scriptForUI;
-
-    private void Start()
-    {
-        scriptForUI = Scriptforui.FindObjectOfType<Scriptforui>();
+        return VisualManager.instace.WhipVisual.gameObject;
     }
 
     public override bool PressSelectKey(KeyCode KeyPressed)

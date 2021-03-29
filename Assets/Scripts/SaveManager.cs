@@ -19,6 +19,8 @@ public class InventoryToken
     public ItemBase Item2;
     public ItemBase Item3;
 
+    public List<ItemBase> ItemsInInventory;
+
     //public float PlayerHealth_;
 
     public InventoryToken(Player ItemTemp)
@@ -42,10 +44,15 @@ public class InventoryToken
             Debug.Log(Item3);
         }
 
+        ItemsInInventory = ItemTemp._inventory;
+
+        /*for (int i = 0; i < ItemsInInventory.Count; i++)
+        {
+            Debug.Log(ItemsInInventory[i]);
+        }*/
 
 
-
-        PlayerHealth_ = PlayerRefs.instance.PlayerHealth;
+        PlayerHealth_ = PlayerRefs.instance.currentHealth;
 
         x = PlayerRefs.instance.checkpoint.position.x;
         y = PlayerRefs.instance.checkpoint.position.y;

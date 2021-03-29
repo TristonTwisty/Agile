@@ -6,16 +6,12 @@ using UnityEngine;
 public class BattItem : ItemBase
 {
 
-    private KeyCode SelectionKey = KeyCode.Alpha1;
+    [SerializeField] private KeyCode SelectionKey = KeyCode.Alpha1;
 
-
-    //Added for UI 
-    private void Start()
+    public override GameObject ReturnGO()
     {
-        Scriptforui.instance.firstItem.rectTransform.sizeDelta = new Vector2(100, 100);
+        return VisualManager.instace.BattVisual.gameObject;
     }
-
-   
 
     public override bool PressSelectKey(KeyCode KeyPressed)
     {
@@ -43,4 +39,5 @@ public class BattItem : ItemBase
         PlayerRefs.instance.Player.GetComponent<Animator>().SetTrigger("Attack");
         VisualManager.instace.BattVisual.GetComponent<Collider>().enabled = true;
     }
+
 }

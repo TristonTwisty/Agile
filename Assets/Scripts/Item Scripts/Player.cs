@@ -42,7 +42,7 @@ public class Player : MonoBehaviour
             if (haswhip) { Inventory.Add(new WhipItem()); }
             if (hasdash) { Inventory.Add(new DashItem()); }
         }
-        Debug.Log(Inventory.Count);
+        //Debug.Log(Inventory.Count);
 
         
     }
@@ -132,24 +132,20 @@ public class Player : MonoBehaviour
     {
         Event e = Event.current;
         //Debug.Log(e);
-        if (e.isKey)
+        if (e.isKey && _inventory != null)
         {
             //Debug.Log(e);
             for (int i = 0; i < Inventory.Count; i++)
             {
-                if (_inventory.Count > 0 && Inventory[i].PressSelectKey(e.keyCode))
+                if (Inventory[i].PressSelectKey(e.keyCode))
                 {
-                    if (_itemIndex != i)
+                    if (_itemIndex != i || _inventory[_itemIndex].ReturnGO().activeInHierarchy == false)
                     {
                         _inventory[_itemIndex].DeActivateObject(gameObject);
                         _itemIndex = i;
                         _inventory[_itemIndex].ActivateObject(gameObject);
                     }
 
-                }
-                else
-                {
-                    Debug.Log("Inventory count not greater than 0" + _inventory.Count);
                 }
             }
         }
@@ -164,20 +160,16 @@ public class Player : MonoBehaviour
     {
         Debug.Log("Calling Load and clearing items");
 
-        if (_inventory.Count != 0)
-        {
-            _inventory[_itemIndex].DeActivateObject(gameObject);
-        }
-
-        _inventory = new List<ItemBase>();
         InventoryToken data = SaveSystem.LoadPlayer();
 
+        /*_inventory = new List<ItemBase>();
         Debug.Log("adding items back");
         _inventory.Add(data.Item1);
         _inventory.Add(data.Item2);
-        _inventory.Add(data.Item3);
+        _inventory.Add(data.Item3);*/
 
-
+        _inventory = data.ItemsInInventory;
+        PlayerRefs.instance.currentHealth = data.PlayerHealth_;
 
         xyz.x = data.x;
         xyz.y = data.y;

@@ -16,6 +16,11 @@ public class DiskItem : ItemBase
         scriptForUI = Scriptforui.FindObjectOfType<Scriptforui>();
     }
 
+    public override GameObject ReturnGO()
+    {
+        return VisualManager.instace.DiskVisual.gameObject;
+    }
+
 
     public override bool PressSelectKey(KeyCode KeyPressed)
     {
