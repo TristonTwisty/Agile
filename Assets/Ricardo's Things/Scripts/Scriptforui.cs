@@ -8,6 +8,7 @@ using UnityEngine.UIElements;
 [System.Serializable]
 public class Scriptforui : MonoBehaviour
 {
+    public static Scriptforui instance;
     private Player player;
     public Text displayPlayerHealth;
     public float playerHealth;
@@ -51,14 +52,25 @@ public class Scriptforui : MonoBehaviour
 
     public ParticleShield uiParticleShield;
     public bool hasShield;
-    public PlayerRefs playerRefs;
+    //public PlayerRefs pRefs;
 
+    private void Awake()
+    {
+        if (Scriptforui.instance == null)
+        {
+            Scriptforui.instance = this;
+        }
+        else if(Scriptforui.instance != this)
+        {
+            Destroy(this);
+        }
+    }
     void Start()
     {
        
         currentDashAmount = 0;
         totalDashAmount = 3;
-        playerHealth = 100;
+        playerHealth = PlayerRefs.instance.PlayerHealth;
 
         shieldRecharge = 100;
         shieldRechargeSlider.value = shieldRecharge;
@@ -75,7 +87,7 @@ public class Scriptforui : MonoBehaviour
 
         uiParticleShield = ParticleShield.FindObjectOfType<ParticleShield>();
 
-        playerRefs = PlayerRefs.FindObjectOfType<PlayerRefs>();
+        //pRefs = PlayerRefs.FindObjectOfType<PlayerRefs>();
 
         hasShield = false;
     }
@@ -115,8 +127,19 @@ public class Scriptforui : MonoBehaviour
                 shieldRechargeSlider.value = (shieldRechargeSlider.value + 20 * Time.deltaTime);
             }
         }
-        
-        
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            PlayerRefs.instance.Player.GetComponent<Player>().TakeDamage(20);
+        }
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            PlayerRefs.instance.Player.GetComponent<Player>().HealPlayer(20);
+        }
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+           
+        }
     }
 
     private void playerPressedOne()

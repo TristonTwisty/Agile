@@ -44,6 +44,7 @@ public class Player : MonoBehaviour
         }
         Debug.Log(Inventory.Count);
 
+        
     }
 
     void Update()
@@ -193,11 +194,13 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(float DamageTaken)
     {
-        PlayerRefs.instance.PlayerHealth -= DamageTaken;
+        PlayerRefs.instance.currentHealth -= DamageTaken;
+        Scriptforui.instance.playerHealthSlider.value -= DamageTaken;
     }
 
     public void HealPlayer(float HealthReceived)
     {
-        PlayerRefs.instance.PlayerHealth += HealthReceived;
+        PlayerRefs.instance.currentHealth += HealthReceived;
+        Scriptforui.instance.playerHealthSlider.value += HealthReceived;
     }
 }

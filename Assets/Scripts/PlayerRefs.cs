@@ -19,6 +19,7 @@ public class PlayerRefs : MonoBehaviour
     public Transform checkpoint;
     public Quaternion checkpointOri;
     public float PlayerHealth;
+    public float currentHealth;
 
     private void Awake()
     {
@@ -31,7 +32,7 @@ public class PlayerRefs : MonoBehaviour
             Destroy(this);
         }
 
-        
+        //currentHealth = PlayerHealth;
     }
 
     // Start is called before the first frame update
