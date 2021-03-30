@@ -32,7 +32,7 @@ public class PlayerRefs : MonoBehaviour
             Destroy(this);
         }
 
-        //currentHealth = PlayerHealth;
+        currentHealth = PlayerHealth;
     }
 
     // Start is called before the first frame update
