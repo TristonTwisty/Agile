@@ -13,7 +13,7 @@ public class PlayerRefs : MonoBehaviour
     public Transform Player;
     public Transform Sheild;
     public Transform Batt;
-    public RigidbodyFPS movementS;
+    //public RigidbodyFPS movementS;
     public Transform PlayerCamera;
     public Transform RingHolster;
     public Transform checkpoint;
