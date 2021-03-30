@@ -43,7 +43,7 @@ public class MeleeWeapon : MonoBehaviour
     {
         if(other.CompareTag("Enemy"))
         {
-            other.GetComponent<Rigidbody>().AddForce(Owner.transform.forward * MeleeOBJ.KnockbackPower, ForceMode.Impulse);
+            other.GetComponent<Rigidbody>().AddForce(Owner.transform.forward * MeleeOBJ.RBKnockbackPower, ForceMode.Impulse);
             other.GetComponent<EnemyBehavior>().TakeDamage(MeleeOBJ.DamageDealt);
         }
         else if (other.CompareTag("Player"))
@@ -52,11 +52,11 @@ public class MeleeWeapon : MonoBehaviour
 
             if (HasCharacterController)
             {
-                other.GetComponent<CharacterController>().Move(Owner.forward * MeleeOBJ.KnockbackPower);
+                other.GetComponent<CharacterController>().Move(Owner.forward * MeleeOBJ.CCKnockbackPower);
             }
             else if (HasRigibody)
             {
-                other.GetComponent<Rigidbody>().AddForce(Owner.forward * MeleeOBJ.KnockbackPower, ForceMode.VelocityChange);
+                other.GetComponent<Rigidbody>().AddForce(Owner.forward * MeleeOBJ.RBKnockbackPower, ForceMode.VelocityChange);
             }
         }
     }

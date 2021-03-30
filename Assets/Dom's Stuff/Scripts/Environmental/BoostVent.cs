@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class BoostVent : MonoBehaviour
 {
-    [Tooltip("How much force is applied to the boost")][SerializeField] private float BoostForce = 20f;
+    [Tooltip("How much force is applied to the boost when using character controller")][SerializeField] private float CCBoostForce = 5f;
+    [Tooltip("How much force is applied to the boost when using Rigibody")] [SerializeField] private float RBBoostForce = 20f;
 
     [Header("Player")]
     [SerializeField] private Transform Player;
@@ -39,11 +40,11 @@ public class BoostVent : MonoBehaviour
         {
             if (HasCharacterController)
             {
-                other.GetComponent<CharacterController>().Move(transform.up * BoostForce);
+                other.GetComponent<CharacterController>().Move(transform.up * CCBoostForce);
             }
             else if (HasRigibody)
             {
-                other.GetComponent<Rigidbody>().AddForce(transform.up * BoostForce, ForceMode.VelocityChange);
+                other.GetComponent<Rigidbody>().AddForce(transform.up * RBBoostForce, ForceMode.VelocityChange);
             }
         }
     }

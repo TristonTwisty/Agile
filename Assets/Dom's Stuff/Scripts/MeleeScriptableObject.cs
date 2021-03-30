@@ -5,5 +5,6 @@
 public class MeleeScriptableObject : ScriptableObject
 {
     public float DamageDealt;
-    public float KnockbackPower;
+    public float RBKnockbackPower;
+    public float CCKnockbackPower;
 }

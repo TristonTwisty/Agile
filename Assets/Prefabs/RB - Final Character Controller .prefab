@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 4497921956518851027}
   - component: {fileID: 4497921956518851026}
   m_Layer: 8
-  m_Name: Final Character Controller
+  m_Name: 'RB - Final Character Controller '
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -385,17 +385,17 @@ PrefabInstance:
     - target: {fileID: 8812731745970579840, guid: 1cef8abb8325e21459c3473db7fdebe9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15.66
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8812731745970579840, guid: 1cef8abb8325e21459c3473db7fdebe9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.45
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8812731745970579840, guid: 1cef8abb8325e21459c3473db7fdebe9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -23.69
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8812731745970579840, guid: 1cef8abb8325e21459c3473db7fdebe9,
         type: 3}

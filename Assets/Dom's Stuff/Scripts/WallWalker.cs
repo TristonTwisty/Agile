@@ -56,14 +56,13 @@ public class WallWalker : MonoBehaviour
 			// Jump
 			if (canJump && Input.GetKeyDown(KeyCode.Space))
 			{
+				Grounded = false;
 				rigidbody.AddForce(transform.up * JumpHeight, ForceMode.VelocityChange);
 			}
 		}
 
 		// We apply gravity manually for more tuning control
 		rigidbody.AddForce(-Gravity * rigidbody.mass * MyNormal);
-
-		Grounded = false;
 	}
 
 	private void Update()
