@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMelee : MonoBehaviour
 {
     [Header("Components")]
-    private Animator animator;
+    public Animator animator;
 
     [Header("Weapon")]
     [SerializeField] private Collider WeaponCollider = null;
@@ -16,7 +16,7 @@ public class PlayerMelee : MonoBehaviour
     {
         WeaponCollider.enabled = false;
 
-        animator = GetComponent<Animator>();
+        //animator = GetComponent<Animator>();
     }
 
     private void Update()

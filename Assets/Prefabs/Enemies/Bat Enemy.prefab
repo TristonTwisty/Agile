@@ -1217,8 +1217,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1a0cdb274a443c4eb777c2ebe604a98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Owner: {fileID: 6608176423230015752}
+  BatTest: 0
+  Owner: {fileID: 5836425274908791730}
   MeleeOBJ: {fileID: 11400000, guid: 2c707777ea6a8bf46bc037086f732a16, type: 2}
+  Player: {fileID: 0}
+  HasCharacterController: 0
+  HasRigibody: 0
 --- !u!1 &4662879602135811282
 GameObject:
   m_ObjectHideFlags: 0
@@ -1837,6 +1841,7 @@ MonoBehaviour:
   EnemyOBJ: {fileID: 11400000, guid: a5b149644a339254fb593c5b0cf429dd, type: 2}
   MR: {fileID: 5116103747982762314}
   CurrentHealth: 0
+  ActivateBoss: 0
 --- !u!114 &6608176423230015753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1849,6 +1854,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60966d28396ce434cabe6d9d52ccf461, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AiTest: 0
   Player: {fileID: 0}
   Face: {fileID: 5116103748118373354}
   points: []

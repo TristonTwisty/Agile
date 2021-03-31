@@ -71,6 +71,7 @@ public class ItemPickUp : MonoBehaviour
                     case ItemsInGame.Dash:
                         player.GetComponent<Player>().Inventory.Add(new DashItem());
                         player.GetComponent<Player>().hasdash = true;
+                        player.GetComponent<DashBelt>().HasDashBelt = true;
                         //Added For UI
                         scriptForUI.playerDash.gameObject.SetActive(true);
                         scriptForUI.displayTotalDashAmount.gameObject.SetActive(true);
