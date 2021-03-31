@@ -11,6 +11,7 @@ public class StartScript : MonoBehaviour
     void Start()
     {
         SceneManager.LoadSceneAsync(Level, LoadSceneMode.Additive);
+        Destroy(this);
     }
 
     // Update is called once per frame

@@ -23,9 +23,9 @@ public class ParticleShield : MonoBehaviour
     //public Scriptforui scriptForUI;
     //public GameSounds gameSounds;
 
-
-    private void Start()
+    private void OnEnable()
     {
+        //Debug.Log("Enable called");
         CurrentCapacity = MaxCapacity;
 
         ShieldBody = GetComponent<Rigidbody>();
