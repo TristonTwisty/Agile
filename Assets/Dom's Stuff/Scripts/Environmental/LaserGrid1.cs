@@ -31,10 +31,12 @@ public class LaserGrid1 : MonoBehaviour
 
             if (hit.transform.CompareTag("Sheild"))
             {
+                //Debug.Log("Sheild detected. disable collider");
                 collider.enabled = false;
             }
             else
             {
+                //Debug.Log("NO");
                 collider.enabled = true;
             }
         }
@@ -42,8 +44,10 @@ public class LaserGrid1 : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.transform.CompareTag("Player") || collision.transform.CompareTag("Enemy"))
+        //Debug.Log("Collison detected");
+        if (collision.transform.CompareTag("Player") || collision.transform.CompareTag("Enemy"))
         {
+            //Debug.Log("Player or enemy");
             ContactPoint CP = collision.contacts[0];
 
             Vector3 Direction = (collision.transform.position - CP.point).normalized;
@@ -53,6 +57,7 @@ public class LaserGrid1 : MonoBehaviour
 
         if (collision.transform.CompareTag("Enemy"))
         {
+            //Debug.Log("enemy");
             collision.transform.GetComponent<EnemyBehavior>().TakeDamage(50);
         }
     }
