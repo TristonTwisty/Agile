@@ -170,6 +170,8 @@ public class Player : MonoBehaviour
 
         _inventory = data.ItemsInInventory;
         PlayerRefs.instance.currentHealth = data.PlayerHealth_;
+        Scriptforui.instance.playerHealthSlider.value = data.PlayerHealth_;
+
 
         xyz.x = data.x;
         xyz.y = data.y;
