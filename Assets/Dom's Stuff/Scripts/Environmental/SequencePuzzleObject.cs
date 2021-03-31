@@ -44,9 +44,11 @@ public class SequencePuzzleObject : MonoBehaviour
         MR.material.color = OriginalColor;
     }
 
-    public void StartFailTimer()
+    private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Starting");
-        StartCoroutine(ActivationTimer());
+        if(collision.transform.CompareTag("Particle Disc"))
+        {
+            StartCoroutine(ActivationTimer());
+        }
     }
 }

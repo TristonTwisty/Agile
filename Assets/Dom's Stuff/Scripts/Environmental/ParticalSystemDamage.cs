@@ -18,4 +18,9 @@ public class ParticalSystemDamage : MonoBehaviour
             other.GetComponent<EnemyBehavior>().TakeDamage(DamageDealt);
         }
     }
+
+    private void OnParticleTrigger()
+    {
+
+    }
 }

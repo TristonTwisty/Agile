@@ -15,7 +15,7 @@ MonoBehaviour:
   Description: 
   Health: 5
   MovementSpeed: 10
-  AttackRate: 2
+  AttackRate: 0.2
   AttackRange: 15
   ChaseRange: 20
   BulletsPerShot: 1

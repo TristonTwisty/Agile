@@ -15,11 +15,11 @@ public class NewRingToss : MonoBehaviour
     [SerializeField] private float Damage;
     [SerializeField] [Tooltip("How fast the ring travels after being thrown")] private float ThrowSpeed;
     [SerializeField] [Tooltip("How how seconds it takes for ring to return to player")] private float ReturnSpeed = 0f;
-    [SerializeField] [Tooltip("How far the disc can travel before returning to player")] private float MaxDistance = 0f;
+    [SerializeField] [Tooltip("How far the disc can travel before returning to player")] private float MaxDistance = 50f;
 
     [Header("Lock On")]
     [SerializeField] private float LockOnDistance = 15;
-    [SerializeField] private int MaxLockOn;
+    [SerializeField] private int MaxLockOn = 3;
     private List<Transform> LockOnTargets = new List<Transform>();
     private List<RingTarget> _ringTarget = new List<RingTarget>();
 
@@ -31,9 +31,6 @@ public class NewRingToss : MonoBehaviour
     private Transform PlayerCamera;
 
     [SerializeField]private Color _lockOnColour;
-
-    [HideInInspector] public bool ThirdPerson;
-
 
     //Added For GameSounds
     private GameSounds gameSounds;
@@ -50,15 +47,10 @@ public class NewRingToss : MonoBehaviour
         PlayerCamera = Camera.main.transform;
 
         // Move ring to player
-        transform.position = RingHolster.position;
-
-        ThirdPerson = false;
-
+        //transform.position = RingHolster.position;
 
         //Added For GameSounds
         gameSounds = GameSounds.FindObjectOfType<GameSounds>();
-
-        transform.parent = null;
     }
 
     private void Update()
@@ -72,10 +64,6 @@ public class NewRingToss : MonoBehaviour
                 //Added For GameSounds
                 //gameSounds.audioSource.PlayOneShot(gameSounds.discTossed);
                 // If the ring was NOT thrown and player hits left mouse, throw ring
-                if (!ThirdPerson)
-                {
-                    ThrowDisc();
-                }
             }
 
             // If the ring has not been thrown and the player hits right mouse, begin locking onto targets
@@ -123,12 +111,6 @@ public class NewRingToss : MonoBehaviour
                     StartCoroutine(LockOnAttack());
                 }
             }
-        }
-
-        if (!Thrown)
-        {
-            // If ring was not thrown, make the ring follow the ring holster
-            transform.position = RingHolster.position;
         }
 
         if (Thrown)
@@ -206,19 +188,14 @@ public class NewRingToss : MonoBehaviour
         {
             collision.transform.GetComponent<EnemyBehavior>().TakeDamage(Damage);
         }
-
-        // If a target is hit
-        if(collision.transform.CompareTag("Target"))
-        {
-            Debug.Log("Hit a target!");
-            collision.transform.GetComponent<SequencePuzzleObject>().StartFailTimer();
-        }
     }
 
     private void ThrowDisc()
     {
         Thrown = true;
         RB.AddForce(PlayerCamera.forward * ThrowSpeed, ForceMode.Force);
+
+        transform.parent = null;
     }
 
     private IEnumerator LockOnAttack()
@@ -274,6 +251,8 @@ public class NewRingToss : MonoBehaviour
         BC.isTrigger = true;
         Vector3 Destination = RingHolster.position - transform.position;
         RB.velocity = Destination * ReturnSpeed;
+
+        transform.parent = RingHolster;
     }
 
     public class RingTarget
@@ -286,10 +265,5 @@ public class NewRingToss : MonoBehaviour
             meshRenderer = _meshRenderer;
             colour = _colour;
         }
-    }
-
-    private void OnEnable()
-    {
-        transform.parent = null;
     }
 }

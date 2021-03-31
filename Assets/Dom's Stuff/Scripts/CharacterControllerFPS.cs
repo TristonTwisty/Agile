@@ -50,11 +50,14 @@ public class CharacterControllerFPS : MonoBehaviour
         // Jump
         if (Input.GetKey(KeyCode.Space) && Grounded)
         {
-            PlayerVelocity.y += Mathf.Sqrt(JumpHeight * -3.0f * -Gravity);
+            //PlayerVelocity.y += Mathf.Sqrt(JumpHeight * -3.0f * -Gravity);
+            CharacterController.Move(transform.up * JumpHeight * Time.deltaTime);
         }
 
         PlayerVelocity.y += -Gravity * Time.deltaTime;
-        CharacterController.Move(PlayerVelocity * Time.deltaTime);
+
+        //CharacterController.Move(PlayerVelocity * Time.deltaTime);
+        CharacterController.Move(-transform.up * Gravity * Time.deltaTime);
 
         //Wall Walking
         Ray ray;
@@ -69,6 +72,7 @@ public class CharacterControllerFPS : MonoBehaviour
                 {
                     IsGrounded = Hit.distance <= GroundDistance + DeltaGround;
                     SurfaceNormal = Hit.normal;
+                    Grounded = true;
                 }
             }
         }
