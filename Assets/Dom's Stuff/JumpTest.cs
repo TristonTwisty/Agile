@@ -14,7 +14,7 @@ public class JumpTest : MonoBehaviour
 	[Header("Jump")]
 	private bool canJump = true;
 	[SerializeField] private float JumpHeight = 100.0f;
-	private bool Grounded = false;
+	public bool Grounded = false;
 
 	[Header("Components")]
 	private Rigidbody rigidbody;
@@ -27,8 +27,6 @@ public class JumpTest : MonoBehaviour
 	private float GroundDistance;
 	private float DeltaGround = .2f;
 	private bool IsGrounded;
-
-	public CollisinInfo collisions;
 
 	void Awake()
 	{
@@ -50,7 +48,11 @@ public class JumpTest : MonoBehaviour
 		Vector3 velocityChange = (targetVelocity - velocity);
 		velocityChange.x = Mathf.Clamp(velocityChange.x, -MaxVelocityChange, MaxVelocityChange);
 		velocityChange.z = Mathf.Clamp(velocityChange.z, -MaxVelocityChange, MaxVelocityChange);
-		//velocityChange.y = 0;
+
+        if (!Grounded)
+        {
+			velocityChange.y = 0;
+		}
 		rigidbody.AddForce(velocityChange, ForceMode.VelocityChange);
 
 		if (Grounded)
@@ -98,20 +100,12 @@ public class JumpTest : MonoBehaviour
 		transform.rotation = Quaternion.Lerp(transform.rotation, TargetRotation, LerpSpeed * Time.deltaTime);
 	}
 
-	void OnCollisionStay()
-	{
-		Grounded = true;
-	}
-}
-
-public struct CollisinInfo
-{
-	public bool above, below;
-	public bool left, right;
-
-	public void Reset()
+    private void OnCollisionEnter(Collision collision)
     {
-		above = below = false;
-		left = right = false;
+		if (collision.gameObject.layer == 11 || collision.gameObject.layer == 18)
+		{
+			Grounded = true;
+		}
+		else Grounded = false;
     }
 }
