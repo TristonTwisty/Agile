@@ -9,18 +9,18 @@ public class JumpTest : MonoBehaviour
 	[SerializeField] private float MovementSpeed = 10.0f;
 	[SerializeField] private float MaxVelocityChange = 14.0f;
 	[Tooltip("How smooth the player rotates when latching to a surface")] [SerializeField] private float LerpSpeed = 5;
-	public bool CanWallWalk = false;
+	public bool CanWallWalk = true;
 
 	[Header("Jump")]
 	private bool canJump = true;
-	[SerializeField] private float JumpHeight = 100.0f;
+	[SerializeField] private float JumpHeight = 10;
 	public bool Grounded = false;
 
 	[Header("Components")]
 	private Rigidbody rigidbody;
 
 	[Header("Gravity")]
-	[SerializeField] private float Gravity = 225.0f;
+	[SerializeField] private float Gravity = 10;
 	[Tooltip("How close the player's feet have to be to the surface to lock onto it")] [SerializeField] private float GravityLock = 2;
 	private Vector3 SurfaceNormal;
 	private Vector3 MyNormal;
@@ -60,7 +60,7 @@ public class JumpTest : MonoBehaviour
 			// Jump
 			if (canJump && Input.GetKeyDown(KeyCode.Space))
 			{
-				rigidbody.AddForce(transform.up * JumpHeight, ForceMode.VelocityChange);
+				rigidbody.AddForce(transform.up * JumpHeight, ForceMode.Impulse);
 			}
 		}
 
@@ -99,13 +99,13 @@ public class JumpTest : MonoBehaviour
 		transform.rotation = Quaternion.Lerp(transform.rotation, TargetRotation, LerpSpeed * Time.deltaTime);
 	}
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
 		if (collision.gameObject.layer == 11 || collision.gameObject.layer == 18)
 		{
 			Grounded = true;
 		}
-    }
+	}
 
     private void OnCollisionExit(Collision collision)
     {

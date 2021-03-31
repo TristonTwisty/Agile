@@ -42,10 +42,6 @@ public class TurretBoss : MonoBehaviour
     private bool ActivateTraps = false;
     private bool TrapsActivated;
 
-    [Header("Boss Door")]
-    [SerializeField] private Transform Entrance;
-    [SerializeField] private Transform Exit;
-
     private IEnumerator Start()
     {
         while (IsAlive)
@@ -215,6 +211,7 @@ public class TurretBoss : MonoBehaviour
         if (EB.ActivateBoss)
         {
             EB.ActivateBoss = false;
+            GetComponent<Collider>().enabled = true;
             ActiveState = State.ChooseAttack;
         }
     }

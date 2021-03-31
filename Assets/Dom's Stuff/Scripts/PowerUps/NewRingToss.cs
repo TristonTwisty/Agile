@@ -123,6 +123,10 @@ public class NewRingToss : MonoBehaviour
                 DoReturn = true;
             }
         }
+        else
+        {
+            transform.position = RingHolster.position;
+        }
         if (DoReturn)
         {
             ReturnDisc();

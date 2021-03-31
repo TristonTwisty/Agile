@@ -306,6 +306,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Final Pho
       objectReference: {fileID: 0}
+    - target: {fileID: 4497921956518851034, guid: 8da20bca70651d044817d4d080ed6fc7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4497921957300017867, guid: 8da20bca70651d044817d4d080ed6fc7,
         type: 3}
       propertyPath: animator
@@ -574,10 +579,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 878165998181151895, guid: 5b13bf8eecad6874ab77899302fffabd,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -2.6379242
+      objectReference: {fileID: 0}
     - target: {fileID: 6031139684676304076, guid: 5b13bf8eecad6874ab77899302fffabd,
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -0.24023438
+      objectReference: {fileID: 0}
+    - target: {fileID: 6052651246548291618, guid: 5b13bf8eecad6874ab77899302fffabd,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1.500061
+      objectReference: {fileID: 0}
+    - target: {fileID: 6052651246636708796, guid: 5b13bf8eecad6874ab77899302fffabd,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1.500061
       objectReference: {fileID: 0}
     - target: {fileID: 6052651246787844794, guid: 5b13bf8eecad6874ab77899302fffabd,
         type: 3}
@@ -593,6 +613,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6052651247318049193, guid: 5b13bf8eecad6874ab77899302fffabd,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1.500061
       objectReference: {fileID: 0}
     - target: {fileID: 6052651247345945067, guid: 5b13bf8eecad6874ab77899302fffabd,
         type: 3}
@@ -1396,7 +1421,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MovementSpeed: 10
-  JumpHeight: 200
+  JumpHeight: 300
   CharacterController: {fileID: 0}
   Gravity: 10
   CanWallWalk: 0

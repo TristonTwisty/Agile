@@ -41,22 +41,25 @@ public class MeleeWeapon : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Enemy"))
+        if(other.transform != Owner)
         {
-            other.GetComponent<Rigidbody>().AddForce(Owner.transform.forward * MeleeOBJ.RBKnockbackPower, ForceMode.Impulse);
-            other.GetComponent<EnemyBehavior>().TakeDamage(MeleeOBJ.DamageDealt);
-        }
-        else if (other.CompareTag("Player"))
-        {
-            other.gameObject.GetComponent<Player>().TakeDamage(MeleeOBJ.DamageDealt);
-
-            if (HasCharacterController)
+            if (other.CompareTag("Enemy"))
             {
-                other.GetComponent<CharacterController>().Move(Owner.forward * MeleeOBJ.CCKnockbackPower);
+                other.GetComponent<Rigidbody>().AddForce(Owner.transform.forward * MeleeOBJ.RBKnockbackPower, ForceMode.Impulse);
+                other.GetComponent<EnemyBehavior>().TakeDamage(MeleeOBJ.DamageDealt);
             }
-            else if (HasRigibody)
+            else if (other.CompareTag("Player"))
             {
-                other.GetComponent<Rigidbody>().AddForce(Owner.forward * MeleeOBJ.RBKnockbackPower, ForceMode.VelocityChange);
+                other.gameObject.GetComponent<Player>().TakeDamage(MeleeOBJ.DamageDealt);
+
+                if (HasCharacterController)
+                {
+                    other.GetComponent<CharacterController>().Move(Owner.forward * MeleeOBJ.CCKnockbackPower);
+                }
+                else if (HasRigibody)
+                {
+                    other.GetComponent<Rigidbody>().AddForce(Owner.forward * MeleeOBJ.RBKnockbackPower, ForceMode.VelocityChange);
+                }
             }
         }
     }

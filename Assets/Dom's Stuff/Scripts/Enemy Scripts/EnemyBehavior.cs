@@ -19,7 +19,7 @@ public class EnemyBehavior : MonoBehaviour
 
         if(MR.GetComponent<Collider>() != null)
         {
-            MR.GetComponent<Collider>().enabled = false;
+            //MR.GetComponent<Collider>().enabled = false;
         }
     }
 
