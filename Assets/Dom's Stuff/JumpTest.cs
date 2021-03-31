@@ -60,7 +60,6 @@ public class JumpTest : MonoBehaviour
 			// Jump
 			if (canJump && Input.GetKeyDown(KeyCode.Space))
 			{
-				Grounded = false;
 				rigidbody.AddForce(transform.up * JumpHeight, ForceMode.VelocityChange);
 			}
 		}
@@ -106,6 +105,10 @@ public class JumpTest : MonoBehaviour
 		{
 			Grounded = true;
 		}
-		else Grounded = false;
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+		Grounded = false;
     }
 }

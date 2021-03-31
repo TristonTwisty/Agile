@@ -7986,9 +7986,9 @@ MonoBehaviour:
   MaxVelocityChange: 14
   LerpSpeed: 5
   CanWallWalk: 1
-  JumpHeight: 50
+  JumpHeight: 15
   Grounded: 0
-  Gravity: 100
+  Gravity: 50
   GravityLock: 2
 --- !u!4 &1755286843 stripped
 Transform:
