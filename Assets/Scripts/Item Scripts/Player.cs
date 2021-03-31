@@ -27,12 +27,12 @@ public class Player : MonoBehaviour
     [Header("Quick Item Switch")]
     public bool ScrollWheelSwitch;
 
-    public PlayerRefs Prefs;
+    public PlayerRefs instance;
 
 
     private void Start()
     {
-        Prefs = gameObject.GetComponent<PlayerRefs>();
+
 
         if (Startwith)
         {
@@ -174,14 +174,17 @@ public class Player : MonoBehaviour
         xyz.x = data.x;
         xyz.y = data.y;
         xyz.z = data.z;
+        //Debug.Log(data.x);
+        //Debug.Log(data.y);
+        //Debug.Log(data.z);
 
         xyzOri.x = data.xor;
         xyzOri.y = data.yor;
         xyzOri.z = data.zor;
+        
 
-
-        Prefs.Player.transform.position = xyz;
-        Prefs.Player.transform.rotation = xyzOri;
+        PlayerRefs.instance.Player.transform.localPosition = xyz;
+        PlayerRefs.instance.Player.transform.rotation = xyzOri;
     }
 
     public void TakeDamage(float DamageTaken)

@@ -57,6 +57,9 @@ public class InventoryToken
         x = PlayerRefs.instance.checkpoint.position.x;
         y = PlayerRefs.instance.checkpoint.position.y;
         z = PlayerRefs.instance.checkpoint.position.z;
+        //Debug.Log(x);
+        //Debug.Log(y);
+        //Debug.Log(z);
 
         xor = PlayerRefs.instance.checkpoint.rotation.x;
         yor = PlayerRefs.instance.checkpoint.rotation.y;

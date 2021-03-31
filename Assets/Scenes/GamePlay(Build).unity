@@ -281,6 +281,11 @@ PrefabInstance:
       propertyPath: RingHolster
       value: 
       objectReference: {fileID: 1426467468}
+    - target: {fileID: 4497921956518851026, guid: 8da20bca70651d044817d4d080ed6fc7,
+        type: 3}
+      propertyPath: checkpoint
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4497921956518851028, guid: 8da20bca70651d044817d4d080ed6fc7,
         type: 3}
       propertyPath: DashPower
@@ -817,7 +822,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-2008
+  m_Name: pb_Mesh-1940
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class CheckPoint : MonoBehaviour
 {
-    public PlayerRefs refs;
+    public PlayerRefs instance;
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player") 
         {
-            refs = other.GetComponent<PlayerRefs>();
-            refs.checkpoint = gameObject.transform;
+            
+            PlayerRefs.instance.checkpoint = gameObject.transform;
             other.GetComponent<Player>().SavePlayer();
         }
         gameObject.SetActive(false);
