@@ -285,7 +285,7 @@ PrefabInstance:
         type: 3}
       propertyPath: checkpoint
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1797486530}
     - target: {fileID: 4497921956518851028, guid: 8da20bca70651d044817d4d080ed6fc7,
         type: 3}
       propertyPath: DashPower
@@ -2004,6 +2004,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!4 &1797486530 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7738571198808195574, guid: dd819314bd4e3d7498dfab03cc949d0f,
+    type: 3}
+  m_PrefabInstance: {fileID: 7738571199511515447}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1824574050
 GameObject:
   m_ObjectHideFlags: 0

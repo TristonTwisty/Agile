@@ -53,6 +53,7 @@ public class InventoryToken
 
 
         PlayerHealth_ = PlayerRefs.instance.currentHealth;
+        Scriptforui.instance.playerHealthSlider.value = PlayerRefs.instance.currentHealth;
 
         x = PlayerRefs.instance.checkpoint.position.x;
         y = PlayerRefs.instance.checkpoint.position.y;
