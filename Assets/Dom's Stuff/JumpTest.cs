@@ -28,6 +28,8 @@ public class JumpTest : MonoBehaviour
 	private float DeltaGround = .2f;
 	private bool IsGrounded;
 
+	public LayerMask Walkble;
+
 	void Awake()
 	{
 		rigidbody = GetComponent<Rigidbody>();
@@ -58,18 +60,35 @@ public class JumpTest : MonoBehaviour
 		if (Grounded)
 		{
 			// Jump
-			if (canJump && Input.GetKeyDown(KeyCode.Space))
+			if (Input.GetKeyDown(KeyCode.Space))
 			{
 				rigidbody.AddForce(transform.up * JumpHeight, ForceMode.Impulse);
 			}
 		}
 
-		// We apply gravity manually for more tuning control
-		rigidbody.AddForce(-Gravity * rigidbody.mass * MyNormal);
+        // We apply gravity manually for more tuning control
+        //rigidbody.AddForce(-Gravity * rigidbody.mass * MyNormal, ForceMode.Force);
+        if (!Grounded)
+        {
+			rigidbody.useGravity = true;
+        }
+        else
+        {
+			rigidbody.useGravity = false;
+        }
 	}
 
 	private void Update()
 	{
+		Debug.DrawLine(transform.position, transform.position - transform.up * 1.25f, Color.red);
+		if(Physics.Raycast(transform.position ,-transform.up, 1.25f, Walkble))
+        {
+			Grounded = true;
+        }
+        else
+        {
+			Grounded = false;
+        }
 
 		// Gravity
 		Ray ray;
@@ -97,18 +116,27 @@ public class JumpTest : MonoBehaviour
 		Vector3 MyForward = Vector3.Cross(transform.right, MyNormal);
 		Quaternion TargetRotation = Quaternion.LookRotation(MyForward, MyNormal);
 		transform.rotation = Quaternion.Lerp(transform.rotation, TargetRotation, LerpSpeed * Time.deltaTime);
+
+        if (!Grounded)
+        {
+			Vector3 NewRotaton = transform.localEulerAngles;
+			//NewRotaton.y = 0;
+			Quaternion ResetRotation = Quaternion.Euler(NewRotaton);
+			transform.rotation = Quaternion.Lerp(transform.rotation, ResetRotation, 1);
+			//transform.rotation = Quaternion.LookRotation(NewRotaton);
+        }
 	}
 
     private void OnCollisionStay(Collision collision)
     {
 		if (collision.gameObject.layer == 11 || collision.gameObject.layer == 18)
 		{
-			Grounded = true;
+			//Grounded = true;
 		}
 	}
 
     private void OnCollisionExit(Collision collision)
     {
-		Grounded = false;
+		//Grounded = false;
     }
 }

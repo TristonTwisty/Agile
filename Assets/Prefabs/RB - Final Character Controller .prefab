@@ -31,6 +31,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c09ddd30f1fc8b344b87f15439a4940b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
   WeaponCollider: {fileID: 4177692380078779504}
 --- !u!114 &4497921957237311175
 MonoBehaviour:
@@ -329,7 +330,7 @@ MonoBehaviour:
   hasdash: 0
   hasboots: 0
   ScrollWheelSwitch: 0
-  Prefs: {fileID: 0}
+  instance: {fileID: 0}
 --- !u!114 &4497921956518851026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -348,7 +349,6 @@ MonoBehaviour:
   Player: {fileID: 0}
   Sheild: {fileID: 0}
   Batt: {fileID: 0}
-  movementS: {fileID: 0}
   PlayerCamera: {fileID: 0}
   RingHolster: {fileID: 0}
   checkpoint: {fileID: 0}
@@ -1188,6 +1188,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Arms05
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0e8f97100c937e34a82993261e2f6d88,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1001197521450212838, guid: 0e8f97100c937e34a82993261e2f6d88,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1824,6 +1829,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Particle Shield
+      objectReference: {fileID: 0}
+    - target: {fileID: 8514155258108516261, guid: 85cc18f7e79612b40a080531a4971162,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 85cc18f7e79612b40a080531a4971162, type: 3}
