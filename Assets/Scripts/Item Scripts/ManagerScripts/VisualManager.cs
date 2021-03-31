@@ -8,14 +8,9 @@ public class VisualManager : MonoBehaviour
     public static PlayerRefs refs;
     public GameObject WhipVisual;
     public GameObject DiskVisual;
-    public GameObject BoardVisual;
     public GameObject BattVisual;
     public GameObject SheildVisual;
     public Component DashVisual;
-
-    public GameObject PlayerSurface;
-    public GameObject PlayerJoints;
-
 
     private void Awake()
     {
