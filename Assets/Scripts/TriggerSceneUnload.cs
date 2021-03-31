@@ -21,5 +21,6 @@ public class TriggerSceneUnload : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         SceneManager.UnloadSceneAsync(LevelName);
+        Destroy(this);
     }
 }
