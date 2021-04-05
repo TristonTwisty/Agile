@@ -10,7 +10,7 @@ public class ParticleShield : MonoBehaviour
     [Tooltip("The PS activated when something hits the shield")] public GameObject DeflectPS;
     public float CurrentCapacity;
     private Rigidbody ShieldBody;
-    private BoxCollider Collider;
+    private Collider Collider;
     private MeshRenderer MeshRend;
 
     //Added By Ricardo For U.I.
@@ -26,7 +26,7 @@ public class ParticleShield : MonoBehaviour
         CurrentCapacity = MaxCapacity;
 
         ShieldBody = GetComponent<Rigidbody>();
-        Collider = GetComponent<BoxCollider>();
+        Collider = GetComponent<Collider>();
         MeshRend = GetComponent<MeshRenderer>();
 
         // Disable meshrenderer and collider at start
