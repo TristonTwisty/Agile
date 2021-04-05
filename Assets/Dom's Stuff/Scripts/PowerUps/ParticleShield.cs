@@ -13,18 +13,15 @@ public class ParticleShield : MonoBehaviour
     private BoxCollider Collider;
     private MeshRenderer MeshRend;
 
-
-    //Added By Ricardo for U.I.
-    [HideInInspector] public bool ShieldOn = false;
-    //public AudioSource ShieldSound;
-
-
     //Added By Ricardo For U.I.
     //public Scriptforui scriptForUI;
     //public GameSounds gameSounds;
 
     private void OnEnable()
     {
+        gameObject.layer = 13;
+        gameObject.tag = "Sheild";
+
         //Debug.Log("Enable called");
         CurrentCapacity = MaxCapacity;
 
@@ -45,45 +42,42 @@ public class ParticleShield : MonoBehaviour
     }
     void Update()
     {
-        if(CurrentCapacity > 5)
+        if (Input.GetKey(KeyCode.LeftControl))
         {
-            if (Input.GetKey(KeyCode.LeftControl))
+            if (CurrentCapacity > 0)
             {
-                ShieldOn = true;
+                CurrentCapacity -= DrainSpeed * Time.deltaTime;
+
+                MeshRend.enabled = true;
+                Collider.enabled = true;
+                ShieldPS.Play();
             }
             else
             {
-                ShieldOn = false;
+                MeshRend.enabled = false;
+                Collider.enabled = false;
+                ShieldPS.Play();
             }
         }
-
-        if (ShieldOn)
+        else
         {
-            CurrentCapacity -= DrainSpeed * Time.deltaTime;
-
-            MeshRend.enabled = true;
-            Collider.enabled = true;
-            ShieldPS.Play();
-            //ShieldSound.Play();
-        }
-        else if(!ShieldOn)
-        {
-            CurrentCapacity += RechargeSpeed * Time.deltaTime;
+            if (CurrentCapacity < MaxCapacity)
+            {
+                CurrentCapacity += RechargeSpeed * Time.deltaTime;
+            }
 
             MeshRend.enabled = false;
             Collider.enabled = false;
             ShieldPS.Stop();
-            //ShieldSound.Stop();
         }
 
-        if(CurrentCapacity >= MaxCapacity)
+        if(CurrentCapacity > MaxCapacity)
         {
             CurrentCapacity = MaxCapacity;
         }
-        if(CurrentCapacity <= 0)
+        if(CurrentCapacity < 0)
         {
             CurrentCapacity = 0;
-            ShieldOn = false;
         }
     }
 

@@ -4,24 +4,23 @@
 [RequireComponent(typeof(Rigidbody))]
 public class WallWalker : MonoBehaviour
 {
-
 	[Header("Movement")]
 	[SerializeField] private float MovementSpeed = 10.0f;
 	[SerializeField] private float MaxVelocityChange = 14.0f;
 	[Tooltip("How smooth the player rotates when latching to a surface")] [SerializeField] private float LerpSpeed = 5;
-	public bool CanWallWalk = false;
+	public bool CanWallWalk = true;
 
 	[Header("Jump")]
-	private bool canJump = true;
-	[SerializeField] private float JumpHeight = 100.0f;
+	[SerializeField] private float JumpHeight = 8;
 	private bool Grounded = false;
 
 	[Header("Components")]
 	private Rigidbody rigidbody;
 
 	[Header("Gravity")]
-	[SerializeField] private float Gravity = 225.0f;
-	[Tooltip("How close the player's feet have to be to the surface to lock onto it")] [SerializeField] private float GravityLock = 2;
+	[SerializeField] private float Gravity = 10;
+	[Tooltip("How close the player's feet have to be to the surface to lock onto it")] [SerializeField] private float GravityLock = 1.3f;
+	[SerializeField] private LayerMask Walkble;
 	private Vector3 SurfaceNormal;
 	private Vector3 MyNormal;
 	private float GroundDistance;
@@ -48,25 +47,44 @@ public class WallWalker : MonoBehaviour
 		Vector3 velocityChange = (targetVelocity - velocity);
 		velocityChange.x = Mathf.Clamp(velocityChange.x, -MaxVelocityChange, MaxVelocityChange);
 		velocityChange.z = Mathf.Clamp(velocityChange.z, -MaxVelocityChange, MaxVelocityChange);
-		//velocityChange.y = 0;
+
+		if (!Grounded)
+		{
+			velocityChange.y = 0;
+		}
 		rigidbody.AddForce(velocityChange, ForceMode.VelocityChange);
 
 		if (Grounded)
 		{
 			// Jump
-			if (canJump && Input.GetKeyDown(KeyCode.Space))
+			if (Input.GetKeyDown(KeyCode.Space))
 			{
-				Grounded = false;
-				rigidbody.AddForce(transform.up * JumpHeight, ForceMode.VelocityChange);
+				rigidbody.AddForce(transform.up * JumpHeight, ForceMode.Impulse);
 			}
 		}
 
-		// We apply gravity manually for more tuning control
-		rigidbody.AddForce(-Gravity * rigidbody.mass * MyNormal);
+		// When not grounded, use the rigibody's built in gravity
+		if (!Grounded)
+		{
+			rigidbody.useGravity = true;
+		}
+		else
+		{
+			rigidbody.useGravity = false;
+		}
 	}
 
 	private void Update()
 	{
+		Debug.DrawLine(transform.position, transform.position - transform.up * 1.25f, Color.red);
+		if (Physics.Raycast(transform.position, -transform.up, 1.25f, Walkble))
+		{
+			Grounded = true;
+		}
+		else
+		{
+			Grounded = false;
+		}
 
 		// Gravity
 		Ray ray;
@@ -94,10 +112,12 @@ public class WallWalker : MonoBehaviour
 		Vector3 MyForward = Vector3.Cross(transform.right, MyNormal);
 		Quaternion TargetRotation = Quaternion.LookRotation(MyForward, MyNormal);
 		transform.rotation = Quaternion.Lerp(transform.rotation, TargetRotation, LerpSpeed * Time.deltaTime);
-	}
 
-	void OnCollisionStay()
-	{
-		Grounded = true;
+		if (!Grounded)
+		{
+			Vector3 NewRotaton = transform.localEulerAngles;
+			Quaternion ResetRotation = Quaternion.Euler(NewRotaton);
+			transform.rotation = Quaternion.Lerp(transform.rotation, ResetRotation, 1);
+		}
 	}
 }

@@ -8,13 +8,14 @@ public class LaserGrid1 : MonoBehaviour
     [SerializeField] private Transform StartPoint;
     [SerializeField] private LineRenderer LR;
 
+    [Header("Interactable")]
+    [SerializeField] private float KnockBackPower = 15;
+    [SerializeField] private float LaserDamage = 10;
+
     private Collider collider;
 
     private void Start()
     {
-        //LR = GetComponent<LineRenderer>();
-        LR.startWidth = .5f;
-
         collider = GetComponent<Collider>();
 
         LR.SetPosition(0, StartPoint.position);
@@ -52,13 +53,17 @@ public class LaserGrid1 : MonoBehaviour
 
             Vector3 Direction = (collision.transform.position - CP.point).normalized;
 
-            //collision.gameObject.GetComponent<Rigidbody>().AddForce(Direction * KnockBackPower, ForceMode.Impulse);
+            collision.gameObject.GetComponent<Rigidbody>().AddForce(Direction * KnockBackPower, ForceMode.Impulse);
         }
 
         if (collision.transform.CompareTag("Enemy"))
         {
             //Debug.Log("enemy");
-            collision.transform.GetComponent<EnemyBehavior>().TakeDamage(50);
+            collision.transform.GetComponent<EnemyBehavior>().TakeDamage(LaserDamage);
+        }
+        else if (collision.transform.CompareTag("Player"))
+        {
+            collision.transform.GetComponent<Player>().TakeDamage(LaserDamage);
         }
     }
 }
