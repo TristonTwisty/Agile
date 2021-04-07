@@ -1362,11 +1362,13 @@ GameObject:
   - component: {fileID: 2900231931262944886}
   - component: {fileID: 2900231931262944881}
   - component: {fileID: 2900231931262944880}
+  - component: {fileID: 1379433369025661532}
   - component: {fileID: 2900231931262944883}
   - component: {fileID: 2900231931262944893}
   - component: {fileID: 2900231931262944882}
   - component: {fileID: 2900231931262944885}
   - component: {fileID: 2900231931262944884}
+  - component: {fileID: 6577452350501863944}
   m_Layer: 8
   m_Name: Final Character Controller - For real
   m_TagString: Player
@@ -1450,6 +1452,20 @@ CapsuleCollider:
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!136 &1379433369025661532
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2900231931262944892}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.65
+  m_Height: 2.3
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &2900231931262944883
@@ -1547,7 +1563,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 132368d54303a6c4699d1c5f3295922a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerBatt: {fileID: 0}
   PlayerWhip: {fileID: 0}
   Disk: {fileID: 0}
   Player: {fileID: 0}
@@ -1559,6 +1574,25 @@ MonoBehaviour:
   checkpointOri: {x: 0, y: 0, z: 0, w: 0}
   PlayerHealth: 0
   currentHealth: 0
+--- !u!95 &6577452350501863944
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2900231931262944892}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2900231931450986955
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,7 +7,7 @@ public class PlayerRefs : MonoBehaviour
 {
 
     public static PlayerRefs instance;
-    public Transform PlayerBatt;
+    //public Transform PlayerBatt;
     public Transform PlayerWhip;
     public Transform Disk;
     public Transform Player;
