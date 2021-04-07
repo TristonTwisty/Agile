@@ -20,6 +20,7 @@ TagManager:
   - Target
   - Projectile
   - RingHolster
+  - Boss
   layers:
   - Default
   - TransparentFX

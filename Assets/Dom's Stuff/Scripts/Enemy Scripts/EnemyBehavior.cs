@@ -7,7 +7,8 @@ public class EnemyBehavior : MonoBehaviour
     public EnemyScripableObject EnemyOBJ;
 
     private float MaxHealth;
-    [HideInInspector] public float CurrentHealth;
+    //[HideInInspector] 
+    public float CurrentHealth;
 
     [HideInInspector] public bool ActivateBoss;
 

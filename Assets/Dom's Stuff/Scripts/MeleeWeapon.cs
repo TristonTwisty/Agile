@@ -63,6 +63,11 @@ public class MeleeWeapon : MonoBehaviour
                     other.GetComponent<Rigidbody>().AddForce(Owner.forward * MeleeOBJ.RBKnockbackPower, ForceMode.VelocityChange);
                 }
             }
+            else if (other.CompareTag("Boss"))
+            {
+                other.GetComponent<EnemyBehavior>().TakeDamage(MeleeOBJ.DamageDealt);
+                Owner.GetComponent<Rigidbody>().AddForce(-Owner.forward * 5, ForceMode.VelocityChange);
+            }
         }
     }
 }

@@ -37,6 +37,8 @@ public class ParticalDisk : MonoBehaviour
 
     private void Start()
     {
+        transform.parent = null;
+
         Cam = Camera.main.transform;
 
         rigidbody = GetComponent<Rigidbody>();
@@ -192,7 +194,7 @@ public class ParticalDisk : MonoBehaviour
 
         if (other.CompareTag("Enemy"))
         {
-            GetComponent<EnemyBehavior>().TakeDamage(Damage);
+            other.GetComponent<EnemyBehavior>().TakeDamage(Damage);
         }
     }
 
@@ -205,7 +207,7 @@ public class ParticalDisk : MonoBehaviour
 
         if (collision.transform.CompareTag("Enemy"))
         {
-            GetComponent<EnemyBehavior>().TakeDamage(Damage);
+            collision.transform.GetComponent<EnemyBehavior>().TakeDamage(Damage);
         }
     }
 

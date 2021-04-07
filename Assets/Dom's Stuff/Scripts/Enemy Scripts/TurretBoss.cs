@@ -70,6 +70,8 @@ public class TurretBoss : MonoBehaviour
 
     private void DoInitial()
     {
+        gameObject.tag = "Boss";
+
         if (!AiTest)
         {
             Player = PlayerRefs.instance.Player;
