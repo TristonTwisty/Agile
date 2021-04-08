@@ -8167,6 +8167,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1516215817463855467, guid: 0956c86785fcb8743b5b90f71d3ed9ce,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2665805810898279491, guid: 0956c86785fcb8743b5b90f71d3ed9ce,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2900231931262944887, guid: 0956c86785fcb8743b5b90f71d3ed9ce,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8227,6 +8237,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Final Character Controller - For real
       objectReference: {fileID: 0}
+    - target: {fileID: 8144421792760856081, guid: 0956c86785fcb8743b5b90f71d3ed9ce,
+        type: 3}
+      propertyPath: Testing
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8144421792760856086, guid: 0956c86785fcb8743b5b90f71d3ed9ce,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0956c86785fcb8743b5b90f71d3ed9ce, type: 3}
 --- !u!1001 &1318373594
@@ -8240,6 +8260,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Pea Shooter
+      objectReference: {fileID: 0}
+    - target: {fileID: 3648524642659302150, guid: fe7ba1abedaa1f547bbfa287c8ebf347,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3648524642659302151, guid: fe7ba1abedaa1f547bbfa287c8ebf347,
         type: 3}
@@ -8937,7 +8962,7 @@ PrefabInstance:
     - target: {fileID: 7755205122875248598, guid: e67f913f1459aca419c9e6cb14e7e9cf,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 310.34665
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7755205122875248599, guid: e67f913f1459aca419c9e6cb14e7e9cf,
         type: 3}

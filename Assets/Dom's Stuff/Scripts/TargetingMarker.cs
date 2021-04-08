@@ -6,12 +6,14 @@ public class TargetingMarker : MonoBehaviour
 {
     private Animator animator;
     private SpriteRenderer[] Markers;
+    private Transform Cam;
 
-    //[HideInInspector] 
-    public bool ShowMarkers = false;
+    [HideInInspector] public bool ShowMarkers = false;
 
     private void Start()
     {
+        Cam = Camera.main.transform;
+
         animator = GetComponent<Animator>();
         animator.enabled = false;
 
@@ -29,9 +31,6 @@ public class TargetingMarker : MonoBehaviour
         {
             animator.enabled = true;
 
-            Vector3 Direction = Camera.main.transform.position - transform.position;
-            transform.rotation = Quaternion.LookRotation(Direction);
-
             foreach (SpriteRenderer SR in Markers)
             {
                 SR.enabled = true;
@@ -39,7 +38,7 @@ public class TargetingMarker : MonoBehaviour
         }
         else
         {
-            animator.enabled = false;
+            //animator.enabled = false;
 
             foreach (SpriteRenderer SR in Markers)
             {

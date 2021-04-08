@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f12471e9b44472546a114ec1ed6e331e, type: 3}
   m_Name: Player Bat
   m_EditorClassIdentifier: 
-  DamageDealt: 5
+  DamageDealt: 10
   RBKnockbackPower: 5
   CCKnockbackPower: 0

@@ -189,6 +189,7 @@ public class ParticalDisk : MonoBehaviour
             if (Thrown && ToBase)
             {
                 Thrown = false;
+                rigidbody.angularVelocity = Vector3.zero;
             }
         }
 
@@ -203,7 +204,7 @@ public class ParticalDisk : MonoBehaviour
         float Speed = LastVelocity.magnitude;
         Vector3 Direction = Vector3.Reflect(transform.position.normalized, collision.contacts[0].normal);
 
-        rigidbody.AddForce(Direction, ForceMode.VelocityChange);
+        rigidbody.AddForce(Direction * ThrowSpeed, ForceMode.VelocityChange);
 
         if (collision.transform.CompareTag("Enemy"))
         {
