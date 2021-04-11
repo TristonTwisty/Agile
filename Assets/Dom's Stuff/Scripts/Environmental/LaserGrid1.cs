@@ -12,7 +12,7 @@ public class LaserGrid1 : MonoBehaviour
     [SerializeField] private float KnockBackPower = 15;
     [SerializeField] private float LaserDamage = 10;
 
-    private Collider collider;
+    [HideInInspector] public Collider collider;
 
     private void Start()
     {
@@ -32,7 +32,7 @@ public class LaserGrid1 : MonoBehaviour
 
             if (hit.transform.CompareTag("Sheild"))
             {
-                //Debug.Log("Sheild detected. disable collider");
+                Debug.Log("Sheild detected. disable collider");
                 collider.enabled = false;
             }
             else
@@ -45,7 +45,7 @@ public class LaserGrid1 : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        //Debug.Log("Collison detected");
+        Debug.Log("Collison detected");
         if (collision.transform.CompareTag("Player") || collision.transform.CompareTag("Enemy"))
         {
             //Debug.Log("Player or enemy");

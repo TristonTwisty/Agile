@@ -12,7 +12,7 @@ public class WallWalker : MonoBehaviour
 
 	[Header("Jump")]
 	[SerializeField] private float JumpHeight = 8;
-	private bool Grounded = false;
+	[SerializeField] private bool Grounded = false;
 
 	[Header("Components")]
 	private Rigidbody rigidbody;
@@ -54,15 +54,6 @@ public class WallWalker : MonoBehaviour
 		}
 		rigidbody.AddForce(velocityChange, ForceMode.VelocityChange);
 
-		if (Grounded)
-		{
-			// Jump
-			if (Input.GetKeyDown(KeyCode.Space))
-			{
-				rigidbody.AddForce(transform.up * JumpHeight, ForceMode.Impulse);
-			}
-		}
-
 		// When not grounded, use the rigibody's built in gravity
 		if (!Grounded)
 		{
@@ -76,6 +67,15 @@ public class WallWalker : MonoBehaviour
 
 	private void Update()
 	{
+		if (Grounded)
+		{
+			// Jump
+			if (Input.GetKeyDown(KeyCode.Space))
+			{
+				rigidbody.AddForce(transform.up * JumpHeight, ForceMode.Impulse);
+			}
+		}
+
 		Debug.DrawLine(transform.position, transform.position - transform.up * 1.25f, Color.red);
 		if (Physics.Raycast(transform.position, -transform.up, 1.25f, Walkble))
 		{

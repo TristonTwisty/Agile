@@ -66,7 +66,7 @@ public class MeleeWeapon : MonoBehaviour
             else if (other.CompareTag("Boss"))
             {
                 other.GetComponent<EnemyBehavior>().TakeDamage(MeleeOBJ.DamageDealt);
-                Owner.GetComponent<Rigidbody>().AddForce(-Owner.forward * 5, ForceMode.VelocityChange);
+                Owner.GetComponent<Rigidbody>().AddForce(-Owner.forward * 62, ForceMode.VelocityChange);
             }
         }
     }

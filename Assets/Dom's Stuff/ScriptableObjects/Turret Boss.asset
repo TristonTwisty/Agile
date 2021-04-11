@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Turret Boss
   m_EditorClassIdentifier: 
   Description: 
-  Health: 30
+  Health: 50
   MovementSpeed: 2
   AttackRate: 5
   AttackRange: 0

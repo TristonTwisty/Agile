@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class ParticleShield : MonoBehaviour
 {
     public float MaxCapacity = 100;
@@ -10,7 +11,7 @@ public class ParticleShield : MonoBehaviour
     [Tooltip("The PS activated when something hits the shield")] public GameObject DeflectPS;
     public float CurrentCapacity;
     private Rigidbody ShieldBody;
-    private Collider Collider;
+    private Collider collider;
     private MeshRenderer MeshRend;
 
     //Added By Ricardo For U.I.
@@ -19,6 +20,8 @@ public class ParticleShield : MonoBehaviour
 
     private void OnEnable()
     {
+        collider = GetComponent<Collider>();
+
         gameObject.layer = 13;
         gameObject.tag = "Sheild";
 
@@ -26,11 +29,13 @@ public class ParticleShield : MonoBehaviour
         CurrentCapacity = MaxCapacity;
 
         ShieldBody = GetComponent<Rigidbody>();
-        Collider = GetComponent<Collider>();
+        ShieldBody.isKinematic = true;
+        ShieldBody.useGravity = false;
+
         MeshRend = GetComponent<MeshRenderer>();
 
         // Disable meshrenderer and collider at start
-        Collider.enabled = false;
+        collider.enabled = false;
         MeshRend.enabled = false;
 
 
@@ -49,13 +54,13 @@ public class ParticleShield : MonoBehaviour
                 CurrentCapacity -= DrainSpeed * Time.deltaTime;
 
                 MeshRend.enabled = true;
-                Collider.enabled = true;
+                collider.enabled = true;
                 ShieldPS.Play();
             }
             else
             {
                 MeshRend.enabled = false;
-                Collider.enabled = false;
+                collider.enabled = false;
                 ShieldPS.Play();
             }
         }
@@ -67,7 +72,7 @@ public class ParticleShield : MonoBehaviour
             }
 
             MeshRend.enabled = false;
-            Collider.enabled = false;
+            collider.enabled = false;
             ShieldPS.Stop();
         }
 
