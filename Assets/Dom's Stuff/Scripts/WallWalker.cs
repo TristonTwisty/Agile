@@ -72,7 +72,7 @@ public class WallWalker : MonoBehaviour
 			// Jump
 			if (Input.GetKeyDown(KeyCode.Space))
 			{
-				rigidbody.AddForce(transform.up * JumpHeight, ForceMode.Impulse);
+				rigidbody.AddForce(transform.up * JumpHeight, ForceMode.VelocityChange);
 			}
 		}
 
