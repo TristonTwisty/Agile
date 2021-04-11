@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class TutorialTrigger : MonoBehaviour
 {
-    [SerializeField] private GameObject Text;
+    [SerializeField] private GameObject TutorialPanel;
 
     private void Start()
     {
-        Text.SetActive(false);
+        TutorialPanel.SetActive(false);
     }
     private void OnTriggerEnter(Collider other)
     {
-        Text.SetActive(true);
+        TutorialPanel.SetActive(true);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        Text.SetActive(false);
+        TutorialPanel.SetActive(false);
     }
 }

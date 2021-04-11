@@ -51,4 +51,12 @@ public class SequencePuzzleObject : MonoBehaviour
             StartCoroutine(ActivationTimer());
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Particle Disc"))
+        {
+            StartCoroutine(ActivationTimer());
+        }
+    }
 }

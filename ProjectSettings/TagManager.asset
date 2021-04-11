@@ -12,7 +12,6 @@ TagManager:
   - Board Camera
   - Sheild
   - Whip
-  - Dummy
   - Floor
   - Rail End
   - Batt
@@ -20,6 +19,8 @@ TagManager:
   - Enemy
   - Target
   - Projectile
+  - RingHolster
+  - Boss
   layers:
   - Default
   - TransparentFX
@@ -38,7 +39,7 @@ TagManager:
   - GrappleMask
   - Post
   - Disk
-  - FPS View
+  - RingHolster
   - Gravity  Flooring
   - 
   - 

@@ -15,8 +15,6 @@ public class PlayerMelee : MonoBehaviour
     private void Start()
     {
         WeaponCollider.enabled = false;
-
-        //animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -25,6 +23,7 @@ public class PlayerMelee : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
+                CanAttack = false;
                 animator.SetTrigger("Attack");
             }
         }
@@ -32,7 +31,6 @@ public class PlayerMelee : MonoBehaviour
 
     private void StartAttack()
     {
-        CanAttack = false;
         WeaponCollider.enabled = true;
     }
 

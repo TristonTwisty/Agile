@@ -162,27 +162,18 @@ public class Player : MonoBehaviour
 
         InventoryToken data = SaveSystem.LoadPlayer();
 
-        /*_inventory = new List<ItemBase>();
-        Debug.Log("adding items back");
-        _inventory.Add(data.Item1);
-        _inventory.Add(data.Item2);
-        _inventory.Add(data.Item3);*/
-
         _inventory = data.ItemsInInventory;
         PlayerRefs.instance.currentHealth = data.PlayerHealth_;
+        Scriptforui.instance.playerHealthSlider.value = data.PlayerHealth_;
 
         xyz.x = data.x;
         xyz.y = data.y;
         xyz.z = data.z;
-        //Debug.Log(data.x);
-        //Debug.Log(data.y);
-        //Debug.Log(data.z);
 
         xyzOri.x = data.xor;
         xyzOri.y = data.yor;
         xyzOri.z = data.zor;
         
-
         PlayerRefs.instance.Player.transform.localPosition = xyz;
         PlayerRefs.instance.Player.transform.rotation = xyzOri;
     }

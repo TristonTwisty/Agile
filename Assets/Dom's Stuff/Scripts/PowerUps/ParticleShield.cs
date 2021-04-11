@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class ParticleShield : MonoBehaviour
 {
     public float MaxCapacity = 100;
@@ -10,14 +11,8 @@ public class ParticleShield : MonoBehaviour
     [Tooltip("The PS activated when something hits the shield")] public GameObject DeflectPS;
     public float CurrentCapacity;
     private Rigidbody ShieldBody;
-    private BoxCollider Collider;
+    private Collider collider;
     private MeshRenderer MeshRend;
-
-
-    //Added By Ricardo for U.I.
-    [HideInInspector] public bool ShieldOn = false;
-    //public AudioSource ShieldSound;
-
 
     //Added By Ricardo For U.I.
     //public Scriptforui scriptForUI;
@@ -25,15 +20,22 @@ public class ParticleShield : MonoBehaviour
 
     private void OnEnable()
     {
+        collider = GetComponent<Collider>();
+
+        gameObject.layer = 13;
+        gameObject.tag = "Sheild";
+
         //Debug.Log("Enable called");
         CurrentCapacity = MaxCapacity;
 
         ShieldBody = GetComponent<Rigidbody>();
-        Collider = GetComponent<BoxCollider>();
+        ShieldBody.isKinematic = true;
+        ShieldBody.useGravity = false;
+
         MeshRend = GetComponent<MeshRenderer>();
 
         // Disable meshrenderer and collider at start
-        Collider.enabled = false;
+        collider.enabled = false;
         MeshRend.enabled = false;
 
 
@@ -45,45 +47,42 @@ public class ParticleShield : MonoBehaviour
     }
     void Update()
     {
-        if(CurrentCapacity > 5)
+        if (Input.GetKey(KeyCode.LeftControl))
         {
-            if (Input.GetKey(KeyCode.LeftControl))
+            if (CurrentCapacity > 0)
             {
-                ShieldOn = true;
+                CurrentCapacity -= DrainSpeed * Time.deltaTime;
+
+                MeshRend.enabled = true;
+                collider.enabled = true;
+                ShieldPS.Play();
             }
             else
             {
-                ShieldOn = false;
+                MeshRend.enabled = false;
+                collider.enabled = false;
+                ShieldPS.Play();
             }
         }
-
-        if (ShieldOn)
+        else
         {
-            CurrentCapacity -= DrainSpeed * Time.deltaTime;
-
-            MeshRend.enabled = true;
-            Collider.enabled = true;
-            ShieldPS.Play();
-            //ShieldSound.Play();
-        }
-        else if(!ShieldOn)
-        {
-            CurrentCapacity += RechargeSpeed * Time.deltaTime;
+            if (CurrentCapacity < MaxCapacity)
+            {
+                CurrentCapacity += RechargeSpeed * Time.deltaTime;
+            }
 
             MeshRend.enabled = false;
-            Collider.enabled = false;
+            collider.enabled = false;
             ShieldPS.Stop();
-            //ShieldSound.Stop();
         }
 
-        if(CurrentCapacity >= MaxCapacity)
+        if(CurrentCapacity > MaxCapacity)
         {
             CurrentCapacity = MaxCapacity;
         }
-        if(CurrentCapacity <= 0)
+        if(CurrentCapacity < 0)
         {
             CurrentCapacity = 0;
-            ShieldOn = false;
         }
     }
 

@@ -5,10 +5,10 @@ using UnityEngine.AI;
 public class EnemyBehavior : MonoBehaviour
 {
     public EnemyScripableObject EnemyOBJ;
-    public MeshRenderer MR;
 
     private float MaxHealth;
-    [HideInInspector] public float CurrentHealth;
+    //[HideInInspector] 
+    public float CurrentHealth;
 
     [HideInInspector] public bool ActivateBoss;
 
@@ -16,11 +16,6 @@ public class EnemyBehavior : MonoBehaviour
     {
         MaxHealth = EnemyOBJ.Health;
         CurrentHealth = MaxHealth;
-
-        if(MR.GetComponent<Collider>() != null)
-        {
-            MR.GetComponent<Collider>().enabled = false;
-        }
     }
 
     public void TakeDamage(float Damage)
