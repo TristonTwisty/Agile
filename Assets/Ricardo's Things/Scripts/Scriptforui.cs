@@ -101,7 +101,7 @@ public class Scriptforui : MonoBehaviour
         {
             if (currentDashAmount < totalDashAmount)
             {
-                dashRecharge.fillAmount = (dashRecharge.fillAmount + .002f);
+                dashRecharge.fillAmount = (dashRecharge.fillAmount + .004f);
 
                 if (dashRecharge.fillAmount == 1)
                 {
