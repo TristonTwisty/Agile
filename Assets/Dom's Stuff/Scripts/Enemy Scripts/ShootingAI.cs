@@ -39,6 +39,10 @@ public class ShootingAI : MonoBehaviour
     private float BulletsPerShot;
     private float Bullets = 0;
 
+    [Header("Ragdoll")]
+    [SerializeField] private Rigidbody[] RagdollBodies;
+    [SerializeField] private Collider[] RagdollColliders;
+
     // States
     private enum State {Initial, Idle, Patrol, Chase, Attack, Dead};
     private State ActiveState = State.Initial;
@@ -96,6 +100,11 @@ public class ShootingAI : MonoBehaviour
 
         ChasePlayerRange = EnemyOBJ.ChaseRange;
         AttackRange = EnemyOBJ.AttackRange;
+
+        RagdollBodies = GetComponentsInChildren<Rigidbody>();
+        RagdollColliders = GetComponentsInChildren<Collider>();
+
+        ToggleRagdoll(false);
 
         if(ChasePlayerRange <= AttackRange)
         {
@@ -173,7 +182,9 @@ public class ShootingAI : MonoBehaviour
         {
             Instantiate(EnemyOBJ.PickupOBJ.PickupGameObject, transform.position + new Vector3(0f, 0.5f, 0f), transform.rotation);
         }
-        Destroy(gameObject);
+        ToggleRagdoll(true);
+        IsAlive = false;
+        //Destroy(gameObject);
     }
 
     private void Update()
@@ -213,6 +224,21 @@ public class ShootingAI : MonoBehaviour
             {
                 Agent.destination = SpawnLocation;
             }
+        }
+    }
+
+    private void ToggleRagdoll(bool state)
+    {
+        animator.enabled = !state;
+
+        foreach (Rigidbody RB in RagdollBodies)
+        {
+            RB.isKinematic = !state;
+        }
+
+        foreach (Collider collider in RagdollColliders)
+        {
+            collider.enabled = state;
         }
     }
 }
