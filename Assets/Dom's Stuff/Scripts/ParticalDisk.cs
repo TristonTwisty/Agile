@@ -54,12 +54,6 @@ public class ParticalDisk : MonoBehaviour
         }
     }
 
-    private void OnDisable()
-    {
-        transform.parent = RingHolster;
-        transform.position = RingHolster.position;
-    }
-
     private void OnEnable()
     {
         transform.parent = null;

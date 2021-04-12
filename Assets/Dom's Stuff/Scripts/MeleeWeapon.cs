@@ -45,8 +45,10 @@ public class MeleeWeapon : MonoBehaviour
     {
         if(other.transform != Owner)
         {
+            Debug.Log("hit something");
             if (other.CompareTag("Enemy"))
             {
+                Debug.Log("Hit an enemy");
                 other.GetComponent<Rigidbody>().AddForce(Owner.transform.forward * MeleeOBJ.RBKnockbackPower, ForceMode.Impulse);
                 other.GetComponent<EnemyBehavior>().TakeDamage(MeleeOBJ.DamageDealt);
             }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Linq;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(EnemyBehavior))]
@@ -40,8 +41,8 @@ public class ShootingAI : MonoBehaviour
     private float Bullets = 0;
 
     [Header("Ragdoll")]
-    [SerializeField] private Rigidbody[] RagdollBodies;
-    [SerializeField] private Collider[] RagdollColliders;
+    [SerializeField] private List<Rigidbody> RagdollBodies = new List<Rigidbody>();
+    [SerializeField] private List<Collider> RagdollColliders = new List<Collider>();
 
     // States
     private enum State {Initial, Idle, Patrol, Chase, Attack, Dead};
@@ -101,8 +102,11 @@ public class ShootingAI : MonoBehaviour
         ChasePlayerRange = EnemyOBJ.ChaseRange;
         AttackRange = EnemyOBJ.AttackRange;
 
-        RagdollBodies = GetComponentsInChildren<Rigidbody>();
-        RagdollColliders = GetComponentsInChildren<Collider>();
+        RagdollBodies = GetComponentsInChildren<Rigidbody>().ToList();
+        RagdollBodies.Remove(GetComponent<Rigidbody>());
+
+        RagdollColliders = GetComponentsInChildren<Collider>().ToList();
+        RagdollColliders.Remove(GetComponent<Collider>());
 
         ToggleRagdoll(false);
 
