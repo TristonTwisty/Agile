@@ -45,17 +45,6 @@ public class LaserGrid1 : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Collison detected");
-        if (collision.transform.CompareTag("Player") || collision.transform.CompareTag("Enemy"))
-        {
-            //Debug.Log("Player or enemy");
-            ContactPoint CP = collision.contacts[0];
-
-            Vector3 Direction = (collision.transform.position - CP.point).normalized;
-
-            collision.gameObject.GetComponent<Rigidbody>().AddForce(Direction * KnockBackPower, ForceMode.Impulse);
-        }
-
         if (collision.transform.CompareTag("Enemy"))
         {
             //Debug.Log("enemy");
