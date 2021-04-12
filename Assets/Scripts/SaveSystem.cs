@@ -6,8 +6,10 @@ public static class SaveSystem
 {
     public static void SavePlayer (InventoryToken player)
     {
+        Debug.Log(Application.persistentDataPath);
         BinaryFormatter formatter = new BinaryFormatter();
         string path = Application.persistentDataPath + "/player.fart";
+        Debug.Log(Application.persistentDataPath);
         FileStream stream = new FileStream(path, FileMode.Create);
 
 
@@ -22,6 +24,7 @@ public static class SaveSystem
         string path = Application.persistentDataPath + "/player.fart";
         if (File.Exists(path))
         {
+            Debug.Log(Application.persistentDataPath);
             BinaryFormatter formatter = new BinaryFormatter();
             FileStream stream = new FileStream(path, FileMode.Open);
 
@@ -35,5 +38,6 @@ public static class SaveSystem
             Debug.Log("No save file in " + path);
             return null;
         }
+
     }
 }
