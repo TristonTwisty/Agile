@@ -8627,7 +8627,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1030229863}
-  m_Material: {fileID: 13400000, guid: d0a6d2652e1497d43bb9300850710be7, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
@@ -8877,6 +8877,11 @@ PrefabInstance:
         type: 3}
       propertyPath: Testing
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8144421792760856081, guid: 0956c86785fcb8743b5b90f71d3ed9ce,
+        type: 3}
+      propertyPath: Damage
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8144421792760856086, guid: 0956c86785fcb8743b5b90f71d3ed9ce,
         type: 3}

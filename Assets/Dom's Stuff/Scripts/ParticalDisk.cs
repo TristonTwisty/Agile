@@ -187,9 +187,12 @@ public class ParticalDisk : MonoBehaviour
             }
         }
 
-        if (other.CompareTag("Enemy"))
+        if (!ToBase)
         {
-            other.GetComponent<EnemyBehavior>().TakeDamage(Damage);
+            if (other.CompareTag("Enemy"))
+            {
+                other.GetComponent<EnemyBehavior>().TakeDamage(Damage);
+            }
         }
     }
 
