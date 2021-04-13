@@ -28,6 +28,10 @@ public class ShootingAI : MonoBehaviour
     private Animator animator;
     private bool Idling = false;
 
+    [Header("Components")]
+    private Collider MainCollider;
+    private Rigidbody MainRigibody;
+
     [Header("Movement")]
     [Tooltip("If you want the enemy to patrol place the transforms here. Leave empty to have enemy idle")] public Transform[] points;
     private int DestinationPoint = 0;
@@ -102,11 +106,14 @@ public class ShootingAI : MonoBehaviour
         ChasePlayerRange = EnemyOBJ.ChaseRange;
         AttackRange = EnemyOBJ.AttackRange;
 
+        MainRigibody = GetComponent<Rigidbody>();
+        MainCollider = GetComponent<Collider>();
+
         RagdollBodies = GetComponentsInChildren<Rigidbody>().ToList();
-        RagdollBodies.Remove(GetComponent<Rigidbody>());
+        RagdollBodies.Remove(MainRigibody);
 
         RagdollColliders = GetComponentsInChildren<Collider>().ToList();
-        RagdollColliders.Remove(GetComponent<Collider>());
+        RagdollColliders.Remove(MainCollider);
 
         ToggleRagdoll(false);
 
@@ -238,11 +245,16 @@ public class ShootingAI : MonoBehaviour
         foreach (Rigidbody RB in RagdollBodies)
         {
             RB.isKinematic = !state;
+            RB.useGravity = state;
+
+            MainRigibody.isKinematic = state;
+            MainRigibody.useGravity = !state;
         }
 
         foreach (Collider collider in RagdollColliders)
         {
             collider.enabled = state;
+            MainCollider.enabled = !state;
         }
     }
 }

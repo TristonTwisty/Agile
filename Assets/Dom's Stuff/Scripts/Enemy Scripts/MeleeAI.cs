@@ -38,6 +38,14 @@ public class MeleeAI : MonoBehaviour
     [Header("Melee")]
     [SerializeField] private GameObject Weapon = null;
 
+    [Header("Ragdoll")]
+    [SerializeField] private List<Rigidbody> RagdollBodies = new List<Rigidbody>();
+    [SerializeField] private List<Collider> RagdollColliders = new List<Collider>();
+
+    [Header("Components")]
+    private Collider MainCollider;
+    private Rigidbody MainRigibody;
+
     // States
     private enum State { Initial, Idle, Patrol, Chase, Attack, Dead };
     private State ActiveState = State.Initial;
@@ -95,6 +103,17 @@ public class MeleeAI : MonoBehaviour
 
         ChasePlayerRange = EnemyOBJ.ChaseRange;
         AttackRange = EnemyOBJ.AttackRange;
+
+        MainRigibody = GetComponent<Rigidbody>();
+        MainCollider = GetComponent<Collider>();
+
+        RagdollBodies = GetComponentsInChildren<Rigidbody>().ToList();
+        RagdollBodies.Remove(MainRigibody);
+
+        RagdollColliders = GetComponentsInChildren<Collider>().ToList();
+        RagdollColliders.Remove(MainCollider);
+
+        ToggleRagdoll(false);
 
         if (ChasePlayerRange <= AttackRange)
         {
@@ -210,6 +229,26 @@ public class MeleeAI : MonoBehaviour
             {
                 Agent.destination = SpawnLocation;
             }
+        }
+    }
+
+    private void ToggleRagdoll(bool state)
+    {
+        animator.enabled = !state;
+
+        foreach (Rigidbody RB in RagdollBodies)
+        {
+            RB.isKinematic = !state;
+            RB.useGravity = state;
+
+            MainRigibody.isKinematic = state;
+            MainRigibody.useGravity = !state;
+        }
+
+        foreach (Collider collider in RagdollColliders)
+        {
+            collider.enabled = state;
+            MainCollider.enabled = !state;
         }
     }
 }
