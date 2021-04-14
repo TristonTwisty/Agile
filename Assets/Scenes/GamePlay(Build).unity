@@ -610,7 +610,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-69466
+  m_Name: pb_Mesh-97444
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1169,6 +1169,11 @@ PrefabInstance:
       propertyPath: MouseSensitivity
       value: 200
       objectReference: {fileID: 0}
+    - target: {fileID: 2900231931450986955, guid: 0956c86785fcb8743b5b90f71d3ed9ce,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3194512240451764198, guid: 0956c86785fcb8743b5b90f71d3ed9ce,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1394,11 +1399,21 @@ PrefabInstance:
       propertyPath: m_Convex
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4890999121212092244, guid: 0956c86785fcb8743b5b90f71d3ed9ce,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: be1976103b50b864f94a1e4d9baa0b16, type: 2}
     - target: {fileID: 4890999121212092247, guid: 0956c86785fcb8743b5b90f71d3ed9ce,
         type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1696724515}
+    - target: {fileID: 4890999122369303832, guid: 0956c86785fcb8743b5b90f71d3ed9ce,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 606655d8fdb939245bfc4ac59735b7b1, type: 2}
     - target: {fileID: 4890999122369303835, guid: 0956c86785fcb8743b5b90f71d3ed9ce,
         type: 3}
       propertyPath: m_Mesh
@@ -1424,6 +1439,11 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1258839975}
+    - target: {fileID: 4890999122554456110, guid: 0956c86785fcb8743b5b90f71d3ed9ce,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: be1976103b50b864f94a1e4d9baa0b16, type: 2}
     - target: {fileID: 4938188911462246629, guid: 0956c86785fcb8743b5b90f71d3ed9ce,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2156,7 +2176,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-61330
+  m_Name: pb_Mesh-92528
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2487,7 +2507,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-61338
+  m_Name: pb_Mesh-92574
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2977,7 +2997,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-61336
+  m_Name: pb_Mesh-92572
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3163,7 +3183,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.64
+  m_Intensity: 0.1
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -3252,6 +3272,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CheckPoint
+      objectReference: {fileID: 0}
+    - target: {fileID: 7738571198808195467, guid: dd819314bd4e3d7498dfab03cc949d0f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7738571198808195574, guid: dd819314bd4e3d7498dfab03cc949d0f,
         type: 3}

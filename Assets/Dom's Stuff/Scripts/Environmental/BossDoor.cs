@@ -26,6 +26,15 @@ public class BossDoor : MonoBehaviour
         Exit.position = ExitOpenPosition.position;
     }
 
+    private void Awake()
+    {
+        Entrance.parent = null;
+        Exit.parent = null;
+
+        Entrance.position = EntranceOpenPosition.position;
+        Exit.position = ExitOpenPosition.position;
+    }
+
     private IEnumerator Closing()
     {
         float t = 0;
