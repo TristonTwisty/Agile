@@ -26,6 +26,10 @@ public class DashBelt : MonoBehaviour
     [SerializeField] private bool HasCharacterController;
     [SerializeField] private bool HasRigibody;
 
+
+    //Added by Ricardo
+ 
+
     private void Start()
     {
         if(GetComponent<CharacterController>() != null)
