@@ -13,6 +13,7 @@ public class WallWalker : MonoBehaviour
 	[Header("Jump")]
 	[SerializeField] private float JumpHeight = 8;
 	[SerializeField] private bool Grounded = false;
+	private bool DoJump;
 
 	[Header("Components")]
 	private Rigidbody rigidbody;
@@ -63,6 +64,12 @@ public class WallWalker : MonoBehaviour
 		{
 			rigidbody.useGravity = false;
 		}
+
+        if (DoJump)
+        {
+			rigidbody.AddForce(transform.up * JumpHeight, ForceMode.VelocityChange);
+			DoJump = false;
+		}
 	}
 
 	private void Update()
@@ -72,7 +79,8 @@ public class WallWalker : MonoBehaviour
 			// Jump
 			if (Input.GetKeyDown(KeyCode.Space))
 			{
-				rigidbody.AddForce(transform.up * JumpHeight, ForceMode.VelocityChange);
+				DoJump = true;
+				//rigidbody.AddForce(transform.up * JumpHeight, ForceMode.VelocityChange);
 			}
 		}
 

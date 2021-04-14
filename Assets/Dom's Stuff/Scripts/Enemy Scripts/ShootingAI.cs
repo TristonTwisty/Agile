@@ -191,7 +191,8 @@ public class ShootingAI : MonoBehaviour
         int RandomNumber = Random.Range(0, 100);
         if (RandomNumber <= EnemyOBJ.PickupOBJ.DropChance)
         {
-            Instantiate(EnemyOBJ.PickupOBJ.PickupGameObject, transform.position + new Vector3(0f, 0.5f, 0f), transform.rotation);
+            //Instantiate(EnemyOBJ.PickupOBJ.PickupGameObject, transform.position + new Vector3(0f, 0.5f, 0f), transform.rotation);
+            ObjectPooling.Spawn(EnemyOBJ.PickupOBJ.PickupGameObject, transform.position + new Vector3(0f, 0.5f, 0f), transform.rotation);
         }
         ToggleRagdoll(true);
         IsAlive = false;
