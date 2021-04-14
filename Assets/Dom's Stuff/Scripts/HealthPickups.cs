@@ -8,7 +8,8 @@ public class HealthPickups : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             other.GetComponent<Player>().HealPlayer(PickUpOBJ.HealthGain);
-            Destroy(gameObject);
+            ObjectPooling.DeSpawn(gameObject);
+            //Destroy(gameObject);
         }
     }
 }
