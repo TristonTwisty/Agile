@@ -195,6 +195,10 @@ public class ShootingAI : MonoBehaviour
             ObjectPooling.Spawn(EnemyOBJ.PickupOBJ.PickupGameObject, transform.position + new Vector3(0f, 0.5f, 0f), transform.rotation);
         }
         ToggleRagdoll(true);
+        foreach (Rigidbody Bodies in RagdollBodies)
+        {
+            Bodies.AddExplosionForce(107, Player.position, 5, 0, ForceMode.Impulse);
+        }
         IsAlive = false;
         //Destroy(gameObject);
     }
