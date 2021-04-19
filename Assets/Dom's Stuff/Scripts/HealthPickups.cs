@@ -9,7 +9,15 @@ public class HealthPickups : MonoBehaviour
         {
             other.GetComponent<Player>().HealPlayer(PickUpOBJ.HealthGain);
             ObjectPooling.DeSpawn(gameObject);
-            //Destroy(gameObject);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.CompareTag("Player"))
+        {
+            collision.transform.GetComponent<Player>().HealPlayer(PickUpOBJ.HealthGain);
+            ObjectPooling.DeSpawn(gameObject);
         }
     }
 }
