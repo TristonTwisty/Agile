@@ -45,7 +45,6 @@ public class MeleeWeapon : MonoBehaviour
     {
         if(other.transform != Owner)
         {
-            Debug.Log("hit something");
             if (other.CompareTag("Enemy"))
             {
                 Debug.Log("Hit an enemy");
@@ -62,13 +61,20 @@ public class MeleeWeapon : MonoBehaviour
                 }
                 else if (HasRigibody)
                 {
-                    other.GetComponent<Rigidbody>().AddForce(Owner.forward * MeleeOBJ.RBKnockbackPower, ForceMode.VelocityChange);
+                    other.GetComponent<Rigidbody>().AddForce(Owner.forward * MeleeOBJ.RBKnockbackPower, ForceMode.Impulse);
                 }
             }
             else if (other.CompareTag("Boss"))
             {
                 other.GetComponent<EnemyBehavior>().TakeDamage(MeleeOBJ.DamageDealt);
                 Owner.GetComponent<Rigidbody>().AddForce(-Owner.forward * 62, ForceMode.VelocityChange);
+            }
+            else if (other.CompareTag("Target"))
+            {
+                if (other.GetComponent<Rigidbody>())
+                {
+                    other.GetComponent<Rigidbody>().AddForce(Owner.transform.forward * (MeleeOBJ.RBKnockbackPower * 1000), ForceMode.Impulse);
+                }
             }
         }
     }

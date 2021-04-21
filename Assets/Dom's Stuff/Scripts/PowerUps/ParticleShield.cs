@@ -13,6 +13,7 @@ public class ParticleShield : MonoBehaviour
     private Rigidbody ShieldBody;
     private Collider collider;
     private MeshRenderer MeshRend;
+    [HideInInspector] public bool ShieldOn = false;
 
     //Added By Ricardo For U.I.
     //public Scriptforui scriptForUI;
@@ -56,12 +57,14 @@ public class ParticleShield : MonoBehaviour
                 MeshRend.enabled = true;
                 collider.enabled = true;
                 ShieldPS.Play();
+                ShieldOn = true;
             }
             else
             {
                 MeshRend.enabled = false;
                 collider.enabled = false;
                 ShieldPS.Play();
+                ShieldOn = false;
             }
         }
         else
@@ -74,6 +77,7 @@ public class ParticleShield : MonoBehaviour
             MeshRend.enabled = false;
             collider.enabled = false;
             ShieldPS.Stop();
+            ShieldOn = false;
         }
 
         if(CurrentCapacity > MaxCapacity)
