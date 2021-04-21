@@ -10,28 +10,27 @@ public class FinalBoss : MonoBehaviour
     [SerializeField] private bool AITest = false;
 
     [Header("Components")]
-    private EnemyBehavior EB;
+    [HideInInspector] public EnemyBehavior EB;
     private EnemyScripableObject EnemyOBJ;
 
     // States
-    private enum State { Initial, ChooseAttack, Disk, Whip, Shield, Bat, Targeting, Dead }
+    private enum State { Initial, ChooseAttack, Disk, Shield, Bat, Targeting, Dead }
     private State ActiveState = State.Initial;
 
     [Header("Statistics")]
     private bool IsAlive = true;
     private float Health;
     //[HideInInspector] 
-    public bool EndAttack = false;
+    public bool EndAttack = true;
 
     [Header("AttackPositions")]
     [SerializeField] private Transform DiskLocation;
-    [SerializeField] private Transform WhipLocation;
     [SerializeField] private Transform ShieldLocation;
     [SerializeField] private Transform BatLocation;
     [SerializeField] private Transform TargetLocation;
 
     [Header("AttackBools")]
-    private bool DiskChosenLast, WhipChosenLast, ShieldChosenLast, BatChosenLast, TargetChosenLast = false;
+    private bool DiskChosenLast, ShieldChosenLast, BatChosenLast, TargetChosenLast = false;
 
     private IEnumerator Start()
     {
@@ -48,11 +47,11 @@ public class FinalBoss : MonoBehaviour
                 case State.Disk:
                     StartCoroutine(DoDisk());
                     break;
-                case State.Whip:
-                    StartCoroutine(DoWhip());
-                    break;
                 case State.Shield:
-                    StartCoroutine(DoShield());
+                    if(EndAttack == true)
+                    {
+                        StartCoroutine(DoShield());
+                    }
                     break;
                 case State.Bat:
                     StartCoroutine(DoBat());
@@ -80,7 +79,7 @@ public class FinalBoss : MonoBehaviour
         EB = GetComponent<EnemyBehavior>();
         EnemyOBJ = EB.EnemyOBJ;
 
-        ActiveState = State.Targeting;
+        ActiveState = State.Shield;
     }
 
     private IEnumerator DoChooseAttack()
@@ -88,8 +87,8 @@ public class FinalBoss : MonoBehaviour
         Debug.Log("Choosing attack");
         yield return new WaitForSeconds(5);
 
-        int AttackChoice = Random.Range(0, 5);
-        EndAttack = false;
+        int AttackChoice = Random.Range(0, 4);
+        //EndAttack = false;
 
         if (AttackChoice == 0)
         {
@@ -101,23 +100,10 @@ public class FinalBoss : MonoBehaviour
             {
                 ActiveState = State.Disk;
                 DiskChosenLast = true;
-                WhipChosenLast = ShieldChosenLast = BatChosenLast = TargetChosenLast = false;
+                ShieldChosenLast = BatChosenLast = TargetChosenLast = false;
             }
         }
         else if (AttackChoice == 1)
-        {
-            if (WhipChosenLast)
-            {
-                DoChooseAttack();
-            }
-            else
-            {
-                ActiveState = State.Whip;
-                WhipChosenLast = true;
-                DiskChosenLast = ShieldChosenLast = BatChosenLast = TargetChosenLast = false;
-            }
-        }
-        else if (AttackChoice == 2)
         {
             if (ShieldChosenLast)
             {
@@ -128,10 +114,10 @@ public class FinalBoss : MonoBehaviour
                 ActiveState = State.Shield;
                 StartCoroutine(AttackTiming(EndShieldAttackTimer));
                 ShieldChosenLast = true;
-                DiskChosenLast = WhipChosenLast = BatChosenLast = TargetChosenLast = false;
+                DiskChosenLast = BatChosenLast = TargetChosenLast = false;
             }
         }
-        else if (AttackChoice == 3)
+        else if (AttackChoice == 2)
         {
             if (BatChosenLast)
             {
@@ -142,10 +128,10 @@ public class FinalBoss : MonoBehaviour
                 ActiveState = State.Bat;
                 StartCoroutine(AttackTiming(EndBatAttackTimer));
                 BatChosenLast = true;
-                DiskChosenLast = WhipChosenLast = ShieldChosenLast = TargetChosenLast = false;
+                DiskChosenLast = ShieldChosenLast = TargetChosenLast = false;
             }
         }
-        else if (AttackChoice == 4)
+        else if (AttackChoice == 3)
         {
             if (TargetChosenLast)
             {
@@ -158,7 +144,7 @@ public class FinalBoss : MonoBehaviour
                 ActiveState = State.Targeting;
                 StartCoroutine(AttackTiming(EndTargetingAttackTimer));
                 TargetChosenLast = true;
-                DiskChosenLast = WhipChosenLast = ShieldChosenLast = BatChosenLast = false;
+                DiskChosenLast = ShieldChosenLast = BatChosenLast = false;
             }
         }
     }
@@ -169,16 +155,6 @@ public class FinalBoss : MonoBehaviour
         yield return new WaitForSeconds(5);
 
         Debug.Log("Do Disk Richochet Attack");
-
-        yield return new WaitForSeconds(3);
-    }
-
-    private IEnumerator DoWhip()
-    {
-        transform.position = Vector3.MoveTowards(transform.position, WhipLocation.position, EnemyOBJ.MovementSpeed);
-        yield return new WaitForSeconds(5);
-
-        Debug.Log("Do Whip Attack");
 
         yield return new WaitForSeconds(3);
     }
@@ -199,7 +175,17 @@ public class FinalBoss : MonoBehaviour
 
     private IEnumerator DoShield()
     {
-        transform.position = Vector3.MoveTowards(transform.position, ShieldLocation.position, EnemyOBJ.MovementSpeed);
+        Debug.Log("THUNDER!");
+        EndAttack = false;
+        float t = 0;
+        Vector3 startPosition = transform.position;
+        while (t < 5)
+        {
+            t += Time.deltaTime;
+            //transform.position = Vector3.MoveTowards(transform.position, ShieldLocation.position, EnemyOBJ.MovementSpeed);
+            transform.position = Vector3.Lerp(startPosition, ShieldLocation.position, 5/t);
+            yield return null;
+        }
         yield return new WaitForSeconds(ActivateThunderstrikeTimer);
 
         while (!EndAttack)
@@ -211,6 +197,8 @@ public class FinalBoss : MonoBehaviour
             yield return new WaitForSeconds(EnableColliderTimer);
             
             ThunderStrikeCollider.enabled = true;
+            yield return new WaitForSeconds(1);
+
             ObjectPooling.Spawn(Resources.Load<GameObject>("ItemPickUps/Health Pickup Small"), Random.insideUnitSphere * BatteryDropRadius + transform.position, Quaternion.identity);
             yield return null;
         }
@@ -322,11 +310,11 @@ public class FinalBoss : MonoBehaviour
             transform.LookAt(Player);
         }
 
-        if (HasTriggered == false)
+        if (ActiveState == State.Targeting)
         {
-            if (ActiveState == State.Targeting)
+            if (HasTriggered == false)
             {
-                bool IsEverythingActive = false;
+                bool IsEverythingActive = true;
 
                 foreach (GameObject item in Thrusters)
                 {
@@ -338,6 +326,7 @@ public class FinalBoss : MonoBehaviour
                     if(HasTriggered == false && IsEverythingActive == true)
                     {
                         EndAttack = true;
+                        EB.TakeDamage(1);
                     }
                 }
             }

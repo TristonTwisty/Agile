@@ -69,6 +69,7 @@ public class WeakPointAttack : MonoBehaviour
             {
                 Destroy(other);
                 Fb.EndAttack = true;
+                Fb.EB.TakeDamage(1);
             }
             else if (other.CompareTag("Player"))
             {
