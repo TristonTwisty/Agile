@@ -38,6 +38,12 @@ public class WallWalker : MonoBehaviour
 
 	void FixedUpdate()
 	{
+		if (DoJump)
+		{
+			rigidbody.AddForce(transform.up * JumpHeight, ForceMode.VelocityChange);
+			DoJump = false;
+		}
+
 		// Calculate how fast we should be moving
 		Vector3 targetVelocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 		targetVelocity = transform.TransformDirection(targetVelocity);
@@ -63,12 +69,6 @@ public class WallWalker : MonoBehaviour
 		else
 		{
 			rigidbody.useGravity = false;
-		}
-
-        if (DoJump)
-        {
-			rigidbody.AddForce(transform.up * JumpHeight, ForceMode.VelocityChange);
-			DoJump = false;
 		}
 	}
 
