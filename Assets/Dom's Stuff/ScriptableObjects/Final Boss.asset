@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Description: 
   Health: 0
-  MovementSpeed: 0.5
+  MovementSpeed: 10
   AttackRate: 0
   AttackRange: 0
   ChaseRange: 0

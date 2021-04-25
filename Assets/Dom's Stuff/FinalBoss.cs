@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class FinalBoss : MonoBehaviour
 {
+    [Header("Player Info")]
     [SerializeField] private Transform Player;
+    private Rigidbody PlayerRB;
 
     [Header("Testing")]
     [SerializeField] private bool AITest = false;
@@ -14,23 +16,13 @@ public class FinalBoss : MonoBehaviour
     private EnemyScripableObject EnemyOBJ;
 
     // States
-    private enum State { Initial, ChooseAttack, Disk, Shield, Bat, Targeting, Dead }
+    private enum State { Initial, ChooseAttack, Shield, Bat, Targeting, Dead }
     private State ActiveState = State.Initial;
 
     [Header("Statistics")]
     private bool IsAlive = true;
     private float Health;
-    //[HideInInspector] 
     public bool EndAttack = true;
-
-    [Header("AttackPositions")]
-    [SerializeField] private Transform DiskLocation;
-    [SerializeField] private Transform ShieldLocation;
-    [SerializeField] private Transform BatLocation;
-    [SerializeField] private Transform TargetLocation;
-
-    [Header("AttackBools")]
-    private bool DiskChosenLast, ShieldChosenLast, BatChosenLast, TargetChosenLast = false;
 
     private IEnumerator Start()
     {
@@ -42,10 +34,10 @@ public class FinalBoss : MonoBehaviour
                     DoInitial();
                     break;
                 case State.ChooseAttack:
-                    StartCoroutine(DoChooseAttack());
-                    break;
-                case State.Disk:
-                    StartCoroutine(DoDisk());
+                    if (Choosing)
+                    {
+                        StartCoroutine(DoChooseAttack());
+                    }
                     break;
                 case State.Shield:
                     if(EndAttack == true)
@@ -75,35 +67,31 @@ public class FinalBoss : MonoBehaviour
         {
             Player = PlayerRefs.instance.Player;
         }
+        PlayerRB = Player.GetComponent<Rigidbody>();
 
         EB = GetComponent<EnemyBehavior>();
         EnemyOBJ = EB.EnemyOBJ;
 
-        ActiveState = State.Shield;
+        ActiveState = State.Bat;
     }
 
+    #region Choose Attack
+    [Header("Choose Next Attack")]
+    [SerializeField] private float AttackCooldown = 5;
+    [SerializeField] private Transform ShieldLocation;
+    [SerializeField] private Transform BatLocation;
+    [SerializeField] private Transform TargetLocation;
+    private bool ShieldChosenLast, BatChosenLast, TargetChosenLast = false;
+    private bool Choosing = true;
     private IEnumerator DoChooseAttack()
     {
         Debug.Log("Choosing attack");
-        yield return new WaitForSeconds(5);
+        Choosing = false;
+        yield return new WaitForSeconds(AttackCooldown);
 
-        int AttackChoice = Random.Range(0, 4);
-        //EndAttack = false;
-
+        int AttackChoice = Random.Range(0, 3);
+        
         if (AttackChoice == 0)
-        {
-            if (DiskChosenLast)
-            {
-                DoChooseAttack();
-            }
-            else
-            {
-                ActiveState = State.Disk;
-                DiskChosenLast = true;
-                ShieldChosenLast = BatChosenLast = TargetChosenLast = false;
-            }
-        }
-        else if (AttackChoice == 1)
         {
             if (ShieldChosenLast)
             {
@@ -112,12 +100,11 @@ public class FinalBoss : MonoBehaviour
             else
             {
                 ActiveState = State.Shield;
-                StartCoroutine(AttackTiming(EndShieldAttackTimer));
                 ShieldChosenLast = true;
-                DiskChosenLast = BatChosenLast = TargetChosenLast = false;
+                BatChosenLast = TargetChosenLast = false;
             }
         }
-        else if (AttackChoice == 2)
+        else if (AttackChoice == 1)
         {
             if (BatChosenLast)
             {
@@ -126,12 +113,11 @@ public class FinalBoss : MonoBehaviour
             else
             {
                 ActiveState = State.Bat;
-                StartCoroutine(AttackTiming(EndBatAttackTimer));
                 BatChosenLast = true;
-                DiskChosenLast = ShieldChosenLast = TargetChosenLast = false;
+                ShieldChosenLast = TargetChosenLast = false;
             }
         }
-        else if (AttackChoice == 3)
+        else if (AttackChoice == 2)
         {
             if (TargetChosenLast)
             {
@@ -142,22 +128,12 @@ public class FinalBoss : MonoBehaviour
                 transform.rotation = Quaternion.identity;
 
                 ActiveState = State.Targeting;
-                StartCoroutine(AttackTiming(EndTargetingAttackTimer));
                 TargetChosenLast = true;
-                DiskChosenLast = ShieldChosenLast = BatChosenLast = false;
+                ShieldChosenLast = BatChosenLast = false;
             }
         }
     }
-
-    private IEnumerator DoDisk()
-    {
-        transform.position = Vector3.MoveTowards(transform.position, DiskLocation.position, EnemyOBJ.MovementSpeed);
-        yield return new WaitForSeconds(5);
-
-        Debug.Log("Do Disk Richochet Attack");
-
-        yield return new WaitForSeconds(3);
-    }
+    #endregion
 
     #region Shield Attack
 
@@ -166,46 +142,41 @@ public class FinalBoss : MonoBehaviour
     [SerializeField] private ParticleSystem ThunderStrike;
     [SerializeField] private Collider ThunderStrikeCollider;
     [SerializeField] private float BatteryDropRadius;
+    [SerializeField] private GameObject ShieldBattery;
 
     [Header("Shield Atttack Timming")]
     [SerializeField] private float EnableColliderTimer = 5;
     [SerializeField] private float BatteryDropRate = 5;
-    [SerializeField] private float ActivateThunderstrikeTimer = 5;
     [SerializeField] private float EndShieldAttackTimer = 60;
 
     private IEnumerator DoShield()
     {
-        Debug.Log("THUNDER!");
+        Debug.Log("Shield Attack");
         EndAttack = false;
         float t = 0;
         Vector3 startPosition = transform.position;
         while (t < 5)
         {
             t += Time.deltaTime;
-            //transform.position = Vector3.MoveTowards(transform.position, ShieldLocation.position, EnemyOBJ.MovementSpeed);
-            transform.position = Vector3.Lerp(startPosition, ShieldLocation.position, 5/t);
+            transform.position = Vector3.Lerp(startPosition, ShieldLocation.position, EnemyOBJ.MovementSpeed/t);
             yield return null;
         }
-        yield return new WaitForSeconds(ActivateThunderstrikeTimer);
+        ThunderStrike.Play();
+        yield return new WaitForSeconds(EnableColliderTimer);
+
+        StartCoroutine(AutoEndAttack(EndShieldAttackTimer));
+        ThunderStrikeCollider.enabled = true;
 
         while (!EndAttack)
         {
-            if (!ThunderStrike.isPlaying)
-            {
-                ThunderStrike.Play(true);
-            }
-            yield return new WaitForSeconds(EnableColliderTimer);
-            
-            ThunderStrikeCollider.enabled = true;
-            yield return new WaitForSeconds(1);
-
-            ObjectPooling.Spawn(Resources.Load<GameObject>("ItemPickUps/Health Pickup Small"), Random.insideUnitSphere * BatteryDropRadius + transform.position, Quaternion.identity);
+            yield return new WaitForSeconds(BatteryDropRate);
+            ObjectPooling.Spawn(ShieldBattery, Random.insideUnitSphere * BatteryDropRadius + transform.position, Quaternion.identity);
             yield return null;
         }
 
         ThunderStrike.Stop();
         ThunderStrikeCollider.enabled = false;
-        ActiveState = State.ChooseAttack;
+        Choosing = true;
     }
 
     #endregion
@@ -224,24 +195,32 @@ public class FinalBoss : MonoBehaviour
 
     private IEnumerator DoBat()
     {
-        transform.position = Vector3.MoveTowards(transform.position, BatLocation.position, EnemyOBJ.MovementSpeed);
+        Debug.Log("Bat attack");
+        EndAttack = false;
+        float t = 0;
+        Vector3 startPosition = transform.position;
+        while (t < 5)
+        {
+            t += Time.deltaTime;
+            transform.position = Vector3.Lerp(startPosition, BatLocation.position, 5 / t);
+            yield return null;
+        }
+
         yield return new WaitForSeconds(ActivateBatAttackTimer);
+
+        StartCoroutine(AutoEndAttack(EndBatAttackTimer));
+        Suction.Play();
+        BatAttackCollider.enabled = true;
 
         while (!EndAttack)
         {
-            BatAttackCollider.enabled = true;
-            if (!Suction.isPlaying)
-            {
-                Suction.Play();
-            }
-            Vector3 SuctionPosition = new Vector3(transform.position.x, 0, transform.position.z);
-            Player.GetComponent<Rigidbody>().AddForce(SuctionPosition * SuctionPower, ForceMode.Impulse);
+            PlayerRB.AddForce(new Vector3(transform.position.x, 0, transform.position.z) * SuctionPower, ForceMode.Impulse);
             yield return null;
         }
 
         Suction.Stop();
         BatAttackCollider.enabled = false;
-        ActiveState = State.ChooseAttack;
+        Choosing = true;
     }
 
     #endregion
@@ -255,31 +234,36 @@ public class FinalBoss : MonoBehaviour
     private bool HasTriggered = false;
 
     [Header("Targeting Attack Timing")]
-    [SerializeField] private float ThrusterActivationTimer = 5;
+    [SerializeField] private float ActivateThrustersTimer = 5;
     [SerializeField] private float EndTargetingAttackTimer = 120;
     private IEnumerator DoTarget()
     {
-        transform.position = Vector3.MoveTowards(transform.position, TargetLocation.position, EnemyOBJ.MovementSpeed);
+        Debug.Log("Targeting attack");
+        EndAttack = false;
+        float t = 0;
+        Vector3 startPosition = transform.position;
+        while (t < 5)
+        {
+            t += Time.deltaTime;
+            transform.position = Vector3.Lerp(startPosition, BatLocation.position, EnemyOBJ.MovementSpeed / t);
+            yield return null;
+        }
 
-        yield return new WaitForSeconds(ThrusterActivationTimer);
+        yield return new WaitForSeconds(ActivateThrustersTimer);
+
+        foreach (ParticleSystem PS in ThrusterFlame)
+        {
+            PS.Play();
+        }
+        foreach (GameObject collider in Thrusters)
+        {
+            collider.GetComponent<Collider>().enabled = false;
+            collider.tag = null;
+        }
 
         while (!EndAttack)
         {
-            transform.Rotate(Vector3.up * TurnSpeed * Time.deltaTime);
-
-            foreach (ParticleSystem PS in ThrusterFlame)
-            {
-                if (!PS.isPlaying)
-                {
-                    PS.Play();
-                }
-            }
-
-            foreach (GameObject collider in Thrusters)
-            {
-                collider.GetComponent<Collider>().enabled = true;
-                collider.tag = "Target";
-            }
+            transform.Rotate(Vector3.up * (TurnSpeed * Time.deltaTime));
             yield return null;
         }
 
@@ -292,7 +276,9 @@ public class FinalBoss : MonoBehaviour
             collider.GetComponent<Collider>().enabled = false;
             collider.tag = null;
         }
+
         ActiveState = State.ChooseAttack;
+        Choosing = true;
     }
     #endregion
 
@@ -333,11 +319,19 @@ public class FinalBoss : MonoBehaviour
         }
     }
 
-    private IEnumerator AttackTiming(float WaitTime)
+    private IEnumerator AutoEndAttack(float WaitTime)
     {
-        yield return new WaitForSeconds(WaitTime);
+        float t = 0;
+        while (!EndAttack)
+        {
+            t += Time.deltaTime;
 
-        EndAttack = true;
+            if(t >= WaitTime)
+            {
+                EndAttack = true;
+            }
+            yield return null;
+        }
     }
 
     private void OnDrawGizmosSelected()

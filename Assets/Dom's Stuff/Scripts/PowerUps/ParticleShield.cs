@@ -104,4 +104,9 @@ public class ParticleShield : MonoBehaviour
             Destroy(collision.gameObject);
         }
     }
+
+    public void RecoverShield(float Recovery)
+    {
+        CurrentCapacity += Recovery;
+    }
 }
