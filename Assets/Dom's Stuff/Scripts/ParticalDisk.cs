@@ -9,9 +9,8 @@ public class ParticalDisk : MonoBehaviour
     [Header("Debug")]
     [SerializeField] private bool Testing = false;
 
-    [Header("Player")]
+    [Header("Holster")]
     [SerializeField] private Transform RingHolster;
-    private Transform Player;
     private Transform Cam;
 
     [Header("Components")]
@@ -19,7 +18,7 @@ public class ParticalDisk : MonoBehaviour
     private Rigidbody rigidbody;
     private Collider collider;
 
-    [Header("Behavior")]
+    [Header("Ring Behavior")]
     [SerializeField] private float ThrowSpeed = 5;
     [SerializeField] private float ReturnSpeed = 2f;
     [SerializeField] private float Damage = 5;
@@ -113,6 +112,14 @@ public class ParticalDisk : MonoBehaviour
         if (ToBase)
         {
             ReturnDisk();
+        }
+        if(ToBase && !Thrown)
+        {
+            trailRenderer.enabled = false;
+        }
+        if (Thrown)
+        {
+            trailRenderer.enabled = true;
         }
     }
 

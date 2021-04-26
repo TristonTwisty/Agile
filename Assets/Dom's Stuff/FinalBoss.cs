@@ -16,53 +16,16 @@ public class FinalBoss : MonoBehaviour
     private EnemyScripableObject EnemyOBJ;
 
     // States
-    private enum State { Initial, ChooseAttack, Shield, Bat, Targeting, Dead }
-    private State ActiveState = State.Initial;
+    private enum State { ChooseAttack, Shield, Bat, Targeting, Dead }
+    private State ActiveState = State.ChooseAttack;
 
     [Header("Statistics")]
-    private bool IsAlive = true;
     private float Health;
-    public bool EndAttack = true;
+    [HideInInspector] public bool EndAttack = true;
+    private float MovementSpeed;
 
-    private IEnumerator Start()
+    private void Start()
     {
-        while (IsAlive)
-        {
-            switch (ActiveState)
-            {
-                case State.Initial:
-                    DoInitial();
-                    break;
-                case State.ChooseAttack:
-                    if (Choosing)
-                    {
-                        StartCoroutine(DoChooseAttack());
-                    }
-                    break;
-                case State.Shield:
-                    if(EndAttack == true)
-                    {
-                        StartCoroutine(DoShield());
-                    }
-                    break;
-                case State.Bat:
-                    StartCoroutine(DoBat());
-                    break;
-                case State.Targeting:
-                     StartCoroutine(DoTarget());
-                    break;
-                case State.Dead:
-                     DoDead();
-                    break;
-            }
-            yield return null;
-        }
-    }
-
-    private void DoInitial()
-    {
-        gameObject.tag = "Boss";
-
         if (!AITest)
         {
             Player = PlayerRefs.instance.Player;
@@ -71,8 +34,31 @@ public class FinalBoss : MonoBehaviour
 
         EB = GetComponent<EnemyBehavior>();
         EnemyOBJ = EB.EnemyOBJ;
+        MovementSpeed = EnemyOBJ.MovementSpeed;
 
-        ActiveState = State.Bat;
+        CheckState();
+    }
+
+    private void CheckState()
+    {
+        switch (ActiveState)
+        {
+            case State.ChooseAttack:
+                StartCoroutine(DoChooseAttack());
+                break;
+            case State.Shield:
+                StartCoroutine(DoShield());
+                break;
+            case State.Bat:
+                StartCoroutine(DoBat());
+                break;
+            case State.Targeting:
+                StartCoroutine(DoTarget());
+                break;
+            case State.Dead:
+                DoDead();
+                break;
+        }
     }
 
     #region Choose Attack
@@ -81,25 +67,25 @@ public class FinalBoss : MonoBehaviour
     [SerializeField] private Transform ShieldLocation;
     [SerializeField] private Transform BatLocation;
     [SerializeField] private Transform TargetLocation;
-    private bool ShieldChosenLast, BatChosenLast, TargetChosenLast = false;
-    private bool Choosing = true;
+    [SerializeField] private bool ShieldChosenLast, BatChosenLast, TargetChosenLast = false;
     private IEnumerator DoChooseAttack()
     {
         Debug.Log("Choosing attack");
-        Choosing = false;
         yield return new WaitForSeconds(AttackCooldown);
 
-        int AttackChoice = Random.Range(0, 3);
+        //int AttackChoice = Random.Range(0, 3);
+        int AttackChoice = 2;
         
         if (AttackChoice == 0)
         {
             if (ShieldChosenLast)
             {
-                DoChooseAttack();
+                CheckState();
             }
             else
             {
                 ActiveState = State.Shield;
+                CheckState();
                 ShieldChosenLast = true;
                 BatChosenLast = TargetChosenLast = false;
             }
@@ -108,11 +94,12 @@ public class FinalBoss : MonoBehaviour
         {
             if (BatChosenLast)
             {
-                DoChooseAttack();
+                CheckState();
             }
             else
             {
                 ActiveState = State.Bat;
+                CheckState();
                 BatChosenLast = true;
                 ShieldChosenLast = TargetChosenLast = false;
             }
@@ -121,13 +108,14 @@ public class FinalBoss : MonoBehaviour
         {
             if (TargetChosenLast)
             {
-                DoChooseAttack();
+                CheckState();
             }
             else
             {
                 transform.rotation = Quaternion.identity;
 
                 ActiveState = State.Targeting;
+                CheckState();
                 TargetChosenLast = true;
                 ShieldChosenLast = BatChosenLast = false;
             }
@@ -155,10 +143,10 @@ public class FinalBoss : MonoBehaviour
         EndAttack = false;
         float t = 0;
         Vector3 startPosition = transform.position;
-        while (t < 5)
+        while (t < MovementSpeed)
         {
             t += Time.deltaTime;
-            transform.position = Vector3.Lerp(startPosition, ShieldLocation.position, EnemyOBJ.MovementSpeed/t);
+            transform.position = Vector3.Lerp(startPosition, ShieldLocation.position, t/MovementSpeed);
             yield return null;
         }
         ThunderStrike.Play();
@@ -174,9 +162,10 @@ public class FinalBoss : MonoBehaviour
             yield return null;
         }
 
+        ActiveState = State.ChooseAttack;
+        CheckState();
         ThunderStrike.Stop();
         ThunderStrikeCollider.enabled = false;
-        Choosing = true;
     }
 
     #endregion
@@ -199,10 +188,10 @@ public class FinalBoss : MonoBehaviour
         EndAttack = false;
         float t = 0;
         Vector3 startPosition = transform.position;
-        while (t < 5)
+        while (t < MovementSpeed)
         {
             t += Time.deltaTime;
-            transform.position = Vector3.Lerp(startPosition, BatLocation.position, 5 / t);
+            transform.position = Vector3.Lerp(startPosition, BatLocation.position,  t/MovementSpeed);
             yield return null;
         }
 
@@ -214,13 +203,15 @@ public class FinalBoss : MonoBehaviour
 
         while (!EndAttack)
         {
-            PlayerRB.AddForce(new Vector3(transform.position.x, 0, transform.position.z) * SuctionPower, ForceMode.Impulse);
+            PlayerRB.AddForce(new Vector3(transform.position.x, 0, transform.position.z) * SuctionPower, ForceMode.Force);
             yield return null;
         }
 
+        Debug.Log("Ending");
+        ActiveState = State.ChooseAttack;
+        CheckState();
         Suction.Stop();
         BatAttackCollider.enabled = false;
-        Choosing = true;
     }
 
     #endregion
@@ -242,10 +233,10 @@ public class FinalBoss : MonoBehaviour
         EndAttack = false;
         float t = 0;
         Vector3 startPosition = transform.position;
-        while (t < 5)
+        while (t < MovementSpeed)
         {
             t += Time.deltaTime;
-            transform.position = Vector3.Lerp(startPosition, BatLocation.position, EnemyOBJ.MovementSpeed / t);
+            transform.position = Vector3.Lerp(startPosition, TargetLocation.position, t/MovementSpeed);
             yield return null;
         }
 
@@ -278,7 +269,7 @@ public class FinalBoss : MonoBehaviour
         }
 
         ActiveState = State.ChooseAttack;
-        Choosing = true;
+        CheckState();
     }
     #endregion
 
@@ -290,6 +281,12 @@ public class FinalBoss : MonoBehaviour
     private void Update()
     {
         Health = EB.CurrentHealth;
+
+        if(Health <= 0)
+        {
+            ActiveState = State.Dead;
+            CheckState();
+        }
 
         if(ActiveState != State.Targeting)
         {

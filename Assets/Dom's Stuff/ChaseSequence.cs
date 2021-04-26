@@ -1,13 +1,44 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class ChaseSequence : MonoBehaviour
 {
-    public enum State { FirePlume, PitFall, Door, ShockTrap}
+    public enum State { Boss, FirePlume, PitFall, Door, ShockTrap}
     public State ActiveState;
 
+    [Header("Boss Movement")]
+    [SerializeField] private Transform BossFleeTarget;
+    private NavMeshAgent agent;
+
+    [Header("Hazards")]
     [SerializeField] private float HazardDamage;
+
+    private void Start()
+    {
+        switch (ActiveState)
+        {
+            case State.Boss:
+                agent = GetComponent<NavMeshAgent>();
+                agent.destination = BossFleeTarget.position;
+                break;
+            case State.FirePlume:
+                break;
+            case State.PitFall:
+                OriginalPosition.parent = null;
+                FallPosition.parent = null;
+                transform.position = OriginalPosition.position;
+                break;
+            case State.Door:
+                OpenPosition.parent = null;
+                ClosePosition.parent = null;
+                transform.position = OpenPosition.position;
+                break;
+            case State.ShockTrap:
+                break;
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -51,7 +82,7 @@ public class ChaseSequence : MonoBehaviour
     }
     #endregion
 
-    #region
+    #region Security Door
     [Header("Security Door")]
     [SerializeField] private Transform SecurityDoor;
     [SerializeField] private Transform ClosePosition;
@@ -67,14 +98,14 @@ public class ChaseSequence : MonoBehaviour
         while (t < DoorMovementSpeed)
         {
             t += Time.deltaTime;
-            transform.position = Vector3.Lerp(startPosition, OpenPosition.position, t / DoorMovementSpeed);
+            transform.position = Vector3.Lerp(startPosition, ClosePosition.position, t / DoorMovementSpeed);
             yield return null;
         }
     }
     #endregion
 
     #region Pitfall
-    [Header("Security Door")]
+    [Header("Pit fall")]
     [SerializeField] private Transform Pit;
     [SerializeField] private Transform OriginalPosition;
     [SerializeField] private Transform FallPosition;
@@ -88,7 +119,7 @@ public class ChaseSequence : MonoBehaviour
         while (t < DoorMovementSpeed)
         {
             t += Time.deltaTime;
-            transform.position = Vector3.Lerp(startPosition, OpenPosition.position, t / PitfallSpeed);
+            transform.position = Vector3.Lerp(startPosition, FallPosition.position, t / PitfallSpeed);
             yield return null;
         }
     }
