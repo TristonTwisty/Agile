@@ -26,14 +26,10 @@ public class ChaseSequence : MonoBehaviour
             case State.FirePlume:
                 break;
             case State.PitFall:
-                OriginalPosition.parent = null;
-                FallPosition.parent = null;
-                transform.position = OriginalPosition.position;
+                Pit.position = OriginalPosition.position;
                 break;
             case State.Door:
-                OpenPosition.parent = null;
-                ClosePosition.parent = null;
-                transform.position = OpenPosition.position;
+                SecurityDoor.position = OpenPosition.position;
                 break;
             case State.ShockTrap:
                 break;
@@ -44,21 +40,20 @@ public class ChaseSequence : MonoBehaviour
     {
         if (other.CompareTag("Boss"))
         {
-            if (ActiveState == State.FirePlume)
+            switch (ActiveState)
             {
-                firePlume();
-            }
-            else if (ActiveState == State.ShockTrap)
-            {
-                securityDoor();
-            }
-            else if(ActiveState == State.Door)
-            {
-                securityDoor();
-            }
-            else if (ActiveState == State.PitFall)
-            {
-                securityDoor();
+                case State.FirePlume:
+                    firePlume();
+                    break;
+                case State.ShockTrap:
+                    shockTrap();
+                    break;
+                case State.Door:
+                    StartCoroutine(securityDoor());
+                    break;
+                case State.PitFall:
+                    StartCoroutine(pitFall());
+                    break;
             }
         }
     }
@@ -76,7 +71,7 @@ public class ChaseSequence : MonoBehaviour
     [Header("ShockTrap")]
     [SerializeField] private float ShockTrapDamage = 10;
     [SerializeField] private ParticleSystem Electricity;
-    private void shochTrap()
+    private void shockTrap()
     {
         Electricity.Play();
     }
@@ -93,12 +88,12 @@ public class ChaseSequence : MonoBehaviour
     {
         float t = 0;
 
-        Vector3 startPosition = transform.position;
+        Vector3 startPosition = SecurityDoor.position;
 
         while (t < DoorMovementSpeed)
         {
             t += Time.deltaTime;
-            transform.position = Vector3.Lerp(startPosition, ClosePosition.position, t / DoorMovementSpeed);
+            SecurityDoor.position = Vector3.Lerp(startPosition, ClosePosition.position, t / DoorMovementSpeed);
             yield return null;
         }
     }
@@ -114,12 +109,12 @@ public class ChaseSequence : MonoBehaviour
     {
         float t = 0;
 
-        Vector3 startPosition = transform.position;
+        Vector3 startPosition = Pit.position;
 
         while (t < DoorMovementSpeed)
         {
             t += Time.deltaTime;
-            transform.position = Vector3.Lerp(startPosition, FallPosition.position, t / PitfallSpeed);
+            Pit.position = Vector3.Lerp(startPosition, FallPosition.position, t / PitfallSpeed);
             yield return null;
         }
     }
