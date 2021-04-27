@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class ChaseSequence : MonoBehaviour
 {
-    public enum State { Boss, FirePlume, PitFall, Door, ShockTrap}
+    public enum State { Boss, PitFall, Door, ShockTrap, FirePlume, Launcher}
     public State ActiveState;
 
     [Header("Boss Movement")]
@@ -23,15 +23,14 @@ public class ChaseSequence : MonoBehaviour
                 agent = GetComponent<NavMeshAgent>();
                 agent.destination = BossFleeTarget.position;
                 break;
-            case State.FirePlume:
-                break;
             case State.PitFall:
                 Pit.position = OriginalPosition.position;
                 break;
             case State.Door:
                 SecurityDoor.position = OpenPosition.position;
                 break;
-            case State.ShockTrap:
+            case State.Launcher:
+                StartCoroutine(ShootLauncher());
                 break;
         }
     }
@@ -40,16 +39,21 @@ public class ChaseSequence : MonoBehaviour
     {
         if (other.CompareTag("Boss"))
         {
+            if(ActiveState == State.Door)
+            {
+                StartCoroutine(securityDoor());
+            }
+        }
+
+        if (other.CompareTag("Player"))
+        {
             switch (ActiveState)
             {
-                case State.FirePlume:
-                    firePlume();
-                    break;
                 case State.ShockTrap:
-                    shockTrap();
+                    other.GetComponent<Player>().TakeDamage(HazardDamage);
                     break;
-                case State.Door:
-                    StartCoroutine(securityDoor());
+                case State.FirePlume:
+                    other.GetComponent<Player>().TakeDamage(HazardDamage);
                     break;
                 case State.PitFall:
                     StartCoroutine(pitFall());
@@ -58,24 +62,21 @@ public class ChaseSequence : MonoBehaviour
         }
     }
 
-    #region Fire Plume Activation
-    [Header("Fire Plume")]
-    [SerializeField] private ParticleSystem Fire;
-    private void firePlume()
+    private void OnTriggerStay(Collider other)
     {
-        Fire.Play();
+        if (other.CompareTag("Player"))
+        {
+            switch (ActiveState)
+            {
+                case State.ShockTrap:
+                    other.GetComponent<Player>().TakeDamage(HazardDamage);
+                    break;
+                case State.FirePlume:
+                    other.GetComponent<Player>().TakeDamage(HazardDamage);
+                    break;
+            }
+        }
     }
-    #endregion
-
-    #region ShockTrap
-    [Header("ShockTrap")]
-    [SerializeField] private float ShockTrapDamage = 10;
-    [SerializeField] private ParticleSystem Electricity;
-    private void shockTrap()
-    {
-        Electricity.Play();
-    }
-    #endregion
 
     #region Security Door
     [Header("Security Door")]
@@ -119,4 +120,31 @@ public class ChaseSequence : MonoBehaviour
         }
     }
     #endregion
+
+    #region Launcher
+    [Header("Launcher")]
+    [SerializeField] private GameObject Projectile;
+    [SerializeField] private Transform FirePoint;
+    [SerializeField] private float FireRate;
+
+    private IEnumerator ShootLauncher()
+    {
+        ObjectPooling.Spawn(Projectile, FirePoint.position, Quaternion.identity);
+
+        yield return new WaitForSeconds(FireRate);
+
+        StartCoroutine(ShootLauncher());
+    }
+    #endregion
+
+    private void Update()
+    {
+        if(ActiveState == State.Boss)
+        {
+            if(agent.remainingDistance <= agent.stoppingDistance)
+            {
+                Destroy(gameObject);
+            }
+        }
+    }
 }

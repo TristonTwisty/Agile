@@ -191,7 +191,6 @@ public class ShootingAI : MonoBehaviour
         int RandomNumber = Random.Range(0, 100);
         if (RandomNumber <= EnemyOBJ.PickupOBJ.DropChance)
         {
-            //Instantiate(EnemyOBJ.PickupOBJ.PickupGameObject, transform.position + new Vector3(0f, 0.5f, 0f), transform.rotation);
             ObjectPooling.Spawn(EnemyOBJ.PickupOBJ.PickupGameObject, transform.position + new Vector3(0f, 0.5f, 0f), transform.rotation);
         }
         ToggleRagdoll(true);
@@ -200,7 +199,6 @@ public class ShootingAI : MonoBehaviour
             Bodies.AddExplosionForce(107, Player.position, 5, 0, ForceMode.Impulse);
         }
         IsAlive = false;
-        //Destroy(gameObject);
     }
 
     private void Update()

@@ -408,7 +408,7 @@ GameObject:
   - component: {fileID: 177220452}
   m_Layer: 0
   m_Name: Thruster (2)
-  m_TagString: Untagged
+  m_TagString: Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -73569,7 +73569,7 @@ GameObject:
   - component: {fileID: 997400352}
   m_Layer: 0
   m_Name: Thruster (3)
-  m_TagString: Untagged
+  m_TagString: Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -73684,7 +73684,7 @@ GameObject:
   - component: {fileID: 1000099177}
   m_Layer: 0
   m_Name: Thruster (1)
-  m_TagString: Untagged
+  m_TagString: Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -73911,7 +73911,7 @@ GameObject:
   - component: {fileID: 1247056036}
   m_Layer: 0
   m_Name: Thruster
-  m_TagString: Untagged
+  m_TagString: Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

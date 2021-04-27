@@ -10,6 +10,8 @@ public class BossDoor : MonoBehaviour
     [Header("Entrance / Exit")]
     [SerializeField] private Transform Entrance;
     [SerializeField] private Transform Exit;
+    [SerializeField] private bool NoExit;
+    [SerializeField] private float MovementSpeed = 2;
 
     [Header("Positions")]
     [SerializeField] private Transform EntranceOpenPosition;
@@ -20,19 +22,17 @@ public class BossDoor : MonoBehaviour
     private void Start()
     {
         Entrance.parent = null;
-        Exit.parent = null;
-
         Entrance.position = EntranceOpenPosition.position;
-        Exit.position = ExitOpenPosition.position;
-    }
 
-    private void Awake()
-    {
-        Entrance.parent = null;
-        Exit.parent = null;
-
-        Entrance.position = EntranceOpenPosition.position;
-        Exit.position = ExitOpenPosition.position;
+        if (!NoExit)
+        {
+            Exit.position = ExitOpenPosition.position;
+            Exit.parent = null;
+        }
+        else
+        {
+            Exit = null;
+        }
     }
 
     private IEnumerator Closing()
@@ -40,13 +40,26 @@ public class BossDoor : MonoBehaviour
         float t = 0;
 
         Vector3 EntranceStartPosition = Entrance.position;
-        Vector3 ExitStartPosition = Exit.position;
+        Vector3 ExitStartPosition;
 
-        while (t < 2)
+        if (!NoExit)
+        {
+            ExitStartPosition = Exit.position;
+        }
+        else
+        {
+            ExitStartPosition = Vector3.zero;
+        }
+
+        while (t < MovementSpeed)
         {
             t += Time.deltaTime;
-            Entrance.position = Vector3.Lerp(EntranceStartPosition, EntranceClosePosition.position, t / 2);
-            Exit.position = Vector3.Lerp(ExitStartPosition, ExitClosePosition.position, t / 2);
+            Entrance.position = Vector3.Lerp(EntranceStartPosition, EntranceClosePosition.position, t / MovementSpeed);
+
+            if (!NoExit)
+            {
+                Exit.position = Vector3.Lerp(ExitStartPosition, ExitClosePosition.position, t / MovementSpeed);
+            }
             yield return null;
         }
     }
@@ -61,13 +74,26 @@ public class BossDoor : MonoBehaviour
         float t = 0;
 
         Vector3 EntranceStartPosition = Entrance.position;
-        Vector3 ExitStartPosition = Exit.position;
+        Vector3 ExitStartPosition;
 
-        while (t < 2)
+        if (!NoExit)
+        {
+            ExitStartPosition = Exit.position;
+        }
+        else
+        {
+            ExitStartPosition = Vector3.zero;
+        }
+
+        while (t < MovementSpeed)
         {
             t += Time.deltaTime;
-            Entrance.position = Vector3.Lerp(EntranceStartPosition, EntranceOpenPosition.position, t / 2);
-            Exit.position = Vector3.Lerp(ExitStartPosition, ExitOpenPosition.position, t / 2);
+            Entrance.position = Vector3.Lerp(EntranceStartPosition, EntranceOpenPosition.position, t / MovementSpeed);
+
+            if (!NoExit)
+            {
+                Exit.position = Vector3.Lerp(ExitStartPosition, ExitOpenPosition.position, t / MovementSpeed);
+            }
             yield return null;
         }
     }

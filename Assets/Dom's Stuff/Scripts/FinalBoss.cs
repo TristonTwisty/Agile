@@ -35,8 +35,6 @@ public class FinalBoss : MonoBehaviour
         EB = GetComponent<EnemyBehavior>();
         EnemyOBJ = EB.EnemyOBJ;
         MovementSpeed = EnemyOBJ.MovementSpeed;
-
-        CheckState();
     }
 
     private void CheckState()
@@ -67,14 +65,13 @@ public class FinalBoss : MonoBehaviour
     [SerializeField] private Transform ShieldLocation;
     [SerializeField] private Transform BatLocation;
     [SerializeField] private Transform TargetLocation;
-    [SerializeField] private bool ShieldChosenLast, BatChosenLast, TargetChosenLast = false;
+    private bool ShieldChosenLast, BatChosenLast, TargetChosenLast = false;
     private IEnumerator DoChooseAttack()
     {
         Debug.Log("Choosing attack");
         yield return new WaitForSeconds(AttackCooldown);
 
-        //int AttackChoice = Random.Range(0, 3);
-        int AttackChoice = 2;
+        int AttackChoice = Random.Range(0, 3);
         
         if (AttackChoice == 0)
         {
@@ -313,6 +310,13 @@ public class FinalBoss : MonoBehaviour
                     }
                 }
             }
+        }
+
+        if (EB.ActivateBoss)
+        {
+            EB.ActivateBoss = false;
+            ActiveState = State.ChooseAttack;
+            CheckState();
         }
     }
 
