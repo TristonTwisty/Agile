@@ -19,10 +19,6 @@ public class TurretBoss : MonoBehaviour
     private EnemyBehavior EB;
     private TurretBoss TB;
 
-    [Header("SpikeTraps")]
-    [SerializeField] private GameObject[] ElectricTraps;
-    private int TrapCount = 0;
-
     [Header("Statistics")]
     public float CurrentHealth;
     private float MaxHealth;
@@ -35,12 +31,9 @@ public class TurretBoss : MonoBehaviour
     [HideInInspector] public State ActiveState = State.Initial;
 
     [Header("Bools")]
-    public bool TestTraps = false;
     public bool AiTest = false;
     private bool IsAlive = true;
     private bool IsAttacking = false;
-    private bool ActivateTraps = false;
-    private bool TrapsActivated;
 
     private IEnumerator Start()
     {
@@ -154,11 +147,6 @@ public class TurretBoss : MonoBehaviour
 
         BD.OpenDoor();
 
-        foreach (GameObject Trap in ElectricTraps)
-        {
-            Trap.GetComponent<ElectricTrap>().DestroyTrap = true;
-        }
-
         AttackPS.transform.parent = null;
         Destroy(Nozzle);
 
@@ -184,26 +172,6 @@ public class TurretBoss : MonoBehaviour
     private void Update()
     {
         CurrentHealth = EB.CurrentHealth;
-
-        if (CurrentHealth <= (MaxHealth /2) && !ActivateTraps)
-        {
-            TrapsActivated = true;
-
-            foreach (GameObject Trap in ElectricTraps)
-            {
-                Trap.GetComponent<ElectricTrap>().ActivateTrap();
-            }
-        }
-
-        if (TestTraps && !TrapsActivated)
-        {
-            TrapsActivated = true;
-
-            foreach (GameObject Trap in ElectricTraps)
-            {
-                Trap.GetComponent<ElectricTrap>().ActivateTrap();
-            }
-        }
 
         if(CurrentHealth <= 0)
         {
