@@ -1867,6 +1867,7 @@ MonoBehaviour:
   shieldRechargeSlider: {fileID: 6052651246636708797}
   shieldRecharge: 100
   shieldImage: {fileID: 6052651247318049207}
+  whipTutorial: {fileID: 3805785807110920400}
   currentItem: {fileID: 0}
   firstItem: {fileID: 6052651247106083710}
   secondItem: {fileID: 6052651247092955994}

@@ -40,6 +40,7 @@ public class ItemPickUp : MonoBehaviour
                         //Added for UI
                         scriptForUI.dockedItem2.gameObject.SetActive(true);
                         scriptForUI.item2Text.gameObject.SetActive(true);
+                        scriptForUI.whipTutorial.gameObject.SetActive(true);
                         break;
                     case ItemsInGame.Disk:
                         player.GetComponent<Player>().Inventory.Add(new DiskItem());

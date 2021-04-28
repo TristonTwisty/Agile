@@ -20,6 +20,7 @@ public class Scriptforui : MonoBehaviour
     public UnityEngine.UI.Slider shieldRechargeSlider;
     public float shieldRecharge;
     public UnityEngine.UI.Image shieldImage;
+    public UnityEngine.UI.Text whipTutorial;
 
     //Player Items Holder
     public UnityEngine.UI.Image currentItem;
@@ -139,6 +140,11 @@ public class Scriptforui : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.O))
         {
            
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            whipTutorial.gameObject.SetActive(false);
         }
     }
 
