@@ -21,6 +21,9 @@ public class Scriptforui : MonoBehaviour
     public float shieldRecharge;
     public UnityEngine.UI.Image shieldImage;
     public UnityEngine.UI.Text whipTutorial;
+    public UnityEngine.UI.Text currentChapter;
+    public UnityEngine.UI.Text currentObjective;
+
 
     //Player Items Holder
     public UnityEngine.UI.Image currentItem;
@@ -53,6 +56,8 @@ public class Scriptforui : MonoBehaviour
 
     public ParticleShield uiParticleShield;
     public bool hasShield;
+    public int currentObjectiveNumber;
+   
     //public PlayerRefs pRefs;
 
     private void Awake()
@@ -91,6 +96,9 @@ public class Scriptforui : MonoBehaviour
         //pRefs = PlayerRefs.FindObjectOfType<PlayerRefs>();
 
         hasShield = false;
+        currentObjectiveNumber = 0;
+  
+
     }
 
     // Update is called once per frame
@@ -146,6 +154,40 @@ public class Scriptforui : MonoBehaviour
         {
             whipTutorial.gameObject.SetActive(false);
         }
+
+
+
+        //OBJECTIVE MARKERS
+        if(currentObjectiveNumber == 2)
+        {
+            currentChapter.text = "Chapter 2: Rage";
+            currentObjective.text = "Battle through District 1";
+        }
+
+        else if(currentObjectiveNumber == 4)
+        {
+            currentChapter.text = "Chapter 3: Respite";
+            currentObjective.text = "Navigate the tunnels to the factory";
+        }
+
+        else if (currentObjectiveNumber == 6)
+        {
+            currentChapter.text = "Chapter 4: Pursuit";
+            currentObjective.text = "Take the mine cart to Rich Town";
+        }
+
+        else if (currentObjectiveNumber == 8)
+        {
+            currentChapter.text = "Chapter 5: Justice";
+            currentObjective.text = "Find the betrayer";
+        }
+
+        else if (currentObjectiveNumber == 10)
+        {
+            currentChapter.text = "Chapter 6";
+            currentObjective.text = "Obejective 6";
+        }
+
     }
 
     private void playerPressedOne()
@@ -217,5 +259,7 @@ public class Scriptforui : MonoBehaviour
 
     }
 
-  
+
+
+
 }
