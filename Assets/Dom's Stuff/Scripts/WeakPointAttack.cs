@@ -75,7 +75,7 @@ public class WeakPointAttack : MonoBehaviour
             else if (other.CompareTag("Player"))
             {
                 Fb.EndAttack = true;
-                other.GetComponent<Player>().TakeDamage(Fb.BatAttackDamage);
+                //other.GetComponent<Player>().TakeDamage(Fb.BatAttackDamage);
                 other.GetComponent<Rigidbody>().AddForce(Fb.transform.forward * PushForce, ForceMode.VelocityChange);
             }
         }

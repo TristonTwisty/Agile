@@ -24,11 +24,14 @@ public class MeleeAI : MonoBehaviour
     [Tooltip("The enemy's face, where they look")] public Transform Face = null;
     private float Health;
 
-
     [Header("Behavior")]
     private Animator animator;
     private bool Idling = false;
-    private bool CanAttack = true; 
+    private bool CanAttack = true;
+
+    [Header("Components")]
+    private Collider MainCollider;
+    private Rigidbody MainRigibody;
 
     [Header("Movement")]
     [Tooltip("If you want the enemy to patrol place the transforms here. Leave empty to have enemy idle")] public Transform[] points;
@@ -42,10 +45,6 @@ public class MeleeAI : MonoBehaviour
     [Header("Ragdoll")]
     [SerializeField] private List<Rigidbody> RagdollBodies = new List<Rigidbody>();
     [SerializeField] private List<Collider> RagdollColliders = new List<Collider>();
-
-    [Header("Components")]
-    private Collider MainCollider;
-    private Rigidbody MainRigibody;
 
     // States
     private enum State { Initial, Idle, Patrol, Chase, Attack, Dead };
@@ -184,16 +183,18 @@ public class MeleeAI : MonoBehaviour
 
     private void DoDeath()
     {
+        IsAlive = false;
         Agent.isStopped = true;
         int RandomNumber = Random.Range(0, 100);
         if (RandomNumber <= EnemyOBJ.PickupOBJ.DropChance)
         {
-            //Instantiate(EnemyOBJ.PickupOBJ.PickupGameObject, transform.position + new Vector3(0f, 0.5f, 0f), transform.rotation);
             ObjectPooling.Spawn(EnemyOBJ.PickupOBJ.PickupGameObject, transform.position + new Vector3(0f, 0.5f, 0f), transform.rotation);
         }
         ToggleRagdoll(true);
-        IsAlive = false;
-        //Destroy(gameObject);
+        foreach (Rigidbody Bodies in RagdollBodies)
+        {
+            Bodies.AddExplosionForce(107, Player.position, 5, 0, ForceMode.Impulse);
+        }
     }
 
     private void Update()

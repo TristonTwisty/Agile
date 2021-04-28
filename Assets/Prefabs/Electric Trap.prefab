@@ -109,7 +109,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ActiveState: 3
   BossFleeTarget: {fileID: 0}
-  HazardDamage: 5
+  HazardDamage: 0.5
   SecurityDoor: {fileID: 0}
   ClosePosition: {fileID: 0}
   OpenPosition: {fileID: 0}

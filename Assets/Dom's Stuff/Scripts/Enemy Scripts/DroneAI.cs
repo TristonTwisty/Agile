@@ -185,6 +185,7 @@ public class DroneAI : MonoBehaviour
 
     private void DoDeath()
     {
+        IsAlive = false;
         RB.velocity = Vector3.zero;
         RB.angularVelocity = Vector3.zero;
 
@@ -194,6 +195,7 @@ public class DroneAI : MonoBehaviour
             Instantiate(EnemyOBJ.PickupOBJ.PickupGameObject, transform.position + new Vector3(0f, 0.5f, 0f), transform.rotation);
         }
         Destroy(gameObject);
+
     }
 
     private void Update()

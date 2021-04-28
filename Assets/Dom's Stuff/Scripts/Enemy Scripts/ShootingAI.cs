@@ -187,6 +187,7 @@ public class ShootingAI : MonoBehaviour
 
     private void DoDeath()
     {
+        IsAlive = false;
         Agent.isStopped = true;
         int RandomNumber = Random.Range(0, 100);
         if (RandomNumber <= EnemyOBJ.PickupOBJ.DropChance)
@@ -198,7 +199,6 @@ public class ShootingAI : MonoBehaviour
         {
             Bodies.AddExplosionForce(107, Player.position, 5, 0, ForceMode.Impulse);
         }
-        IsAlive = false;
     }
 
     private void Update()

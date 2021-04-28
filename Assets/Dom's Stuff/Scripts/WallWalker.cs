@@ -28,12 +28,20 @@ public class WallWalker : MonoBehaviour
 	private float DeltaGround = .2f;
 	private bool IsGrounded;
 
+	[Header("Player Step")]
+	[SerializeField] private Transform StepRayUpper;
+	[SerializeField] private Transform StepRayLower;
+	[SerializeField] private float StepHeight = 0.3f;
+	[SerializeField] private float StepSmooth = 0.1f;
+ 
 	void Awake()
 	{
 		rigidbody = GetComponent<Rigidbody>();
 
 		rigidbody.freezeRotation = true;
 		rigidbody.useGravity = false;
+
+		StepRayUpper.position = new Vector3(StepRayUpper.position.x, StepHeight, StepRayUpper.position.z);
 	}
 
 	void FixedUpdate()
@@ -70,6 +78,8 @@ public class WallWalker : MonoBehaviour
 		{
 			rigidbody.useGravity = false;
 		}
+
+		StepClimb();
 	}
 
 	private void Update()
@@ -126,6 +136,39 @@ public class WallWalker : MonoBehaviour
 			Vector3 NewRotaton = transform.localEulerAngles;
 			Quaternion ResetRotation = Quaternion.Euler(NewRotaton);
 			transform.rotation = Quaternion.Lerp(transform.rotation, ResetRotation, 1);
+		}
+	}
+
+	private void StepClimb()
+    {
+		RaycastHit HitLower;
+		if(Physics.Raycast(StepRayLower.position, transform.TransformDirection(Vector3.forward), out HitLower, 0.1f))
+        {
+			RaycastHit HitUpper;
+			if (!Physics.Raycast(StepRayUpper.position, transform.TransformDirection(Vector3.forward), out HitUpper, 0.2f))
+			{
+				rigidbody.position -= new Vector3(0f, -StepSmooth, 0f);
+			}
+		}
+
+		RaycastHit HitLower45;
+		if (Physics.Raycast(StepRayLower.position, transform.TransformDirection(1.5f,0,1), out HitLower45, 0.1f))
+		{
+			RaycastHit HitUpper45;
+			if (!Physics.Raycast(StepRayUpper.position, transform.TransformDirection(1.5f,0,1), out HitUpper45, 0.2f))
+			{
+				rigidbody.position -= new Vector3(0f, -StepSmooth, 0f);
+			}
+		}
+
+		RaycastHit HitLowerMinus45;
+		if (Physics.Raycast(StepRayLower.position, transform.TransformDirection(-1.5f, 0, 1), out HitLowerMinus45, 0.1f))
+		{
+			RaycastHit HitUpperMinus45;
+			if (!Physics.Raycast(StepRayUpper.position, transform.TransformDirection(-1.5f, 0, 1), out HitUpperMinus45, 0.2f))
+			{
+				rigidbody.position -= new Vector3(0f, -StepSmooth, 0f);
+			}
 		}
 	}
 }

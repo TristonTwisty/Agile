@@ -29,15 +29,13 @@ public class ParticalDisk : MonoBehaviour
 
     [Header("Lock On")]
     [SerializeField] private float LockOnDistance = 15;
-    [SerializeField] private int MaxLockOn = 3;
+    public int MaxLockOn = 0;
     [SerializeField] private LayerMask IgnoreMask;
     private List<Transform> LockOnTargets = new List<Transform>();
     private List<RingTarget> _ringTarget = new List<RingTarget>();
 
     private void Start()
     {
-        transform.parent = null;
-
         Cam = Camera.main.transform;
 
         rigidbody = GetComponent<Rigidbody>();
@@ -69,7 +67,10 @@ public class ParticalDisk : MonoBehaviour
             }
             if (Input.GetMouseButton(1))
             {
-                Debug.Log("Mouse Down");
+                if(MaxLockOn == 0)
+                {
+                    ThrowDisk();
+                }
 
                 // If the player points at an enemy or a targetable object, add them to lock-on target list
                 if (Physics.Raycast(Cam.position, Cam.forward, out RaycastHit hit, LockOnDistance, ~IgnoreMask))

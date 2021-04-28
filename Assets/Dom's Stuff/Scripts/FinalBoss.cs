@@ -245,8 +245,7 @@ public class FinalBoss : MonoBehaviour
         }
         foreach (GameObject collider in Thrusters)
         {
-            collider.GetComponent<Collider>().enabled = false;
-            collider.tag = null;
+            collider.GetComponent<Collider>().enabled = true;
         }
 
         while (!EndAttack)
@@ -262,7 +261,6 @@ public class FinalBoss : MonoBehaviour
         foreach (GameObject collider in Thrusters)
         {
             collider.GetComponent<Collider>().enabled = false;
-            collider.tag = null;
         }
 
         ActiveState = State.ChooseAttack;

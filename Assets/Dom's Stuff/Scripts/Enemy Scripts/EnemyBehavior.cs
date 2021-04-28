@@ -12,14 +12,26 @@ public class EnemyBehavior : MonoBehaviour
 
     [HideInInspector] public bool ActivateBoss;
 
+    [SerializeField] private ParticleSystem DamagedPS;
+
     private void Awake()
     {
         MaxHealth = EnemyOBJ.Health;
         CurrentHealth = MaxHealth;
+
+        if (gameObject.CompareTag("Boss"))
+        {
+            Debug.Log("Manually set particle system");
+        }
+        else
+        {
+            DamagedPS = GetComponentInChildren<ParticleSystem>();
+        }
     }
 
     public void TakeDamage(float Damage)
     {
+        DamagedPS.Play();
         CurrentHealth -= Damage;
     }
 

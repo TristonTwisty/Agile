@@ -1502,6 +1502,36 @@ Transform:
   m_Father: {fileID: 8043582696354114174}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -1.9444263, y: 79.08031, z: 179.4832}
+--- !u!1 &544620301871033288
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8988380701092631291}
+  m_Layer: 8
+  m_Name: Step Ray Lower
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8988380701092631291
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 544620301871033288}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2900231931262944887}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &551448265701065635
 GameObject:
   m_ObjectHideFlags: 0
@@ -2345,6 +2375,36 @@ Transform:
   m_Father: {fileID: 45320906691942023}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 3.6724648, y: 0.14921121, z: -0.09384513}
+--- !u!1 &2601220247362582538
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3115112788710407240}
+  m_Layer: 8
+  m_Name: Step Ray Upper
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3115112788710407240
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2601220247362582538}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2900231931262944887}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2665805810898279491
 GameObject:
   m_ObjectHideFlags: 0
@@ -2584,6 +2644,8 @@ Transform:
   - {fileID: 1609022718248354236}
   - {fileID: 8812731745524098220}
   - {fileID: 192787566}
+  - {fileID: 8988380701092631291}
+  - {fileID: 3115112788710407240}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2701,6 +2763,10 @@ MonoBehaviour:
   Walkble:
     serializedVersion: 2
     m_Bits: 264192
+  StepRayUpper: {fileID: 3115112788710407240}
+  StepRayLower: {fileID: 8988380701092631291}
+  StepHeight: 0.5
+  StepSmooth: 0.1
 --- !u!114 &2900231931262944882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72484,6 +72550,11 @@ PrefabInstance:
     - target: {fileID: 6710901081029204829, guid: 8067e3c3c9b7aa948a21e61bb3a3e9d8,
         type: 3}
       propertyPath: Testing
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710901081029204829, guid: 8067e3c3c9b7aa948a21e61bb3a3e9d8,
+        type: 3}
+      propertyPath: MaxLockOn
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

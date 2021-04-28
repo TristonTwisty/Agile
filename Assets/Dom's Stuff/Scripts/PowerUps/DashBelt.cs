@@ -60,7 +60,7 @@ public class DashBelt : MonoBehaviour
         {
             if (DisableUI)
             {
-                if (Input.GetKeyDown(KeyCode.LeftShift))
+                if (Input.GetKeyDown(KeyCode.LeftShift) && CurrentDashes > 0)
                 {
                     StartCoroutine(Dash());
                 }

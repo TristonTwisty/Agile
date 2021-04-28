@@ -56,14 +56,20 @@ public class ParticleShield : MonoBehaviour
 
                 MeshRend.enabled = true;
                 collider.enabled = true;
-                ShieldPS.Play();
+                if (!ShieldPS.isPlaying)
+                {
+                    ShieldPS.Play();
+                }
                 ShieldOn = true;
             }
             else
             {
                 MeshRend.enabled = false;
                 collider.enabled = false;
-                ShieldPS.Play();
+                if (!ShieldPS.isPlaying)
+                {
+                    ShieldPS.Play();
+                }
                 ShieldOn = false;
             }
         }

@@ -73,7 +73,7 @@ public class MeleeWeapon : MonoBehaviour
             {
                 if (other.GetComponent<Rigidbody>())
                 {
-                    other.GetComponent<Rigidbody>().AddForce(Owner.transform.forward * (MeleeOBJ.RBKnockbackPower * 1000), ForceMode.Impulse);
+                    other.GetComponent<Rigidbody>().AddForce(Owner.transform.forward * (MeleeOBJ.RBKnockbackPower), ForceMode.Impulse);
                 }
             }
         }
