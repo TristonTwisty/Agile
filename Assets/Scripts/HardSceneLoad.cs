@@ -7,8 +7,9 @@ public class HardSceneLoad : MonoBehaviour
 {
     public string Scene;
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        SceneManager.LoadScene(Scene);
+        SceneManager.LoadSceneAsync(Scene, LoadSceneMode.Additive);
+        gameObject.SetActive(false);
     }
 }
