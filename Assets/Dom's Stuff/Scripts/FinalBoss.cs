@@ -216,10 +216,7 @@ public class FinalBoss : MonoBehaviour
     #region Targeting Attack
 
     [Header("Targeting Attack Components")]
-    [SerializeField] private ParticleSystem[] ThrusterFlame;
-    [SerializeField] private GameObject[] Thrusters;
-    [SerializeField] private float TurnSpeed = 150;
-    private bool HasTriggered = false;
+    [SerializeField] private GameObject Missiles;
 
     [Header("Targeting Attack Timing")]
     [SerializeField] private float ActivateThrustersTimer = 5;
@@ -238,33 +235,6 @@ public class FinalBoss : MonoBehaviour
         }
 
         yield return new WaitForSeconds(ActivateThrustersTimer);
-
-        foreach (ParticleSystem PS in ThrusterFlame)
-        {
-            PS.Play();
-        }
-        foreach (GameObject collider in Thrusters)
-        {
-            collider.GetComponent<Collider>().enabled = true;
-        }
-
-        while (!EndAttack)
-        {
-            transform.Rotate(Vector3.up * (TurnSpeed * Time.deltaTime));
-            yield return null;
-        }
-
-        foreach (ParticleSystem PS in ThrusterFlame)
-        {
-            PS.Stop();
-        }
-        foreach (GameObject collider in Thrusters)
-        {
-            collider.GetComponent<Collider>().enabled = false;
-        }
-
-        ActiveState = State.ChooseAttack;
-        CheckState();
     }
     #endregion
 
@@ -286,28 +256,6 @@ public class FinalBoss : MonoBehaviour
         if(ActiveState != State.Targeting)
         {
             transform.LookAt(Player);
-        }
-
-        if (ActiveState == State.Targeting)
-        {
-            if (HasTriggered == false)
-            {
-                bool IsEverythingActive = true;
-
-                foreach (GameObject item in Thrusters)
-                {
-                    if (item.GetComponent<WeakPointAttack>().Activated == false)
-                    {
-                        IsEverythingActive = false;
-                    }
-
-                    if(HasTriggered == false && IsEverythingActive == true)
-                    {
-                        EndAttack = true;
-                        EB.TakeDamage(1);
-                    }
-                }
-            }
         }
 
         if (EB.ActivateBoss)

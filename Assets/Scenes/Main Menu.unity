@@ -2240,7 +2240,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1243420741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3892,7 +3892,7 @@ MonoBehaviour:
     Final Boss Arena Designer
 
     Item Designer: Bat, Particle
-    Disk,Dash, Particle Shield, Gravity Boots, Health/Shield Pickups'
+    Disk, Dash, Particle Shield, Gravity Boots, and Health/Shield Pickups'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3919,7 +3919,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 54.8
+  m_fontSize: 54.4
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

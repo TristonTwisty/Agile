@@ -11,4 +11,5 @@ public class ProjectileScriptableObjects : ScriptableObject
     public float ProjectileSpeed;
     public float ProjectileLifetime;
     public float MaxSpread;
+    public ParticleSystem DestroyParticle;
 }
