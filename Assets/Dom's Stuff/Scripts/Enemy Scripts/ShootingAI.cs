@@ -197,7 +197,7 @@ public class ShootingAI : MonoBehaviour
         ToggleRagdoll(true);
         foreach (Rigidbody Bodies in RagdollBodies)
         {
-            Bodies.AddExplosionForce(107, Player.position, 6, 1, ForceMode.Impulse);
+            Bodies.AddExplosionForce(107, Player.position, 5, 0.5f, ForceMode.Impulse);
         }
     }
 
