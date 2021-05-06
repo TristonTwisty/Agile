@@ -67,11 +67,6 @@ public class ParticalDisk : MonoBehaviour
             }
             if (Input.GetMouseButton(1))
             {
-                if(MaxLockOn == 0)
-                {
-                    ThrowDisk();
-                }
-
                 // If the player points at an enemy or a targetable object, add them to lock-on target list
                 if (Physics.Raycast(Cam.position, Cam.forward, out RaycastHit hit, LockOnDistance, ~IgnoreMask))
                 {

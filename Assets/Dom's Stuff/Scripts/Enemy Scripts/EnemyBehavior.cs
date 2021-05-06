@@ -13,6 +13,7 @@ public class EnemyBehavior : MonoBehaviour
     [HideInInspector] public bool ActivateBoss;
 
     [SerializeField] private ParticleSystem DamagedPS;
+    [SerializeField] private bool Invincible;
 
     private void Awake()
     {
@@ -31,8 +32,11 @@ public class EnemyBehavior : MonoBehaviour
 
     public void TakeDamage(float Damage)
     {
-        DamagedPS.Play();
-        CurrentHealth -= Damage;
+        if (!Invincible)
+        {
+            DamagedPS.Play();
+            CurrentHealth -= Damage;
+        }
     }
 
     private void OnDrawGizmosSelected()

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Final Boss
   m_EditorClassIdentifier: 
   Description: 
-  Health: 3
+  Health: 15
   MovementSpeed: 5
   AttackRate: 0
   AttackRange: 0

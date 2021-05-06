@@ -6,11 +6,12 @@ public class BossDoor : MonoBehaviour
 {
     [Header("The boss of this door")]
     [SerializeField] private GameObject Boss;
+    [SerializeField] private bool NoExit;
+    [SerializeField] private bool NoDoor;
 
     [Header("Entrance / Exit")]
     [SerializeField] private Transform Entrance;
     [SerializeField] private Transform Exit;
-    [SerializeField] private bool NoExit;
     [SerializeField] private float MovementSpeed = 2;
 
     [Header("Positions")]
@@ -21,8 +22,11 @@ public class BossDoor : MonoBehaviour
 
     private void Start()
     {
-        Entrance.parent = null;
-        Entrance.position = EntranceOpenPosition.position;
+        if (!NoDoor)
+        {
+            Entrance.parent = null;
+            Entrance.position = EntranceOpenPosition.position;
+        }
 
         if (!NoExit)
         {
@@ -39,8 +43,17 @@ public class BossDoor : MonoBehaviour
     {
         float t = 0;
 
-        Vector3 EntranceStartPosition = Entrance.position;
+        Vector3 EntranceStartPosition;
         Vector3 ExitStartPosition;
+
+        if (!NoDoor)
+        {
+            EntranceStartPosition = Entrance.position;
+        }
+        else
+        {
+            EntranceStartPosition = Vector3.zero;
+        }
 
         if (!NoExit)
         {
@@ -54,7 +67,11 @@ public class BossDoor : MonoBehaviour
         while (t < MovementSpeed)
         {
             t += Time.deltaTime;
-            Entrance.position = Vector3.Lerp(EntranceStartPosition, EntranceClosePosition.position, t / MovementSpeed);
+
+            if(!NoDoor)
+            {
+                Entrance.position = Vector3.Lerp(EntranceStartPosition, EntranceClosePosition.position, t / MovementSpeed);
+            }
 
             if (!NoExit)
             {

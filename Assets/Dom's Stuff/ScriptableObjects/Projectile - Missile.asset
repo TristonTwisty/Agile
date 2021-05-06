@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Projectile: {fileID: 0}
   DamageDealt: 10
-  ProjectileSpeed: 2
+  ProjectileSpeed: 5
   ProjectileLifetime: 0
   MaxSpread: 0
-  DestroyParticle: {fileID: 0}
+  DestroyParticle: {fileID: 5670920762537273452, guid: 9bc264d0c66210449a0fe61726aa66a7,
+    type: 3}

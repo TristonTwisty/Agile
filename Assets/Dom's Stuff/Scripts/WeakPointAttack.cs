@@ -5,7 +5,7 @@ using UnityEngine;
 public class WeakPointAttack : MonoBehaviour
 {
     [SerializeField] private FinalBoss Fb;
-    public enum State { BatCollider, ThunderStrikeCollider, TargetCollider }
+    public enum State { BatCollider, ThunderStrikeCollider}
     public State ActiveState;
 
     private Collider collider;
@@ -69,7 +69,7 @@ public class WeakPointAttack : MonoBehaviour
             {
                 Debug.Log("block hit");
                 Fb.EndAttack = true;
-                Fb.EB.TakeDamage(1);
+                Fb.EB.TakeDamage(5);
                 Destroy(other);
             }
             else if (other.CompareTag("Player"))
@@ -77,14 +77,6 @@ public class WeakPointAttack : MonoBehaviour
                 Fb.EndAttack = true;
                 //other.GetComponent<Player>().TakeDamage(Fb.BatAttackDamage);
                 other.GetComponent<Rigidbody>().AddForce(Fb.transform.forward * PushForce, ForceMode.VelocityChange);
-            }
-        }
-
-        if(ActiveState == State.TargetCollider)
-        {
-            if(other.CompareTag("Particle Disc"))
-            {
-                StartCoroutine(ActivationTimer());
             }
         }
     }

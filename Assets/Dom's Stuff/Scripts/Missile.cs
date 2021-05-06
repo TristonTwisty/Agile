@@ -4,27 +4,34 @@ using UnityEngine;
 
 public class Missile : MonoBehaviour
 {
-    [SerializeField] private Transform Player;
     [Header("Testing")]
-    private bool Testing;
+    [SerializeField] private bool Testing;
 
     [Header("Components")]
     [SerializeField] private ProjectileScriptableObjects ProjectileOBJ;
     private Rigidbody rigidbody;
 
-    private void Start()
+    [Header("Targeting")]
+    [SerializeField] private Transform Player;
+    [SerializeField] private Transform Boss;
+    private Transform Target;
+    private FinalBoss FB;
+
+    private void OnEnable()
     {
         rigidbody = GetComponent<Rigidbody>();
+        FB = Boss.GetComponent<FinalBoss>();
 
         if (!Testing)
         {
             Player = PlayerRefs.instance.Player;
         }
+        Target = Player;
     }
 
     private void FixedUpdate()
     {
-        Vector3 Direciton = Player.position - rigidbody.position;
+        Vector3 Direciton = Target.position - rigidbody.position;
         Direciton.Normalize();
 
         Vector3 RotateAmount = Vector3.Cross(Direciton, transform.up);
@@ -35,12 +42,27 @@ public class Missile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        ObjectPooling.Spawn(ProjectileOBJ.DestroyParticle.gameObject, transform.position, Quaternion.identity);
-        ObjectPooling.DeSpawn(gameObject);
-
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Particle Disc"))
+        {
+            Target = Boss;
+        }
+        else if (other.CompareTag("Player"))
         {
             other.GetComponent<Player>().TakeDamage(ProjectileOBJ.DamageDealt);
+            ObjectPooling.DeSpawn(gameObject);
+            ObjectPooling.Spawn(ProjectileOBJ.DestroyParticle.gameObject, transform.position, Quaternion.identity);
+        }
+        else if (other.CompareTag("Boss"))
+        {
+            other.GetComponent<EnemyBehavior>().TakeDamage(1);
+            ObjectPooling.DeSpawn(gameObject);
+            ObjectPooling.Spawn(ProjectileOBJ.DestroyParticle.gameObject, transform.position, Quaternion.identity);
+            FB.MissilesReturned += 1;
+        }
+        else
+        {
+            ObjectPooling.DeSpawn(gameObject);
+            ObjectPooling.Spawn(ProjectileOBJ.DestroyParticle.gameObject, transform.position, Quaternion.identity);
         }
     }
 }

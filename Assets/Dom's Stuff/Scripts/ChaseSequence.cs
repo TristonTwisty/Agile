@@ -24,7 +24,7 @@ public class ChaseSequence : MonoBehaviour
                 agent.destination = BossFleeTarget.position;
                 break;
             case State.PitFall:
-                Pit.position = OriginalPosition.position;
+                rb = Pit.GetComponent<Rigidbody>();
                 break;
             case State.Door:
                 SecurityDoor.position = OpenPosition.position;
@@ -56,7 +56,7 @@ public class ChaseSequence : MonoBehaviour
                     other.GetComponent<Player>().TakeDamage(HazardDamage);
                     break;
                 case State.PitFall:
-                    StartCoroutine(pitFall());
+                    pitFall();
                     break;
             }
         }
@@ -102,22 +102,12 @@ public class ChaseSequence : MonoBehaviour
 
     #region Pitfall
     [Header("Pit fall")]
-    [SerializeField] private Transform Pit;
-    [SerializeField] private Transform OriginalPosition;
-    [SerializeField] private Transform FallPosition;
-    [SerializeField] private float PitfallSpeed = 10;
-    private IEnumerator pitFall()
+    [SerializeField] private GameObject Pit;
+    private Rigidbody rb;
+
+    private void pitFall()
     {
-        float t = 0;
-
-        Vector3 startPosition = Pit.position;
-
-        while (t < DoorMovementSpeed)
-        {
-            t += Time.deltaTime;
-            Pit.position = Vector3.Lerp(startPosition, FallPosition.position, t / PitfallSpeed);
-            yield return null;
-        }
+        rb.useGravity = true;
     }
     #endregion
 

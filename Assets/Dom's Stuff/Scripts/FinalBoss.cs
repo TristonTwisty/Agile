@@ -14,6 +14,7 @@ public class FinalBoss : MonoBehaviour
     [Header("Components")]
     [HideInInspector] public EnemyBehavior EB;
     private EnemyScripableObject EnemyOBJ;
+    private Rigidbody rigidbody;
 
     // States
     private enum State { ChooseAttack, Shield, Bat, Targeting, Dead }
@@ -35,6 +36,8 @@ public class FinalBoss : MonoBehaviour
         EB = GetComponent<EnemyBehavior>();
         EnemyOBJ = EB.EnemyOBJ;
         MovementSpeed = EnemyOBJ.MovementSpeed;
+
+        rigidbody = GetComponent<Rigidbody>();
     }
 
     private void CheckState()
@@ -72,8 +75,58 @@ public class FinalBoss : MonoBehaviour
         yield return new WaitForSeconds(AttackCooldown);
 
         int AttackChoice = Random.Range(0, 3);
-        
-        if (AttackChoice == 0)
+
+        MissilesReturned = 0;
+
+        if(ActiveState != State.Dead)
+        {
+            switch (AttackChoice)
+            {
+                case 0:
+                    if (ShieldChosenLast)
+                    {
+                        CheckState();
+                    }
+                    else
+                    {
+                        ActiveState = State.Shield;
+                        CheckState();
+                        ShieldChosenLast = true;
+                        BatChosenLast = TargetChosenLast = false;
+                    }
+                    break;
+                case 1:
+                    if (BatChosenLast)
+                    {
+                        CheckState();
+                    }
+                    else
+                    {
+                        ActiveState = State.Bat;
+                        CheckState();
+                        BatChosenLast = true;
+                        ShieldChosenLast = TargetChosenLast = false;
+                    }
+                    break;
+                case 2:
+                    if (TargetChosenLast)
+                    {
+                        CheckState();
+                    }
+                    else
+                    {
+                        transform.rotation = Quaternion.identity;
+
+                        ActiveState = State.Targeting;
+                        CheckState();
+                        TargetChosenLast = true;
+                        ShieldChosenLast = BatChosenLast = false;
+                    }
+                    break;
+
+            }
+        }
+        /* if (AttackChoice == 0)
         {
             if (ShieldChosenLast)
             {
@@ -116,7 +169,7 @@ public class FinalBoss : MonoBehaviour
                 TargetChosenLast = true;
                 ShieldChosenLast = BatChosenLast = false;
             }
-        }
+        } */
     }
     #endregion
 
@@ -140,7 +193,7 @@ public class FinalBoss : MonoBehaviour
         EndAttack = false;
         float t = 0;
         Vector3 startPosition = transform.position;
-        while (t < MovementSpeed)
+        while (t < MovementSpeed || EndAttack)
         {
             t += Time.deltaTime;
             transform.position = Vector3.Lerp(startPosition, ShieldLocation.position, t/MovementSpeed);
@@ -159,7 +212,13 @@ public class FinalBoss : MonoBehaviour
             yield return null;
         }
 
-        ActiveState = State.ChooseAttack;
+        Debug.Log("Ending Shield Attack");
+
+        if (ActiveState != State.Dead)
+        {
+            ActiveState = State.ChooseAttack;
+        }
+
         CheckState();
         ThunderStrike.Stop();
         ThunderStrikeCollider.enabled = false;
@@ -185,7 +244,7 @@ public class FinalBoss : MonoBehaviour
         EndAttack = false;
         float t = 0;
         Vector3 startPosition = transform.position;
-        while (t < MovementSpeed)
+        while (t < MovementSpeed || EndAttack)
         {
             t += Time.deltaTime;
             transform.position = Vector3.Lerp(startPosition, BatLocation.position,  t/MovementSpeed);
@@ -204,8 +263,13 @@ public class FinalBoss : MonoBehaviour
             yield return null;
         }
 
-        Debug.Log("Ending");
-        ActiveState = State.ChooseAttack;
+        Debug.Log("Ending Bat Attack");
+
+        if (ActiveState != State.Dead)
+        {
+            ActiveState = State.ChooseAttack;
+        }
+
         CheckState();
         Suction.Stop();
         BatAttackCollider.enabled = false;
@@ -216,31 +280,59 @@ public class FinalBoss : MonoBehaviour
     #region Targeting Attack
 
     [Header("Targeting Attack Components")]
+    [SerializeField] private Transform[] FireLocations;
     [SerializeField] private GameObject Missiles;
+    [SerializeField] public float MissilesReturned;
 
     [Header("Targeting Attack Timing")]
-    [SerializeField] private float ActivateThrustersTimer = 5;
-    [SerializeField] private float EndTargetingAttackTimer = 120;
+    [SerializeField] private float ActivateMissilesTimer = 5;
+    [SerializeField] private float MissileFireRate = 10;
+    [SerializeField] private float EndTargetingAttackTimer = 15;
     private IEnumerator DoTarget()
     {
         Debug.Log("Targeting attack");
         EndAttack = false;
         float t = 0;
         Vector3 startPosition = transform.position;
-        while (t < MovementSpeed)
+        while (t < MovementSpeed || EndAttack)
         {
             t += Time.deltaTime;
             transform.position = Vector3.Lerp(startPosition, TargetLocation.position, t/MovementSpeed);
             yield return null;
         }
 
-        yield return new WaitForSeconds(ActivateThrustersTimer);
+        yield return new WaitForSeconds(ActivateMissilesTimer);
+
+        while (!EndAttack)
+        {
+            foreach (Transform FirePoint in FireLocations)
+            {
+                yield return new WaitForSeconds(MissileFireRate);
+
+                ObjectPooling.Spawn(Missiles, FirePoint.position, FirePoint.rotation);
+
+                yield return null;
+            }
+        }
+
+        Debug.Log("Ending Targeting Attack");
+
+        if(ActiveState != State.Dead)
+        {
+            ActiveState = State.ChooseAttack;
+        }
+
+        CheckState();
+        MissilesReturned = 0;
     }
     #endregion
 
     private void DoDead()
     {
-
+        Debug.Log("Boss Dead");
+        EndAttack = true;
+        rigidbody.isKinematic = false;
+        rigidbody.useGravity = true;
     }
 
     private void Update()
@@ -253,9 +345,14 @@ public class FinalBoss : MonoBehaviour
             CheckState();
         }
 
-        if(ActiveState != State.Targeting)
+        if(ActiveState != State.Dead)
         {
             transform.LookAt(Player);
+        }
+
+        if(MissilesReturned >= 5)
+        {
+            EndAttack = true;
         }
 
         if (EB.ActivateBoss)
