@@ -67,6 +67,8 @@ public class ParticalDisk : MonoBehaviour
             }
             if (Input.GetMouseButton(1))
             {
+                Debug.DrawRay(Cam.position, Cam.forward * LockOnDistance, Color.green, 1, false);
+
                 // If the player points at an enemy or a targetable object, add them to lock-on target list
                 if (Physics.Raycast(Cam.position, Cam.forward, out RaycastHit hit, LockOnDistance, ~IgnoreMask))
                 {

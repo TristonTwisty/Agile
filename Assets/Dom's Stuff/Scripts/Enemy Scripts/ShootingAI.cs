@@ -25,10 +25,10 @@ public class ShootingAI : MonoBehaviour
     private float Health;
 
     [Header("Behavior")]
-    private Animator animator;
     private bool Idling = false;
 
     [Header("Components")]
+    private Animator animator;
     private Collider MainCollider;
     private Rigidbody MainRigibody;
 
@@ -96,7 +96,7 @@ public class ShootingAI : MonoBehaviour
 
         Health = EB.CurrentHealth;
 
-        animator = gameObject.GetComponent<Animator>();
+        animator = gameObject.GetComponentInChildren<Animator>();
 
         Agent = GetComponent<NavMeshAgent>();
         Agent.speed = EnemyOBJ.MovementSpeed;
@@ -151,6 +151,7 @@ public class ShootingAI : MonoBehaviour
     private void Chase()
     {
         Agent.isStopped = false;
+        animator.SetBool("Running", true);
         transform.LookAt(Player.position);
         Agent.destination = Player.position;
     }
@@ -158,7 +159,7 @@ public class ShootingAI : MonoBehaviour
     private void StartAttack()
     {
         Agent.isStopped = true;
-
+        animator.SetBool("Running", false);
         Vector3 LookPos = Player.position - transform.position;
         Quaternion LookRotation = Quaternion.LookRotation(LookPos);
         transform.rotation = Quaternion.Slerp(transform.rotation, LookRotation, 5 * Time.deltaTime);
@@ -176,6 +177,7 @@ public class ShootingAI : MonoBehaviour
         while(Bullets < BulletsPerShot)
         {
             FirePoint.LookAt(Player);
+            animator.SetTrigger("Shoot");
             ObjectPooling.Spawn(EnemyOBJ.ProjectileOBJ.Projectile, FirePoint.position, FirePoint.rotation);
             Bullets += 1;
         }

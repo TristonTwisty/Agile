@@ -126,50 +126,6 @@ public class FinalBoss : MonoBehaviour
 
             }
         }
-        /* if (AttackChoice == 0)
-        {
-            if (ShieldChosenLast)
-            {
-                CheckState();
-            }
-            else
-            {
-                ActiveState = State.Shield;
-                CheckState();
-                ShieldChosenLast = true;
-                BatChosenLast = TargetChosenLast = false;
-            }
-        }
-        else if (AttackChoice == 1)
-        {
-            if (BatChosenLast)
-            {
-                CheckState();
-            }
-            else
-            {
-                ActiveState = State.Bat;
-                CheckState();
-                BatChosenLast = true;
-                ShieldChosenLast = TargetChosenLast = false;
-            }
-        }
-        else if (AttackChoice == 2)
-        {
-            if (TargetChosenLast)
-            {
-                CheckState();
-            }
-            else
-            {
-                transform.rotation = Quaternion.identity;
-
-                ActiveState = State.Targeting;
-                CheckState();
-                TargetChosenLast = true;
-                ShieldChosenLast = BatChosenLast = false;
-            }
-        } */
     }
     #endregion
 

@@ -5,12 +5,13 @@ using UnityEngine.AI;
 
 public class ChaseSequence : MonoBehaviour
 {
-    public enum State { Boss, PitFall, Door, ShockTrap, FirePlume, Launcher}
+    public enum State { Fleeing, Taunting, PitFall, Door, ShockTrap, FirePlume, Launcher}
     public State ActiveState;
 
     [Header("Boss Movement")]
     [SerializeField] private Transform BossFleeTarget;
     private NavMeshAgent agent;
+    private Animator animator;
 
     [Header("Hazards")]
     [SerializeField] private float HazardDamage;
@@ -19,9 +20,15 @@ public class ChaseSequence : MonoBehaviour
     {
         switch (ActiveState)
         {
-            case State.Boss:
+            case State.Fleeing:
+                animator = GetComponent<Animator>();
+                animator.SetBool("Running", true);
                 agent = GetComponent<NavMeshAgent>();
                 agent.destination = BossFleeTarget.position;
+                break;
+            case State.Taunting:
+                animator = GetComponent<Animator>();
+                animator.SetBool("Taunting", true);
                 break;
             case State.PitFall:
                 rb = Pit.GetComponent<Rigidbody>();
@@ -129,7 +136,7 @@ public class ChaseSequence : MonoBehaviour
 
     private void Update()
     {
-        if(ActiveState == State.Boss)
+        if(ActiveState == State.Fleeing)
         {
             if(agent.remainingDistance <= agent.stoppingDistance)
             {

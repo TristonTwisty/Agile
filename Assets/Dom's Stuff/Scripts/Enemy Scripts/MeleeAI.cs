@@ -94,7 +94,7 @@ public class MeleeAI : MonoBehaviour
 
         gameObject.tag = "Enemy";
 
-        animator = gameObject.GetComponent<Animator>();
+        animator = gameObject.GetComponentInChildren<Animator>();
 
         Agent = GetComponent<NavMeshAgent>();
         Agent.speed = EnemyOBJ.MovementSpeed;
@@ -147,7 +147,7 @@ public class MeleeAI : MonoBehaviour
     private void Chase()
     {
         Agent.isStopped = false;
-
+        animator.SetBool("Running", true);
         Vector3 LookPos = Player.position - transform.position;
         Quaternion LookRotation = Quaternion.LookRotation(LookPos);
         transform.rotation = Quaternion.Slerp(transform.rotation, LookRotation, 5 * Time.deltaTime);
@@ -161,6 +161,7 @@ public class MeleeAI : MonoBehaviour
         if (CanAttack)
         {
             CanAttack = false;
+            animator.SetBool("Running", false);
             animator.SetTrigger("Melee");
         }
 

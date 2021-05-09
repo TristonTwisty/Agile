@@ -46,23 +46,21 @@ public class Missile : MonoBehaviour
         {
             Target = Boss;
         }
-        else if (other.CompareTag("Player"))
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.CompareTag("Boss"))
         {
-            other.GetComponent<Player>().TakeDamage(ProjectileOBJ.DamageDealt);
-            ObjectPooling.DeSpawn(gameObject);
-            ObjectPooling.Spawn(ProjectileOBJ.DestroyParticle.gameObject, transform.position, Quaternion.identity);
-        }
-        else if (other.CompareTag("Boss"))
-        {
-            other.GetComponent<EnemyBehavior>().TakeDamage(1);
-            ObjectPooling.DeSpawn(gameObject);
-            ObjectPooling.Spawn(ProjectileOBJ.DestroyParticle.gameObject, transform.position, Quaternion.identity);
+            collision.transform.GetComponent<EnemyBehavior>().TakeDamage(1);
             FB.MissilesReturned += 1;
         }
-        else
+        if (collision.transform.CompareTag("Player"))
         {
-            ObjectPooling.DeSpawn(gameObject);
-            ObjectPooling.Spawn(ProjectileOBJ.DestroyParticle.gameObject, transform.position, Quaternion.identity);
+            collision.transform.GetComponent<Player>().TakeDamage(ProjectileOBJ.DamageDealt);
         }
+
+        ObjectPooling.Spawn(ProjectileOBJ.DestroyParticle.gameObject, transform.position, Quaternion.identity);
+        ObjectPooling.DeSpawn(gameObject);
     }
 }

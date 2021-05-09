@@ -29,7 +29,7 @@ public class RecoveryPickups : MonoBehaviour
             }
             if (PickUpOBJ.RecoverShield)
             {
-                collision.transform.GetComponent<ParticleShield>().RecoverShield(PickUpOBJ.RecoveryAmount);
+                collision.transform.GetComponentInChildren<ParticleShield>().RecoverShield(PickUpOBJ.RecoveryAmount);
             }
             ObjectPooling.DeSpawn(gameObject);
         }
