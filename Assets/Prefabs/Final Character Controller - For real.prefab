@@ -2621,7 +2621,6 @@ GameObject:
   - component: {fileID: 2900231931262944882}
   - component: {fileID: 2900231931262944885}
   - component: {fileID: 2900231931262944884}
-  - component: {fileID: 48350559}
   m_Layer: 8
   m_Name: Final Character Controller - For real
   m_TagString: Player
@@ -2739,7 +2738,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 1
+  m_CollisionDetection: 2
 --- !u!114 &2900231931262944893
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2836,25 +2835,6 @@ MonoBehaviour:
   PlayerHealth: 100
   currentHealth: 0
   ParticleDisk: {fileID: 0}
---- !u!95 &48350559
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2900231931262944892}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2900231931450986955
 GameObject:
   m_ObjectHideFlags: 0
@@ -72547,6 +72527,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 13
       objectReference: {fileID: 0}
+    - target: {fileID: 1967552003269424269, guid: 919c5611dbf5890438f4b4c6f443dc4c,
+        type: 3}
+      propertyPath: m_Name
+      value: Shield PS
+      objectReference: {fileID: 0}
     - target: {fileID: 1967575506486007699, guid: 919c5611dbf5890438f4b4c6f443dc4c,
         type: 3}
       propertyPath: m_Layer
@@ -72591,6 +72576,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 4923768650608067288, guid: 919c5611dbf5890438f4b4c6f443dc4c,
+        type: 3}
+      propertyPath: m_Name
+      value: Deflection PS
       objectReference: {fileID: 0}
     - target: {fileID: 4923768650608067290, guid: 919c5611dbf5890438f4b4c6f443dc4c,
         type: 3}
@@ -72717,6 +72707,11 @@ PrefabInstance:
         type: 3}
       propertyPath: MaxLockOn
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710901081029204829, guid: 8067e3c3c9b7aa948a21e61bb3a3e9d8,
+        type: 3}
+      propertyPath: LockOnDistance
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8067e3c3c9b7aa948a21e61bb3a3e9d8, type: 3}
