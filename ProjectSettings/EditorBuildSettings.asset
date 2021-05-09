@@ -6,11 +6,14 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/MashEm.unity
-    guid: d1aa6caa128259b45911785b7015e421
+    path: Assets/Scenes/Main Menu.unity
+    guid: 2ff8569dc309e244ea9730f45da5c52c
   - enabled: 1
     path: Assets/Scenes/GamePlay(Build).unity
     guid: 2273eb28a0ef429428556020d3344576
+  - enabled: 1
+    path: Assets/Scenes/MashEm.unity
+    guid: d1aa6caa128259b45911785b7015e421
   - enabled: 1
     path: Assets/Scenes/Chase Sequence.unity
     guid: 97e0e93a283015646868ea934d7ba2a6
