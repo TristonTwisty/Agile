@@ -72,7 +72,7 @@ public class Player : MonoBehaviour
             LoadPlayer();
         }
 
-        if (PlayerRefs.instance.PlayerHealth <= 0)
+        if (PlayerRefs.instance.currentHealth    <= 0)
         {
             _inventory.Clear();
             LoadPlayer();
@@ -153,6 +153,7 @@ public class Player : MonoBehaviour
 
     public void SavePlayer()
     {
+        PlayerRefs.instance.checkpoint = transform;
         SaveSystem.SavePlayer(new InventoryToken(this));
     }
 

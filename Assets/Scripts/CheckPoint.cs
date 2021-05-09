@@ -9,10 +9,8 @@ public class CheckPoint : MonoBehaviour
     {
         if (other.tag == "Player") 
         {
-            
-            PlayerRefs.instance.checkpoint = gameObject.transform;
             other.GetComponent<Player>().SavePlayer();
+            gameObject.SetActive(false);
         }
-        gameObject.SetActive(false);
     }
 }
