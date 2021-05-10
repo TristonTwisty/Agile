@@ -28,8 +28,9 @@ public class ParticalDisk : MonoBehaviour
     private Vector3 LastVelocity;
 
     [Header("Lock On")]
+    public bool CanLockOn = false;
     [SerializeField] private float LockOnDistance = 15;
-    public int MaxLockOn = 0;
+    [SerializeField] private int MaxLockOn = 0;
     [SerializeField] private LayerMask IgnoreMask;
     private List<Transform> LockOnTargets = new List<Transform>();
     private List<RingTarget> _ringTarget = new List<RingTarget>();
@@ -65,7 +66,7 @@ public class ParticalDisk : MonoBehaviour
             {
                 ThrowDisk();
             }
-            if (Input.GetMouseButton(1))
+            if (Input.GetMouseButton(1) && CanLockOn)
             {
                 Debug.DrawRay(Cam.position, Cam.forward * LockOnDistance, Color.green, 1, false);
 

@@ -19,7 +19,7 @@ public class ItemPickUp : MonoBehaviour
 
     public enum ItemsInGame
     {
-        Whip, Disk, Board, Batt, Sheild, Dash
+        Whip, Disk, Board, Batt, Sheild, Dash, LockOn
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -78,6 +78,10 @@ public class ItemPickUp : MonoBehaviour
                         scriptForUI.displayTotalDashAmount.gameObject.SetActive(true);
                         scriptForUI.hasDash = true;
                         //End Added For UI
+                        break;
+                        //Added by Dom
+                    case ItemsInGame.LockOn:
+                        player.GetComponentInChildren<ParticalDisk>().CanLockOn = true;
                         break;
                 }
 
@@ -147,5 +151,11 @@ public class ItemPickUp : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+    }
+
+    [SerializeField] private float RotationSpeed = 50;
+    private void Update()
+    {
+        transform.Rotate(transform.up * (RotationSpeed * Time.deltaTime));
     }
 }
