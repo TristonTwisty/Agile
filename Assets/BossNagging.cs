@@ -8,6 +8,6 @@ public class BossNagging : MonoBehaviour
 
     public void PlayIntLine(int i)
     {
-        AudioManager.instance.PlaySfx(BossLines[i]);
+        AudioManager.instance.PlaySfx(BossLines[i],.5f);
     }
 }

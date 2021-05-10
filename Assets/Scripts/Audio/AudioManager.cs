@@ -37,9 +37,10 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void PlaySfx(AudioClip cliptoplay)
+    public void PlaySfx(AudioClip cliptoplay,float volume)
     {
         _sfxSources[_curSfxIndex].clip = cliptoplay;
+        _sfxSources[_curSfxIndex].volume = volume;
         _sfxSources[_curSfxIndex].Play();
 
         _curSfxIndex++;
