@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RecoverShield: 1
   RecoverHealth: 0
-  RecoveryAmount: 10
+  RecoveryAmount: 20
   DropChance: 40
   PickupGameObject: {fileID: 8443907485629321946, guid: 6a608ffedbea2114ba6f9c6bce1883ee,
     type: 3}

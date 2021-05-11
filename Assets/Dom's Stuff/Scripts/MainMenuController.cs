@@ -31,22 +31,18 @@ public class MainMenuController : MonoBehaviour
         ReturnToMainMenuButton.SetActive(false);
         NextButton.SetActive(false);
 
-        DomPanel.GetComponent<Animator>().SetTrigger("Panel Exit");
-        TristonPanel.GetComponent<Animator>().SetTrigger("Panel Exit");
-        RicPanel.GetComponent<Animator>().SetTrigger("Panel Exit");
-        BobbyPanel.GetComponent<Animator>().SetTrigger("Panel Exit");
-        ActiveState = State.ShowDom;
+        TeamPanel.GetComponent<Animator>().SetTrigger("Panel Exit");
+        AssetPanel.GetComponent<Animator>().SetTrigger("Panel Exit");
+        ActiveState = State.ShowTeam;
         MainMenuPanel.GetComponent<Animator>().SetTrigger("Panel Entrance");
     }
 
     [Header("Credits Panels")]
-    [SerializeField] private GameObject DomPanel;
-    [SerializeField] private GameObject TristonPanel;
-    [SerializeField] private GameObject RicPanel; 
-    [SerializeField] private GameObject BobbyPanel;
+    [SerializeField] private GameObject TeamPanel;
+    [SerializeField] private GameObject AssetPanel;
     private bool LastPanel;
-    public enum State { ShowDom, ShowTriston, ShowRic, ShowBobby};
-    public State ActiveState = State.ShowDom;
+    public enum State { ShowTeam, ShowAssets};
+    public State ActiveState = State.ShowTeam;
 
     public void ShowCredits()
     {
@@ -55,33 +51,23 @@ public class MainMenuController : MonoBehaviour
 
         switch (ActiveState)
         {
-            case State.ShowDom:
+            case State.ShowTeam:
                 if (LastPanel)
                 {
-                    BobbyPanel.GetComponent<Animator>().SetTrigger("Panel Exit");
+                    AssetPanel.GetComponent<Animator>().SetTrigger("Panel Exit");
                 }
                 else
                 {
                     MainMenuPanel.GetComponent<Animator>().SetTrigger("Panel Exit");
                 }
-                DomPanel.GetComponent<Animator>().Play("Panel Entrance");
-                ActiveState = State.ShowTriston;
+                TeamPanel.GetComponent<Animator>().Play("Panel Entrance");
+                ActiveState = State.ShowAssets;
                 LastPanel = false;
                 break;
-            case State.ShowTriston:
-                DomPanel.GetComponent<Animator>().SetTrigger("Panel Exit");
-                TristonPanel.GetComponent<Animator>().SetTrigger("Panel Entrance");
-                ActiveState = State.ShowRic;
-                break;
-            case State.ShowRic:
-                TristonPanel.GetComponent<Animator>().SetTrigger("Panel Exit");
-                RicPanel.GetComponent<Animator>().SetTrigger("Panel Entrance");
-                ActiveState = State.ShowBobby;
-                break;
-            case State.ShowBobby:
-                RicPanel.GetComponent<Animator>().SetTrigger("Panel Exit");
-                BobbyPanel.GetComponent<Animator>().SetTrigger("Panel Entrance");
-                ActiveState = State.ShowDom;
+            case State.ShowAssets:
+                TeamPanel.GetComponent<Animator>().SetTrigger("Panel Exit");
+                AssetPanel.GetComponent<Animator>().SetTrigger("Panel Entrance");
+                ActiveState = State.ShowTeam;
                 LastPanel = true;
                 break;
         }

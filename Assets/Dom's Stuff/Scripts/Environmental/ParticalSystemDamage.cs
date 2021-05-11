@@ -10,7 +10,7 @@ public class ParticalSystemDamage : MonoBehaviour
     {
         if (other.transform.CompareTag("Player"))
         {
-            //other.GetComponent<Player>().TakeDamage(DamageDealt);
+            other.GetComponent<Player>().TakeDamage(DamageDealt);
         }
 
         if (other.transform.CompareTag("Enemy"))

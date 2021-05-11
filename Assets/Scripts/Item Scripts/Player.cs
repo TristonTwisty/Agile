@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class Player : MonoBehaviour
@@ -57,7 +58,7 @@ public class Player : MonoBehaviour
             }
             else
             {
-                Debug.Log("nothing here");
+                //Debug.Log("nothing here");
             }
         }
         CheckItemButton();
@@ -74,8 +75,9 @@ public class Player : MonoBehaviour
 
         if (PlayerRefs.instance.currentHealth    <= 0)
         {
-            _inventory.Clear();
-            LoadPlayer();
+            SceneManager.LoadScene(0);
+            //_inventory.Clear();
+            //LoadPlayer();
         }
     }
 

@@ -21,9 +21,6 @@ public class PlayerRefs : MonoBehaviour
     public float PlayerHealth;
     public float currentHealth;
 
-    //Disk LockOn
-    public ParticalDisk ParticleDisk;
-
     private void Awake()
     {
         if (PlayerRefs.instance == null)
@@ -47,7 +44,10 @@ public class PlayerRefs : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(currentHealth > PlayerHealth)
+        {
+            currentHealth = PlayerHealth;
+        }
     }
 
 

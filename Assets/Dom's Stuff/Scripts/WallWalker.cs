@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 
+[System.Serializable]
+
 [RequireComponent(typeof(CapsuleCollider))]
 [RequireComponent(typeof(Rigidbody))]
 public class WallWalker : MonoBehaviour

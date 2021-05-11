@@ -79,7 +79,7 @@ public class Grappling : MonoBehaviour
         }
         else
         {
-            Debug.Log("not on grapplingMask layer");
+            //Debug.Log("not on grapplingMask layer");
         }
         
     }

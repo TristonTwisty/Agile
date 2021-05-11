@@ -113,7 +113,10 @@ public class TurretBoss : MonoBehaviour
 
             Head.rotation = Quaternion.Slerp(Head.rotation, Rotation, TurnSpeed * Time.deltaTime);
 
-            AttackPS.Play();
+            if (!AttackPS.isPlaying)
+            {
+                AttackPS.Play();
+            }
 
             if (IsAttacking == false)
             {
@@ -127,7 +130,10 @@ public class TurretBoss : MonoBehaviour
     {
         if(ActiveState != State.Dead)
         {
-            AttackPS.Play();
+            if (!AttackPS.isPlaying)
+            {
+                AttackPS.Play();
+            }
 
             Head.Rotate(Vector3.up * (TurnSpeed * 40) * Time.deltaTime);
 

@@ -236,6 +236,7 @@ public class ShootingAI : MonoBehaviour
 
         else if (PlayerDistance > ChasePlayerRange && Idling)
         {
+            ActiveState = State.Idle;
             if (transform.position != SpawnLocation)
             {
                 Agent.destination = SpawnLocation;

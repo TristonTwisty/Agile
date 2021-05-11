@@ -47,8 +47,6 @@ public class SequencePuzzleController : MonoBehaviour
         _hasTriggered = true;
         float t = 0;
 
-        Debug.Log("Door Open");
-
         Vector3 startPosition = transform.position;
 
         while(t < doorDuration)
