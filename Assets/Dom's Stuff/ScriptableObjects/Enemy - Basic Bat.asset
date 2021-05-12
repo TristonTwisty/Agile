@@ -16,7 +16,7 @@ MonoBehaviour:
   Health: 20
   MovementSpeed: 3
   AttackRate: 2
-  AttackRange: 1.85
+  AttackRange: 2.5
   ChaseRange: 10
   BulletsPerShot: 0
   ProjectileOBJ: {fileID: 0}

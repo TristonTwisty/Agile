@@ -13,19 +13,27 @@ public class Missile : MonoBehaviour
 
     [Header("Targeting")]
     [SerializeField] private Transform Player;
-    [SerializeField] private Transform Boss;
+    [SerializeField] private Transform BossTarget;
+    //[SerializeField] private FinalBoss FB;
+    [SerializeField] private NewFinalBoss FB;
     private Transform Target;
-    private FinalBoss FB;
 
-    private void OnEnable()
+    private void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
-        FB = Boss.GetComponent<FinalBoss>();
+
+        FB = GameObject.FindGameObjectWithTag("Boss").GetComponent<NewFinalBoss>();
+        BossTarget = FB.BossTarget;
 
         if (!Testing)
         {
             Player = PlayerRefs.instance.Player;
         }
+        Target = Player;
+    }
+
+    private void OnEnable()
+    {
         Target = Player;
     }
 
@@ -44,12 +52,15 @@ public class Missile : MonoBehaviour
     {
         if (other.CompareTag("Particle Disc"))
         {
-            Target = Boss;
+            Target = BossTarget;
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
+        ObjectPooling.Spawn(ProjectileOBJ.DestroyParticle.gameObject, transform.position, Quaternion.identity);
+        ObjectPooling.DeSpawn(gameObject);
+
         if (collision.transform.CompareTag("Boss"))
         {
             collision.transform.GetComponent<EnemyBehavior>().TakeDamage(1);
@@ -59,8 +70,5 @@ public class Missile : MonoBehaviour
         {
             collision.transform.GetComponent<Player>().TakeDamage(ProjectileOBJ.DamageDealt);
         }
-
-        ObjectPooling.Spawn(ProjectileOBJ.DestroyParticle.gameObject, transform.position, Quaternion.identity);
-        ObjectPooling.DeSpawn(gameObject);
     }
 }

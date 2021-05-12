@@ -70,8 +70,6 @@ public class ParticalDisk : MonoBehaviour
             }
             if (Input.GetMouseButton(1) && CanLockOn)
             {
-                Debug.DrawRay(Cam.position, Cam.forward * LockOnDistance, Color.green, 1, false);
-
                 // If the player points at an enemy or a targetable object, add them to lock-on target list
                 if (Physics.Raycast(Cam.position, Cam.forward, out RaycastHit hit, LockOnDistance, ~IgnoreMask))
                 {
@@ -85,7 +83,10 @@ public class ParticalDisk : MonoBehaviour
                             {
                                 LockOnTargets.Add(hit.transform);
                                 _ringTarget.Add(new RingTarget(hit.transform.GetComponentInChildren<TargetingMarker>()));
-                                hit.transform.GetComponentInChildren<TargetingMarker>().ShowMarkers = true;
+                                if(hit.transform.GetComponentInChildren<TargetingMarker>() != null)
+                                {
+                                    hit.transform.GetComponentInChildren<TargetingMarker>().ShowMarkers = true;
+                                }
                             }
                         }
                     }
@@ -93,13 +94,8 @@ public class ParticalDisk : MonoBehaviour
             }
             if (Input.GetMouseButtonUp(1))
             {
-                // If the player did not lock onto any object just throw the disc normally
-                if (LockOnTargets == null)
-                {
-                    ThrowDisk();
-                }
                 // If targets have been assigned begin lock-on attack
-                else if (LockOnTargets != null)
+                if (LockOnTargets != null)
                 {
                     StartCoroutine(LockOnAttack());
                 }

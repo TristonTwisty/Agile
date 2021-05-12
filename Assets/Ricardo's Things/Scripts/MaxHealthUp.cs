@@ -4,16 +4,11 @@ using UnityEngine;
 
 public class MaxHealthUp : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private float RotationSpeed = 50;
 
-    // Update is called once per frame
     void Update()
     {
-        
+        transform.Rotate(transform.up * (RotationSpeed * Time.deltaTime));
     }
 
     private void OnTriggerEnter(Collider Player)
@@ -24,6 +19,5 @@ public class MaxHealthUp : MonoBehaviour
         Scriptforui.instance.playerHealthSlider.maxValue = PlayerRefs.instance.currentHealth;
         Scriptforui.instance.playerHealthSlider.value = Scriptforui.instance.playerHealthSlider.maxValue;
         Destroy(gameObject);
-
     }
 }

@@ -11,8 +11,12 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private GameObject ReturnToMainMenuButton;
     [SerializeField] private GameObject NextButton;
 
+    [Header("Fade Controller")]
+    [SerializeField] private Animator BlackoutPanel;
+
     private void Start()
     {
+        BlackoutPanel.SetTrigger("Fade In");
         MainMenuPanel.GetComponent<Animator>().SetTrigger("Panel Entrance");
     }
 
@@ -36,7 +40,7 @@ public class MainMenuController : MonoBehaviour
         ActiveState = State.ShowTeam;
         MainMenuPanel.GetComponent<Animator>().SetTrigger("Panel Entrance");
     }
-
+    #region Credits
     [Header("Credits Panels")]
     [SerializeField] private GameObject TeamPanel;
     [SerializeField] private GameObject AssetPanel;
@@ -72,4 +76,5 @@ public class MainMenuController : MonoBehaviour
                 break;
         }
     }
+    #endregion
 }

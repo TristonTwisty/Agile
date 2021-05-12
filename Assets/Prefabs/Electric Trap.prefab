@@ -109,15 +109,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ActiveState: 3
   BossFleeTarget: {fileID: 0}
-  HazardDamage: 0.5
+  HazardDamage: 1
   SecurityDoor: {fileID: 0}
   ClosePosition: {fileID: 0}
   OpenPosition: {fileID: 0}
   DoorMovementSpeed: 10
   Pit: {fileID: 0}
-  OriginalPosition: {fileID: 0}
-  FallPosition: {fileID: 0}
-  PitfallSpeed: 10
   Projectile: {fileID: 0}
   FirePoint: {fileID: 0}
   FireRate: 0

@@ -4,21 +4,11 @@ using UnityEngine;
 
 public class WeakPointAttack : MonoBehaviour
 {
-    [SerializeField] private FinalBoss Fb;
+    [SerializeField] private NewFinalBoss Fb;
     public enum State { BatCollider, ThunderStrikeCollider}
     public State ActiveState;
 
     private Collider collider;
-
-    [Header("Bat Attack")]
-    [SerializeField] private float PushForce = 10;
-
-    [Header("Targeting Attack")]
-    [SerializeField] private float ResetTimer = 20;
-    [SerializeField] private Color ActivationColor;
-    [HideInInspector] public bool Activated = false;
-    private MeshRenderer MR;
-    private Color OriginalColor;
 
     private void Start()
     {
@@ -26,21 +16,6 @@ public class WeakPointAttack : MonoBehaviour
 
         collider.isTrigger = true;
         collider.enabled = false;
-
-        MR = GetComponent<MeshRenderer>();
-        OriginalColor = MR.material.color;
-    }
-
-    private void Update()
-    {
-        if(Activated == true)
-        {
-            MR.material.color = ActivationColor;
-        }
-        else
-        {
-            MR.material.color = OriginalColor;
-        }
     }
 
     private void OnTriggerStay(Collider other)
@@ -60,7 +35,8 @@ public class WeakPointAttack : MonoBehaviour
             }
         }
     }
-
+    [Header("Bat AttaCK")]
+    [SerializeField] private ParticleSystem BlockExplopsion;
     private void OnTriggerEnter(Collider other)
     {
         if(ActiveState == State.BatCollider)
@@ -70,23 +46,16 @@ public class WeakPointAttack : MonoBehaviour
                 Debug.Log("block hit");
                 Fb.EndAttack = true;
                 Fb.EB.TakeDamage(5);
+                BlockExplopsion.Play();
                 Destroy(other);
             }
             else if (other.CompareTag("Player"))
             {
                 Fb.EndAttack = true;
-                //other.GetComponent<Player>().TakeDamage(Fb.BatAttackDamage);
-                other.GetComponent<Rigidbody>().AddForce(Fb.transform.forward * PushForce, ForceMode.VelocityChange);
+                other.GetComponent<Player>().TakeDamage(Fb.BatAttackDamage);
+                other.GetComponent<Rigidbody>().AddExplosionForce(Fb.PushForce, transform.position, 10, 5, ForceMode.Impulse);
+                //other.GetComponent<Rigidbody>().AddForce(Fb.transform.forward * Fb.PushForce, ForceMode.VelocityChange);
             }
         }
-    }
-
-    private IEnumerator ActivationTimer()
-    {
-        Activated = true;
-
-        yield return new WaitForSeconds(ResetTimer);
-
-        Activated = false;
     }
 }

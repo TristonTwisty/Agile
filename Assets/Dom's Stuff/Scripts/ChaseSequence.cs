@@ -21,10 +21,10 @@ public class ChaseSequence : MonoBehaviour
         switch (ActiveState)
         {
             case State.Fleeing:
+                gameObject.tag = "Boss";
                 animator = GetComponent<Animator>();
                 animator.SetBool("Running", true);
                 agent = GetComponent<NavMeshAgent>();
-                agent.destination = BossFleeTarget.position;
                 break;
             case State.Taunting:
                 animator = GetComponent<Animator>();
@@ -46,8 +46,10 @@ public class ChaseSequence : MonoBehaviour
     {
         if (other.CompareTag("Boss"))
         {
+            Debug.Log("Boss");
             if(ActiveState == State.Door)
             {
+                Debug.Log("Close Door");
                 StartCoroutine(securityDoor());
             }
         }
@@ -64,6 +66,10 @@ public class ChaseSequence : MonoBehaviour
                     break;
                 case State.PitFall:
                     pitFall();
+                    break;
+                case State.Fleeing:
+                    agent.destination = BossFleeTarget.position;
+                    //GetComponent<Collider>().enabled = false;
                     break;
             }
         }
@@ -140,7 +146,7 @@ public class ChaseSequence : MonoBehaviour
         {
             if(agent.remainingDistance <= agent.stoppingDistance)
             {
-                Destroy(gameObject);
+                //Destroy(gameObject);
             }
         }
     }

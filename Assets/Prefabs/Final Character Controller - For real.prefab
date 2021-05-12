@@ -2834,7 +2834,6 @@ MonoBehaviour:
   checkpointOri: {x: 0, y: 0, z: 0, w: 0}
   PlayerHealth: 100
   currentHealth: 0
-  ParticleDisk: {fileID: 0}
 --- !u!1 &2900231931450986955
 GameObject:
   m_ObjectHideFlags: 0
@@ -72342,6 +72341,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2900231931450986952}
     m_Modifications:
+    - target: {fileID: 7579032454117356733, guid: 2f8fbbd92c4e78b44a4dbaa024d18a97,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7579032455510465353, guid: 2f8fbbd92c4e78b44a4dbaa024d18a97,
+        type: 3}
+      propertyPath: maxDistance
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7579032455510465367, guid: 2f8fbbd92c4e78b44a4dbaa024d18a97,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 7579032455585937402, guid: 2f8fbbd92c4e78b44a4dbaa024d18a97,
         type: 3}
       propertyPath: m_Name
@@ -72351,6 +72365,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7579032455585937402, guid: 2f8fbbd92c4e78b44a4dbaa024d18a97,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7579032455585937403, guid: 2f8fbbd92c4e78b44a4dbaa024d18a97,
         type: 3}
@@ -72406,6 +72425,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7579032455942173418, guid: 2f8fbbd92c4e78b44a4dbaa024d18a97,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f8fbbd92c4e78b44a4dbaa024d18a97, type: 3}
@@ -72706,12 +72730,12 @@ PrefabInstance:
     - target: {fileID: 6710901081029204829, guid: 8067e3c3c9b7aa948a21e61bb3a3e9d8,
         type: 3}
       propertyPath: MaxLockOn
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6710901081029204829, guid: 8067e3c3c9b7aa948a21e61bb3a3e9d8,
         type: 3}
       propertyPath: LockOnDistance
-      value: 15
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8067e3c3c9b7aa948a21e61bb3a3e9d8, type: 3}

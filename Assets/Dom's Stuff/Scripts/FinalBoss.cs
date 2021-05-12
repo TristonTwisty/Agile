@@ -12,6 +12,7 @@ public class FinalBoss : MonoBehaviour
     [SerializeField] private bool AITest = false;
 
     [Header("Components")]
+    public Transform BossTarget;
     [HideInInspector] public EnemyBehavior EB;
     private EnemyScripableObject EnemyOBJ;
     private Rigidbody rigidbody;
@@ -21,8 +22,8 @@ public class FinalBoss : MonoBehaviour
     private State ActiveState = State.ChooseAttack;
 
     [Header("Statistics")]
+    public bool EndAttack = true;
     private float Health;
-    [HideInInspector] public bool EndAttack = true;
     private float MovementSpeed;
 
     private void Start()
@@ -38,6 +39,8 @@ public class FinalBoss : MonoBehaviour
         MovementSpeed = EnemyOBJ.MovementSpeed;
 
         rigidbody = GetComponent<Rigidbody>();
+
+        TargetingClip = GetComponent<AudioSource>();
     }
 
     private void CheckState()
@@ -45,7 +48,7 @@ public class FinalBoss : MonoBehaviour
         switch (ActiveState)
         {
             case State.ChooseAttack:
-                StartCoroutine(DoChooseAttack());
+                DoChooseAttack();
                 break;
             case State.Shield:
                 StartCoroutine(DoShield());
@@ -69,12 +72,11 @@ public class FinalBoss : MonoBehaviour
     [SerializeField] private Transform BatLocation;
     [SerializeField] private Transform TargetLocation;
     private bool ShieldChosenLast, BatChosenLast, TargetChosenLast = false;
-    private IEnumerator DoChooseAttack()
+    private void DoChooseAttack()
     {
         Debug.Log("Choosing attack");
-        yield return new WaitForSeconds(AttackCooldown);
-
-        int AttackChoice = Random.Range(0, 3);
+        //int AttackChoice = Random.Range(0, 3);
+        int AttackChoice = 2;
 
         MissilesReturned = 0;
 
@@ -132,11 +134,12 @@ public class FinalBoss : MonoBehaviour
     #region Shield Attack
 
     [Header("Shield Attack Components")]
-    public float ShieldAttackDamage;
+    public float ShieldAttackDamage = 1;
     [SerializeField] private ParticleSystem ThunderStrike;
     [SerializeField] private Collider ThunderStrikeCollider;
     [SerializeField] private float BatteryDropRadius;
     [SerializeField] private GameObject ShieldBattery;
+    [SerializeField] private GameObject HealthPickup;
 
     [Header("Shield Atttack Timming")]
     [SerializeField] private float EnableColliderTimer = 5;
@@ -165,6 +168,7 @@ public class FinalBoss : MonoBehaviour
         {
             yield return new WaitForSeconds(BatteryDropRate);
             ObjectPooling.Spawn(ShieldBattery, Random.insideUnitSphere * BatteryDropRadius + transform.position, Quaternion.identity);
+            ObjectPooling.Spawn(HealthPickup, Random.insideUnitSphere * BatteryDropRadius + transform.position, Quaternion.identity);
             yield return null;
         }
 
@@ -238,7 +242,8 @@ public class FinalBoss : MonoBehaviour
     [Header("Targeting Attack Components")]
     [SerializeField] private Transform[] FireLocations;
     [SerializeField] private GameObject Missiles;
-    [SerializeField] public float MissilesReturned;
+    public float MissilesReturned;
+    private AudioSource TargetingClip;
 
     [Header("Targeting Attack Timing")]
     [SerializeField] private float ActivateMissilesTimer = 5;
@@ -258,6 +263,8 @@ public class FinalBoss : MonoBehaviour
         }
 
         yield return new WaitForSeconds(ActivateMissilesTimer);
+        StartCoroutine(AutoEndAttack(EndTargetingAttackTimer));
+        TargetingClip.Play();
 
         while (!EndAttack)
         {

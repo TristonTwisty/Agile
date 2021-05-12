@@ -4,15 +4,17 @@ using UnityEngine.AI;
 
 public class EnemyBehavior : MonoBehaviour
 {
+    [Header("Component")]
     public EnemyScripableObject EnemyOBJ;
 
     private float MaxHealth;
-    //[HideInInspector] 
     public float CurrentHealth;
 
     [HideInInspector] public bool ActivateBoss;
 
     [SerializeField] private ParticleSystem DamagedPS;
+    [Header("Testing")]
+    [SerializeField] private bool Testing;
     [SerializeField] private bool Invincible;
 
     private void Awake()
@@ -34,7 +36,10 @@ public class EnemyBehavior : MonoBehaviour
     {
         if (!Invincible)
         {
-            DamagedPS.Play();
+            if (!DamagedPS.isPlaying)
+            {
+                DamagedPS.Play();
+            }
             CurrentHealth -= Damage;
         }
     }
@@ -45,5 +50,13 @@ public class EnemyBehavior : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, EnemyOBJ.AttackRange);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, EnemyOBJ.ChaseRange);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && Testing)
+        {
+            TakeDamage(100);
+        }
     }
 }

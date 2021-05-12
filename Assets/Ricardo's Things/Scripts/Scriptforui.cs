@@ -76,7 +76,7 @@ public class Scriptforui : MonoBehaviour
        
         currentDashAmount = 0;
         totalDashAmount = 3;
-        playerHealth = PlayerRefs.instance.PlayerHealth;
+        playerHealth = PlayerRefs.instance.currentHealth;
 
         shieldRecharge = 100;
         shieldRechargeSlider.value = shieldRecharge;

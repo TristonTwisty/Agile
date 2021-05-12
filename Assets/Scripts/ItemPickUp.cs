@@ -81,7 +81,18 @@ public class ItemPickUp : MonoBehaviour
                         break;
                         //Added by Dom
                     case ItemsInGame.LockOn:
-                        player.GetComponentInChildren<ParticalDisk>().CanLockOn = true;
+                        Debug.Log("The disk is currently: " + PlayerRefs.instance.Disk.gameObject.activeSelf);
+                        if(PlayerRefs.instance.Disk.gameObject.activeSelf == false)
+                        {
+                            Debug.Log("bubble butt");
+                            PlayerRefs.instance.Disk.gameObject.SetActive(true);
+                            PlayerRefs.instance.Disk.GetComponent<ParticalDisk>().CanLockOn = true;
+                            //PlayerRefs.instance.Disk.gameObject.SetActive(false);
+                        }
+                        else
+                        {
+                            PlayerRefs.instance.Disk.GetComponent<ParticalDisk>().CanLockOn = true;
+                        }
                         break;
                 }
 
@@ -90,12 +101,14 @@ public class ItemPickUp : MonoBehaviour
         }
     }
 
+    private GameObject player;
+
     private void OnTriggerEnter(Collider other)
     {
         scriptForUI = GameObject.FindObjectOfType<Scriptforui>();
         if (other.gameObject.tag == "Player")
         {
-            GameObject player = other.gameObject;
+            player = other.gameObject;
 
             if (player.GetComponent<Player>() != null)
             {
@@ -145,6 +158,20 @@ public class ItemPickUp : MonoBehaviour
                         scriptForUI.displayTotalDashAmount.gameObject.SetActive(true);
                         scriptForUI.hasDash = true;
                         //End Added For UI
+                        break;
+                    case ItemsInGame.LockOn:
+                        Debug.Log("The disk is currently: " + PlayerRefs.instance.Disk.gameObject.activeSelf);
+                        if (PlayerRefs.instance.Disk.gameObject.activeSelf == false)
+                        {
+                            Debug.Log("bubble butt");
+                            PlayerRefs.instance.Disk.gameObject.SetActive(true);
+                            PlayerRefs.instance.Disk.GetComponent<ParticalDisk>().CanLockOn = true;
+                            //PlayerRefs.instance.Disk.gameObject.SetActive(false);
+                        }
+                        else
+                        {
+                            PlayerRefs.instance.Disk.GetComponent<ParticalDisk>().CanLockOn = true;
+                        }
                         break;
                 }
 
