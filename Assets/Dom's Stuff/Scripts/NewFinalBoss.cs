@@ -37,7 +37,7 @@ public class NewFinalBoss : MonoBehaviour
 
         rigidbody = GetComponent<Rigidbody>();
 
-        //TargetingClip = GetComponent<AudioSource>();
+        TargetingClip = GetComponent<AudioSource>();
 
         ActiveState = State.Idle;
     }
@@ -71,6 +71,8 @@ public class NewFinalBoss : MonoBehaviour
         }
     }
     #region Attack Choice
+    [Header("Bools")]
+    private bool ShieldChosenLast, BatChosenLast, TargetChosenLast = false;
     private void ChooseAttack()
     {
         int AttackChoice = Random.Range(0, 3);
@@ -79,19 +81,46 @@ public class NewFinalBoss : MonoBehaviour
         switch (AttackChoice)
         {
             case 0:
-                ActiveState = State.Shield;
-                StartCoroutine(SetTimer(ShieldAttackDuration));
-                StartCoroutine(Movement(ShieldAttackLocation));
+                if (ShieldChosenLast)
+                {
+                    Debug.Log("Shield chosen last");
+                }
+                else
+                {
+                    ActiveState = State.Shield;
+                    StartCoroutine(SetTimer(ShieldAttackDuration));
+                    StartCoroutine(Movement(ShieldAttackLocation));
+                    ShieldChosenLast = true;
+                    BatChosenLast = TargetChosenLast = false;
+                }
                 break;
             case 1:
-                ActiveState = State.Bat;
-                StartCoroutine(SetTimer(BatAttackDuraton));
-                StartCoroutine(Movement(BatAttackLocation));
+                if (BatChosenLast)
+                {
+                    Debug.Log("Bat chosen last");
+                }
+                else
+                {
+                    ActiveState = State.Bat;
+                    StartCoroutine(SetTimer(BatAttackDuraton));
+                    StartCoroutine(Movement(BatAttackLocation));
+                    BatChosenLast = true;
+                    ShieldChosenLast = TargetChosenLast = false;
+                }
                 break;
             case 2:
-                ActiveState = State.Targeting;
-                StartCoroutine(SetTimer(TargetAttackDuration));
-                StartCoroutine(Movement(TargetAttackLocation));
+                if (TargetChosenLast)
+                {
+                    Debug.Log("Targeting chosen last");
+                }
+                else
+                {
+                    ActiveState = State.Targeting;
+                    StartCoroutine(SetTimer(TargetAttackDuration));
+                    StartCoroutine(Movement(TargetAttackLocation));
+                    TargetChosenLast = true;
+                    BatChosenLast = ShieldChosenLast = false;
+                }
                 break;
         }
     }
@@ -212,6 +241,7 @@ public class NewFinalBoss : MonoBehaviour
     [SerializeField] private Transform[] FireLocations;
     [SerializeField] private GameObject Missiles;
     public int MissilesReturned;
+    private AudioSource TargetingClip;
 
     [Header("Target Attack Timers")]
     [SerializeField] private float TargetAttackDuration = 60;
