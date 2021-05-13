@@ -5,7 +5,7 @@ using UnityEngine;
 public class ParticleShield : MonoBehaviour
 {
     public float MaxCapacity = 100;
-    [SerializeField] private float DrainSpeed = 10;
+    public float DrainSpeed = 10;
     public float RechargeSpeed = 2.5f;
     [Tooltip("The PS when the shield is activated")] public ParticleSystem ShieldPS;
     [Tooltip("The PS activated when something hits the shield")] public GameObject DeflectPS;
@@ -27,7 +27,7 @@ public class ParticleShield : MonoBehaviour
         gameObject.tag = "Sheild";
 
         //Debug.Log("Enable called");
-        CurrentCapacity = MaxCapacity;
+        CurrentCapacity = 0;
 
         ShieldBody = GetComponent<Rigidbody>();
         ShieldBody.isKinematic = true;

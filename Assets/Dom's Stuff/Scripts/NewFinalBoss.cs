@@ -118,6 +118,7 @@ public class NewFinalBoss : MonoBehaviour
                     ActiveState = State.Targeting;
                     StartCoroutine(SetTimer(TargetAttackDuration));
                     StartCoroutine(Movement(TargetAttackLocation));
+                    TargetingClip.Play();
                     TargetChosenLast = true;
                     BatChosenLast = ShieldChosenLast = false;
                 }
@@ -161,7 +162,7 @@ public class NewFinalBoss : MonoBehaviour
 
     [Header("Shield Attack Timers")]
     [SerializeField] private float ShieldAttackDuration;
-    [SerializeField] private float ActivateColliderTimer = 5;
+    [SerializeField] private float ActivateColliderTimer = 2.5f;
     [SerializeField] private float ItemDropRate = 5;
     private float time = 0;
 
@@ -190,6 +191,7 @@ public class NewFinalBoss : MonoBehaviour
 
         if (EndAttack)
         {
+            ShieldAttackCollider.enabled = false;
             ThunderStrike.Stop();
             ActiveState = State.ChooseAttack;
             time = 0;

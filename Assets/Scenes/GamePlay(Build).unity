@@ -1003,6 +1003,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: 12.191689
       objectReference: {fileID: 0}
+    - target: {fileID: 1609022718248354235, guid: 0956c86785fcb8743b5b90f71d3ed9ce,
+        type: 3}
+      propertyPath: RechargeSpeed
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1758221922278848537, guid: 0956c86785fcb8743b5b90f71d3ed9ce,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1970,7 +1975,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 266062899}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 0}
   m_CullingMode: 0

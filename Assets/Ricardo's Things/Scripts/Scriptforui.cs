@@ -57,9 +57,10 @@ public class Scriptforui : MonoBehaviour
     public ParticleShield uiParticleShield;
     public bool hasShield;
     public int currentObjectiveNumber;
-   
+
     //public PlayerRefs pRefs;
 
+    private Transform Shield;
     private void Awake()
     {
         if (Scriptforui.instance == null)
@@ -78,7 +79,9 @@ public class Scriptforui : MonoBehaviour
         totalDashAmount = 3;
         playerHealth = PlayerRefs.instance.currentHealth;
 
-        shieldRecharge = 100;
+        //shieldRecharge = 100;
+        Shield = PlayerRefs.instance.Sheild;
+        shieldRecharge = Shield.GetComponent<ParticleShield>().CurrentCapacity;
         shieldRechargeSlider.value = shieldRecharge;
         playerHealthSlider.value = playerHealth;
         displayPlayerHealth.text = playerHealth.ToString();
@@ -129,11 +132,11 @@ public class Scriptforui : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.LeftControl))
             {
-                shieldRechargeSlider.value = (shieldRechargeSlider.value - 20 * Time.deltaTime);
+                shieldRechargeSlider.value = (shieldRechargeSlider.value - Shield.GetComponent<ParticleShield>().DrainSpeed * Time.deltaTime);
             }
             else
             {
-                shieldRechargeSlider.value = (shieldRechargeSlider.value + 20 * Time.deltaTime);
+                shieldRechargeSlider.value = (shieldRechargeSlider.value + Shield.GetComponent<ParticleShield>().RechargeSpeed * Time.deltaTime);
             }
         }
 

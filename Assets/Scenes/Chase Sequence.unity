@@ -547,7 +547,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh272688
+  m_Name: pb_Mesh96056
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6362,7 +6362,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh274480
+  m_Name: pb_Mesh96506
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -14351,7 +14351,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh272812
+  m_Name: pb_Mesh96076
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -14793,7 +14793,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh154144
+  m_Name: pb_Mesh28100
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -16097,7 +16097,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh153656
+  m_Name: pb_Mesh95814
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -19531,7 +19531,7 @@ MonoBehaviour:
   HealthPickup: {fileID: 6476731920918575919, guid: 3847e5d2f0a72dd46ac9b0c82894dc67,
     type: 3}
   ShieldAttackDuration: 15
-  ActivateColliderTimer: 5
+  ActivateColliderTimer: 2.5
   ItemDropRate: 2.5
   BatAttackLocation: {fileID: 863344951}
   SucitonPS: {fileID: 2072827914}
@@ -23729,7 +23729,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh154430
+  m_Name: pb_Mesh96592
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -23984,7 +23984,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh272316
+  m_Name: pb_Mesh95938
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -26719,7 +26719,7 @@ GameObject:
   - component: {fileID: 1673022170}
   - component: {fileID: 1673022169}
   - component: {fileID: 1673022168}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Stairs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39282,7 +39282,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh154042
+  m_Name: pb_Mesh107458
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -40173,7 +40173,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh273386
+  m_Name: pb_Mesh96224
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -40487,7 +40487,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh272294
+  m_Name: pb_Mesh95920
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -46579,7 +46579,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh154120
+  m_Name: pb_Mesh96278
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
