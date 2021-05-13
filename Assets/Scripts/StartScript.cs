@@ -10,6 +10,7 @@ public class StartScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Cursor.visible = false;
         SceneManager.LoadSceneAsync(Level, LoadSceneMode.Additive);
         Destroy(this);
     }

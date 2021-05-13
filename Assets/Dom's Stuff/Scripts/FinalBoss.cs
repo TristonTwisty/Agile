@@ -118,7 +118,7 @@ public class FinalBoss : MonoBehaviour
                     else
                     {
                         transform.rotation = Quaternion.identity;
-
+                        TargetingClip.Play();
                         ActiveState = State.Targeting;
                         CheckState();
                         TargetChosenLast = true;
