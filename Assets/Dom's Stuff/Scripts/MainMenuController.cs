@@ -17,6 +17,7 @@ public class MainMenuController : MonoBehaviour
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
         BlackoutPanel.SetTrigger("Fade In");
         MainMenuPanel.GetComponent<Animator>().SetTrigger("Panel Entrance");
     }

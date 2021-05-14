@@ -15,8 +15,11 @@ public class PlayLine : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        BN.PlayIntLine(LineToPlay);
-        Destroy(gameObject);
+        if (other.CompareTag("Player"))
+        {
+            BN.PlayIntLine(LineToPlay);
+            Destroy(gameObject);
+        }
     }
 
 }
